@@ -1,0 +1,178 @@
+/* Design token CONTRACT.
+ *
+ * Each month overrides these values in its own app. Months add VALUES, never new
+ * token names - if a month needs a token that doesn't exist here, add it here first
+ * so every future month can use it.
+ *
+ * Contrast: every fg/bg pair must clear WCAG 2.1 AA. Record measured ratios in
+ * design/direction.md. Accessibility is a scored rubric dimension.
+ */
+:root {
+  /* --- surface --- */
+  --bg: #ffffff;
+  --bg-raised: #fafafa;
+  --bg-sunken: #f2f2f2;
+  --border: #e2e2e2;
+  --border-strong: #b9b9b9;
+
+  /* --- ink --- */
+  --ink: #111111;          /* body */
+  --ink-muted: #5a5a5a;    /* captions - must still clear AA */
+  --ink-inverse: #ffffff;
+
+  /* --- accent: ONE per month, chosen for the subject --- */
+  --accent: #2b5cff;
+  --accent-weak: #e6ecff;
+
+  /* --- semantic: reserved for good/bad ONLY, never decorative --- */
+  --good: #1a7f4b;
+  --bad: #b3261e;
+  --warn: #8a6100;
+
+  /* --- sequential ramp for magnitude (colourblind-safe, single hue) --- */
+  --seq-1: #eaf0ff;
+  --seq-2: #c3d3ff;
+  --seq-3: #8fadff;
+  --seq-4: #5b85ff;
+  --seq-5: #2b5cff;
+  --seq-6: #133bb5;
+
+  /* --- categorical: max 6. Beyond that, group into "other". --- */
+  --cat-1: #2b5cff;
+  --cat-2: #d9730d;
+  --cat-3: #087f8c;
+  --cat-4: #8e44ad;
+  --cat-5: #5a6b7a;
+  --cat-6: #a8332a;
+
+  /* --- type: display + body + tabular figures. Different pairing each month. --- */
+  --font-display: ui-serif, Georgia, serif;
+  --font-body: ui-sans-serif, system-ui, sans-serif;
+  --font-num: ui-monospace, "SF Mono", monospace;
+
+  --step--1: 0.833rem;
+  --step-0: 1rem;
+  --step-1: 1.2rem;
+  --step-2: 1.44rem;
+  --step-3: 1.728rem;
+  --step-4: 2.074rem;
+  --step-5: 2.488rem;
+
+  /* --- spacing: 8pt grid --- */
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 16px;
+  --sp-4: 24px; --sp-5: 32px; --sp-6: 48px; --sp-7: 64px;
+
+  --radius: 4px;
+  --focus-ring: 2px solid var(--accent);
+}
+
+*:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* =====================================================================================
+   POSTER SHEET - promoted after the seventh hand-rolled version of this block.
+   The LinkedIn submission is a SINGLE IMAGE, so the poster is the deliverable and not an
+   afterthought. Set --poster-w / --poster-h and give every direct child a grid-area.
+
+   THREE THINGS THAT COST A MONTH EACH TO LEARN:
+
+   1. EVERY CHILD NEEDS AN AREA. A month lost a panel below the fold because one child had
+      none and grid auto-placed it past the last row. Count areas, count items, assert.
+
+   2. THE SHELL MUST NOT CONSTRAIN THE SHEET. A month spent a cycle on a poster clipped to
+      1440px because the app shell's `max-width` applied to the poster route too.
+
+   3. A width:100% SVG SCALES ITS HEIGHT WITH THE COLUMN. At 2560px wide a 980x458 chart
+      renders 1145px tall and the sheet overflows to three screens. Cap the FIGURE's width
+      (`max-width` on .chartfig), never the SVG's height - and give a chart that has to fill
+      a 16:9 band its own wider geometry rather than a shrunken copy of the web version.
+   ===================================================================================== */
+.poster-sheet {
+  --poster-w: 2560px;
+  --poster-h: 1440px;
+  width: var(--poster-w);
+  height: var(--poster-h);
+  max-width: none;
+  margin: 0;
+  overflow: hidden;
+}
+/* The route shell wraps the sheet; it must impose nothing. */
+.poster { max-width: none; margin: 0; padding: 0; }
+/* Live affordances have no meaning in a static image. */
+.poster-sheet .live-only { display: none; }
+/* A figure caption is for the scrolling page; the poster has no reading time for it. */
+.poster-sheet .chartfig__cap { display: none; }
+.poster-sheet .chartfig { min-height: 0; }
+.poster-sheet .chartfig svg { width: 100%; height: auto; }
+
+/* =====================================================================================
+   DECORATION MUST NEVER EAT A CLICK.
+   Promoted from a month where a shaded "no difference" band was drawn across ten rows of
+   interactive marks and swallowed every pointer event on them. The rows were keyboard
+   operable and looked fine; only the interaction matrix caught it. Anything aria-hidden is
+   decoration by definition, so it should not be in the pointer path.
+
+   The second rule is subtler: an SVG circle with `fill: none` only receives events on its
+   stroke, which for a 1.4px hairline is an unhittable target. `fill: transparent` paints
+   nothing and hit-tests everything.
+   ===================================================================================== */
+.chartfig [aria-hidden="true"] { pointer-events: none; }
+.chartfig .gridline,
+.chartfig .zero-line,
+.chartfig .axis-line { pointer-events: none; }
+
+
+/* =====================================================================================
+   RECOMMENDATIONS ("so what") - promoted from a month where this block rendered
+   double-numbered and squeezed into one column for a whole gate before anyone looked.
+
+   The cause is worth recording: InsightCallout renders a heading plus an <ol> whose items
+   carry their OWN numeral in .sowhat__n, but the stylesheet was written for a 3-column grid
+   of bare items. Component and stylesheet disagreed about the DOM, so the browser rendered
+   both numbering systems and neither layout. Fixing it in one month's theme.css leaves the
+   next month to rediscover it - and the next one duly did.
+
+   THIRD RECURRENCE, AND THE REASON THESE SELECTORS ARE SCOPED. The rules below describe
+   InsightCallout's DOM specifically: section.sowhat > h2.sowhat__h + ol.sowhat__list >
+   li.sowhat__item > (span.sowhat__n + div). The earliest months predate the component and
+   hand-roll a DIFFERENT DOM - div.sowhat > div.sowhat__item > (n + h + b), three children,
+   no list wrapper - and their theme.css sets no `display`, so an UNSCOPED `.sowhat__item {
+   display: grid; grid-template-columns: auto minmax(0,1fr) }` captured them: the third child
+   wrapped into the `auto` column, took min-content width, and rendered one character per
+   line. That inflated the block to ~1300px, which collapsed the poster's flex sibling
+   .grid-main to zero height and hid panels 2-4 entirely. Promoting this block
+   therefore broke three ALREADY-SHIPPED posters, silently, because nobody re-shot them.
+
+   Every selector here is now scoped so it cannot reach a DOM it was not written for. A
+   month with its own markup is unaffected; a month using InsightCallout gets the layout.
+   ===================================================================================== */
+.sowhat { margin-top: 28px; border-top: 1px solid var(--border); padding-top: 20px; }
+.sowhat > .sowhat__h {
+  font-family: var(--font-num); font-size: 0.72rem; letter-spacing: 0.09em;
+  text-transform: uppercase; color: var(--ink-muted); font-weight: 400; margin: 0 0 18px;
+}
+.sowhat__list {
+  list-style: none;              /* the numeral comes from .sowhat__n, not the marker */
+  margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px;
+}
+.sowhat__list > .sowhat__item {
+  border-top: 3px solid var(--accent); padding-top: 12px;
+  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px; align-items: start;
+}
+.sowhat__n {
+  font-family: var(--font-num); font-size: 0.85rem; color: var(--accent); font-weight: 600;
+}
+.sowhat__text { font-size: 0.95rem; line-height: 1.5; margin: 0 0 8px; font-weight: 600; }
+.sowhat__ev { font-size: 0.85rem; line-height: 1.5; color: var(--ink-muted); margin: 0; }
+.sowhat__ev a { color: var(--accent); }
+@media (max-width: 700px) { .sowhat__list { grid-template-columns: 1fr; gap: 20px; } }

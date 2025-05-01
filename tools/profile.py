@@ -1,0 +1,231 @@
+#!/usr/bin/env python3
+"""Automated EDA for a month's raw data -> analysis/profile.md  (Gate G2).
+
+Data quality issues are FINDINGS, not chores. Missingness is often the most
+interesting signal in the file. This script logs; it never cleans.
+
+Usage:
+    python tools/profile.py 2025 05
+"""
+
+from __future__ import annotations
+
+import argparse
+from pathlib import Path
+
+import duckdb
+import polars as pl
+
+ROOT = Path(__file__).resolve().parents[1]
+READABLE = {".csv", ".tsv", ".xlsx", ".xls", ".parquet", ".json", ".txt"}
+SUSPICIOUS = {"", "unknown", "n/a", "na", "none", "null", "-", "-1", "1900-01-01", "1970-01-01"}
+
+
+def find_raw_dir(month_dir: Path) -> Path:
+    candidates = [
+        d
+        for d in month_dir.iterdir()
+        if d.is_dir() and d.name not in {"analysis", "model", "design", "app", "data", "exports"}
+    ]
+    if not candidates:
+        raise SystemExit(f"No raw dataset folder in {month_dir}. Run fetch_dataset.py first.")
+    return candidates[0]
+
+
+def read_any(p: Path) -> dict[str, pl.DataFrame]:
+    """Return every table in a file, keyed by name.
+
+    Workbooks carry one table per sheet, and the interesting ones are rarely first -
+    a `Data Dictionary` sheet or a second fact table would be silently dropped by
+    reading sheet 0 only. Always read them all.
+    """
+    try:
+        if p.suffix.lower() in {".csv", ".txt"}:
+            return {p.stem: pl.read_csv(p, infer_schema_length=10_000, ignore_errors=True)}
+        if p.suffix.lower() == ".tsv":
+            return {
+                p.stem: pl.read_csv(
+                    p, separator="\t", infer_schema_length=10_000, ignore_errors=True
+                )
+            }
+        if p.suffix.lower() in {".xlsx", ".xls"}:
+            sheets = pl.read_excel(p, sheet_id=0)  # 0 = every sheet -> {name: df}
+            return sheets if isinstance(sheets, dict) else {p.stem: sheets}
+        if p.suffix.lower() == ".parquet":
+            return {p.stem: pl.read_parquet(p)}
+        if p.suffix.lower() == ".json":
+            return {p.stem: pl.read_json(p)}
+    except Exception as e:
+        print(f"  ! could not read {p.name}: {e}")
+    return {}
+
+
+def profile_frame(name: str, df: pl.DataFrame) -> list[str]:
+    L = [f"\n### `{name}`", "", f"- rows: **{df.height:,}** · columns: **{df.width}**"]
+
+    dupes = df.height - df.unique().height
+    L.append(f"- exact duplicate rows: **{dupes:,}**" + ("  ← FINDING" if dupes else ""))
+
+    # primary key candidates
+    pk = [c for c in df.columns if df[c].n_unique() == df.height and df[c].null_count() == 0]
+    L.append(f"- unique-and-complete columns (PK candidates): {pk or '**none** ← FINDING'}")
+
+    L += [
+        "",
+        "| column | dtype | null % | distinct | min | max | notes |",
+        "|---|---|---:|---:|---|---|---|",
+    ]
+
+    for c in df.columns:
+        s = df[c]
+        nullpct = 100 * s.null_count() / max(df.height, 1)
+        nd = s.n_unique()
+        notes = []
+        if nullpct > 0:
+            notes.append(f"{s.null_count():,} nulls")
+        if nullpct > 30:
+            notes.append("**HIGH MISSINGNESS**")
+        if nd == 1:
+            notes.append("**constant**")
+        lo = hi = ""
+        try:
+            if s.dtype.is_numeric():
+                lo, hi = f"{s.min():,.4g}", f"{s.max():,.4g}"
+                if s.min() is not None and s.min() < 0:
+                    notes.append("negative values - check if valid")
+            elif s.dtype == pl.Utf8:
+                vals = {str(v).strip().lower() for v in s.drop_nulls().unique().head(500).to_list()}
+                if vals & SUSPICIOUS:
+                    notes.append("**sentinel/placeholder values**")
+                lens = s.drop_nulls().str.len_chars()
+                if lens.len():
+                    lo, hi = f"len {lens.min()}", f"len {lens.max()}"
+            else:
+                lo, hi = str(s.min()), str(s.max())
+        except Exception:
+            pass
+        L.append(
+            f"| `{c}` | {s.dtype} | {nullpct:.1f} | {nd:,} | {lo} | {hi} | {'; '.join(notes)} |"
+        )
+
+    # top values for low-cardinality columns
+    cats = [c for c in df.columns if 1 < df[c].n_unique() <= 25]
+    if cats:
+        L += ["", "**Category distributions**", ""]
+        for c in cats[:12]:
+            vc = df[c].value_counts(sort=True).head(8)
+            pairs = ", ".join(f"{r[0]} ({r[1]:,})" for r in vc.iter_rows())
+            L.append(f"- `{c}`: {pairs}")
+    return L
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("year")
+    ap.add_argument("month")
+    args = ap.parse_args()
+
+    month_dir = ROOT / args.year / args.month
+    raw = find_raw_dir(month_dir)
+    files = sorted(p for p in raw.rglob("*") if p.is_file())
+
+    out = [
+        f"# Data profile - {args.year}/{args.month}",
+        "",
+        f"Source: `{raw.relative_to(ROOT)}/`",
+        "",
+        "> Generated by `tools/profile.py`. **Data quality issues are findings.**",
+        "> Do not clean anything here - log it, decide in G3, transform in G4.",
+        "",
+        "## Files",
+        "",
+        "| file | size | readable |",
+        "|---|---:|---|",
+    ]
+    frames: dict[str, pl.DataFrame] = {}
+    unreadable = []
+    for f in files:
+        readable = f.suffix.lower() in READABLE
+        out.append(
+            f"| `{f.relative_to(raw)}` | {f.stat().st_size:,} B | {'yes' if readable else 'NO'} |"
+        )
+        if not readable:
+            unreadable.append(f)
+
+    if unreadable:
+        out += [
+            "",
+            "> **Non-tabular files present.** Era 1 datasets often hide the data dictionary in a",
+            "> DOCX or PDF. Parse them before G3 - `python-docx`, `pdfplumber`.",
+            "",
+        ]
+        for f in unreadable:
+            out.append(f"- [ ] read `{f.relative_to(raw)}`")
+
+    out.append("\n## Tables")
+    for f in files:
+        if f.suffix.lower() not in READABLE or f.suffix.lower() == ".txt":
+            continue
+        for sheet, df in read_any(f).items():
+            if df is None or df.is_empty():
+                continue
+            label = f.relative_to(raw).as_posix()
+            label = f"{label} :: {sheet}" if sheet != f.stem else label
+            frames[sheet] = df
+            out += profile_frame(label, df)
+
+    # cross-table referential integrity
+    if len(frames) > 1:
+        out += [
+            "",
+            "## Referential integrity",
+            "",
+            "Shared column names across tables - verify these are real keys, then check orphans.",
+            "",
+        ]
+        cols: dict[str, list[str]] = {}
+        for name, df in frames.items():
+            for c in df.columns:
+                cols.setdefault(c, []).append(name)
+        shared = {c: t for c, t in cols.items() if len(t) > 1}
+        if shared:
+            con = duckdb.connect()
+            for name, df in frames.items():
+                con.register(f"t_{name}", df.to_arrow())
+            for c, tabs in list(shared.items())[:20]:
+                out.append(f"- `{c}` appears in: {', '.join(f'`{t}`' for t in tabs)}")
+                a, b = tabs[0], tabs[1]
+                try:
+                    orphans = con.execute(
+                        f'SELECT count(*) FROM t_{a} a LEFT JOIN t_{b} b USING ("{c}") '
+                        f'WHERE b."{c}" IS NULL'
+                    ).fetchone()[0]
+                    flag = "  ← FINDING" if orphans else ""
+                    out.append(f"  - rows in `{a}` with no match in `{b}`: **{orphans:,}**{flag}")
+                except Exception:
+                    pass
+        else:
+            out.append("- No shared column names. Joins may need to be inferred - flag this in G3.")
+
+    out += [
+        "",
+        "## Top 5 data quality issues shaping this analysis",
+        "",
+        "> Fill this in yourself. The table above is evidence, not conclusions.",
+        "",
+        "1. TODO",
+        "2. TODO",
+        "3. TODO",
+        "4. TODO",
+        "5. TODO",
+    ]
+
+    dest = month_dir / "analysis" / "profile.md"
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    dest.write_text("\n".join(out), encoding="utf-8")
+    print(f"Wrote {dest.relative_to(ROOT)}  ({len(frames)} tables profiled)")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

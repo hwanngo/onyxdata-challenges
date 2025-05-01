@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- REPLACE THIS with the month's thesis. It is the browser tab and the link preview,
+         and it is the first thing a judge sees. Two months both shipped with the
+         placeholder still in it. -->
+    <title>DataDNA - &lt;YYYY&gt;/&lt;MM&gt;</title>
+  </head>
+  <body>
+    <!--
+      The skip link lives in src/App.tsx, NOT here, and its class is `.skip-link` - the
+      selector theme.css actually styles (absolutely positioned at left:-9999px, returning
+      to left:0 on :focus). An `<a class="skip">` at this position matches no rule, so it
+      renders as permanently visible text in the top-left corner of every view including
+      the 2560x1440 submission PNG. A month shipped exactly that, twice over, because
+      App.tsx supplied the real one as well.
+    -->
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

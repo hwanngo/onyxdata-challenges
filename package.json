@@ -1,0 +1,19 @@
+{
+  "name": "onyxdata-dnakit",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.10.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "lint:a11y": "pnpm -r --if-present exec playwright test a11y"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.10.0",
+    "@malloydata/db-duckdb": "^0.0.270",
+    "@malloydata/malloy": "^0.0.270",
+    "playwright": "^1.52.0",
+    "typescript": "^5.8.0"
+  }
+}

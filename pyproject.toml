@@ -1,0 +1,48 @@
+[project]
+name = "onyxdata-dnakit"
+version = "0.1.0"
+description = "Tooling for the OnyxData DataDNA challenge program"
+requires-python = ">=3.13"
+dependencies = [
+    "polars>=1.0",
+    "duckdb>=1.1",
+    "pyarrow>=17",
+    "patito>=0.8",
+    "requests>=2.32",
+    "beautifulsoup4>=4.12",
+    "pyyaml>=6.0",
+    "openpyxl>=3.1",
+    "python-docx>=1.1",
+    "pdfplumber>=0.11",
+    "fastexcel>=0.11",
+    # Declared explicitly, not left to transitive resolution. These are not optional
+    # analysis extras: scipy and numpy are imported by model/build.py, so a clean
+    # `uv sync` must be able to rebuild a month's curated data; pandas by
+    # analysis/integrity.py; Pillow by tools/cvd.py, which is how colour-vision
+    # deficiency is checked. A venv that already has them hides the omission.
+    "scipy>=1.14",
+    "numpy>=2.0",
+    "pandas>=2.2",
+    "pillow>=10.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6", "playwright>=1.47"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py314"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+# The multiplication sign is a published label ("product x issue" is not what the poster
+# says), and the Greek letters are statistics. Both are deliberate, not typos.
+allowed-confusables = ["×", "η", "χ", "ρ", "α"]
+# E501 is left to the formatter. `ruff format` enforces line-length = 100 everywhere it
+# can break a line; it cannot split a string literal, so the only lines over 100 are long
+# f-strings in diagnostics. Keeping E501 on would flag lines no tool can fix.
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["."]
+python_files = ["test_*.py", "*_test.py"]

@@ -1,0 +1,807 @@
+# challenges.yml - the backlog registry. Source of truth for status.
+# Verify against https://datadna.onyxdata.co.uk/playground/ and /challenges/ in Phase 0.
+# status: todo | in_progress | blocked | done
+# Era 1 = Playground-only, gated, no brief. Era 2 = full challenge page, ungated.
+
+meta:
+  verified_on: 2025-05-01
+  total: 53
+  era1_count: 52
+  era2_count: 1
+  playground_index: https://datadna.onyxdata.co.uk/playground/
+  challenge_index: https://datadna.onyxdata.co.uk/challenges/
+  work_order: era2_oldest_first_then_era1_backfill
+
+challenges:
+
+  # ---------- ERA 2 (do these first: ungated, briefed, benchmarkable) ----------
+  - folder: "2025/05"
+    era: 2
+    title: "May 2025 DataDNA - Mobile Phone Sales"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2025-05-may-2025-datadna-mobile-phone-sales/"
+    challenge_url: "https://datadna.onyxdata.co.uk/challenges/may-2025-datadna-mobile-phone-sales/"
+    dataset_url: "https://datadna.onyxdata.co.uk/wp-content/uploads/2025/04/Onyx-Data-DataDNA-Dataset-Challenge-Mobile-Phone-Sales-Dataset-May-2025.zip"
+    dataset_folder: "Onyx-Data-DataDNA-Dataset-Challenge-Mobile-Phone-Sales-Dataset-May-2025"
+    formats: [XLSX, DOCX, PDF, TXT]
+    status: todo
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2021/01"
+    era: 1
+    title: "Amazon Top 50 Bestselling Books 2009-2019"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2021-01-amazon-top-50-bestselling-books-2009-2019/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [CSV]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: H   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Kaggle sootersaalu/amazon-top-50-bestselling-books-2009-2019"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2021/02"
+    era: 1
+    title: "UFO Sightings"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2021-02-ufo-sightings/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [CSV]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: H   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "NUFORC scrubbed set (Kaggle mirrors)"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2021/03"
+    era: 1
+    title: "Forestry Planting Spaces"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2021-03-forestry-planting-spaces/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [CSV]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: H   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "NYC Open Data - NYC Parks forestry planting spaces"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2021/04"
+    era: 1
+    title: "Netflix Movies and TV Shows"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2021-04-netflix-movies-and-tv-shows/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [CSV]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: H   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Kaggle shivamb/netflix-shows"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2021/05"
+    era: 1
+    title: "Disney Movies Total Gross"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2021-05-disney-movies-total-gross/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [CSV]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: M   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Kaggle Disney movies gross"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2021/06"
+    era: 1
+    title: "Covid-19"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2021-06-covid-19/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [CSV]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: H   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "JHU CSSE or OWID - LIVING DATASET, 2021 vintage is gone"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2021/07"
+    era: 1
+    title: "Spotify Tracks"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2021-07-spotify-tracks/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [CSV]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: M   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Kaggle Spotify tracks"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2021/08"
+    era: 1
+    title: "Ecommerce Business"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2021-08-ecommerce-business/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [CSV]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: M   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "likely UCI Online Retail II"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2021/09"
+    era: 1
+    title: "Fast Food Restaurants"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2021-09-fast-food-restaurants/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [CSV]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: M   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Datafiniti fast food restaurants USA"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2021/10"
+    era: 1
+    title: "Marvel Vs DC"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2021-10-marvel-vs-dc/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [CSV]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: M   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Kaggle Marvel vs DC characters"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2021/11"
+    era: 1
+    title: "NYPD Arrest Data (Year to Date)"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2021-11-nypd-arrest-data-year-to-date/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [CSV]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: H   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "NYC Open Data - official, direct"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2021/12"
+    era: 1
+    title: "Christmas Song Billboard Data"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2021-12-christmas-song-billboard-data/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [CSV]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: M   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Billboard-derived (Kaggle)"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2022/01"
+    era: 1
+    title: "Friends"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2022-01-friends/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [CSV]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: M   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Kaggle Friends series"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2022/02"
+    era: 1
+    title: "US International Travel Data"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2022-02-us-international-travel-data/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [XLSX]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: M   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "US NTTO"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2022/03"
+    era: 1
+    title: "Pi Day Pie Data"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2022-03-pi-day-pie-data/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [XLSX]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: M   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "FiveThirtyEight"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2022/04"
+    era: 1
+    title: "F1 Results Data"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2022-04-f1-results-data/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [XLSX]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: H   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Ergast API / Kaggle F1 World Championship 1950-2020"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2022/05"
+    era: 1
+    title: "Nobel Prize Winners"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2022-05-nobel-prize-winners/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [CSV]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: H   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Nobel Prize API"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2022/06"
+    era: 1
+    title: "Forbes World's Billionaires List"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2022-06-forbes-worlds-billionaires-list/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [CSV]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: M   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Kaggle Forbes billionaires"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2022/07"
+    era: 1
+    title: "Pokemon"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2022-07-pokemon/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [CSV]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: H   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Kaggle abcsds/pokemon"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2022/08"
+    era: 1
+    title: "Star Wars"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2022-08-star-wars/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [CSV]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: M   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "SWAPI or FiveThirtyEight survey - TWO DIFFERENT FILES, check shape"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2022/09"
+    era: 1
+    title: "Data Science Salaries"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2022-09-data-science-salaries/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [CSV]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: H   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "ai-jobs.net - LIVING DATASET, 2022 vintage is gone"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2022/10"
+    era: 1
+    title: "Titanic"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2022-10-titanic/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [CSV]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: H   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Kaggle Titanic"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2022/11"
+    era: 1
+    title: "Curriculum Vitae"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2022-11-curriculum-vitae/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [XLSX]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: S   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Onyx synthetic - Wayback/GitHub only"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2022/12"
+    era: 1
+    title: "Technology Product Sales"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2022-12-technology-product-sales/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [CSV]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: S   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Onyx synthetic - Wayback/GitHub only"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2023/01"
+    era: 1
+    title: "Starbucks Coffee"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2023-01-starbucks-coffee/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [CSV]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: M   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Kaggle Starbucks menu/nutrition"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2023/02"
+    era: 1
+    title: "BigFoot Sightings"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2023-02-bigfoot-sightings/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [XLSX]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: H   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "BFRO reports (Kaggle mirrors)"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2023/03"
+    era: 1
+    title: "Amazon Sales"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2023-03-amazon-sales/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [CSV]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: M   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Kaggle Amazon sales"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2023/04"
+    era: 1
+    title: "Fitness Tracker"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2023-04-fitness-tracker/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [CSV]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: M   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Fitbit / Kaggle"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2023/07"
+    era: 1
+    title: "Save the Oceans"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2023-07-save-the-oceans/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [CSV, PDF]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: M   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "ocean plastics / marine debris open data -- MONTH COLLISION"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2023/07b"
+    era: 1
+    title: "Hotel Bookings"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2023-07-hotel-bookings/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [TXT, XLSX]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: H   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Antonio/Almeida/Nunes hotel booking demand -- MONTH COLLISION"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2023/08"
+    era: 1
+    title: "Car Insurance Policies"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2023-08-car-insurance-policies/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [TXT, XLSX]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: M   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Kaggle car insurance"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2023/09"
+    era: 1
+    title: "Shark Tank US"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2023-09-shark-tank-us/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [TXT, XLSX]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: M   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Kaggle Shark Tank US"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2023/10"
+    era: 1
+    title: "Spotify Most Streamed Songs 2023"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2023-10-spotify-most-streamed-songs-2023/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [TXT, XLSX]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: H   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Kaggle nelgiriyewithana"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2023/11"
+    era: 1
+    title: "Top 1000 YouTubers"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2023-11-top-1000-youtubers/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [CSV]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: M   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Kaggle"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2023/12"
+    era: 1
+    title: "Christmas Sales and Trends"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2023-12-christmas-sales-and-trends/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [TXT, XLSX]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: S   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Onyx synthetic - Wayback/GitHub only"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2024/01"
+    era: 1
+    title: "Udemy Courses"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2024-01-udemy-courses/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [TXT, XLSX]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: M   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Kaggle Udemy courses"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2024/02"
+    era: 1
+    title: "Electronics Product Data Ratings"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2024-02-electronics-product-data-ratings/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [XLSX]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: M   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Datafiniti electronics products"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2024/03"
+    era: 1
+    title: "eBay Used Car Sales"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2024-03-ebay-used-car-sales/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [TXT, XLSX]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: M   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Kaggle used cars (German eBay autos)"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2024/04"
+    era: 1
+    title: "TMDB Movies"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2024-04-tmdb-movies/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [XLSX]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: H   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "TMDB API / Kaggle TMDB"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2024/05"
+    era: 1
+    title: "Marketing Campaign Analysis"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2024-05-marketing-campaign-analysis/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [XLSX]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: M   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Kaggle marketing campaign -- MONTH COLLISION"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2024/05b"
+    era: 1
+    title: "Student Spending Habits"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2024-05-student-spending-habits/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [XLSX]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: M   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Kaggle student spending -- MONTH COLLISION"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2024/05c"
+    era: 1
+    title: "Technical Support"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2024-05-technical-support/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [DOCX, XLSX]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: S   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Onyx synthetic -- MONTH COLLISION"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2024/07"
+    era: 1
+    title: "Email Analysis"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2024-07-email-analysis/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [XLSX]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: S   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Onyx synthetic - Wayback/GitHub only"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2024/08"
+    era: 1
+    title: "Business Financial"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2024-08-business-financial/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [XLSX]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: S   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "possibly Microsoft 'Financial Sample' workbook"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2024/09"
+    era: 1
+    title: "Paralympics"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2024-09-paralympics/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [XLSX]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: M   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "IPC results"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2024/10"
+    era: 1
+    title: "Employee Performance and Productivity"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2024-10-employee-performance-and-productivity/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [XLSX]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: M   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Kaggle (itself synthetic)"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2024/11"
+    era: 1
+    title: "Supply Chain"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2024-11-supply-chain/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [XLSX]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: M   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Kaggle supply chain (possibly DataCo)"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2024/12"
+    era: 1
+    title: "Aurora Bank"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2024-12-aurora-bank/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [DOCX, JPG, XLSX]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: S   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Onyx synthetic - Wayback/GitHub only"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2025/01"
+    era: 1
+    title: "Merchandise Sales"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2025-01-merchandise-sales/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [DOCX, TXT, XLSX]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: S   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Onyx synthetic - Wayback/GitHub only"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2025/02"
+    era: 1
+    title: "Population and Indicators"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2025-02-population-and-indicators/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [PDF, TXT, XLSX]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: H   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "World Bank indicators API"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2025/03"
+    era: 1
+    title: "Washington Crimes"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2025-03-washington-crimes/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [PDF, TXT, XLSX]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: H   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "DC Open Data crime incidents"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2025/04"
+    era: 1
+    title: "Healthcare Dataset"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2025-04-healthcare/"
+    challenge_url: null
+    dataset_url: null   # gated - no direct link exists
+    dataset_folder: null
+    formats: [DOCX, PDF, TXT, XLSX]
+    status: blocked
+    blocked_reason: "Era 1 gated (account / Kit email wall). See docs/DATA_ACCESS.md"
+    fallback_confidence: H   # H=high M=likely S=Onyx-synthetic
+    fallback_source: "Kaggle prasad22/healthcare-dataset - 55,500 rows, exact match"
+    sha256: null
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}

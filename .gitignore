@@ -1,0 +1,53 @@
+# Local working notes - process docs, retros, self-scores, design rationale.
+# Kept out of the repo deliberately; see the README.
+.workbench/
+
+# Raw datasets - immutable, gitignored, checksums recorded in challenges.yml
+# Anything directly under <YYYY>/<MM>/ that isn't a known working folder is raw data.
+[0-9][0-9][0-9][0-9]/[0-9][0-9]/*/
+![0-9][0-9][0-9][0-9]/[0-9][0-9]/analysis/
+![0-9][0-9][0-9][0-9]/[0-9][0-9]/model/
+![0-9][0-9][0-9][0-9]/[0-9][0-9]/design/
+![0-9][0-9][0-9][0-9]/[0-9][0-9]/app/
+![0-9][0-9][0-9][0-9]/[0-9][0-9]/data/
+![0-9][0-9][0-9][0-9]/[0-9][0-9]/exports/
+*.zip
+
+# G6 self-critique screenshots - working artifacts, not deliverables.
+# Regenerate any time with `just critique <year> <month>`.
+_critique-*.png
+
+# credentials - NEVER commit
+.onyxdata-session
+*.cookies
+.env
+.env.*
+
+# python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+uv.lock
+
+# node - pnpm
+node_modules/
+.pnpm-store/
+dist/
+.vite/
+# Lockfiles are not committed. uv.lock and pnpm-lock.yaml are both machine- and
+# date-specific; the version contract lives in package.json and docs/STACK.md.
+pnpm-lock.yaml
+
+# duckdb scratch
+*.duckdb
+*.duckdb.wal
+
+# playwright
+test-results/
+playwright-report/
+
+# os
+.DS_Store
+Thumbs.db

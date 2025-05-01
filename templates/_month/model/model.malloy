@@ -1,0 +1,31 @@
+// Semantic layer for <YYYY>/<MM>  (Gate G4)
+//
+// This file IS the Technical evidence. Rubric A scores "DAX usage, data modelling" -
+// we have no DAX, so the model must be legible and substantial in its own right.
+// Treat it as a deliverable, not plumbing.
+//
+// Include the non-trivial measures: period-over-period, running totals,
+// rank-within-group, share-of-parent, cohort retention.
+
+source: dim_date is duckdb.table('../data/curated/dim_date.parquet') extend {
+  primary_key: date
+}
+
+// source: fct_main is duckdb.table('../data/curated/fct_main.parquet') extend {
+//   join_one: dim_date on event_date = dim_date.date
+//
+//   measure:
+//     row_count is count()
+//     total_value is sum(value)
+//     avg_value is avg(value)
+//     distinct_entities is count(entity_id)
+//
+//   dimension:
+//     is_recent is event_date > @2024-01-01
+//
+//   view: by_month is {
+//     group_by: dim_date.year, dim_date.month
+//     aggregate: total_value, row_count
+//     order_by: year, month
+//   }
+// }

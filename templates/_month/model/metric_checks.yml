@@ -1,0 +1,22 @@
+# G7 verification spec - every number the UI renders, and the SQL that reproduces it.
+#
+# ZERO TOLERANCE. The characteristic failure across the published field is a polished
+# dashboard whose numbers are wrong (May 2025's best-looking entry was off by ~600x).
+#
+# `metrics`     - scalars. The DOM carries <el data-metric="NAME" data-value="N">.
+# `metric_sets` - one row per chart mark. The DOM carries data-metric="SET.KEY.MEASURE";
+#                 the SQL returns (key, measure, value) triples. THIS is what verifies the
+#                 charts rather than only the KPI strip. Do not skip it.
+#
+# These run against the curated PARQUET via DuckDB in Python - a different engine and code
+# path from the browser's aggregation, so agreement means something.
+
+metrics:
+  # revenue: |
+  #   SELECT sum(total_revenue)::DOUBLE FROM fct_main
+
+metric_sets:
+  # ladder: |
+  #   SELECT p.name AS key, 'revenue' AS measure, sum(f.total_revenue)::DOUBLE AS value
+  #   FROM fct_main f JOIN dim_product p USING (product_key)
+  #   GROUP BY 1

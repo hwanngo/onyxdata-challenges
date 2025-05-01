@@ -1,0 +1,37 @@
+{
+  // Shared TypeScript settings for dna-kit and every month app.
+  //
+  // WHY THIS EXISTS. For a long time no tsconfig existed anywhere in this repo, and
+  // `vite build` does not typecheck - it transpiles and discards types. Nothing ever
+  // checks a single type. That is how a guided tour ships without rendering: mount
+  // TourOverlay without its required `open` prop and the kit's `<Show when={props.open}>`
+  // is never true. A missing required prop is TS2741, caught in a second by a compiler
+  // nobody is running. axe cannot flag DOM that is absent, the build stays green, and a
+  // SCORECARD would count the tour toward the 14-point ease-of-use line.
+  //
+  // GATED FROM THE START. `just verify` runs `just typecheck` as its FIRST step, so a type
+  // regression fails the gate rather than being counted as a pass. Watch for dna-kit's
+  // `Filter[]` and a month's `Filter[]` resolving as structurally different types via
+  // duplicate module instances - that is the failure mode a workspace invites.
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    // Solid compiles JSX itself; preserve it and point at solid-js so component props are
+    // checked against their real signatures.
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
+    // NOTE: "types" is deliberately NOT set here. dna-kit is a library, not a Vite app, and
+    // has no vite dependency - putting vite/client in the shared base made the kit fail to
+    // typecheck on a type definition it has no reason to own. Each month app adds it.
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}

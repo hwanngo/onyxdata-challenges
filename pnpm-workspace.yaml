@@ -1,0 +1,12 @@
+# pnpm workspace.
+#
+# Month apps are workspace members so a single `pnpm install` at the root wires
+# every month to the local dna-kit and installs its deps.
+#
+# templates/** is EXCLUDED deliberately: templates/_month/app declares the same
+# package name as every month it spawns, and pnpm errors on duplicate names in a
+# workspace. `just new` renames the copy to datadna-<year>-<month>.
+packages:
+  - "packages/*"
+  - "20*/*/app"
+  - "!templates/**"
