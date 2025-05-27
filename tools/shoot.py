@@ -87,7 +87,7 @@ def main() -> int:
             page.goto(args.url.rstrip("/") + route, wait_until="networkidle")
             # wait for real data rather than a fixed sleep: a skeleton has no data-value.
             # 90s, not 30s: the months that aggregate in DuckDB-WASM pay a cold load for the
-            # ~32MB engine before the first row exists, which can reach ~30s. A
+            # ~32MB engine before the first row exists, and one month measures ~30s of it. A
             # timeout sitting exactly on the measured load time fails the shoot at random,
             # and an unshot poster is the one artifact the submission cannot do without.
             page.wait_for_function(

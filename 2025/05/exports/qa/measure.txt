@@ -1,0 +1,33 @@
+harness: tools/qa/measure.mjs
+month:   2025/05 - Mobile Phone Sales
+date:    2025-05-27
+build:   datadna-2025-05 vite build → index-BZwow9XJ.js + index-DmscziKJ.css
+url:     http://localhost:5305 (vite preview, production build)
+cmd:     QA_URL=http://localhost:5305 QA_TOUR_KEY=datadna-2025-05-tour-seen node tools/qa/measure.mjs
+---
+poster root 2560x1440  (scroll 2560x1440)
+body scroll 2560x1440
+
+direct children:
+  div.sr-only                        h=    1  bottom=0
+  main#main                          h= 1440  bottom=1440
+  footer.poster-footer               h=    0  bottom=1440
+
+FITS. 0px of vertical slack, 0px horizontal.
+
+exit: 0
+
+--- appendix: poster CLIP check (2025-05-27) ---
+measure.mjs measures the poster ROOT, which is `overflow: hidden` at a fixed 2560x1440.
+It therefore reports FITS even when .grid-main has been squeezed and is clipping a table
+row. That blind spot produced a real regression during this remediation: longer So-what
+copy shrank .grid-main and silently cut the last market row and its thin-sample footnote
+off the poster. The check below is the one that catches it, run here for the record.
+
+.grid-main height 901px, content needs 901px  -> slack 0px
+.grid-main bottom edge 1108px
+  data table: 4 body rows, bottom 1093px (INSIDE)
+  data table: 4 body rows, bottom 1060px (INSIDE)
+
+RESULT: no table is clipped. Both the price-band legend (4 rows) and the market
+table (4 rows + thin-sample footnote) render whole on the poster.

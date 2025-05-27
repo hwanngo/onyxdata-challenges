@@ -4,10 +4,10 @@
 # Era 1 = Playground-only, gated, no brief. Era 2 = full challenge page, ungated.
 
 meta:
-  verified_on: 2025-05-01
-  total: 53
+  verified_on: 2025-05-27
+  total: 54
   era1_count: 52
-  era2_count: 1
+  era2_count: 2
   playground_index: https://datadna.onyxdata.co.uk/playground/
   challenge_index: https://datadna.onyxdata.co.uk/challenges/
   work_order: era2_oldest_first_then_era1_backfill
@@ -22,7 +22,43 @@ challenges:
     challenge_url: "https://datadna.onyxdata.co.uk/challenges/may-2025-datadna-mobile-phone-sales/"
     dataset_url: "https://datadna.onyxdata.co.uk/wp-content/uploads/2025/04/Onyx-Data-DataDNA-Dataset-Challenge-Mobile-Phone-Sales-Dataset-May-2025.zip"
     dataset_folder: "Onyx-Data-DataDNA-Dataset-Challenge-Mobile-Phone-Sales-Dataset-May-2025"
-    formats: [XLSX, DOCX, PDF, TXT]
+    formats: [XLSX, DOCX, PDF, TXT]   # verified 2025-05-27 by listing the raw folder; was wrongly [CSV]
+    status: done
+    notes: >-
+      Completed 2025-05-27, G1-G8. Thesis: a price-ladder business, not a volume
+      business. The nine "key questions" requirements list is in
+      Brief Onyx Data May 2025.docx INSIDE the ZIP, not on the challenge page.
+      No AI scores visible in /portfolio/ for any month (all data-score="0"),
+      so score-based benchmarking is unavailable; benchmarked qualitatively
+      against 24 published entries. Deviated from DuckDB-WASM to in-memory
+      aggregation (32MB engine vs 19KB data, 30s cold load).
+      Not deployed: docs/STACK.md defers hosting.
+    # Per-file SHA-256 of the raw folder, recorded at G2 on 2025-05-27. Files are unmodified.
+    # .DS_Store is excluded - macOS Finder wrote it, it is not part of the distributed dataset.
+    sha256:
+      "Brief Onyx Data May 2025.docx": da8018c07ba73c8c7ca32c46f2ceecbea77600ed6420c609b16df8faaee44f8e
+      "Cheat_Sheet_ZoomCharts.pdf": b3ebf7fba6416e51fcd308719aa796abf9a5ba4a3db65f09d141970e0d665406
+      "Onyx Data - DataDNA Dataset Challenge - Mobile Phone Sales Dataset - May 2025.xlsx": 0985b8d144d1cd7f89972c31403267df1ef26a5930c4f2cc0722f6b26bac1f5a
+      "READ ME BEFORE PARTICIPATING.txt": 95a237068348e4636f3172ac43bb8ca8b27520c2c8330f7df1304a6cdcefe63d
+      "ZoomCharts_Mini_Challenge.pdf": 1223e10820e231a96eea8813c7d602709a5d68a91a74123da76522df8203f433
+    grain: "one row per calendar day of 2024; Fact_Sales = 366 rows; Transaction_Date is the PK"
+    self_scores:   # our own G7 assessment, not Onyx's -- Onyx publishes none
+      judge_34: 27
+      ai_storytelling: 4
+      ai_design: 4
+      ai_technical: 4
+      ai_insights: 4
+      ai_b_accessibility: 5
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2025/06"
+    era: 2
+    title: "June 2025 DataDNA - Social Media Content Performance"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2025-06-june-2025-datadna-social-media-content-performance/"
+    challenge_url: "https://datadna.onyxdata.co.uk/challenges/june-2025-datadna-social-media-content-performance/"
+    dataset_url: "https://datadna.onyxdata.co.uk/wp-content/uploads/2025/05/Onyx-Data-DataDNA-Dataset-Challenge-Social-Media-Content-Performance-Dataset-June-2025.zip"
+    dataset_folder: "Onyx-Data-DataDNA-Dataset-Challenge-Social-Media-Content-Performance-Dataset-June-2025"
+    formats: [XLSX, PDF, TXT]
     status: todo
     scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
 

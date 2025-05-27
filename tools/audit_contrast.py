@@ -46,8 +46,8 @@ PAIRED_AGAINST = {"ink-inverse": "accent"}
 # `*-weak` tokens are TINTED SURFACES (callout backgrounds, active-chip fills), not marks.
 # Auditing them as foregrounds against --bg is meaningless -- a pale tint is supposed to be
 # close to the page. What matters is that body ink stays readable ON them, which nothing
-# a foreground-only audit does not check: --ink on --accent-weak in a callout is exactly the
-# pair a naive SKIP list waves through unmeasured. Each of these is audited as a background for --ink at 4.5:1.
+# checked until now: one month put --ink on --accent-weak in a callout and the old SKIP list
+# waved it through unmeasured. Each of these is audited as a background for --ink at 4.5:1.
 def weak_surfaces(tokens: dict[str, str]) -> list[str]:
     return sorted(n for n in tokens if n.endswith("-weak"))
 

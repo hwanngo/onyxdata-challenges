@@ -1,0 +1,11 @@
+harness: tools/qa/perf.mjs
+month:   2025/05 - Mobile Phone Sales
+date:    2025-05-27
+build:   datadna-2025-05 vite build → index-BZwow9XJ.js + index-DmscziKJ.css
+url:     http://localhost:5305 (vite preview, production build)
+cmd:     QA_URL=http://localhost:5305 QA_TOUR_KEY=datadna-2025-05-tour-seen node tools/qa/perf.mjs
+---
+cold load to first real number: 1482ms  (budget 3000ms)
+interaction-to-paint: 1ms, 1ms, 0ms, 1ms, 0ms  max 1ms (budget 200ms)
+
+exit: 0

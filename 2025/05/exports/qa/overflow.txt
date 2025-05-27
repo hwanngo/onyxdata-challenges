@@ -1,0 +1,13 @@
+harness: tools/qa/overflow.mjs
+month:   2025/05 - Mobile Phone Sales
+date:    2025-05-27
+build:   datadna-2025-05 vite build → index-BZwow9XJ.js + index-DmscziKJ.css
+url:     http://localhost:5305 (vite preview, production build)
+cmd:     QA_URL=http://localhost:5305 QA_TOUR_KEY=datadna-2025-05-tour-seen node tools/qa/overflow.mjs
+---
+375px -> scrollWidth 375 clientWidth 375 ok
+768px -> scrollWidth 768 clientWidth 768 ok
+1024px -> scrollWidth 1024 clientWidth 1024 ok
+1440px -> scrollWidth 1440 clientWidth 1440 ok
+
+exit: 0

@@ -1,14 +1,7 @@
-/* THIS MONTH'S TOKEN VALUES. Fill from .workbench/templates/_month/design/direction.md.
- *
- * Everything below the token blocks is STRUCTURAL and reusable as-is: layout, poster
- * sizing, tables, chips, tour, the responsive rules and the min-width:0 overflow guards.
- * Change the tokens and the type; leave the structure alone unless the design calls for it.
- *
- * Run `python tools/audit_contrast.py <YEAR> <MONTH>` after choosing colours. It reads THIS
- * file. 2025/05 shipped a ramp at 1.40:1 that looked fine on screen and failed WCAG. */
+/* This month's token VALUES. From .workbench/2025/05/design/direction.md.
+   Do not invent new token names here - add them to dna-kit/src/tokens/tokens.css. */
 
-/* THIS MONTH'S FONTS. A different pairing every month - see .workbench/templates/_month/design/direction.md. */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
 :root {
   --bg: #F4F5F2;
@@ -46,8 +39,8 @@
   --cat-5: #5C6560;
   --cat-6: #8C1D40;
 
-  --font-display: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Archivo", ui-sans-serif, system-ui, sans-serif;
   --font-num: "IBM Plex Mono", ui-monospace, "SF Mono", monospace;
 
   --focus-ring: 2px solid var(--accent);
@@ -109,8 +102,9 @@ svg text.num { font-family: var(--font-num); font-variant-numeric: tabular-nums;
 h1, h2, h3, .display {
   font-family: var(--font-display);
   letter-spacing: -0.015em;
+  font-variation-settings: "wdth" 112;   /* the wide display voice */
 }
-
+.masthead h1 { font-variation-settings: "wdth" 118; }
 
 .sr-only {
   position: absolute; width: 1px; height: 1px;
@@ -241,16 +235,8 @@ table.data tbody tr { cursor: pointer; }
 table.data tbody tr:hover { background: var(--bg-sunken); }
 table.data tbody tr[aria-pressed="true"] { background: var(--accent-weak); }
 
-/* ---------- so-what ----------
-   SCOPED, and the scoping is load-bearing. An unscoped `.sowhat { display: grid }` describes
-   ONE possible DOM - a container whose direct children are three .sowhat__item blocks. A
-   month that writes `h2 + ol` instead gets the heading in column 1 and the entire list in
-   column 2, and a third of its poster goes blank. A month hit exactly that and lost a cycle
-   to it; dna-kit's own recommendations block carries the same scar.
-   The rule now only applies where the DOM it was written for actually exists. */
-.sowhat:has(> .sowhat__item) {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-4);
-}
+/* ---------- so-what ---------- */
+.sowhat { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-4); }
 .sowhat__item { border-top: 3px solid var(--accent); padding-top: var(--sp-2); }
 .sowhat__n {
   font-family: var(--font-num); font-size: 0.8rem; color: var(--accent); font-weight: 600;
@@ -317,7 +303,7 @@ h1, h2, h3, p, td, th { overflow-wrap: break-word; }
 .poster .masthead .standfirst { font-size: 23px; max-width: 165ch; margin-bottom: 10px; }
 .poster .contextstrip { font-size: 15px; }
 .poster .grid-main { flex: 1; gap: 44px; margin-top: 20px; min-height: 0; overflow: hidden; }
-.poster .col-right { gap: 14px; }
+.poster .col-right { gap: 8px; }
 .poster .kpi__value { font-size: 42px; }
 .poster .kpi__label { font-size: 13px; }
 .poster .kpi__note { font-size: 13px; }
@@ -343,3 +329,8 @@ h1, h2, h3, p, td, th { overflow-wrap: break-word; }
 
 .poster .panel { padding-top: 12px; }
 .poster .sowhat { gap: 40px; }
+/* The poster is a fixed 2560x1440 canvas: .grid-main takes what is left after the
+   masthead, the So-what block and the colophon, and CLIPS what does not fit. Keeping
+   the So-what block tight is what keeps the market table's last row on the page. */
+.poster .sowhat-section { margin-top: 8px !important; padding-top: 6px; }
+.poster .sowhat__b { font-size: 15px; }

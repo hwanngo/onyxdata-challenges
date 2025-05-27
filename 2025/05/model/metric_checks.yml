@@ -1,0 +1,89 @@
+# G7 verification spec - every number the UI renders, and the SQL that reproduces it.
+#
+# ZERO TOLERANCE. The characteristic failure of this month's published field was a
+# polished dashboard whose headline revenue was wrong by ~600x (a join fan-out), and a
+# second entry that disagreed with itself across its own pages. This file is the guard.
+#
+# `metrics`     - scalars. The DOM carries <el data-metric="NAME" data-value="N">.
+# `metric_sets` - one row per chart mark. The DOM carries data-metric="SET.KEY.MEASURE",
+#                 and the SQL returns (key, measure, value) triples to match against.
+#                 This is what verifies the CHARTS, not merely the KPI strip.
+#
+# These queries run against the curated PARQUET via DuckDB in Python - a different engine
+# and a different code path from the browser's JavaScript aggregation. Agreement between
+# them therefore means something.
+
+metrics:
+  revenue: |
+    SELECT sum(total_revenue)::DOUBLE FROM fct_daily_sales
+  units: |
+    SELECT sum(units_sold)::DOUBLE FROM fct_daily_sales
+  asp: |
+    SELECT sum(total_revenue)::DOUBLE / sum(units_sold) FROM fct_daily_sales
+  days: |
+    SELECT count(*)::DOUBLE FROM fct_daily_sales
+
+metric_sets:
+  # every rung of the price ladder
+  ladder: |
+    SELECT p.mobile_model               AS key,
+           'revenue'                    AS measure,
+           sum(f.total_revenue)::DOUBLE AS value
+    FROM fct_daily_sales f JOIN dim_product p USING (product_key)
+    GROUP BY 1
+
+  # every bar of the conversion-gap chart - the report's headline measure
+  gap: |
+    WITH t AS (SELECT sum(total_revenue)::DOUBLE tr, sum(units_sold)::DOUBLE tu
+               FROM fct_daily_sales)
+    SELECT p.brand  AS key,
+           'gap_pp' AS measure,
+           100.0 * sum(f.total_revenue) / (SELECT tr FROM t)
+         - 100.0 * sum(f.units_sold)    / (SELECT tu FROM t) AS value
+    FROM fct_daily_sales f JOIN dim_product p USING (product_key)
+    GROUP BY 1
+
+  # every row of the market-mix table: the ASP being explained AND the premium mix that
+  # explains it. The report's I-4 claim is the relationship between these two columns, so
+  # verifying only the ASP would leave the causal half of the sentence unchecked.
+  market: |
+    SELECT g.country AS key,
+           'asp'     AS measure,
+           sum(f.total_revenue)::DOUBLE / sum(f.units_sold) AS value
+    FROM fct_daily_sales f JOIN dim_geography g USING (geography_key)
+    GROUP BY 1
+    UNION ALL
+    SELECT g.country      AS key,
+           'premium_mix'  AS measure,
+           100.0 * sum(CASE WHEN f.price_band = 'Premium $1000+' THEN f.units_sold ELSE 0 END)::DOUBLE
+                 / sum(f.units_sold) AS value
+    FROM fct_daily_sales f JOIN dim_geography g USING (geography_key)
+    GROUP BY 1
+
+  # every row of the price-band legend - all three columns, because the ladder caption
+  # quotes the leverage and the unit share as well as the revenue share.
+  band: |
+    WITH t AS (SELECT sum(total_revenue)::DOUBLE tr, sum(units_sold)::DOUBLE tu
+               FROM fct_daily_sales),
+         b AS (SELECT price_band,
+                      100.0 * sum(total_revenue)::DOUBLE / (SELECT tr FROM t) rev_pct,
+                      100.0 * sum(units_sold)::DOUBLE    / (SELECT tu FROM t) unit_pct
+               FROM fct_daily_sales GROUP BY 1)
+    SELECT price_band AS key, 'rev_pct'  AS measure, rev_pct            AS value FROM b
+    UNION ALL
+    SELECT price_band,        'unit_pct',            unit_pct                    FROM b
+    UNION ALL
+    SELECT price_band,        'leverage',            rev_pct / unit_pct          FROM b
+
+  # I-3, the concentration claim quoted in the So-what panel: the single highest-revenue
+  # model's share of revenue against its share of trading days.
+  flagship: |
+    WITH t AS (SELECT sum(total_revenue)::DOUBLE tr, count(*)::DOUBLE td
+               FROM fct_daily_sales),
+         m AS (SELECT sum(f.total_revenue)::DOUBLE r, count(*)::DOUBLE d
+               FROM fct_daily_sales f JOIN dim_product p USING (product_key)
+               GROUP BY p.mobile_model
+               ORDER BY r DESC LIMIT 1)
+    SELECT 'top' AS key, 'rev_pct' AS measure, 100.0 * r / (SELECT tr FROM t) AS value FROM m
+    UNION ALL
+    SELECT 'top',        'day_pct',            100.0 * d / (SELECT td FROM t)          FROM m

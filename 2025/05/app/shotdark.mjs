@@ -1,0 +1,11 @@
+import { chromium } from 'playwright';
+const b = await chromium.launch();
+const ctx = await b.newContext({ viewport:{width:1440,height:950} });
+await ctx.addInitScript(()=>{localStorage.setItem('datadna-2025-05-tour-seen','1');localStorage.setItem('datadna-theme','dark');});
+const p = await ctx.newPage();
+await p.goto('http://localhost:4173/',{waitUntil:'networkidle'});
+await p.waitForFunction(()=>document.querySelector('[data-metric="revenue"]')?.textContent?.includes('$'),{timeout:30000});
+await p.waitForTimeout(500);
+await p.screenshot({path:process.argv[2],fullPage:true});
+console.log('dark shot ok');
+await b.close();
