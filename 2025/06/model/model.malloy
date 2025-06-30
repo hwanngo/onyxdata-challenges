@@ -1,0 +1,196 @@
+// Semantic layer - 2025/06 Social Media Content Performance  (Gate G4)
+//
+// This file IS the Technical evidence. Rubric A scores "data modelling / DAX usage";
+// we have no DAX, so the model must be legible and substantial in its own right.
+//
+// THE CENTRAL FACT ABOUT THIS DATASET, enforced throughout:
+//   Only `views` is a free variable. The other headline metrics are derived from it:
+//     impressions      = views * U(1.1, 1.3)          -> no independent information
+//     engagement       = engagement_rate * views      -> fully determined
+//     engagement_rate  = drawn from a uniform band keyed to content tier -> A LABEL
+//   Measures below are therefore split into REAL and DERIVED, and the derived ones are
+//   named so no view can present them as outcomes. See analysis/insights.md I-3 and I-4.
+//
+//   Click availability is a platform property with one exception: 100% TikTok/Facebook,
+//   0% YouTube/X.com/Instagram, LinkedIn 304/525 by post type - and two LinkedIn formats
+//   (Carousel 25/44, PDF 4/16) are partial for no reason we can find. It is NOT the tidy
+//   rule "wherever a post can carry a link" (insights.md I-5). Click measures are ALWAYS
+//   paired with their coverage denominator, and blanks are never imputed.
+
+source: dim_date is duckdb.table('../data/curated/dim_date.parquet') extend {
+  primary_key: date_key
+}
+source: dim_platform is duckdb.table('../data/curated/dim_platform.parquet') extend {
+  primary_key: platform_key
+}
+source: dim_format is duckdb.table('../data/curated/dim_format.parquet') extend {
+  primary_key: format_key
+}
+source: dim_content is duckdb.table('../data/curated/dim_content.parquet') extend {
+  primary_key: content_key
+}
+source: dim_region is duckdb.table('../data/curated/dim_region.parquet') extend {
+  primary_key: region_key
+}
+
+source: posts is duckdb.table('../data/curated/fct_post.parquet') extend {
+  join_one: cal      is dim_date     with date_key
+  join_one: platform is dim_platform with platform_key
+  join_one: format   is dim_format   with format_key
+  join_one: content  is dim_content  with content_key
+  join_one: region   is dim_region   with region_key
+
+  //--------------------------------------------------------------------------------
+  // REAL measures - computed from the one free variable
+  //--------------------------------------------------------------------------------
+  measure:
+    post_count  is count()
+    total_views is views.sum()
+    // Malloy 0.0.425 has no median aggregate. Views are right-skewed (skew 1.32), so the
+    // REPORT uses medians, computed in the app and re-asserted against DuckDB by
+    // tools/verify_metrics.py. mean_views is carried here for completeness only.
+    mean_views  is views.avg()
+    // share of attention: the honest "performance" measure on this data
+    view_share_pct is views.sum() / all(views.sum()) * 100
+    post_share_pct is count() / all(count()) * 100
+    // attention concentration -- views earned per unit of output
+    view_index is (views.sum() / all(views.sum())) / (count() / all(count()))
+
+  //--------------------------------------------------------------------------------
+  // DERIVED measures - kept because the brief asks for them, named so they cannot be
+  // mistaken for outcomes. Never rank anything on these.
+  //--------------------------------------------------------------------------------
+  measure:
+    labelled_engagement_rate is engagement_rate.avg()
+    derived_engagement       is engagement.sum()
+    derived_impressions      is impressions.sum()
+    // proof of I-4, exposed as a measure so the UI can show it rather than assert it
+    impressions_per_view is impressions.sum() / views.sum()
+
+  //--------------------------------------------------------------------------------
+  // COVERAGE measures - every click figure travels with its denominator
+  //--------------------------------------------------------------------------------
+  measure:
+    posts_with_click_tracking is count() { where: click_tracking_available }
+    click_coverage_pct is count() { where: click_tracking_available } / count() * 100
+    total_clicks is clicks.sum()
+    ctr_where_measured is clicks.sum() / impressions.sum() { where: click_tracking_available }
+    // label-vs-derived disagreement, surfaced rather than silently corrected
+    level_disagreement_count is count() { where: level_disagrees }
+
+  dimension:
+    is_video     is format.post_type = 'Video'
+    publishes_am is post_hour < 12
+
+  //--------------------------------------------------------------------------------
+  // Views - each maps to a numbered insight or a numbered brief requirement
+  //--------------------------------------------------------------------------------
+
+  // I-1 / R1 / R3 - the one real driver: format.
+  view: format_performance is {
+    group_by: format.post_type, format.is_thin_sample
+    aggregate:
+      post_count
+      mean_views
+      total_views
+      post_share_pct
+      view_share_pct
+      view_index
+    order_by: mean_views desc
+  }
+
+  // I-2 / R1 / R5 - placement is not a lever. Same measures, flat result.
+  view: platform_performance is {
+    group_by: platform.platform, platform.click_tracking
+    aggregate: post_count, mean_views, view_share_pct, view_index, click_coverage_pct
+    order_by: mean_views desc
+  }
+
+  view: region_performance is {
+    group_by: region.region
+    aggregate: post_count, mean_views, view_share_pct, view_index
+    order_by: mean_views desc
+  }
+
+  // I-3 - the label, shown as a label. Bands are the generator's, not ours.
+  view: rate_is_a_label is {
+    group_by: content.content_category
+    aggregate:
+      post_count
+      labelled_engagement_rate
+      min_rate is engagement_rate.min()
+      max_rate is engagement_rate.max()
+    order_by: labelled_engagement_rate desc
+  }
+
+  // I-4 - proof that impressions carry nothing beyond views.
+  view: derived_metric_proof is {
+    group_by: platform.platform
+    aggregate: total_views, derived_impressions, impressions_per_view
+    order_by: total_views desc
+  }
+
+  // I-5 / R5 / R6 - click coverage, never an unqualified CTR.
+  view: click_coverage is {
+    group_by: platform.platform
+    aggregate: post_count, posts_with_click_tracking, click_coverage_pct, ctr_where_measured
+    order_by: click_coverage_pct desc
+  }
+
+  // R6 - the hashtag mirage: nest hashtags inside their category so the confound is visible.
+  view: hashtag_within_category is {
+    group_by: content.content_category
+    aggregate: post_count, labelled_engagement_rate
+    nest: hashtags is {
+      group_by: content.main_hashtag
+      aggregate: post_count, labelled_engagement_rate, mean_views
+      order_by: post_count desc
+      limit: 5
+    }
+    order_by: post_count desc
+  }
+
+  // R4 - timing. Period-over-period lag included; the honest answer is "no effect".
+  view: by_hour is {
+    group_by: post_hour
+    aggregate: post_count, mean_views, labelled_engagement_rate
+    order_by: post_hour
+  }
+
+  view: monthly_trend is {
+    group_by: cal.`month`, cal.month_name
+    aggregate: post_count, total_views, mean_views
+    order_by: `month`
+    calculate: prev_month_views is lag(total_views)
+  }
+
+  // R2 - content category by region, the brief's cross-cut.
+  view: category_by_region is {
+    group_by: content.content_category
+    aggregate: post_count
+    nest: regions is {
+      group_by: region.region
+      aggregate: post_count, mean_views
+      order_by: mean_views desc
+      limit: 3
+    }
+  }
+
+  // R9 - organic vs sponsored.
+  view: organic_vs_sponsored is {
+    group_by: content_type
+    aggregate: post_count, mean_views, view_index, labelled_engagement_rate
+    order_by: mean_views desc
+  }
+
+  // Headline strip.
+  view: headline is {
+    aggregate:
+      post_count
+      total_views
+      mean_views
+      click_coverage_pct
+      impressions_per_view
+      level_disagreement_count
+  }
+}

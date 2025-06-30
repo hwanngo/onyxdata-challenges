@@ -1,0 +1,17 @@
+harness: 2025/06/app/_probe (inline) - poster fixed-canvas fit
+month:   2025/06 - Social Media Content Performance
+date:    2025-06-30
+build:   datadna-2025-06 vite build → dist/assets/index-CdmP91qo.js + index-CzAb324F.css
+url:     http://localhost:5306 (vite preview, production build, --strictPort)
+---
+WHY: the poster is a fixed 2560x1440 canvas. '.poster .grid-main' is the flex child that
+absorbs whatever the fixed rows leave over, with overflow:hidden - so it clips IN SILENCE.
+tools/qa/measure.mjs cannot see this: it checks the shell's direct children, and the shell
+always fits precisely because grid-main swallows the difference.
+---
+.grid-main  clientHeight 559   scrollHeight 559   -> fits exactly, 0px clipped
+.colophon   4 lines, 89px (13px/19.5px, margin-top 8px)
+
+This was BROKEN before this pass: the colophon had grown by two lines, grid-main was 519
+against a 556 requirement, and the poster silently lost the Live Stream bar's label and
+the second line of the region caption. Caught by reading the PNG, not by a harness.

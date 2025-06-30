@@ -1,0 +1,20 @@
+harness: 2025/06/app/interact.mjs (month-specific - asserts THIS month's findings)
+month:   2025/06 - Social Media Content Performance
+date:    2025-06-30
+build:   datadna-2025-06 vite build → dist/assets/index-CdmP91qo.js + index-CzAb324F.css
+url:     http://localhost:5306 (vite preview, production build, --strictPort)
+---
+PASS  baseline views = 4,806,275,234
+PASS  format cross-filter applies (50ms)
+PASS  chip bar shows active filter
+PASS  URL encodes filter state
+PASS  platform panel recomputed under filter
+PASS  provenance marks stay DERIVED under filter
+PASS  clear-all restores dataset
+PASS  mirage toggle regroups by category
+PASS  mirage toggle returns to ranking
+PASS  chart marks keyboard focusable
+PASS  accessible data tables present (40 rows)
+PASS  tour re-opens
+PASS  Esc closes tour
+PASS  impossible filter renders without error

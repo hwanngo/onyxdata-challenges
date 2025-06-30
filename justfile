@@ -96,9 +96,9 @@ critique YEAR MONTH:
     uv run python tools/shoot.py {{YEAR}} {{MONTH}} --critique
 
 # `vite build` transpiles and DISCARDS types - it has never checked one, and this recipe is
-# the only thing in the repo that does. This is how a guided tour ships without rendering:
-# TourOverlay mounted without its required `open` prop is TS2741, caught in a second by a
-# compiler nobody is running.
+# the only thing in the repo that does. A month shipped a guided tour that never rendered
+# because TourOverlay was mounted without its required `open` prop: TS2741, caught in a second
+# by a compiler nobody was running.
 #
 # Typecheck one month
 typecheck YEAR MONTH:
@@ -131,22 +131,24 @@ lint-numbers YEAR MONTH:
     node tools/lint_prose_numbers.mjs {{YEAR}} {{MONTH}}
 
 # Order matters, cheapest and blindest-spot-first:
-#   typecheck  - catches UI that does not exist. A missing required prop (TS2741) renders
-#                nothing while the build stays green; no other gate can see absent DOM, so a
-#                regression must fail here rather than be counted as a pass.
+#   typecheck  - catches UI that does not exist. Two months both shipped a guided
+#                tour that never rendered (TS2741, a missing `open` prop); no other gate can
+#                see absent DOM. Gating here was deferred while 184 errors stood; they are
+#                cleared, so a regression must now fail the gate rather than be counted.
 #   prose lint - a number nothing recomputes cannot be caught by recomputing.
 #   metrics    - recompute what IS tagged, against an independent DuckDB path.
 #   POSTER     - the same recompute against /poster. The poster IS the submission, and until
 #                then nothing verified its numbers: it can render a different figure from
 #                the live route (a state the live page shows only behind a toggle, a panel
-#                cut by the poster budget) and every other gate would still pass.
+#                cut by the poster budget) and every gate would still pass. Verified against
+#                two shipped months before being added here, both clean.
 #
 # G7 - recompute every rendered number. Zero tolerance
 verify YEAR MONTH:
     just typecheck {{YEAR}} {{MONTH}}
     # Scaffold first: an unedited template file reports success, so nothing downstream can
-    # catch it: an unedited template publishes a fabricated example row, or ships
-    # profile.md's Top-5 as literal TODOs.
+    # catch it. Two months published the template's fabricated "412 (0.3%)" row, and
+    # shipped profile.md's Top-5 as literal TODOs.
     uv run python tools/check_scaffold.py {{YEAR}} {{MONTH}}
     node tools/lint_prose_numbers.mjs {{YEAR}} {{MONTH}}
     uv run python tools/verify_metrics.py {{YEAR}} {{MONTH}}

@@ -1,0 +1,96 @@
+harness: tools/verify_metrics.py (Playwright/Chromium DOM scrape + independent DuckDB recomputation, zero tolerance)
+month:   2025/06 - Social Media Content Performance
+date:    2025-06-30
+build:   datadna-2025-06 vite build → dist/assets/index-CdmP91qo.js + index-CzAb324F.css
+url:     http://localhost:5306 (vite preview, production build, --strictPort)
+---
+== route: /  (report, opening state) ==
+metric                                           rendered         recomputed  
+--------------------------------------------------------------------------------
+hashtag.#CustomerStory.rate                        0.1976             0.1976  ok
+hashtag.#DidYouKnow.rate                           0.1524             0.1524  ok
+hashtag.#EventRecap.rate                           0.1401             0.1401  ok
+hashtag.#FeatureHighlight.rate                     0.1146             0.1146  ok
+hashtag.#FunContent.rate                           0.0757             0.0757  ok
+hashtag.#ProductDemo.rate                          0.1162             0.1162  ok
+hashtag.#SuccessStory.rate                         0.1996             0.1996  ok
+hashtag.#TrendingNow.rate                          0.0797             0.0797  ok
+hashtag.#WebinarReplay.rate                        0.1379             0.1379  ok
+n_formats                                          7.0000             7.0000  ok
+n_platforms                                        6.0000             6.0000  ok
+n_regions                                          8.0000             8.0000  ok
+no_click_share_pct                                66.7857            66.7857  ok
+platform.Facebook.med_views                  369,247.0000       369,247.0000  ok
+platform.Instagram.med_views                 368,711.0000       368,711.0000  ok
+platform.LinkedIn.med_views                  374,865.0000       374,865.0000  ok
+platform.TikTok.med_views                    382,281.0000       382,281.0000  ok
+platform.X.com.med_views                     377,084.0000       377,084.0000  ok
+platform.YouTube.med_views                   375,668.5000       375,668.5000  ok
+platform_eta2_logviews_pct                         0.3840             0.3840  ok
+platform_spread_pct                                3.6804             3.6804  ok
+post_type.Article.med_views                  414,267.0000       414,267.0000  ok
+post_type.Carousel.med_views                 430,378.0000       430,378.0000  ok
+post_type.Image.med_views                    272,708.5000       272,708.5000  ok
+post_type.Live Stream.med_views              263,112.0000       263,112.0000  ok
+post_type.Live Stream.post_share                  16.5000            16.5000  ok
+post_type.Live Stream.view_share                   7.2770             7.2770  ok
+post_type.PDF.med_views                      288,737.0000       288,737.0000  ok
+post_type.Text.med_views                     311,373.5000       311,373.5000  ok
+post_type.Video.med_views                    913,870.5000       913,870.5000  ok
+post_type.Video.post_share                        52.6429            52.6429  ok
+post_type.Video.view_share                        75.7581            75.7581  ok
+prov.click_coverage                               33.2143            33.2143  ok
+prov.engagement                          646,491,442.0000   646,491,442.0000  ok
+prov.engagement_rate                               0.1528             0.1528  ok
+prov.impressions                       5,766,555,744.0000 5,766,555,744.0000  ok
+prov.views                             4,806,275,234.0000 4,806,275,234.0000  ok
+region_spread_pct                                 14.3342            14.3342  ok
+total_posts                                    5,600.0000         5,600.0000  ok
+--------------------------------------------------------------------------------
+All 39 rendered metrics reconcile.
+
+== route: /poster ==
+metric                                           rendered         recomputed  
+--------------------------------------------------------------------------------
+mirage_eta2_pooled                                 0.7505             0.7505  ok
+mirage_eta2_within_category                        0.0181             0.0181  ok
+mirage_inc_category_r2                             0.0468             0.0468  ok
+mirage_inc_hashtag_r2                              0.0037             0.0037  ok
+mirage_widest_cell_category             Product Promotion  Product Promotion  ok
+mirage_widest_cell_spread                          0.3086             0.3086  ok
+n_formats                                          7.0000             7.0000  ok
+n_platforms                                        6.0000             6.0000  ok
+n_regions                                          8.0000             8.0000  ok
+no_click_share_pct                                66.7857            66.7857  ok
+platform.Facebook.med_views                  369,247.0000       369,247.0000  ok
+platform.Instagram.med_views                 368,711.0000       368,711.0000  ok
+platform.LinkedIn.med_views                  374,865.0000       374,865.0000  ok
+platform.TikTok.med_views                    382,281.0000       382,281.0000  ok
+platform.X.com.med_views                     377,084.0000       377,084.0000  ok
+platform.YouTube.med_views                   375,668.5000       375,668.5000  ok
+platform_eta2_logviews_pct                         0.3840             0.3840  ok
+platform_spread_pct                                3.6804             3.6804  ok
+post_type.Article.med_views                  414,267.0000       414,267.0000  ok
+post_type.Carousel.med_views                 430,378.0000       430,378.0000  ok
+post_type.Image.med_views                    272,708.5000       272,708.5000  ok
+post_type.Live Stream.med_views              263,112.0000       263,112.0000  ok
+post_type.Live Stream.post_share                  16.5000            16.5000  ok
+post_type.Live Stream.view_share                   7.2770             7.2770  ok
+post_type.PDF.med_views                      288,737.0000       288,737.0000  ok
+post_type.Text.med_views                     311,373.5000       311,373.5000  ok
+post_type.Video.med_views                    913,870.5000       913,870.5000  ok
+post_type.Video.post_share                        52.6429            52.6429  ok
+post_type.Video.view_share                        75.7581            75.7581  ok
+prov.click_coverage                               33.2143            33.2143  ok
+prov.engagement                          646,491,442.0000   646,491,442.0000  ok
+prov.engagement_rate                               0.1528             0.1528  ok
+prov.impressions                       5,766,555,744.0000 5,766,555,744.0000  ok
+prov.views                             4,806,275,234.0000 4,806,275,234.0000  ok
+region_spread_pct                                 14.3342            14.3342  ok
+total_posts                                    5,600.0000         5,600.0000  ok
+--------------------------------------------------------------------------------
+All 36 rendered metrics reconcile.
+
+NOTE: metrics 'specified but not rendered' on a route are not failures - the two routes
+render different panels, and the mirage effect sizes appear on the poster and behind the
+live report's grouped toggle. The counts above are what the colophon quotes (39 / 36).

@@ -1,0 +1,8 @@
+harness: tools/qa/perf.mjs
+month:   2025/06 - Social Media Content Performance
+date:    2025-06-30
+build:   datadna-2025-06 vite build → dist/assets/index-CdmP91qo.js + index-CzAb324F.css
+url:     http://localhost:5306 (vite preview, production build, --strictPort)
+---
+cold load to first real number: 1485ms  (budget 3000ms)
+interaction-to-paint: 1ms, 1ms, 1ms, 1ms, 1ms  max 1ms (budget 200ms)

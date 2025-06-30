@@ -1,0 +1,14 @@
+harness: tools/qa/a11y.mjs
+month:   2025/06 - Social Media Content Performance
+date:    2025-06-30
+build:   datadna-2025-06 vite build → dist/assets/index-CdmP91qo.js + index-CzAb324F.css
+url:     http://localhost:5306 (vite preview, production build, --strictPort)
+---
+
+=== desktop light: 0 violations
+
+=== desktop dark: 0 violations
+
+=== mobile light: 0 violations
+
+=== poster: 0 violations

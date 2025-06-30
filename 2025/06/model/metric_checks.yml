@@ -1,0 +1,187 @@
+# G7 verification spec - every number the UI renders, and the SQL that reproduces it.
+#
+# ZERO TOLERANCE. These queries run against the curated PARQUET via DuckDB in Python - a
+# different engine and a different code path from the browser's JavaScript aggregation -
+# so agreement between them means something.
+#
+# `metrics`     - scalars, DOM: data-metric="NAME"
+# `metric_sets` - one row per chart mark, DOM: data-metric="SET.KEY.MEASURE"
+#
+# NOTE ON MEDIANS: the report ranks on medians because views are right-skewed (skew 1.32).
+# Malloy 0.0.425 has no median aggregate, so the semantic layer carries the mean and the
+# median is computed in the app - which is exactly why it must be verified here, against
+# DuckDB's own median().
+
+metrics:
+  # ---- The corpus, as the masthead and colophon describe it. Small numbers, but they are
+  # the first thing a reader checks and the easiest thing to leave stale after a rebuild.
+  total_posts: select count(*)::DOUBLE from fct_post
+  n_platforms: select count(*)::DOUBLE from dim_platform
+  n_regions:   select count(*)::DOUBLE from dim_region
+  n_formats:   select count(*)::DOUBLE from dim_format
+
+  # ---- Panel 3, the negative result, in the two forms the text quotes it.
+  # Best-over-worst gap in median views. This is the shape of "spread" used everywhere in
+  # this report: a ratio, not a difference.
+  platform_spread_pct: >
+    select 100.0 * (max(m) / min(m) - 1) from (
+      select median(f.views) as m
+      from fct_post f join dim_platform p using (platform_key)
+      group by p.platform
+    )
+  region_spread_pct: >
+    select 100.0 * (max(m) / min(m) - 1) from (
+      select median(f.views) as m
+      from fct_post f join dim_region r using (region_key)
+      group by r.region
+    )
+  # eta-squared of platform on log(views), as a percentage: between-group SS over total SS.
+  # Views are right-skewed (skew 1.32), so the variance decomposition is done on the log.
+  platform_eta2_logviews_pct: >
+    with s as (
+      select p.platform as g, ln(greatest(f.views, 1)) as y
+      from fct_post f join dim_platform p using (platform_key)
+    ), gm as (select avg(y) as m from s),
+       grp as (select g, count(*) as n, avg(y) as m from s group by 1)
+    select 100.0
+      * (select sum(grp.n * power(grp.m - gm.m, 2)) from grp, gm)
+      / (select sum(power(s.y - gm.m, 2)) from s, gm)
+
+  # ---- Panel 5, recommendation 3. Share of posts with no click count at all.
+  no_click_share_pct: select 100.0 * (count(*) - count(clicks)) / count(*) from fct_post
+
+  # ---- Panel 4, the mirage, as an effect size.
+  # Pooled: hashtag against the engagement rate, ignoring category. This is the number the
+  # field would publish.
+  mirage_eta2_pooled: >
+    with s as (
+      select c.main_hashtag as g, f.engagement_rate as y
+      from fct_post f join dim_content c using (content_key)
+    ), gm as (select avg(y) as m from s),
+       grp as (select g, count(*) as n, avg(y) as m from s group by 1)
+    select (select sum(grp.n * power(grp.m - gm.m, 2)) from grp, gm)
+         / (select sum(power(s.y - gm.m, 2)) from s, gm)
+  # The same effect measured INSIDE each content category and pooled across categories:
+  # between-cell SS summed over strata, over within-stratum total SS. Equivalently the
+  # semi-partial (R2_cells - R2_category) / (1 - R2_category). This is what is left of the
+  # hashtag once the tier it proxies for is held constant.
+  mirage_eta2_within_category: >
+    with s as (
+      select c.content_category as k, c.main_hashtag as h, f.engagement_rate as y
+      from fct_post f join dim_content c using (content_key)
+    ), cm  as (select k, avg(y) as m from s group by 1),
+       cell as (select k, h, count(*) as n, avg(y) as m from s group by 1, 2)
+    select (select sum(cell.n * power(cell.m - cm.m, 2)) from cell join cm using (k))
+         / (select sum(power(s.y - cm.m, 2))             from s    join cm using (k))
+  # The same argument as a model comparison, which is how the panel's closing line puts it:
+  # the saturated (category x hashtag) R2 minus each one-way R2. The asymmetry is the
+  # finding - hashtag adds almost nothing to a model that knows the category, while the
+  # category adds an order of magnitude more to a model that knows the hashtag.
+  mirage_inc_hashtag_r2: >
+    with s as (
+      select c.content_category as k, c.main_hashtag as h, f.engagement_rate as y
+      from fct_post f join dim_content c using (content_key)
+    ), gm as (select avg(y) as m from s),
+       cell as (select k, h, count(*) as n, avg(y) as m from s group by 1, 2),
+       cat  as (select k,    count(*) as n, avg(y) as m from s group by 1),
+       sst  as (select sum(power(s.y - gm.m, 2)) as v from s, gm)
+    select ((select sum(cell.n * power(cell.m - gm.m, 2)) from cell, gm)
+          - (select sum(cat.n  * power(cat.m  - gm.m, 2)) from cat,  gm))
+         / (select v from sst)
+  mirage_inc_category_r2: >
+    with s as (
+      select c.content_category as k, c.main_hashtag as h, f.engagement_rate as y
+      from fct_post f join dim_content c using (content_key)
+    ), gm as (select avg(y) as m from s),
+       cell as (select k, h, count(*) as n, avg(y) as m from s group by 1, 2),
+       tag  as (select h,    count(*) as n, avg(y) as m from s group by 1),
+       sst  as (select sum(power(s.y - gm.m, 2)) as v from s, gm)
+    select ((select sum(cell.n * power(cell.m - gm.m, 2)) from cell, gm)
+          - (select sum(tag.n  * power(tag.m  - gm.m, 2)) from tag,  gm))
+         / (select v from sst)
+
+  # Panel 4 poster headline - the widest engagement-rate spread found INSIDE any single
+  # content category, and the category it belongs to. This is the number the mirage turns
+  # on: it must be measured over (hashtag x category) cells, never over hashtags pooled
+  # across categories and then labelled with one. Cell floor 50 posts matches
+  # MIN_CELL_POSTS in app/src/data.ts; below it the cells are too thin to rank.
+  mirage_widest_cell_spread: >
+    select 100.0 * max(spread) from (
+      select max(r) - min(r) as spread from (
+        select c.content_category as cat, c.main_hashtag as tag, avg(f.engagement_rate) as r
+        from fct_post f join dim_content c using (content_key)
+        group by 1, 2
+        having count(*) >= 50
+      ) group by cat
+    )
+  mirage_widest_cell_category: >
+    select cat from (
+      select cat, max(r) - min(r) as spread from (
+        select c.content_category as cat, c.main_hashtag as tag, avg(f.engagement_rate) as r
+        from fct_post f join dim_content c using (content_key)
+        group by 1, 2
+        having count(*) >= 50
+      ) group by cat
+    ) order by spread desc limit 1
+
+metric_sets:
+  # The provenance strip - the five headline figures and their origin.
+  prov: |
+    SELECT 'views'           AS key, 'total' AS measure, sum(views)::DOUBLE       AS value FROM fct_post
+    UNION ALL SELECT 'impressions',  'total', sum(impressions)::DOUBLE            FROM fct_post
+    UNION ALL SELECT 'engagement',   'total', sum(engagement)::DOUBLE             FROM fct_post
+    UNION ALL SELECT 'engagement_rate', 'total', avg(engagement_rate)::DOUBLE     FROM fct_post
+    UNION ALL SELECT 'click_coverage', 'total',
+                     100.0 * count(clicks) / count(*)                             FROM fct_post
+
+  # Panel 2 - median views by format. The month's central finding.
+  # Three measures per format: the bar itself, plus the two shares that recommendation 01
+  # quotes back ("Live Stream is 16.5% of output for 7.3% of views"). Those shares used to
+  # be typed into the prose; they are marks now, so the sentence and the chart are the same
+  # numbers or the build fails.
+  post_type: |
+    SELECT t.post_type          AS key,
+           'med_views'          AS measure,
+           median(f.views)::DOUBLE AS value
+    FROM fct_post f JOIN dim_format t USING (format_key)
+    GROUP BY 1
+    UNION ALL
+    SELECT t.post_type, 'view_share',
+           100.0 * sum(f.views) / (SELECT sum(views) FROM fct_post)
+    FROM fct_post f JOIN dim_format t USING (format_key)
+    GROUP BY 1
+    UNION ALL
+    SELECT t.post_type, 'post_share',
+           100.0 * count(*) / (SELECT count(*) FROM fct_post)
+    FROM fct_post f JOIN dim_format t USING (format_key)
+    GROUP BY 1
+
+  # Panel 3 - median views by platform. The negative result.
+  platform: |
+    SELECT p.platform           AS key,
+           'med_views'          AS measure,
+           median(f.views)::DOUBLE AS value
+    FROM fct_post f JOIN dim_platform p USING (platform_key)
+    GROUP BY 1
+
+  # Panel 4 - the hashtag mirage. Only hashtags with >= 100 posts are rendered.
+  hashtag: |
+    SELECT c.main_hashtag       AS key,
+           'rate'               AS measure,
+           avg(f.engagement_rate)::DOUBLE AS value
+    FROM fct_post f JOIN dim_content c USING (content_key)
+    GROUP BY 1
+    HAVING count(*) >= 100
+
+  # Panel 4, grouped state - the SAME hashtag measured inside ONE category. The pooled
+  # figures above cannot answer "how much do hashtags differ inside a category": a hashtag
+  # spanning several categories carries a blended rate, and labelling that blend with one
+  # category is what put a wrong 4.5pp spread on the poster. Cell floor 50 posts matches
+  # MIN_CELL_POSTS in app/src/data.ts; below it the cells are too thin to rank.
+  hashcell: |
+    SELECT c.content_category || '|' || c.main_hashtag AS key,
+           'rate'                                      AS measure,
+           avg(f.engagement_rate)::DOUBLE              AS value
+    FROM fct_post f JOIN dim_content c USING (content_key)
+    GROUP BY 1
+    HAVING count(*) >= 50
