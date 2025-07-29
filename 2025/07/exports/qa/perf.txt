@@ -1,0 +1,9 @@
+harness: tools/qa/perf.mjs
+date:    2025-07-29
+app:     datadna-2025-07 - 2025/07/app, production build (vite 8.1.5), dist/assets/index-C-erwrYX.js
+url:     http://localhost:5307 (vite preview --strictPort)
+
+cold load to first real number: 1434ms  (budget 3000ms)
+interaction-to-paint: 1ms, 1ms, 1ms, 1ms, 1ms  max 1ms (budget 200ms)
+
+exit: 0

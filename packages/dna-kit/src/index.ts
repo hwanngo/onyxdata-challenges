@@ -5,3 +5,4 @@ export * from "./components/InsightCallout";
 export * from "./a11y/AccessibleTable";
 export * from "./components/TourOverlay";
 export * from "./components/Controls";
+export * from "./components/CutPanel";

@@ -2,9 +2,9 @@
  * G6/G7 interaction matrix. EVERY ASSERTION BELOW BELONGS TO 2025/05 (mobile phone sales).
  * Rewrite them for this month, then set SCAFFOLD_REWRITTEN = true.
  *
- * Why this guard exists: shipped byte-identical to the template, this file asserts
- * `revenue = 14525413` against an app that has no such metric, and reports a pass.
- * A scaffolded file that was never edited is
+ * Why this guard exists: three months all shipped this file byte-identical
+ * to the template, asserting `revenue = 14525413` against apps that have no such metric -
+ * and all three SCORECARDs counted the passes. A scaffolded file that was never edited is
  * worse than a missing one, because it reports success. See .workbench/docs/LEARNINGS.md.
  */
 const SCAFFOLD_REWRITTEN = false;

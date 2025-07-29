@@ -1,12 +1,12 @@
 /**
  * Poster fit measurement - does the composition actually fit 2560x1440?
  *
- * Poster fit is the easiest thing to get wrong by eye: the poster overflows, you tune a
- * font size, it overflows somewhere else. Measuring beats squinting.
+ * Three months running this was the single most reliable time sink: the poster overflows,
+ * you tune a font size, it overflows somewhere else. Measuring beats squinting.
  *
- * GENERIC BY DESIGN. It must not hard-code any month's class names (`.shell`, `.grid-main`,
- * `.col-right`, `#bands`) - that crashes with a null getBoundingClientRect the moment a month
- * lays its poster out differently. It finds the poster root by class
+ * GENERIC since an early rewrite. It previously hard-coded one month's class names (`.shell`,
+ * `.grid-main`, `.col-right`, `#bands`) and crashed with a null getBoundingClientRect the
+ * moment a month laid its poster out differently. It now finds the poster root by class
  * and walks its real children, so it works for any month without editing.
  *
  *   QA_URL=http://localhost:5173 node tools/qa/measure.mjs
@@ -77,8 +77,8 @@ const m = await p.evaluate(() => {
     // contents. And a chart clipped inside `.grid-main` has a bottom edge well inside
     // 1440, so the y>1440 scan misses it too.
     //
-    // A clipped label or half-cut caption passes a naive y>1440 scan while the poster is
-    // visibly broken. On a fixed 2560x1440 canvas
+    // A month shipped a poster with the Live Stream bar's label and half a caption cut
+    // off, twice, and this harness said FITS both times. On a fixed 2560x1440 canvas
     // nothing is user-scrollable, so any element whose content exceeds its own clipped
     // box is losing information a reader will never see.
     // MEASURE PAINTED GEOMETRY AGAINST THE CLIP EDGE, not scrollHeight.

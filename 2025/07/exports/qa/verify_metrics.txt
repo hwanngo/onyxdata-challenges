@@ -1,0 +1,39 @@
+harness: tools/verify_metrics.py 2025 07 --url http://localhost:5307
+date:    2025-07-29
+app:     datadna-2025-07, production build (index-C-erwrYX.js)
+url:     http://localhost:5307
+
+metric                                           rendered         recomputed  
+--------------------------------------------------------------------------------
+ladder.Gender: Female.mean                         5.1970             5.1970  ok
+ladder.Gender: Male.mean                           5.5370             5.5370  ok
+ladder.Group: A.mean                               5.1250             5.1250  ok
+ladder.Group: B.mean                               5.5000             5.5000  ok
+ladder.Loyalty: High.mean                          5.6486             5.6486  ok
+ladder.Loyalty: Low.mean                           5.8444             5.8444  ok
+ladder.Loyalty: Medium.mean                        4.4737             4.4737  ok
+ladder.Repeat buyer: No.mean                       4.9804             4.9804  ok
+ladder.Repeat buyer: Yes.mean                      5.6232             5.6232  ok
+ladder.State: AZ.mean                              5.0526             5.0526  ok
+ladder.State: CA.mean                              5.0769             5.0769  ok
+ladder.State: IL.mean                              6.3571             6.3571  ok
+ladder.State: NY.mean                              6.0000             6.0000  ok
+ladder.State: PA.mean                              5.0909             5.0909  ok
+ladder.State: TX.mean                              5.2439             5.2439  ok
+ladder.Support contacted: No.mean                  5.3438             5.3438  ok
+ladder.Support contacted: Yes.mean                 5.3571             5.3571  ok
+power.0.5.need                                   575.0000           575.0000  ok
+power.1.0.need                                   144.0000           144.0000  ok
+power.1.5.need                                    64.0000            64.0000  ok
+power.2.0.need                                    36.0000            36.0000  ok
+support.No.mean                                    5.3438             5.3438  ok
+support.Yes.mean                                   5.3571             5.3571  ok
+support.diff.hi                                    1.1038             1.1038  ok
+support.diff.lo                                   -1.0770            -1.0770  ok
+support.diff.value                                 0.0134             0.0134  ok
+--------------------------------------------------------------------------------
+Specified but not rendered (44): ladder.Factor: Brand Reputation, ladder.Factor: Brand Reputation.mean, ladder.Factor: Customer Service, ladder.Factor: Customer Service.mean, ladder.Factor: Delivery Speed, ladder.Factor: Delivery Speed.mean, ladder.Factor: Ease of Use, ladder.Factor: Ease of Use.mean, ladder.Factor: Features, ladder.Factor: Features.mean, ladder.Factor: Packaging, ladder.Factor: Packaging.mean, ladder.Factor: Price, ladder.Factor: Price.mean, ladder.Factor: Product Quality, ladder.Factor: Product Quality.mean, ladder.Factor: Product Variety, ladder.Factor: Product Variety.mean, ladder.Factor: Support Availability, ladder.Factor: Support Availability.mean, ladder.Gender: Female, ladder.Gender: Male, ladder.Group: A, ladder.Group: B, ladder.Loyalty: High, ladder.Loyalty: Low, ladder.Loyalty: Medium, ladder.Repeat buyer: No, ladder.Repeat buyer: Yes, ladder.State: AZ, ladder.State: CA, ladder.State: IL, ladder.State: NY, ladder.State: PA, ladder.State: TX, ladder.Support contacted: No, ladder.Support contacted: Yes, power.0.5, power.1.0, power.1.5, power.2.0, support.No, support.Yes, support.diff
+
+All 26 rendered metrics reconcile.
+
+exit: 0

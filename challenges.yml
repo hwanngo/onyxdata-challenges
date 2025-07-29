@@ -4,10 +4,10 @@
 # Era 1 = Playground-only, gated, no brief. Era 2 = full challenge page, ungated.
 
 meta:
-  verified_on: 2025-06-30
-  total: 55
+  verified_on: 2025-07-29
+  total: 56
   era1_count: 52
-  era2_count: 3
+  era2_count: 4
   playground_index: https://datadna.onyxdata.co.uk/playground/
   challenge_index: https://datadna.onyxdata.co.uk/challenges/
   work_order: era2_oldest_first_then_era1_backfill
@@ -88,8 +88,29 @@ challenges:
     title: "July 2025 DataDNA - Customer Satisfaction and Loyalty"
     playground_url: "https://datadna.onyxdata.co.uk/playground/2025-07-july-2025-datadna-customer-satisfaction-and-loyalty-analytics-challenge/"
     challenge_url: "https://datadna.onyxdata.co.uk/challenges/july-2025-datadna-customer-satisfaction-and-loyalty-analytics-challenge/"
-    dataset_url: "https://datadna.onyxdata.co.uk/wp-content/uploads/2025/06/DataDNA-Dataset-Challenge-Customer-Satisfaction-Dataset-July-2025.zip"
+    dataset_url: "https://datadna.onyxdata.co.uk/wp-content/uploads/2025/06/DataDNA-Dataset-Challenge-Customer-Satisfaction-Dataset-July-2025.zip"   # scraped 2025-07-29
     dataset_folder: "DataDNA-Dataset-Challenge-Customer-Satisfaction-Dataset-July-2025"
+    formats: [CSV, DOCX, PDF, TXT]   # verified 2025-07-29 from the ZIP
+    status: done
+    notes: >-
+      Completed 2025-07-29, G1-G8. Thesis: the survey cannot answer its own questions.
+      120 customers; satisfaction is indistinguishable from uniform (chi2 p=0.637); none
+      of 8 tested axes survives Bonferroni (alpha 0.05/8 = 0.00625 over 18 tests); the brief's headline question (does support
+      contact hurt satisfaction) measures +0.013 points, d=0.004. Minimum detectable
+      difference at 80% power is 1.55 points, so the deliverable is a measurement design.
+      Requirements list was in the ZIP's DOCX again (3rd month running). Customer_ID IS
+      unique -- first month the standing ID check passes. Not deployed: STACK.md defers.
+    zip_sha256: "c02364e7313f98d133628ca5208d22a697f883d65276b753551f4f6551ad75b0"
+    self_scores: {judge_34: 27, ai_storytelling: 4, ai_design: 4, ai_technical: 4, ai_insights: 4, ai_b_accessibility: 5}
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2025/08"
+    era: 2
+    title: "August 2025 DataDNA - Fitness Membership (MyGym)"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2025-08-august-2025-datadna-fitness-membership-analytics-challenge/"
+    challenge_url: "https://datadna.onyxdata.co.uk/challenges/august-2025-datadna-fitness-membership-analytics-challenge/"
+    dataset_url: "https://datadna.onyxdata.co.uk/wp-content/uploads/2025/07/DataDNA-Dataset-Challenge-Fitness-Membership-Analytics-Dataset-August-2025.zip"
+    dataset_folder: "DataDNA-Dataset-Challenge-Fitness-Membership-Analytics-Dataset-August-2025"
     formats: [CSV, DOCX, PDF, TXT]
     status: todo
     scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}

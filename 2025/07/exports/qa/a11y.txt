@@ -1,0 +1,15 @@
+harness: tools/qa/a11y.mjs
+date:    2025-07-29
+app:     datadna-2025-07 - 2025/07/app, production build (vite 8.1.5), dist/assets/index-C-erwrYX.js
+url:     http://localhost:5307 (vite preview --strictPort)
+
+
+=== desktop light: 0 violations
+
+=== desktop dark: 0 violations
+
+=== mobile light: 0 violations
+
+=== poster: 0 violations
+
+exit: 0

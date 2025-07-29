@@ -1,0 +1,62 @@
+# G7 verification spec - every number the UI renders, and the SQL that reproduces it.
+#
+# ZERO TOLERANCE. These run against the curated PARQUET via DuckDB in Python - a different
+# engine and code path from the browser's JavaScript aggregation.
+#
+# This month the interesting case is `power`: the UI computes required sample sizes from
+# the observed sd, so the SQL recomputes that formula independently. If the sd moves, both
+# sides move together and the test still passes - which is correct, because the claim is
+# "this is what the formula gives on this data", not "the number is 144".
+
+metrics: {}
+
+metric_sets:
+  # The uncertainty ladder - every group in the study, labelled "Axis: Value" as rendered.
+  ladder: |
+    WITH g AS (
+      SELECT 'Support contacted: ' || support_contacted AS key, satisfaction_score AS s FROM fct_customer
+      UNION ALL SELECT 'Loyalty: '           || loyalty_level,    satisfaction_score FROM fct_customer
+      UNION ALL SELECT 'Repeat buyer: '      || purchase_history, satisfaction_score FROM fct_customer
+      UNION ALL SELECT 'Gender: '            || gender,           satisfaction_score FROM fct_customer
+      UNION ALL SELECT 'Group: '             || "group",          satisfaction_score FROM fct_customer
+      UNION ALL SELECT 'State: '             || state,            satisfaction_score FROM fct_customer
+      -- the seventh axis, drawn only when the reader presses "Add the 10 satisfaction
+      -- factors". Specified even though it is hidden by default: a rendered figure with no
+      -- recomputation is exactly the defect this file exists to prevent, and the toggle can
+      -- put ten more rungs on screen.
+      UNION ALL SELECT 'Factor: '            || satisfaction_factor, satisfaction_score FROM fct_customer
+    )
+    SELECT key, 'mean' AS measure, avg(s)::DOUBLE AS value FROM g GROUP BY 1
+
+  # R4 - the headline pair, plus the DIFFERENCE and its 95% interval.
+  #
+  # The interval is the point of the panel: +0.013 alone reads as "zero", and (-1.08, +1.10)
+  # says what is actually true, which is "not measured". It is a Welch standard error on the
+  # difference with the same z=1.96 the group intervals use, so the two read on one scale.
+  # DuckDB's stddev() is the sample sd (ddof=1), matching the browser's estimate().
+  support: |
+    WITH g AS (
+      SELECT support_contacted AS k, count(*) AS n,
+             avg(satisfaction_score)::DOUBLE AS m,
+             stddev(satisfaction_score)::DOUBLE AS sd
+      FROM fct_customer GROUP BY 1
+    ),
+    p AS (
+      SELECT (SELECT m FROM g WHERE k = 'Yes') - (SELECT m FROM g WHERE k = 'No') AS diff,
+             sqrt((SELECT sd * sd / n FROM g WHERE k = 'Yes')
+                + (SELECT sd * sd / n FROM g WHERE k = 'No'))                      AS se
+    )
+    SELECT k AS key, 'mean' AS measure, m AS value FROM g
+    UNION ALL SELECT 'diff', 'value', diff              FROM p
+    UNION ALL SELECT 'diff', 'lo',    diff - 1.96 * se  FROM p
+    UNION ALL SELECT 'diff', 'hi',    diff + 1.96 * se  FROM p
+
+  # I-4 - required n per group at 80% power, alpha=0.05, from the OBSERVED sd.
+  # n = (z_alpha + z_power)^2 * 2 / d^2   where d = difference / sd
+  power: |
+    WITH s AS (SELECT stddev(satisfaction_score) AS sd FROM fct_customer),
+         d AS (SELECT unnest([0.5, 1.0, 1.5, 2.0]) AS diff)
+    SELECT format('{:.1f}', d.diff) AS key,
+           'need'                   AS measure,
+           ceil(pow(1.96 + 0.8416, 2) * 2 / pow(d.diff / s.sd, 2))::DOUBLE AS value
+    FROM d, s

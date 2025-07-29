@@ -1,0 +1,11 @@
+harness: tools/qa/overflow.mjs
+date:    2025-07-29
+app:     datadna-2025-07 - 2025/07/app, production build (vite 8.1.5), dist/assets/index-C-erwrYX.js
+url:     http://localhost:5307 (vite preview --strictPort)
+
+375px -> scrollWidth 375 clientWidth 375 ok
+768px -> scrollWidth 768 clientWidth 768 ok
+1024px -> scrollWidth 1024 clientWidth 1024 ok
+1440px -> scrollWidth 1440 clientWidth 1440 ok
+
+exit: 0

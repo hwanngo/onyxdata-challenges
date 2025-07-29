@@ -1,0 +1,45 @@
+harness: 2025/07/app/interact.mjs (month-specific interaction matrix)
+date:    2025-07-29
+app:     datadna-2025-07 - 2025/07/app, production build (vite 8.1.5), dist/assets/index-C-erwrYX.js
+url:     http://localhost:5307 (vite preview --strictPort)
+
+PASS  baseline: a one-point effect needs 144 customers per group
+PASS  baseline: R4 support difference = +0.0134 points
+PASS  baseline: the difference carries its own 95% interval, -1.0770 to +1.1038
+PASS  baseline: the ladder draws 17 rungs across six axes
+PASS  ladder caption counts the overlapping pairs rather than asserting them
+PASS  ladder caption scopes the detection floor to WITHIN one axis (1.37, loyalty)
+PASS  state cross-filter applies in 15ms (budget 200ms)
+PASS  Texas (n=41) needs 168 per group, not 144 - the power table recomputes
+PASS  the ladder collapses to 12 rungs - one state remains
+PASS  R4 recomputes under the filter: +1.4251 with a 95% interval of -0.5700 to +3.4202
+PASS  the standfirst says 41 customers, not 120 - n and the floor move together
+PASS  the ladder caption re-states itself: 1 of 66 pairs now separate
+PASS  chip bar shows the active filter
+PASS  URL encodes filter state
+PASS  the state axis DRILLS: a breadcrumb records the path
+PASS  Explore drills state -> city: 4 Texas cities remain of 10
+PASS  clear-all restores all 120 customers
+PASS  clear-all also empties the drill breadcrumb
+PASS  Explore row -> ladder: filtering to Loyalty Medium leaves one loyalty rung
+PASS  the detection floor is drawn by default
+PASS  the floor toggle removes the band and flips its own label
+PASS  adding the seventh axis puts 27 rungs on the ladder
+PASS  and the caption admits the exception: 16 of 351 pairs separate
+PASS  the factor axis blows past the detection floor (3.47 > 1.55), and the caption says so
+PASS  hiding the factor axis restores the 17-rung ladder
+PASS  ladder rungs are keyboard focusable
+PASS  Enter on a focused rung applies the filter
+PASS  accessible tables mirror every chart (24 rows = 17 ladder + 3 support + 4 power)
+PASS  the ladder data table exposes n and BOTH confidence bounds, not just the mean
+PASS  tour re-opens from the ? button
+PASS  Esc closes the tour
+PASS  deep link restores State: IL - 14 customers, 142 needed per group
+PASS  empty result renders an explicit empty state, not zeros
+PASS  empty result prints no fabricated figures - no NaN, no invented 0
+PASS  empty result reports "nothing to plot" rather than an overlap claim
+PASS  no uncaught page errors anywhere in the run
+
+36/36 interaction checks pass
+
+exit: 0

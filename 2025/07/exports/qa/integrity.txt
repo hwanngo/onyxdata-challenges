@@ -1,0 +1,125 @@
+harness: uv run python 2025/07/analysis/integrity.py  (the ledger reproducer)
+date:    2025-07-29
+
+==========================================================================
+GRAIN - 120 rows, one per customer, 12 columns, no date column
+==========================================================================
+  Customer_ID unique: 120/120 -> PASSES the standing ID check
+
+==========================================================================
+IS THE HEADLINE METRIC NOISE?
+==========================================================================
+  score distribution: {1: np.int64(16), 2: np.int64(14), 3: np.int64(8), 4: np.int64(12), 5: np.int64(13), 6: np.int64(13), 7: np.int64(11), 8: np.int64(6), 9: np.int64(12), 10: np.int64(15)}
+  chi-square vs uniform(1..10): chi2=7.00, p=0.6371
+  mean 5.35 (uniform expects 5.50) | sd 3.03 (expects 2.87)
+  -> indistinguishable from a uniform random draw.
+
+==========================================================================
+DOES ANYTHING EXPLAIN IT? 7 axes, Bonferroni alpha = 0.0071
+==========================================================================
+  Satisfaction_Factor    p=0.0231  eta2=0.1540  does not survive
+  Loyalty_Level          p=0.0863  eta2=0.0399  does not survive
+  Purchase_History       p=0.2892  eta2=0.0111  does not survive
+  Group                  p=0.4887  eta2=0.0037  does not survive
+  Gender                 p=0.5226  eta2=0.0032  does not survive
+  Location               p=0.7219  eta2=0.0514  does not survive
+  Support_Contacted      p=0.9557  eta2=0.0000  does not survive
+  Age (Pearson)          r=+0.0202  p=0.8268
+
+==========================================================================
+R4 - THE BRIEF'S HEADLINE QUESTION: does support contact hurt satisfaction?
+==========================================================================
+  contacted   n=56  mean=5.357
+  not         n=64  mean=5.344
+  difference +0.013 points | Cohen d=+0.004 | t-test p=0.9808
+  -> indistinguishable from zero, not merely 'small'.
+
+==========================================================================
+R8 - LOYALTY vs SATISFACTION: non-monotonic
+==========================================================================
+               count  mean
+Loyalty_Level             
+High              37  5.65
+Low               45  5.84
+Medium            38  4.47
+  -> Low reports the HIGHEST mean. Order is not monotonic; this is noise.
+
+==========================================================================
+THE ONE AXIS THAT FLIRTS WITH SIGNIFICANCE - and why it is not kept
+==========================================================================
+                      count  mean
+Satisfaction_Factor              
+Product Quality          11  7.55
+Packaging                15  7.00
+Product Variety          10  6.10
+Customer Service         11  5.91
+Delivery Speed           12  5.17
+Brand Reputation         14  4.79
+Support Availability     11  4.45
+Price                    10  4.40
+Features                 12  4.08
+Ease of Use              14  4.07
+
+  observed eta2 = 0.1540; permutation p = 0.0250; median null eta2 = 0.0701
+  smallest group n = 10, mean group n = 12.0, groups = 10
+  -> 10 groups on 120 rows; does not survive correction; barely beats relabelling.
+
+==========================================================================
+POWER - what this survey could actually detect
+==========================================================================
+  detect 0.5 points (d=0.17): need 575 per group; have ~60
+  detect 1.0 points (d=0.33): need 144 per group; have ~60
+  detect 1.5 points (d=0.50): need 64 per group; have ~60
+  detect 2.0 points (d=0.66): need 36 per group; have ~60
+
+  minimum detectable difference at n=60/group: 1.55 points (of a 10-point scale)
+  -> the study cannot answer the questions it was designed to ask.
+
+==========================================================================
+THIN CELLS
+==========================================================================
+  Location x Loyalty: 30 cells, 19 below 5, min 0
+  Location group sizes: 6-19 customers (smallest San Antonio.TX)
+
+==========================================================================
+I-6 - R2 / R5 / R7 ASK ABOUT LOYALTY. Chi-square of Loyalty_Level vs each axis.
+==========================================================================
+  Loyalty ~ Gender               chi2=  1.809 df= 2 p=0.4048 V=0.123 min_expected=16.65 expected<5=0/6 observed<5=0
+  Loyalty ~ Group                chi2=  1.351 df= 2 p=0.5090 V=0.106 min_expected=14.80 expected<5=0/6 observed<5=0
+  Loyalty ~ Age_Band             chi2=  6.288 df= 6 p=0.3917 V=0.162 min_expected=7.71 expected<5=0/12 observed<5=0
+  Loyalty ~ Satisfaction_Factor  chi2= 17.411 df=18 p=0.4951 V=0.269 min_expected=3.08 expected<5=27/30 observed<5=17
+  Loyalty ~ Location             chi2= 22.819 df=18 p=0.1976 V=0.308 min_expected=1.85 expected<5=24/30 observed<5=19
+  Loyalty ~ State                chi2= 13.895 df=10 p=0.1778 V=0.241 min_expected=2.77 expected<5=8/18 observed<5=7
+  Loyalty ~ Purchase_History     chi2=  2.256 df= 2 p=0.3237 V=0.137 min_expected=15.72 expected<5=0/6 observed<5=0
+
+  R9 - Satisfaction_Factor vs each demographic:
+  Factor  ~ Gender               chi2= 17.961 df= 9 p=0.0356 V=0.387 min_expected=4.50 expected<5=5/20
+  Factor  ~ Age_Band             chi2= 18.350 df=27 p=0.8925 V=0.226 min_expected=2.08 expected<5=40/40
+  Factor  ~ Group                chi2=  6.147 df= 9 p=0.7251 V=0.226 min_expected=4.00 expected<5=7/20
+
+  FAMILY SIZE. Satisfaction tests: 8 (7 axes + Age) -> Bonferroni alpha = 0.00625
+  All between-group tests reported: 18 -> alpha = 0.0028
+  Smallest p anywhere in the report is 0.0231 (R1), so it clears neither.
+
+==========================================================================
+I-7 - LADDER SCOPE: which interval pairs actually overlap
+==========================================================================
+  drawn by default (6 axes): 17 groups, 136 pairs, 0 separated
+      widest gap within one axis 1.3708 (Loyalty_Level); across different axes 1.8835; detection floor 1.5476
+  with Satisfaction_Factor added: 27 groups, 351 pairs, 16 separated
+      widest gap within one axis 3.4740 (Satisfaction_Factor); across different axes 3.4740; detection floor 1.5476
+
+  Satisfaction_Factor rungs (the axis that separates):
+      Satisfaction_Factor: Product Quality         n=11 mean=7.545 [6.382, 8.708]
+      Satisfaction_Factor: Packaging               n=15 mean=7.000 [5.470, 8.530]
+      Satisfaction_Factor: Product Variety         n=10 mean=6.100 [4.410, 7.790]
+      Satisfaction_Factor: Customer Service        n=11 mean=5.909 [4.335, 7.483]
+      Satisfaction_Factor: Delivery Speed          n=12 mean=5.167 [3.663, 6.670]
+      Satisfaction_Factor: Brand Reputation        n=14 mean=4.786 [3.219, 6.353]
+      Satisfaction_Factor: Support Availability    n=11 mean=4.455 [2.542, 6.367]
+      Satisfaction_Factor: Price                   n=10 mean=4.400 [2.133, 6.667]
+      Satisfaction_Factor: Features                n=12 mean=4.083 [2.647, 5.520]
+      Satisfaction_Factor: Ease of Use             n=14 mean=4.071 [2.435, 5.708]
+      separated pairs within this axis: 4
+
+exit: 0

@@ -1,0 +1,8 @@
+harness: uv run pytest 2025/07/model -q  ·  node tools/lint_prose_numbers.mjs 2025 07
+date:    2025-07-29
+
+...........................................                              [100%]
+43 passed in 0.83s
+
+2025/07  ok - every published statistic is tagged or declared
+lint exit: 0
