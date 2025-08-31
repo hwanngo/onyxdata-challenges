@@ -4,9 +4,9 @@
  *
  * WHY THIS EXISTS. verify_metrics.py recomputes every number carrying a `data-metric`
  * attribute and asserts the DOM matches. It does that job perfectly and it is blind to
- * everything else. The dangerous defect lives in exactly that blind spot - a statistic typed
- * into prose, never tagged, therefore never recomputed, free to drift out of agreement with
- * the chart beside it. Shapes to expect:
+ * everything else. An audit of the completed months found that EVERY
+ * critical defect lived in exactly that blind spot - a statistic typed into prose, never
+ * tagged, therefore never recomputed, drifting out of agreement with the chart beside it:
  *
  *   a month  Explore.tsx  "ASP is flat across all three channels ($771-$792)"
  *                         - the table directly beneath printed $743-$806.
@@ -18,9 +18,9 @@
  *   a month  Dashboard    "93.8% live against 75.4%" - same page, same quantity, tagged as
  *                           95.07% / 77.30% forty lines lower.
  *
- * A screen contradicting itself is caught by no test, build or reviewer, because a hardcoded
- * string cannot disagree with itself - it can only disagree with the data, and nothing is
- * comparing them.
+ * Four months, four screens contradicting themselves. None was caught by a test, a build or
+ * a reviewer, because a hardcoded string cannot disagree with itself - it can only disagree
+ * with the data, and nothing was comparing them.
  *
  * WHAT IT FLAGS. Only statistic-SHAPED numbers: currency, percentages, pp/×/bp, decimals
  * with two or more places, thousands separators, and p / η² / r / V assignments. Layout
@@ -51,8 +51,8 @@ const SUPPRESS = /prose-number-ok/;
 
 /** A suppression names the ledger entry that owns the figure. That reference must RESOLVE.
  *
- *  A suppression citing a ledger entry that does not exist lets the lint pass on a reference
- *  to nothing, which is worse than no lint at all,
+ *  2025/05 shipped five suppressions citing entries I-1 and IR-5..IR-9 that did not exist in
+ *  insights.md - the lint passed on references to nothing, which is worse than no lint at all,
  *  because the file now claims an accountability it does not have. A suppression is a trade:
  *  you may leave the figure untagged IF a ledger entry carries its query. Both halves count. */
 const ENTRY_TOKEN = /\b([A-Z]{1,3}-?\d+[a-z]?)\b/g;

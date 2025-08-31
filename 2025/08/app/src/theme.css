@@ -1,0 +1,533 @@
+/* 2025/08 token VALUES - Swiss Modernism, graphite + one correction-red.
+   From .workbench/2025/08/design/direction.md. Do not invent new token names here - add them to
+   dna-kit/src/tokens/tokens.css first so every future month can use them.
+
+   THE IDEA: this is not a fitness brand, it is an AUDIT of one. Near-monochrome
+   graphite, hairline rules, no shadows, 2px radius ceiling. One accent (--accent,
+   a red-pencil vermilion) because the whole document is a correction, and one
+   second hue (--flag, blue) used ONLY on the set a lapse rule selects. Colour with
+   a job; everything else is ink and paper.
+
+   Every ratio below is a TARGET. tools/audit_contrast.py measures the built file
+   in both themes and has caught a real failure in all three prior months. */
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+  --bg: #FAFAF7;
+  --bg-raised: #FFFFFF;
+  --bg-sunken: #F1F1EC;
+  --border: #DCDCD4;
+  --border-strong: #55555E;
+
+  --ink: #16161A;
+  --ink-muted: #55555E;
+  --ink-inverse: #FAFAF7;
+
+  /* the correction */
+  --accent: #B03018;
+  --accent-weak: #F7E6E2;
+
+  /* the set a lapse rule selects - semantic, never decorative */
+  --flag: #1A5578;
+  --flag-weak: #E4EEF5;
+
+  --good: #1A5578;
+  --bad: #B03018;
+  --warn: #8A5000;
+
+  /* sequential ramp: monotonic in LIGHTNESS so it survives greyscale + all CVD */
+  --seq-1: #8C8A86;   /* 3.29:1 */
+  --seq-2: #82726A;   /* 4.40:1 */
+  --seq-3: #7D5D55;   /* 5.63:1 */
+  --seq-4: #8A4133;   /* 6.96:1 */
+  --seq-5: #B03018;   /* 6.12:1 - the accent, kept as the ramp's signal step */
+  --seq-6: #57241C;   /* 11.99:1 */
+
+  --cat-1: #16161A;
+  --cat-2: #B03018;
+  --cat-3: #1A5578;
+  --cat-4: #55555E;
+  --cat-5: #8A5000;
+  --cat-6: #7A1F0C;
+
+  --grid: #DCDCD4;
+  --ghost: #8C8B87;   /* 3.26:1 - carries the independence comparison, so it clears 3:1 */
+
+  --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-num: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --focus-ring: 3px solid var(--accent);
+
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 24px; --sp-6: 32px; --sp-7: 48px; --sp-8: 64px;
+}
+
+:root[data-theme="dark"] {
+  --bg: #131316;
+  --bg-raised: #1C1C21;
+  --bg-sunken: #0E0E11;
+  --border: #2B2B32;
+  --border-strong: #A6A6AE;
+
+  --ink: #EFEFEA;
+  --ink-muted: #A6A6AE;
+  --ink-inverse: #131316;
+
+  --accent: #FF8163;
+  --accent-weak: #3A1A12;
+
+  --flag: #7FC4F0;
+  --flag-weak: #102A3A;
+
+  --good: #7FC4F0;
+  --bad: #FF8163;
+  --warn: #E0A33A;
+
+  --seq-1: #6B6864;   /* 3.35:1 */
+  --seq-2: #8A786E;   /* 4.41:1 */
+  --seq-3: #AB8579;   /* 5.62:1 */
+  --seq-4: #E08875;   /* 7.02:1 */
+  --seq-5: #FF8163;   /* 7.57:1 - the accent */
+  --seq-6: #FFAD9D;   /* 10.35:1 */
+
+  --cat-1: #EFEFEA;
+  --cat-2: #FF8163;
+  --cat-3: #7FC4F0;
+  --cat-4: #A6A6AE;
+  --cat-5: #E0A33A;
+  --cat-6: #FFA88F;
+
+  --grid: #2B2B32;
+  --ghost: #696865;   /* 3.33:1 */
+}
+
+/* ---------------------------------------------------------------- base ---- */
+
+* { box-sizing: border-box; min-width: 0; }
+
+html { color-scheme: light dark; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Every figure in this report is evidence. Tabular figures stop columns from
+   shimmering as the cross-filter updates. */
+.num, .kpi__value, .bars__value, .mirror__value, .waterfall__value,
+table td, table th, code { font-family: var(--font-num); font-variant-numeric: tabular-nums; }
+
+code { font-size: 0.92em; background: var(--bg-sunken); padding: 1px 4px; border-radius: 2px; }
+
+a { color: var(--accent); }
+
+:focus-visible { outline: var(--focus-ring); outline-offset: 2px; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.skip-link {
+  position: absolute; left: -9999px; top: 0; z-index: 1000;
+  background: var(--accent); color: var(--ink-inverse);
+  padding: var(--sp-3) var(--sp-4); font-weight: 700;
+}
+.skip-link:focus { left: 0; }
+
+/* -------------------------------------------------------------- layout ---- */
+
+.app, .poster { --gutter: var(--sp-6); }
+
+.app {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--sp-5) var(--sp-5) var(--sp-8);
+}
+
+.masthead { border-bottom: 2px solid var(--ink); padding-bottom: var(--sp-4); }
+
+.masthead__rule {
+  display: flex; flex-wrap: wrap; gap: var(--sp-3);
+  align-items: center; justify-content: space-between;
+  font-family: var(--font-num); font-size: 11px;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted);
+  border-bottom: 1px solid var(--border); padding-bottom: var(--sp-2);
+}
+.masthead__brand { color: var(--ink); font-weight: 700; }
+.masthead__tools { display: flex; gap: var(--sp-2); align-items: center; }
+
+.thesis {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(28px, 5.2vw, 61px);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  margin: var(--sp-5) 0 var(--sp-3);
+  max-width: 22ch;
+  text-wrap: balance;
+}
+/* the thesis is a correction - the rule under it is the red pencil */
+.thesis::after {
+  content: ""; display: block; width: 96px; height: 4px;
+  background: var(--accent); margin-top: var(--sp-4);
+}
+
+.thesis__sub {
+  font-size: clamp(15px, 1.7vw, 20px);
+  line-height: 1.5; max-width: 68ch; margin: 0 0 var(--sp-4);
+  color: var(--ink);
+}
+
+.contextstrip {
+  font-family: var(--font-num); font-size: 12px;
+  letter-spacing: 0.04em; color: var(--ink-muted); margin: 0;
+}
+
+.section__title {
+  font-family: var(--font-num); font-size: 12px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--ink-muted);
+  margin: var(--sp-7) 0 var(--sp-4);
+  padding-bottom: var(--sp-2); border-bottom: 1px solid var(--ink);
+}
+
+.hero {
+  display: grid; gap: var(--sp-5);
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  margin-top: var(--sp-6);
+}
+.evidence { display: grid; gap: var(--sp-5); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.panel--wide { grid-column: 1 / -1; }
+
+@media (max-width: 1100px) {
+  .hero, .evidence { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* --------------------------------------------------------------- panel ---- */
+
+.panel {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--ink);
+  border-radius: 2px;
+  padding: var(--sp-5);
+  min-width: 0;
+}
+.panel--hero { border-top-color: var(--accent); }
+
+.panel__title {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 20px; letter-spacing: -0.01em; margin: 0 0 var(--sp-2);
+}
+.panel__mark { color: var(--accent); }
+.panel__sub { font-size: 14px; color: var(--ink-muted); margin: 0 0 var(--sp-4); max-width: 62ch; }
+
+.figure-note {
+  font-family: var(--font-num); font-size: 11px; line-height: 1.6;
+  color: var(--ink-muted); margin: var(--sp-3) 0 0;
+  padding-top: var(--sp-3); border-top: 1px solid var(--border);
+}
+
+.callout {
+  margin: var(--sp-4) 0 0; padding: var(--sp-3) var(--sp-4);
+  font-size: 14px; border-left: 4px solid var(--accent);
+  background: var(--accent-weak); color: var(--ink); border-radius: 0 2px 2px 0;
+}
+
+/* ----------------------------------------------------------- chartfig ---- */
+
+.chartfig { margin: 0; overflow-x: auto; }
+.chartfig__cap {
+  font-size: 13px; font-weight: 600; line-height: 1.45;
+  margin-bottom: var(--sp-3); color: var(--ink); max-width: 62ch;
+}
+
+.gridline { stroke: var(--grid); stroke-width: 1; }
+.axisline { stroke: var(--ink); stroke-width: 1.5; }
+.ticklabel { font-family: var(--font-num); font-size: 10px; fill: var(--ink-muted); }
+.axistitle {
+  font-family: var(--font-num); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.14em; fill: var(--ink-muted);
+}
+
+/* ----------------------------------------------------- the 45-degree line -- */
+
+.mark--active { fill: none; stroke: var(--ink); stroke-width: 1; opacity: 0.72; }
+.mark--flagged { fill: var(--flag); stroke: none; opacity: 0.92; }
+.ghostmark { stroke: var(--ghost); stroke-width: 1; fill: none; }
+.threshold { stroke: var(--accent); stroke-width: 2; stroke-dasharray: 7 4; }
+.thresholdlabel {
+  font-family: var(--font-num); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.1em; fill: var(--accent);
+}
+.legendlabel {
+  font-family: var(--font-num); font-size: 9.5px;
+  letter-spacing: 0.09em; fill: var(--ink-muted);
+}
+.legendlabel--ghost { fill: var(--ink-muted); }
+
+/* -------------------------------------------------------- effect strip ---- */
+
+.striplabel { font-family: var(--font-num); font-size: 10px; fill: var(--ink-muted); }
+.stripvalue { font-family: var(--font-num); font-size: 10px; font-weight: 700; fill: var(--ink); }
+.stripfoot {
+  font-family: var(--font-num); font-size: 9.5px;
+  letter-spacing: 0.1em; fill: var(--ink-muted);
+}
+.stem { stroke: var(--border-strong); stroke-width: 1; }
+.stem--big { stroke: var(--accent); stroke-width: 2; }
+.emark--small { fill: none; stroke: var(--ink-muted); stroke-width: 1.2; }
+.emark--big { fill: var(--accent); stroke: none; }
+.rule-notable { stroke: var(--ink); stroke-width: 1; stroke-dasharray: 3 3; }
+.rulelabel {
+  font-family: var(--font-num); font-size: 9px; font-weight: 700;
+  letter-spacing: 0.1em; fill: var(--ink-muted);
+}
+
+/* ----------------------------------------------------------- bar rows ---- */
+
+.bars { display: flex; flex-direction: column; gap: 3px; }
+.bars__row {
+  display: grid; grid-template-columns: 110px minmax(0, 1fr) 56px;
+  gap: var(--sp-3); align-items: center;
+  background: none; border: 0; padding: 5px var(--sp-2);
+  font: inherit; color: inherit; text-align: left; cursor: pointer;
+  border-radius: 2px; min-height: 30px;
+}
+.bars__row:hover { background: var(--bg-sunken); }
+.bars__row.is-active { background: var(--accent-weak); box-shadow: inset 3px 0 0 var(--accent); }
+.bars__label { font-size: 13px; }
+.bars__track { background: var(--bg-sunken); height: 14px; border-radius: 1px; }
+.bars__bar { display: block; height: 100%; background: var(--seq-4); border-radius: 1px; }
+.bars__row.is-active .bars__bar { background: var(--accent); }
+.bars__value { font-size: 12px; text-align: right; }
+
+/* --------------------------------------------------- mirror + waterfall ---- */
+
+.mirror, .waterfall { display: flex; flex-direction: column; gap: var(--sp-2); }
+.mirror__row, .waterfall__row {
+  display: grid; grid-template-columns: 120px minmax(0, 1fr) 76px;
+  gap: var(--sp-3); align-items: center;
+}
+.mirror__label, .waterfall__label { font-size: 13px; color: var(--ink-muted); }
+.mirror__track, .waterfall__track { background: var(--bg-sunken); height: 20px; border-radius: 1px; }
+.mirror__bar, .waterfall__bar { display: block; height: 100%; border-radius: 1px; }
+.mirror__value, .waterfall__value { font-size: 13px; font-weight: 700; text-align: right; }
+
+/* SHAPE, not only colour: the flagged bar is hatched. */
+.mirror__bar.is-flagged {
+  background: repeating-linear-gradient(
+    45deg, var(--flag), var(--flag) 5px, var(--flag-weak) 5px, var(--flag-weak) 9px);
+  border: 1px solid var(--flag);
+}
+.mirror__bar.is-active { background: var(--ink-muted); }
+
+.waterfall__bar.is-list { background: var(--ink); }
+.waterfall__bar.is-leak { background: var(--accent); }
+.waterfall__bar.is-leak2 {
+  background: repeating-linear-gradient(
+    45deg, var(--accent), var(--accent) 4px, var(--accent-weak) 4px, var(--accent-weak) 8px);
+  border: 1px solid var(--accent);
+}
+.waterfall__bar.is-booked { background: var(--seq-3); }
+
+/* ------------------------------------------------------------- kpi -------- */
+
+.kpirow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-3); margin-bottom: var(--sp-4); }
+.kpi { border: 1px solid var(--border); border-left: 3px solid var(--accent); padding: var(--sp-3); border-radius: 2px; }
+.kpi__label {
+  font-family: var(--font-num); font-size: 9.5px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--ink-muted); margin-bottom: var(--sp-1);
+}
+.kpi__value { font-size: clamp(22px, 3vw, 34px); font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; }
+.kpi__delta { font-size: 12px; }
+
+/* ------------------------------------------------------- controls/chips ---- */
+
+.controls { display: flex; flex-wrap: wrap; gap: var(--sp-4); margin-top: var(--sp-4); align-items: flex-end; }
+.control { display: flex; flex-direction: column; gap: var(--sp-2); flex: 1 1 240px; }
+.control__label { font-family: var(--font-num); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); }
+.control input[type="range"] { accent-color: var(--accent); width: 100%; min-height: 24px; }
+.control--check { flex-direction: row; align-items: center; gap: var(--sp-2); font-size: 13px; flex: 0 1 auto; min-height: 44px; }
+.control--check input { accent-color: var(--accent); width: 18px; height: 18px; }
+
+.btn {
+  font-family: var(--font-num); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  background: none; border: 1px solid var(--border-strong); color: var(--ink);
+  padding: var(--sp-2) var(--sp-3); border-radius: 2px; cursor: pointer; min-height: 32px;
+}
+.btn:hover { background: var(--bg-sunken); }
+.btn--primary { background: var(--accent); border-color: var(--accent); color: var(--ink-inverse); }
+
+.chipbar { display: flex; flex-wrap: wrap; gap: var(--sp-2); align-items: center; margin-top: var(--sp-4); }
+.chip {
+  font-family: var(--font-num); font-size: 11px;
+  border: 1px solid var(--accent); background: var(--accent-weak); color: var(--ink);
+  padding: 4px var(--sp-2); border-radius: 2px; display: inline-flex; gap: 6px; align-items: center;
+  min-height: 28px; cursor: pointer;
+}
+.chip__x { font-weight: 700; color: var(--accent); }
+.chipbar__hint { font-size: 12px; color: var(--ink-muted); }
+
+/* ------------------------------------------------------------ so what ----- */
+
+.sowhat { margin-top: var(--sp-7); border-top: 2px solid var(--ink); padding-top: var(--sp-5); }
+.sowhat__h { font-family: var(--font-num); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-muted); margin: 0 0 var(--sp-4); }
+.sowhat__list { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--sp-4); grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.sowhat__item { border-left: 3px solid var(--accent); padding-left: var(--sp-4); }
+.sowhat__n { font-family: var(--font-num); font-size: 26px; font-weight: 700; color: var(--accent); line-height: 1; }
+.sowhat__text { font-size: 15px; font-weight: 600; margin: var(--sp-2) 0; }
+.sowhat__ev { font-family: var(--font-num); font-size: 11px; color: var(--ink-muted); line-height: 1.5; }
+
+/* ------------------------------------------------------------ explore ----- */
+
+.explore { margin-top: var(--sp-6); }
+.explore summary { font-family: var(--font-num); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; padding: var(--sp-3) 0; min-height: 44px; display: flex; align-items: center; }
+.explore-grid { display: grid; gap: var(--sp-5); grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); margin-top: var(--sp-4); }
+.data { width: 100%; border-collapse: collapse; font-size: 12px; }
+.data th, .data td { text-align: left; padding: 5px var(--sp-2); border-bottom: 1px solid var(--border); }
+.data th { font-family: var(--font-num); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); }
+.flag {
+  font-family: var(--font-num); font-size: 10px; letter-spacing: 0.06em;
+  border: 1px solid var(--border-strong); color: var(--ink-muted);
+  padding: 1px 5px; border-radius: 2px;
+}
+
+/* --------------------------------------------------------- provenance ----- */
+
+.provenance {
+  margin-top: var(--sp-7); border-top: 1px solid var(--ink); padding-top: var(--sp-4);
+  font-family: var(--font-num); font-size: 10.5px; line-height: 1.7; color: var(--ink-muted);
+}
+.provenance p { margin: 0 0 var(--sp-2); max-width: 105ch; }
+.provenance strong { color: var(--ink); letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* ---------------------------------------------------------------- tour ---- */
+
+.tour-backdrop { position: fixed; inset: 0; background: rgba(10,10,12,0.62); display: grid; place-items: center; z-index: 900; padding: var(--sp-4); }
+.tour-card { background: var(--bg-raised); border: 1px solid var(--ink); border-top: 4px solid var(--accent); border-radius: 2px; padding: var(--sp-5); max-width: 480px; }
+.tour-steps { font-family: var(--font-num); font-size: 11px; letter-spacing: 0.1em; color: var(--ink-muted); }
+.tour-actions { display: flex; gap: var(--sp-2); margin-top: var(--sp-4); }
+
+/* -------------------------------------------------------------- poster ---- */
+
+/* 2560x1440 is a very WIDE box, and a stacked report does not fit it -- the first
+   attempt ran 3,558px tall. The poster therefore re-flows into an explicit grid:
+   `display: contents` dissolves the .hero and .evidence wrappers so their panels
+   become direct children of the poster grid and can be placed individually.
+   Measured with tools/qa/measure.mjs, not eyeballed. */
+
+.poster-root { background: var(--bg); }
+
+.poster {
+  width: 2560px; height: 1440px;
+  padding: 34px 44px 26px;
+  display: grid;
+  gap: 18px 22px;
+  grid-template-columns: 1.42fr 0.92fr 1.06fr;
+  grid-template-rows: auto minmax(0, 1.25fr) auto minmax(0, 1fr) auto;
+  grid-template-areas:
+    "head    head    head"
+    "hero    cons    nulls"
+    "evtitle evtitle evtitle"
+    "floor   lookup  sowhat"
+    "prov    prov    prov";
+  overflow: hidden;
+}
+
+.poster .hero, .poster .evidence { display: contents; }
+.poster .masthead          { grid-area: head; }
+.poster .panel--hero       { grid-area: hero; }
+.poster .panel--consequence{ grid-area: cons; }
+.poster #nulls             { grid-area: nulls; }
+.poster .section__title    { grid-area: evtitle; margin: 0; padding-bottom: 6px; }
+.poster #floor             { grid-area: floor; }
+.poster #lookup            { grid-area: lookup; }
+.poster .sowhat            { grid-area: sowhat; }
+.poster .provenance        { grid-area: prov; }
+
+/* Panels are flex columns so the FIGURE absorbs the leftover height and the SVG
+   letterboxes inside it. Without this the scatter's auto height (aspect 720:500 at
+   ~790px wide = 549px) overflows a 442px grid cell and the x-axis is silently cut off
+   -- which is exactly what the first poster shipped. */
+.poster .panel {
+  padding: 16px 18px; min-height: 0; overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.poster .panel .chartfig {
+  flex: 1 1 auto; min-height: 0;
+  display: flex; flex-direction: column; overflow: hidden;
+}
+.poster .panel .chartfig > svg {
+  flex: 1 1 auto; min-height: 0; height: 100%; width: 100%;
+}
+.poster .live-only { display: none !important; }
+
+.poster .masthead { padding-bottom: 10px; }
+.poster .masthead__rule { font-size: 15px; padding-bottom: 8px; }
+.poster .thesis { font-size: 76px; max-width: 34ch; margin: 16px 0 12px; }
+.poster .thesis::after { width: 150px; height: 6px; margin-top: 12px; }
+.poster .thesis__sub { font-size: 23px; max-width: 120ch; margin-bottom: 10px; }
+.poster .contextstrip { font-size: 16px; }
+
+.poster .section__title { font-size: 15px; }
+.poster .panel__title { font-size: 23px; margin-bottom: 4px; }
+.poster .panel__sub { font-size: 15px; margin-bottom: 10px; max-width: 78ch; }
+.poster .chartfig__cap { font-size: 15px; margin-bottom: 8px; }
+.poster .figure-note { font-size: 12.5px; margin-top: 8px; padding-top: 8px; }
+.poster .kpi__value { font-size: 42px; }
+.poster .kpi__label { font-size: 12px; }
+.poster .callout { font-size: 16px; margin-top: 10px; padding: 8px 12px; }
+
+.poster .bars { gap: 1px; }
+.poster .bars__row { min-height: 0; padding: 0 4px; grid-template-columns: 118px minmax(0,1fr) 52px; }
+.poster .bars__label, .poster .bars__value { font-size: 13px; }
+.poster .bars__track { height: 11px; }
+/* The floor-hours claim names the top AND bottom gym, so all ten rows must be visible.
+   Hiding .panel__sub was not enough: .chartfig clips at overflow:hidden and the tenth row
+   (Oakland, the low anchor of the headline) was sliced through the middle by 10px, while
+   the note underneath still read "stated for all ten gyms". Reclaim ~17px - 9px from the
+   inter-row gaps, 8px from the note's leading - so the row clears the cut with slack. */
+.poster #floor .panel__sub { display: none; }
+.poster #floor .chartfig__cap { margin-bottom: 4px; }
+.poster #floor .bars { gap: 0; }
+.poster #floor .figure-note { margin-top: 4px; padding-top: 4px; }
+.poster .legendlabel { font-size: 11px; }
+
+.poster .mirror__row, .poster .waterfall__row { grid-template-columns: 150px minmax(0,1fr) 100px; }
+.poster .mirror__label, .poster .waterfall__label,
+.poster .mirror__value, .poster .waterfall__value { font-size: 15px; }
+
+.poster .sowhat { margin: 0; border-top: 2px solid var(--ink); padding-top: 12px; }
+.poster .sowhat__list { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+.poster .sowhat__n { font-size: 20px; }
+.poster .sowhat__text { font-size: 16px; margin: 2px 0; }
+.poster .sowhat__ev { font-size: 12px; }
+
+.poster .provenance { margin: 0; padding-top: 10px; font-size: 12.5px; line-height: 1.55; }
+.poster .provenance p { margin-bottom: 2px; max-width: none; }
+
+/* ------------------------------------------------------------ reduced ----- */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .app { padding: var(--sp-4) var(--sp-3) var(--sp-7); }
+  .kpirow { grid-template-columns: minmax(0, 1fr); }
+  .bars__row { grid-template-columns: 88px minmax(0, 1fr) 48px; }
+  .mirror__row, .waterfall__row { grid-template-columns: 96px minmax(0, 1fr) 64px; }
+}

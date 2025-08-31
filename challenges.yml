@@ -4,10 +4,10 @@
 # Era 1 = Playground-only, gated, no brief. Era 2 = full challenge page, ungated.
 
 meta:
-  verified_on: 2025-07-29
-  total: 56
+  verified_on: 2025-08-31
+  total: 57
   era1_count: 52
-  era2_count: 4
+  era2_count: 5
   playground_index: https://datadna.onyxdata.co.uk/playground/
   challenge_index: https://datadna.onyxdata.co.uk/challenges/
   work_order: era2_oldest_first_then_era1_backfill
@@ -109,9 +109,45 @@ challenges:
     title: "August 2025 DataDNA - Fitness Membership (MyGym)"
     playground_url: "https://datadna.onyxdata.co.uk/playground/2025-08-august-2025-datadna-fitness-membership-analytics-challenge/"
     challenge_url: "https://datadna.onyxdata.co.uk/challenges/august-2025-datadna-fitness-membership-analytics-challenge/"
-    dataset_url: "https://datadna.onyxdata.co.uk/wp-content/uploads/2025/07/DataDNA-Dataset-Challenge-Fitness-Membership-Analytics-Dataset-August-2025.zip"
+    dataset_url: "https://datadna.onyxdata.co.uk/wp-content/uploads/2025/07/DataDNA-Dataset-Challenge-Fitness-Membership-Analytics-Dataset-August-2025.zip"   # scraped 2025-08-31
     dataset_folder: "DataDNA-Dataset-Challenge-Fitness-Membership-Analytics-Dataset-August-2025"
-    formats: [CSV, DOCX, PDF, TXT]
+    formats: [CSV, DOCX, PDF, TXT]   # verified 2025-08-31 from the ZIP
+    status: done
+    notes: >-
+      Completed 2025-08-31, G1-G8. Thesis: the churn list is the loyalty list, inverted.
+      last_visit_date is join_date rank-rescaled onto a 60-day window (rho=0.9999), so a
+      30-day lapse rule flags 982 members and every one sits at or above the 982nd-highest
+      tenure; no member under 549 days of tenure is flagged. Also: final_price is a pure
+      lookup from three labels (max error 3.6e-15, 43 prices from 47 combos); access_hours
+      is 1:1 with membership_type so brief Q7 and Q1 are one question; 0% churned. The one
+      surviving behavioural effect is location -> session duration (eta2=0.023, omega2=0.019,
+      permutation p=0.0001, robust to dropping both extremes) = a 35% spread in floor-hours.
+      NO ID COLUMN AT ALL -- 4th month, 4th answer to the standing check. Requirements were
+      in the ZIP's DOCX again (4th month running). First thesis was killed by adversarial
+      review (two claims were the June tautology: inferring behaviour from the generator's
+      failure to correlate columns); the correction found the coupling and is the month.
+      30/30 metrics reconciled, 44 pytest, 13/13 Malloy views, 14/14 interaction checks,
+      0 axe violations across 4 contexts, all contrast pairs clear AA. Not deployed:
+      STACK.md defers.
+    zip_sha256: "3a2f7b552af56fcb0b8061d55ea9f0069ca423111da37bd626c29fe1252b01a2"
+    file_sha256:
+      "Cheat_Sheet_ZoomCharts.pdf": "b3ebf7fba6416e51fcd308719aa796abf9a5ba4a3db65f09d141970e0d665406"
+      "Fitness_Membership_Analytics_Challenge_Brief.docx": "c9fead13162a960110e0250c692cd256ea3f1c9eb706b82f87a645bb84ea1320"
+      "Fitness_Membership_Analytics_Dataset.csv": "09cfc87eb5a59f7a8704d900f84aba7f5e24429f4b99ba2113f66472c5f72be0"
+      "Onyx Data DataDNA Challenge - August 2025.pdf": "db9009ea22f9402474a8f1910bab769622a7514286c7b451eeb715fe796ff4a5"
+      "READ ME BEFORE PARTICIPATING.txt": "c7a82657791ff24cd0a74740af2348b36b36086b60ae2356e32382b6ef620419"
+      "ZoomCharts_Mini_Challenge.pdf": "1223e10820e231a96eea8813c7d602709a5d68a91a74123da76522df8203f433"
+    self_scores: {judge_34: 29, ai_storytelling: 5, ai_design: 4, ai_technical: 5, ai_insights: 5, ai_b_accessibility: 5}
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2025/09"
+    era: 2
+    title: "September 2025 DataDNA - Credit Risk (Nova Bank)"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2025-09-september-2025-datadna-credit-risk-analytics-challenge/"
+    challenge_url: "https://datadna.onyxdata.co.uk/challenges/september-2025-datadna-credit-risk-analytics-challenge/"
+    dataset_url: "https://datadna.onyxdata.co.uk/wp-content/uploads/2025/09/DataDNA-Dataset-Challenge-Credit-Risk-Analytics-Dataset-September-2025.zip"
+    dataset_folder: "DataDNA-Dataset-Challenge-Credit-Risk-Analytics-Dataset-September-2025"
+    formats: [XLSX, DOCX, PDF, TXT]
     status: todo
     scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
 

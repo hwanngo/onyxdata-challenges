@@ -3,16 +3,17 @@
   //
   // WHY THIS EXISTS. For a long time no tsconfig existed anywhere in this repo, and
   // `vite build` does not typecheck - it transpiles and discards types. Nothing ever
-  // checks a single type. That is how a guided tour ships without rendering: mount
-  // TourOverlay without its required `open` prop and the kit's `<Show when={props.open}>`
-  // is never true. A missing required prop is TS2741, caught in a second by a compiler
-  // nobody is running. axe cannot flag DOM that is absent, the build stays green, and a
-  // SCORECARD would count the tour toward the 14-point ease-of-use line.
+  // checked a single type. That is how a month shipped a five-stop guided tour that never
+  // rendered: TourOverlay was mounted without its required `open` prop, so the kit's
+  // `<Show when={props.open}>` was never true. A missing required prop is TS2741, caught
+  // in a second by a compiler nobody was running. axe cannot flag DOM that is absent, the
+  // build was green, and SCORECARD counted the tour toward the 14-point ease-of-use line.
   //
-  // GATED FROM THE START. `just verify` runs `just typecheck` as its FIRST step, so a type
-  // regression fails the gate rather than being counted as a pass. Watch for dna-kit's
-  // `Filter[]` and a month's `Filter[]` resolving as structurally different types via
-  // duplicate module instances - that is the failure mode a workspace invites.
+  // NOW GREEN. Clearing this took the repo from roughly 35 errors per month to zero - the
+  // stubborn family was dna-kit's `Filter[]` and a month's `Filter[]` resolving as structurally
+  // different types via duplicate module instances. `just typecheck-all` reports 0 for the kit
+  // and every month, and `just verify` gates on `just typecheck` as its FIRST step, so a
+  // regression fails the gate rather than being counted as a pass.
   "compilerOptions": {
     "target": "ES2022",
     "lib": ["ES2022", "DOM", "DOM.Iterable"],

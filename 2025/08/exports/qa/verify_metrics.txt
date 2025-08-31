@@ -1,0 +1,5 @@
+# verify_metrics - 2025/08
+# 2025-08-31 · tools/verify_metrics.py · tour key mygym-2025-08-tour-seen · port 5330
+# recomputed from data/curated/*.parquet via DuckDB, asserted against the rendered DOM
+
+All 30 rendered metrics reconcile.

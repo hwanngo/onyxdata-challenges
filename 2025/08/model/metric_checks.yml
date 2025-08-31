@@ -1,0 +1,116 @@
+# Every number rendered in the UI, recomputed from the curated parquet by DuckDB.
+# tools/verify_metrics.py scrapes [data-metric]/[data-value] from the live DOM and diffs
+# against these. Zero tolerance: a mismatch fails G7.
+#
+# The point is INDEPENDENCE. The app aggregates 1,998 rows in JavaScript; these queries
+# hit the parquet through a different engine, written from the definition rather than from
+# the app code. Two paths agreeing is evidence; one path is an assertion.
+#
+# THRESHOLD NOTE: the lapse slider defaults to 30 days and the poster quotes 30, so every
+# flagged_* metric below is fixed at 30. If the default moves, these must move with it.
+
+metrics:
+  # ---- context strip ----
+  members: >
+    select count(*) from fct_member
+  cities: >
+    select count(distinct location_key) from fct_member
+  churned: >
+    select count(*) from fct_member where days_since_visit > 60
+
+  # ---- the thesis ----
+  flagged_30: >
+    select count(*) from fct_member where days_since_visit > 30
+  flagged: >
+    select count(*) from fct_member where days_since_visit > 30
+  flagged_n: >
+    select count(*) from fct_member where days_since_visit > 30
+
+  # Tie-safe by construction: membership is decided by VALUE, not by sort position.
+  # A member counts if their tenure is at least the k-th highest tenure present, where
+  # k is the size of the flagged set. See data.ts::flaggedBy for why this matters --
+  # the naive top-k intersection gives 981 or 982 depending purely on tie order.
+  flagged_overlap: >
+    with lapsed as (select * from fct_member where days_since_visit > 30),
+         kth as (
+           select tenure_days as t
+           from fct_member
+           order by tenure_days desc
+           limit 1 offset (select count(*) - 1 from lapsed)
+         )
+    select count(*) from lapsed where tenure_days >= (select t from kth)
+
+  flagged_overlap_pct: >
+    with lapsed as (select * from fct_member where days_since_visit > 30),
+         kth as (
+           select tenure_days as t
+           from fct_member
+           order by tenure_days desc
+           limit 1 offset (select count(*) - 1 from lapsed)
+         )
+    select 100.0 * count(*) filter (where tenure_days >= (select t from kth)) / count(*)
+    from lapsed
+
+  mean_tenure_flagged: >
+    select avg(tenure_days) from fct_member where days_since_visit > 30
+  mean_tenure_active: >
+    select avg(tenure_days) from fct_member where days_since_visit <= 30
+  min_tenure_flagged: >
+    select min(tenure_days) from fct_member where days_since_visit > 30
+
+  # The robust form of the claim: how many members' tenures sit in the band where the
+  # flagged and active groups overlap at all. At a 30-day cut this is 4; at 45 it is 0.
+  tie_band: >
+    select count(*) from fct_member
+    where tenure_days >= (select min(tenure_days) from fct_member where days_since_visit > 30)
+      and tenure_days <= (select max(tenure_days) from fct_member where days_since_visit <= 30)
+
+  # ---- the price lookup ----
+  price_prices: >
+    select count(distinct final_price_monthly) from fct_member
+  price_combos: >
+    select count(*) from (select distinct tier_key, model_key, discount_key from fct_member)
+  list_annual: >
+    select sum(t.list_price_monthly) * 12
+    from fct_member f join dim_tier t using (tier_key)
+  # list - adjusted, where adjusted = final / (1 - rate). What the WHOLE plan-factor ladder
+  # costs -- all three rungs, not the Early Bird one. The split (Early Bird $75,750 /
+  # Quarterly $9,204 / Monthly $0) is asserted in test_metrics.py::
+  # test_I2_the_1_67x_belongs_to_the_LADDER_not_to_Early_Bird, because two documents once
+  # attributed the whole $84,954 to Early Bird alone. 1.667x is the ladder; 1.486x is
+  # Early Bird. See analysis/insights.md I-2.
+  model_leak: >
+    select sum(t.list_price_monthly) * 12
+         - sum(f.final_price_monthly / (1 - d.discount_rate)) * 12
+    from fct_member f
+      join dim_tier t     using (tier_key)
+      join dim_discount d using (discount_key)
+  discount_leak: >
+    select sum(f.final_price_monthly / (1 - d.discount_rate)) * 12
+         - sum(f.final_price_monthly) * 12
+    from fct_member f join dim_discount d using (discount_key)
+  booked_annual: >
+    select sum(final_price_monthly) * 12 from fct_member
+
+  # ---- the nulls ----
+  # The grid is 9 axes x 6 metrics, declared in app/src/data.ts (AXES, METRICS). This is
+  # the independent restatement of that design: analysis/integrity.py declares 88 tests
+  # (11 x 8); the app plots the 54 BEHAVIOURAL ones, dropping final_price as a metric
+  # (a definition, not a measurement) and access_hours as an axis (1:1 with tier).
+  # If either list changes, this diverges and the gate fails -- which is the intent.
+  tests_total: >
+    select 9 * 6
+
+  # Minimum detectable difference between two of four tiers, 80% power, alpha=0.05.
+  # 2.8 = z(0.975) + z(0.80). stddev_samp matches the n-1 denominator used in data.ts.
+  mde_visits: >
+    select 2.8 * stddev_samp(visit_per_week) * sqrt(2.0 / (count(*) / 4.0))
+    from fct_member
+
+metric_sets:
+  # Occupied floor-hours per member per week, by gym. One entry per bar.
+  floor_hours: >
+    select l.city as key, 'v' as measure,
+           avg(f.visit_per_week * f.duration_in_gym_minutes / 60.0) as value
+    from fct_member f join dim_location l using (location_key)
+    group by 1

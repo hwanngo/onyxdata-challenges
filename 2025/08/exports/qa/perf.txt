@@ -1,0 +1,18 @@
+PERF
+================================================================================
+harness      tools/qa/perf.mjs
+date         2025-08-31
+             dist/assets/index-C16CoJte.js · dist/assets/index-BjgQtX1V.css
+runtime      node v22.18.0 · playwright 1.62.0 · axe-core 4.12.1 · vite 8.1.5
+target       http://localhost:5308  (pnpm exec vite preview --port 5308 --strictPort)
+tour key     mygym-2025-08-tour-seen   (app/src/Dashboard.tsx:24, app/interact.mjs:13)
+             NOTE: the remediation brief named "datadna-2025-08-tour-seen". No such key
+             exists. Every month uses a themed key (novabank-/cfpb-/ecom-/shelter-);
+             this month's is mygym-. Seeding the wrong key leaves the tour OPEN and its
+             backdrop then intercepts every pointer event -- which is how the first perf
+             run "failed". Recorded because that failure mode is silent: perf.mjs reports
+             it as "no interactive marks matched", which reads like a selector problem.
+================================================================================
+
+cold load to first real number: 1541ms  (budget 3000ms)
+interaction-to-paint: 1ms, 1ms, 2ms, 1ms, 0ms  max 2ms (budget 200ms)

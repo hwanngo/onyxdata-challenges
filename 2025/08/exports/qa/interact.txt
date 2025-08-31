@@ -1,0 +1,32 @@
+INTERACT
+================================================================================
+harness      2025/08/app/interact.mjs
+date         2025-08-31
+             dist/assets/index-C16CoJte.js · dist/assets/index-BjgQtX1V.css
+runtime      node v22.18.0 · playwright 1.62.0 · axe-core 4.12.1 · vite 8.1.5
+target       http://localhost:5308  (pnpm exec vite preview --port 5308 --strictPort)
+tour key     mygym-2025-08-tour-seen   (app/src/Dashboard.tsx:24, app/interact.mjs:13)
+             NOTE: the remediation brief named "datadna-2025-08-tour-seen". No such key
+             exists. Every month uses a themed key (novabank-/cfpb-/ecom-/shelter-);
+             this month's is mygym-. Seeding the wrong key leaves the tour OPEN and its
+             backdrop then intercepts every pointer event -- which is how the first perf
+             run "failed". Recorded because that failure mode is silent: perf.mjs reports
+             it as "no interactive marks matched", which reads like a selector problem.
+================================================================================
+
+PASS  baseline members = 1998
+PASS  baseline flagged = 982
+PASS  nobody is churned
+PASS  threshold 14 flags more members (1471 > 982)
+PASS  ...and the overlap stays ~100% (100.0%)
+PASS  threshold 45 flags fewer (470 < 1471)
+PASS  ...overlap still ~100% (100.0%) - a tenure slice at every cut
+PASS  gym cross-filter applies (67ms, budget 200ms)
+PASS  chip bar shows the active filter
+PASS  URL encodes filter state
+PASS  booked revenue recomputed under filter ($72,278)
+PASS  the inversion holds within one gym too (100.0%)
+PASS  clear-all restores the full dataset
+PASS  Enter on a gym bar filters (keyboard parity with mouse)
+
+All interaction checks pass.
