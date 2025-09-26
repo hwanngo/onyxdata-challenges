@@ -1,0 +1,30 @@
+# 2025/09 QA evidence - measure
+
+harness   : tools/qa/measure.mjs  (poster fit at 2560x1440, incl. the clipping check; repo tool, unmodified)
+date      : 2025-09-26
+app       : datadna-2025-09, vite production build, dist/assets/index-8hu-e41u.js
+served by : vite preview --port 5309 --strictPort  (http://localhost:5309)
+env       : QA_URL=http://localhost:5309  QA_TOUR_KEY=novabank-2025-09-tour-seen
+note      : the tour key is 'novabank-2025-09-tour-seen', NOT 'datadna-...'. A wrong key
+            leaves the guided tour open; its backdrop eats every click, which makes
+            perf.mjs report a selector failure and makes any axe result meaningless.
+command   : cd 2025/09/app && QA_URL=http://localhost:5309 \
+              QA_TOUR_KEY=novabank-2025-09-tour-seen node ../../../tools/qa/measure.mjs
+exit      : 0
+
+--- output ---
+poster root 2560x1440  (scroll 2560x1440)
+body scroll 2560x1440
+
+direct children:
+  header.masthead                    h=  422  bottom=454
+  div.panel.panel--hero              h=  500  bottom=970
+  div#cost.panel                     h=  500  bottom=970
+  h2.section__title                  h=   30  bottom=1016
+  div#flip.panel                     h=  263  bottom=1295
+  div#ladder.panel                   h=  263  bottom=1295
+  div#cannot.panel                   h=  500  bottom=970
+  section.sowhat                     h=  263  bottom=1295
+  footer.provenance                  h=  105  bottom=1416
+
+FITS. 0px of vertical slack, 0px horizontal.

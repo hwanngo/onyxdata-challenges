@@ -1,0 +1,229 @@
+# Every number rendered in the UI, recomputed from the curated parquet by DuckDB.
+# tools/verify_metrics.py scrapes [data-metric]/[data-value] from the live DOM and diffs.
+# Zero tolerance: a mismatch fails G7.
+#
+# The point is INDEPENDENCE. The app scans 32,581 loans in JavaScript; these queries hit the
+# parquet through a different engine, written from the DEFINITION rather than from the app
+# code. The two rules below are re-expressed in SQL on purpose -- if the TypeScript in
+# data.ts::RULES ever drifts from the analysis, these diverge and the gate fails.
+#
+# BOUNDARY NOTE: `loan_percent_income > 0.30`, STRICTLY greater. At exactly 0.30 renters
+# default at 28.5%; past it, at 100%. An earlier draft of the analysis used >= and turned a
+# deterministic rule into an apparent gradient. Getting this wrong here would hide it again.
+
+metrics:
+  loans: >
+    select count(*) from fct_loan
+  base_default_rate: >
+    select 100.0 * avg(loan_status) from fct_loan
+
+  # ---- rule 1: renters above 30% loan-to-income ----
+  "rule.renter.n": >
+    select count(*) from fct_loan f join dim_home h using (home_key)
+    where h.person_home_ownership = 'RENT' and f.loan_percent_income > 0.30
+  "rule.renter.rate": >
+    select 100.0 * avg(f.loan_status) from fct_loan f join dim_home h using (home_key)
+    where h.person_home_ownership = 'RENT' and f.loan_percent_income > 0.30
+
+  # ---- rule 2: sub-prime debt consolidation, not a homeowner ----
+  "rule.debtcon.n": >
+    select count(*) from fct_loan f
+      join dim_grade g using (grade_key)
+      join dim_intent i using (intent_key)
+      join dim_home h using (home_key)
+    where g.loan_grade in ('D','E','F','G')
+      and i.loan_intent = 'DEBTCONSOLIDATION'
+      and h.person_home_ownership <> 'OWN'
+  "rule.debtcon.rate": >
+    select 100.0 * avg(f.loan_status) from fct_loan f
+      join dim_grade g using (grade_key)
+      join dim_intent i using (intent_key)
+      join dim_home h using (home_key)
+    where g.loan_grade in ('D','E','F','G')
+      and i.loan_intent = 'DEBTCONSOLIDATION'
+      and h.person_home_ownership <> 'OWN'
+
+  # ---- the union, and the number that makes it a rule rather than a tendency ----
+  "rule.union.n": >
+    select count(*) from fct_loan f
+      join dim_grade g using (grade_key) join dim_intent i using (intent_key)
+      join dim_home h using (home_key)
+    where (h.person_home_ownership = 'RENT' and f.loan_percent_income > 0.30)
+       or (g.loan_grade in ('D','E','F','G') and i.loan_intent = 'DEBTCONSOLIDATION'
+           and h.person_home_ownership <> 'OWN')
+  "rule.union.exceptions": >
+    select count(*) filter (where f.loan_status = 0) from fct_loan f
+      join dim_grade g using (grade_key) join dim_intent i using (intent_key)
+      join dim_home h using (home_key)
+    where (h.person_home_ownership = 'RENT' and f.loan_percent_income > 0.30)
+       or (g.loan_grade in ('D','E','F','G') and i.loan_intent = 'DEBTCONSOLIDATION'
+           and h.person_home_ownership <> 'OWN')
+  "rule.union.share_defaults": >
+    select 100.0 * sum(case when
+        (h.person_home_ownership = 'RENT' and f.loan_percent_income > 0.30)
+     or (g.loan_grade in ('D','E','F','G') and i.loan_intent = 'DEBTCONSOLIDATION'
+         and h.person_home_ownership <> 'OWN')
+      then f.loan_status else 0 end) / sum(f.loan_status)
+    from fct_loan f join dim_grade g using (grade_key)
+      join dim_intent i using (intent_key) join dim_home h using (home_key)
+  "rule.union.share_defaults_kpi": >
+    select 100.0 * sum(case when
+        (h.person_home_ownership = 'RENT' and f.loan_percent_income > 0.30)
+     or (g.loan_grade in ('D','E','F','G') and i.loan_intent = 'DEBTCONSOLIDATION'
+         and h.person_home_ownership <> 'OWN')
+      then f.loan_status else 0 end) / sum(f.loan_status)
+    from fct_loan f join dim_grade g using (grade_key)
+      join dim_intent i using (intent_key) join dim_home h using (home_key)
+  "rule.union.rate": >
+    select 100.0 * avg(f.loan_status) from fct_loan f
+      join dim_grade g using (grade_key) join dim_intent i using (intent_key)
+      join dim_home h using (home_key)
+    where (h.person_home_ownership = 'RENT' and f.loan_percent_income > 0.30)
+       or (g.loan_grade in ('D','E','F','G') and i.loan_intent = 'DEBTCONSOLIDATION'
+           and h.person_home_ownership <> 'OWN')
+  # The rule box's "if the true rate were 99%" figure. STIPULATED null, computed consequence:
+  # 0.99^n. It is a post-selection probability -- the rules were found by searching this file
+  # -- and the page says so beside it. Recomputed here so the exponent cannot drift from n.
+  "rule.union.h0_p": >
+    select pow(0.99, count(*)) from fct_loan f
+      join dim_grade g using (grade_key) join dim_intent i using (intent_key)
+      join dim_home h using (home_key)
+    where (h.person_home_ownership = 'RENT' and f.loan_percent_income > 0.30)
+       or (g.loan_grade in ('D','E','F','G') and i.loan_intent = 'DEBTCONSOLIDATION'
+           and h.person_home_ownership <> 'OWN')
+  # Same quantity as share_defaults, rendered a second time in the footer caveat. Named
+  # separately so a future edit to one cannot silently orphan the other.
+  "rule.union.share_defaults_footer": >
+    select 100.0 * sum(case when
+        (h.person_home_ownership = 'RENT' and f.loan_percent_income > 0.30)
+     or (g.loan_grade in ('D','E','F','G') and i.loan_intent = 'DEBTCONSOLIDATION'
+         and h.person_home_ownership <> 'OWN')
+      then f.loan_status else 0 end) / sum(f.loan_status)
+    from fct_loan f join dim_grade g using (grade_key)
+      join dim_intent i using (intent_key) join dim_home h using (home_key)
+  "rule.union.principal": >
+    select sum(f.loan_amnt) from fct_loan f
+      join dim_grade g using (grade_key) join dim_intent i using (intent_key)
+      join dim_home h using (home_key)
+    where (h.person_home_ownership = 'RENT' and f.loan_percent_income > 0.30)
+       or (g.loan_grade in ('D','E','F','G') and i.loan_intent = 'DEBTCONSOLIDATION'
+           and h.person_home_ownership <> 'OWN')
+
+  # ---- the price of certainty ----
+  # loan_int_rate is NULL on 3,116 loans and is never imputed; avg() ignores nulls, which is
+  # the same thing the app does by filtering rateBp >= 0.
+  "price.below.rate": >
+    select 100.0 * avg(f.loan_status) from fct_loan f join dim_home h using (home_key)
+    where h.person_home_ownership = 'RENT'
+      and f.loan_percent_income >= 0.20 and f.loan_percent_income <= 0.30
+  "price.above.rate": >
+    select 100.0 * avg(f.loan_status) from fct_loan f join dim_home h using (home_key)
+    where h.person_home_ownership = 'RENT' and f.loan_percent_income > 0.30
+  # in BASIS POINTS, the unit the finding is quoted in
+  price_gap_bp: >
+    select 100.0 * (
+      (select avg(f.loan_int_rate) from fct_loan f join dim_home h using (home_key)
+       where h.person_home_ownership = 'RENT' and f.loan_percent_income > 0.30)
+      -
+      (select avg(f.loan_int_rate) from fct_loan f join dim_home h using (home_key)
+       where h.person_home_ownership = 'RENT'
+         and f.loan_percent_income >= 0.20 and f.loan_percent_income <= 0.30)
+    )
+
+  # ---- the grade-A loans priced at the bank's best rate ----
+  "grade_a_wall.n": >
+    select count(*) from fct_loan f
+      join dim_grade g using (grade_key) join dim_home h using (home_key)
+    where g.loan_grade = 'A' and h.person_home_ownership = 'RENT'
+      and f.loan_percent_income > 0.30
+  "grade_a_wall.rate": >
+    select 100.0 * avg(f.loan_int_rate) from fct_loan f
+      join dim_grade g using (grade_key) join dim_home h using (home_key)
+    where g.loan_grade = 'A' and h.person_home_ownership = 'RENT'
+      and f.loan_percent_income > 0.30
+
+  # ---- loans carrying no interest rate; the sentinel is -1 in the app, NULL here ----
+  int_rate_missing: >
+    select count(*) from fct_loan where loan_int_rate is null
+
+  # ---- rule 1 on the FULL-PRECISION ratio instead of the source's 2dp column ----
+  # The 100.0000% label is downstream of the rounding in loan_percent_income. Quoting the
+  # exact rate without this pair would overstate what the rule is, so both are rendered
+  # and both are checked.
+  "lti_exact.n": >
+    select count(*) from fct_loan f join dim_home h using (home_key)
+    where h.person_home_ownership = 'RENT' and f.loan_to_income_ratio > 0.30
+  "lti_exact.rate": >
+    select 100.0 * avg(f.loan_status) from fct_loan f join dim_home h using (home_key)
+    where h.person_home_ownership = 'RENT' and f.loan_to_income_ratio > 0.30
+
+  # ---- the "Unemployed" contradiction ----
+  # These were prose literals until this was checked: person_emp_length in YEARS is not
+  # shipped in the quantised payload, so nothing on the page could recompute them.
+  # model/build.py now exports them and these queries re-derive each from the parquet.
+  #
+  # TWO MEANS AND THEY ARE NOT INTERCHANGEABLE. `mean_years_working` averages over the
+  # applicants who report a current job -- the population the "1,421 of 1,635" count names.
+  # `mean_years_reported` averages over everyone who reports a value, including the 214 who
+  # correctly report none. The published sentence used to pair the 1,421 count with the
+  # 1,635-based mean; it now quotes each against its own denominator.
+  "unemployed.reported": >
+    select count(*) from fct_loan f join dim_employment e using (employment_key)
+    where e.employment_type = 'Unemployed' and f.person_emp_length is not null
+  "unemployed.working": >
+    select count(*) from fct_loan f join dim_employment e using (employment_key)
+    where e.employment_type = 'Unemployed' and f.person_emp_length > 0
+  "unemployed.zero_years": >
+    select count(*) from fct_loan f join dim_employment e using (employment_key)
+    where e.employment_type = 'Unemployed' and f.person_emp_length = 0
+  "unemployed.mean_years_working": >
+    select avg(f.person_emp_length) from fct_loan f
+      join dim_employment e using (employment_key)
+    where e.employment_type = 'Unemployed' and f.person_emp_length > 0
+  "unemployed.mean_years_reported": >
+    select avg(f.person_emp_length) from fct_loan f
+      join dim_employment e using (employment_key)
+    where e.employment_type = 'Unemployed' and f.person_emp_length is not null
+  "unemployed.median_income": >
+    select median(f.person_income) from fct_loan f
+      join dim_employment e using (employment_key)
+    where e.employment_type = 'Unemployed'
+  "unemployed.ft_median_income": >
+    select median(f.person_income) from fct_loan f
+      join dim_employment e using (employment_key)
+    where e.employment_type = 'Full-time'
+
+metric_sets:
+  # Loan purpose: BOTH measures from one set, because the DOM names them flip.X.raw and
+  # flip.X.clean. A separate `flip_clean` set would emit flip_clean.X.clean and silently
+  # leave the rendered clean values unverified.
+  flip: >
+    select i.loan_intent as key, 'raw' as measure, 100.0 * avg(f.loan_status) as value
+    from fct_loan f join dim_intent i using (intent_key)
+    group by 1
+    union all
+    select i.loan_intent as key, 'clean' as measure, 100.0 * avg(f.loan_status) as value
+    from fct_loan f join dim_intent i using (intent_key)
+      join dim_grade g using (grade_key) join dim_home h using (home_key)
+    where not (
+        (h.person_home_ownership = 'RENT' and f.loan_percent_income > 0.30)
+     or (g.loan_grade in ('D','E','F','G') and i.loan_intent = 'DEBTCONSOLIDATION'
+         and h.person_home_ownership <> 'OWN'))
+    group by 1
+
+  # The grade ladder, rules removed. Publishing the RAW D rate is the trap this guards --
+  # so the raw rate is emitted too, because the page NAMES 59.05% in order to refuse it and
+  # an untagged 59.05% would be exactly the drift this file exists to catch.
+  ladder: >
+    select g.loan_grade as key, 'clean' as measure, 100.0 * avg(f.loan_status) as value
+    from fct_loan f join dim_grade g using (grade_key)
+      join dim_intent i using (intent_key) join dim_home h using (home_key)
+    where not (
+        (h.person_home_ownership = 'RENT' and f.loan_percent_income > 0.30)
+     or (g.loan_grade in ('D','E','F','G') and i.loan_intent = 'DEBTCONSOLIDATION'
+         and h.person_home_ownership <> 'OWN'))
+    group by 1
+    union all
+    select g.loan_grade as key, 'raw' as measure, 100.0 * avg(f.loan_status) as value
+    from fct_loan f join dim_grade g using (grade_key)
+    group by 1

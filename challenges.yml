@@ -4,10 +4,10 @@
 # Era 1 = Playground-only, gated, no brief. Era 2 = full challenge page, ungated.
 
 meta:
-  verified_on: 2025-08-31
-  total: 57
+  verified_on: 2025-09-26
+  total: 58
   era1_count: 52
-  era2_count: 5
+  era2_count: 6
   playground_index: https://datadna.onyxdata.co.uk/playground/
   challenge_index: https://datadna.onyxdata.co.uk/challenges/
   work_order: era2_oldest_first_then_era1_backfill
@@ -145,8 +145,45 @@ challenges:
     title: "September 2025 DataDNA - Credit Risk (Nova Bank)"
     playground_url: "https://datadna.onyxdata.co.uk/playground/2025-09-september-2025-datadna-credit-risk-analytics-challenge/"
     challenge_url: "https://datadna.onyxdata.co.uk/challenges/september-2025-datadna-credit-risk-analytics-challenge/"
-    dataset_url: "https://datadna.onyxdata.co.uk/wp-content/uploads/2025/09/DataDNA-Dataset-Challenge-Credit-Risk-Analytics-Dataset-September-2025.zip"
+    dataset_url: "https://datadna.onyxdata.co.uk/wp-content/uploads/2025/09/DataDNA-Dataset-Challenge-Credit-Risk-Analytics-Dataset-September-2025.zip"   # scraped 2025-09-26   # scrape the Download Dataset anchor
     dataset_folder: "DataDNA-Dataset-Challenge-Credit-Risk-Analytics-Dataset-September-2025"
+    formats: [XLSX, DOCX, PDF, TXT]   # verified 2025-09-26 from the ZIP; registry said [CSV] (4th correction)
+    status: done
+    notes: >-
+      Completed 2025-09-26, G1-G8. Thesis: two boolean rules decide 42% of every default.
+      RENT & loan_percent_income > 0.30 (n=2,345) and grade D-G & DEBTCONSOLIDATION & not
+      OWN (n=741) both return 100.0000% with ZERO exceptions across 2,988 loans -- 9.17% of
+      the book, $41.6M -- priced 14 basis points above the loans beside them. Tenure-specific:
+      renters step 28.5% -> 100% between LTI 0.30 and 0.31 while mortgage-holders go
+      15.7% -> 21.6%. Removing the rules flips DEBTCONSOLIDATION from riskiest purpose
+      (28.59%) to second safest (9.97%) and drops grade D from 59.05% to 46.33%.
+      32,581 rows x 29 cols, the programme's largest; client_ID IS unique (2nd of 5).
+      The file is two blocks: 13 columns matching the widely-circulated public credit-risk
+      dataset plus 16 generated (median effect on default 16x lower, zero nulls, all inside
+      round bounds). Requirements in the ZIP's DOCX again -- 5 for 5. THREE theses: the first
+      two were killed at G3 by two adversarial proxies, one for inferring generator behaviour
+      from null results (3rd time in 4 months) and one for being false. My own self-attack
+      was also wrong -- it tested the boundary at >= 0.30 instead of > 0.30 and disguised a
+      deterministic rule as a gradient. 49/49 metrics reconciled, 30 pytest, 16/16 Malloy
+      views across 2 sources, 0 axe violations, all contrast pairs clear AA first pass.
+      Not deployed: STACK.md defers.
+    zip_sha256: "d209ebed126c0eae3d858dedfa85e30b54c50a20270f1b72519d5cea2103070b"
+    file_sha256:
+      "Cheat_Sheet_ZoomCharts.pdf": "b3ebf7fba6416e51fcd308719aa796abf9a5ba4a3db65f09d141970e0d665406"
+      "Credit Risk Analytics Challenge Brief.docx": "2b84cc075e09a01b15c88be2a418645468fd07a1ec1c84067f7ed2d5edf8c484"
+      "Credit_Risk_Dataset_Onyx_Data_September_25.xlsx": "ce11ff541de20656d898d896fdeb4fe49cd0e8c03f255c04c2e130dc5d41b2cb"
+      "READ ME BEFORE PARTICIPATING.txt": "00ce5d4cd532f49cf18b567095df3aaff0ccad01c1d9e62f87391c330217c83b"
+      "ZoomCharts_Mini_Challenge.pdf": "1223e10820e231a96eea8813c7d602709a5d68a91a74123da76522df8203f433"
+    self_scores: {judge_34: 31, ai_storytelling: 5, ai_design: 5, ai_technical: 5, ai_insights: 5, ai_b_accessibility: 5}
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2025/10"
+    era: 2
+    title: "October 2025 DataDNA - Consumer Financial Complaints (CFPB)"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2025-10-october-2025-datadna-consumer-financial-complaints-analytics-challenge/"
+    challenge_url: "https://datadna.onyxdata.co.uk/challenges/october-2025-datadna-consumer-financial-complaints-analytics-challenge/"
+    dataset_url: "https://datadna.onyxdata.co.uk/wp-content/uploads/2025/09/DataDNA-Dataset-Challenge-Consumer-Financial-Complaints-Dataset-October-2025.zip"
+    dataset_folder: "DataDNA-Dataset-Challenge-Consumer-Financial-Complaints-Dataset-October-2025"
     formats: [XLSX, DOCX, PDF, TXT]
     status: todo
     scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}

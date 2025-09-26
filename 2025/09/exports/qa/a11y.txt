@@ -1,0 +1,23 @@
+# 2025/09 QA evidence - a11y
+
+harness   : tools/qa/a11y.mjs  (playwright + axe-core; repo tool, unmodified)
+date      : 2025-09-26
+app       : datadna-2025-09, vite production build, dist/assets/index-8hu-e41u.js
+served by : vite preview --port 5309 --strictPort  (http://localhost:5309)
+env       : QA_URL=http://localhost:5309  QA_TOUR_KEY=novabank-2025-09-tour-seen
+note      : the tour key is 'novabank-2025-09-tour-seen', NOT 'datadna-...'. A wrong key
+            leaves the guided tour open; its backdrop eats every click, which makes
+            perf.mjs report a selector failure and makes any axe result meaningless.
+command   : cd 2025/09/app && QA_URL=http://localhost:5309 \
+              QA_TOUR_KEY=novabank-2025-09-tour-seen node ../../../tools/qa/a11y.mjs
+exit      : 0
+
+--- output ---
+
+=== desktop light: 0 violations
+
+=== desktop dark: 0 violations
+
+=== mobile light: 0 violations
+
+=== poster: 0 violations

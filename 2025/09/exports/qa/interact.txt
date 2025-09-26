@@ -1,0 +1,44 @@
+# 2025/09 QA evidence - interact
+
+harness   : 2025/09/app/interact.mjs  (month-specific; every expected value recomputed from data/curated/*.parquet through DuckDB on 2025-09-26)
+date      : 2025-09-26
+app       : datadna-2025-09, vite production build, dist/assets/index-8hu-e41u.js
+served by : vite preview --port 5309 --strictPort  (http://localhost:5309)
+env       : QA_URL=http://localhost:5309  QA_TOUR_KEY=novabank-2025-09-tour-seen
+note      : the tour key is 'novabank-2025-09-tour-seen', NOT 'datadna-...'. A wrong key
+            leaves the guided tour open; its backdrop eats every click, which makes
+            perf.mjs report a selector failure and makes any axe result meaningless.
+command   : cd 2025/09/app && QA_URL=http://localhost:5309 \
+              QA_TOUR_KEY=novabank-2025-09-tour-seen node interact.mjs
+exit      : 0
+
+--- output ---
+PASS  baseline book is 32,581 loans
+PASS  baseline default rate is 21.8164%
+PASS  the two rules cover 2,988 loans with 0 exceptions at 100.0000%
+PASS  rule 1 = 2,345 renters, rule 2 = 741 debt-consolidation loans
+PASS  they carry $41,607,350 and 42.0371% of every default
+PASS  the price gap is the published 20-30% band: +13.6565 bp
+PASS  the raw grade-D rate is rendered as 59.0458% so the page can refuse it
+PASS  the grade ladder is seven real buttons
+PASS  grade D is addressable by its aria-label
+PASS  grade cross-filter applies in 27ms (budget 200ms)
+PASS  filtering to grade D leaves 3,626 loans
+PASS  ...and the headline default rate becomes the ladder rung itself, 59.0458%
+PASS  the rules survive the filter: 373 + 555 -> 859 loans, still 0 exceptions at 100%
+PASS  ...carrying $11,039,250 and 40.1214% of grade D defaults
+PASS  the missing-rate count recomputes under the filter (3,116 -> 312)
+PASS  the grade-A wall panel degrades to a real zero rather than a stale figure
+PASS  the file-level "Unemployed" aggregates do NOT move - they describe the file, not the selection
+PASS  the ladder redraws to the selected rung alone, announced with aria-pressed
+PASS  the chip bar shows the active filter
+PASS  the URL encodes filter state
+PASS  clear-all restores the full 32,581-loan book
+PASS  the wall has a loan-to-income slider
+PASS  moving the slider does not move the rule (it reads the data, not the chart)
+PASS  every chart is mirrored by an accessible data table (5 figures, 81 rows)
+PASS  the guided tour re-opens after being dismissed
+PASS  Esc closes the tour
+PASS  a deep link restores the grade-D filter (3,626 loans)
+
+all interaction checks pass

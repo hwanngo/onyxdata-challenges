@@ -1,0 +1,510 @@
+/* 2025/09 token VALUES - an examiner's memo: bone paper, ledger oxblood, one slate.
+   From .workbench/2025/09/design/direction.md. Do not invent new token names here - add them to
+   dna-kit/src/tokens/tokens.css first so every future month can use them.
+
+   THE IDEA: this is not a bank app, it is a credit examiner's finding. Flat, hairline
+   rules, no shadows, 2px radius ceiling. One accent - a deep ledger oxblood, the colour of
+   a red pencil on a loan file - and one SEMANTIC second hue, slate, used only for the two
+   tenure lines that walk past the wall without turning. The generated design system
+   proposed dark navy + green "positive indicators"; green-as-good has no way to say what
+   this page says.
+
+   Every ratio is measured by tools/audit_contrast.py against THIS file, both themes. */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+
+:root {
+  --bg: #F7F5F0;
+  --bg-raised: #FFFFFF;
+  --bg-sunken: #EDEAE3;
+  --border: #DDD8CE;
+  --border-strong: #54565E;
+
+  --ink: #14161A;
+  --ink-muted: #54565E;
+  --ink-inverse: #F7F5F0;
+
+  /* the wall */
+  --accent: #8C1D2C;
+  --accent-weak: #F6E7E8;
+
+  /* the lines that walk past it - semantic, never decorative */
+  --slate: #33506B;
+  --slate-weak: #E6EDF4;
+
+  --good: #33506B;
+  --bad: #8C1D2C;
+  --warn: #7A5200;
+
+  /* ramp: bone -> oxblood, monotonic in lightness, every step measured >= 3:1 */
+  --seq-1: #8E8B85;
+  --seq-2: #8A6E68;
+  --seq-3: #85544F;
+  --seq-4: #8C1D2C;
+  --seq-5: #6E1622;
+  --seq-6: #4C0F17;
+
+  --cat-1: #14161A;
+  --cat-2: #8C1D2C;
+  --cat-3: #33506B;
+  --cat-4: #54565E;
+  --cat-5: #7A5200;
+  --cat-6: #4C0F17;
+
+  --grid: #DDD8CE;
+
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-num: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --focus-ring: 3px solid var(--accent);
+
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 24px; --sp-6: 32px; --sp-7: 48px; --sp-8: 64px;
+}
+
+:root[data-theme="dark"] {
+  --bg: #14161A;
+  --bg-raised: #1D2026;
+  --bg-sunken: #0F1114;
+  --border: #2A2E36;
+  --border-strong: #A3A6AE;
+
+  --ink: #F0EEE8;
+  --ink-muted: #A3A6AE;
+  --ink-inverse: #14161A;
+
+  --accent: #F0788A;
+  --accent-weak: #3A1720;
+
+  --slate: #8FB4D9;
+  --slate-weak: #16222E;
+
+  --good: #8FB4D9;
+  --bad: #F0788A;
+  --warn: #D9A441;
+
+  --seq-1: #6A6862;
+  --seq-2: #8C716C;
+  --seq-3: #AD8078;
+  --seq-4: #D2707E;
+  --seq-5: #F0788A;
+  --seq-6: #F8A4AF;
+
+  --cat-1: #F0EEE8;
+  --cat-2: #F0788A;
+  --cat-3: #8FB4D9;
+  --cat-4: #A3A6AE;
+  --cat-5: #D9A441;
+  --cat-6: #F8A4AF;
+
+  --grid: #2A2E36;
+}
+
+/* ---------------------------------------------------------------- base ---- */
+
+* { box-sizing: border-box; min-width: 0; }
+html { color-scheme: light dark; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+.num, .kpi__value, table td, table th, code,
+.bars__value, .flip__value, .seg__value {
+  font-family: var(--font-num); font-variant-numeric: tabular-nums;
+}
+code { font-size: 0.92em; background: var(--bg-sunken); padding: 1px 4px; border-radius: 2px; }
+a { color: var(--accent); }
+:focus-visible { outline: var(--focus-ring); outline-offset: 2px; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.skip-link {
+  position: absolute; left: -9999px; top: 0; z-index: 1000;
+  background: var(--accent); color: var(--ink-inverse);
+  padding: var(--sp-3) var(--sp-4); font-weight: 700;
+}
+.skip-link:focus { left: 0; }
+
+/* -------------------------------------------------------------- layout ---- */
+
+.app { max-width: 1400px; margin: 0 auto; padding: var(--sp-5) var(--sp-5) var(--sp-8); }
+
+.masthead { border-bottom: 2px solid var(--ink); padding-bottom: var(--sp-4); }
+.masthead__rule {
+  display: flex; flex-wrap: wrap; gap: var(--sp-3);
+  align-items: center; justify-content: space-between;
+  font-family: var(--font-num); font-size: 11px;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted);
+  border-bottom: 1px solid var(--border); padding-bottom: var(--sp-2);
+}
+.masthead__brand { color: var(--ink); font-weight: 600; }
+.masthead__tools { display: flex; gap: var(--sp-2); align-items: center; }
+
+.thesis {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(28px, 5vw, 61px); line-height: 1.02; letter-spacing: -0.03em;
+  margin: var(--sp-5) 0 var(--sp-4); max-width: 20ch; text-wrap: balance;
+}
+
+/* THE RULE, SET AS CODE - the signature typographic move. */
+.rulebox {
+  border: 2px solid var(--ink); border-left: 6px solid var(--accent);
+  background: var(--bg-raised); border-radius: 2px;
+  padding: var(--sp-3) var(--sp-4); margin: 0 0 var(--sp-4);
+  display: grid; gap: var(--sp-2);
+}
+.rulebox__row {
+  display: flex; flex-wrap: wrap; gap: var(--sp-3);
+  align-items: baseline; justify-content: space-between;
+  font-family: var(--font-num); font-size: clamp(12px, 1.5vw, 19px); font-weight: 600;
+}
+.rulebox__expr { color: var(--ink); }
+.rulebox__out { color: var(--accent); white-space: nowrap; }
+.rulebox__note {
+  font-family: var(--font-body); font-size: 12px; color: var(--ink-muted);
+  border-top: 1px solid var(--border); padding-top: var(--sp-2);
+}
+
+.contextstrip {
+  font-family: var(--font-num); font-size: 12px;
+  letter-spacing: 0.03em; color: var(--ink-muted); margin: 0;
+}
+.section__title {
+  font-family: var(--font-num); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-muted);
+  margin: var(--sp-7) 0 var(--sp-4);
+  padding-bottom: var(--sp-2); border-bottom: 1px solid var(--ink);
+}
+
+.hero { display: grid; gap: var(--sp-5); grid-template-columns: minmax(0,1.75fr) minmax(0,1fr); margin-top: var(--sp-6); }
+.evidence { display: grid; gap: var(--sp-5); grid-template-columns: repeat(3, minmax(0,1fr)); }
+@media (max-width: 1100px) {
+  .hero, .evidence { grid-template-columns: minmax(0,1fr); }
+}
+
+.panel {
+  background: var(--bg-raised); border: 1px solid var(--border);
+  border-top: 3px solid var(--ink); border-radius: 2px; padding: var(--sp-5); min-width: 0;
+}
+.panel--hero { border-top-color: var(--accent); }
+.panel__title { font-family: var(--font-display); font-weight: 700; font-size: 20px; letter-spacing: -0.01em; margin: 0 0 var(--sp-2); }
+.panel__mark { color: var(--accent); }
+.panel__sub { font-size: 14px; color: var(--ink-muted); margin: 0 0 var(--sp-4); max-width: 62ch; }
+.figure-note {
+  font-family: var(--font-num); font-size: 11px; line-height: 1.6; color: var(--ink-muted);
+  margin: var(--sp-3) 0 0; padding-top: var(--sp-3); border-top: 1px solid var(--border);
+}
+.callout {
+  margin: var(--sp-4) 0 0; padding: var(--sp-3) var(--sp-4); font-size: 14px;
+  border-left: 4px solid var(--accent); background: var(--accent-weak);
+  color: var(--ink); border-radius: 0 2px 2px 0;
+}
+.callout--slate { border-left-color: var(--slate); background: var(--slate-weak); }
+
+/* ----------------------------------------------------------- chartfig ---- */
+
+.chartfig { margin: 0; overflow-x: auto; }
+.chartfig__cap { font-size: 13px; font-weight: 600; line-height: 1.45; margin-bottom: var(--sp-3); color: var(--ink); max-width: 68ch; }
+.gridline { stroke: var(--grid); stroke-width: 1; }
+.ticklabel { font-family: var(--font-num); font-size: 10px; fill: var(--ink-muted); }
+.axistitle { font-family: var(--font-num); font-size: 10px; font-weight: 600; letter-spacing: 0.14em; fill: var(--ink-muted); }
+.axistitle--right { fill: var(--accent); }
+
+/* ------------------------------------------------------------ the wall ---- */
+
+.wall-line { fill: none; stroke-linejoin: miter; }
+.wall-rent     { stroke: var(--accent); }
+.wall-mortgage { stroke: var(--slate); }
+.wall-own      { stroke: var(--slate); opacity: 0.75; }
+.wall-price    { fill: none; stroke: var(--accent); stroke-width: 1.4; stroke-dasharray: 2 3; opacity: 0.85; }
+.wall-zone     { opacity: 0.5; }
+.wall-hatchline { stroke: var(--accent); stroke-width: 0.8; opacity: 0.35; }
+.wall-ceiling  { stroke: var(--ink); stroke-width: 1; stroke-dasharray: 4 3; }
+.wall-ceiling-label,
+.wall-boundary-label {
+  font-family: var(--font-num); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.1em; fill: var(--accent);
+}
+.wall-boundary { stroke: var(--accent); stroke-width: 1.5; }
+.wall-price-label { font-family: var(--font-num); font-size: 9px; letter-spacing: 0.08em; fill: var(--accent); }
+.wall-label { font-family: var(--font-num); font-size: 10px; font-weight: 600; letter-spacing: 0.08em; }
+.wall-rent-t { fill: var(--accent); }
+.wall-mortgage-t, .wall-own-t { fill: var(--slate); }
+.wall-nbar { fill: var(--ink-muted); opacity: 0.45; }
+
+/* ----------------------------------------------------------- bar rows ---- */
+
+.bars { display: flex; flex-direction: column; gap: 3px; }
+.bars__row {
+  display: grid; grid-template-columns: 128px minmax(0,1fr) 62px; gap: var(--sp-3);
+  align-items: center; background: none; border: 0; padding: 4px var(--sp-2);
+  font: inherit; color: inherit; text-align: left; cursor: pointer;
+  border-radius: 2px; min-height: 28px;
+}
+.bars__row:hover { background: var(--bg-sunken); }
+.bars__row.is-active { background: var(--accent-weak); box-shadow: inset 3px 0 0 var(--accent); }
+.bars__label { font-size: 13px; }
+.bars__track { background: var(--bg-sunken); height: 13px; border-radius: 1px; }
+.bars__bar { display: block; height: 100%; background: var(--seq-3); border-radius: 1px; }
+.bars__row.is-active .bars__bar { background: var(--accent); }
+.bars__value { font-size: 12px; text-align: right; }
+
+/* ------------------------------------------------------- the rank flip ---- */
+
+.flip { display: flex; flex-direction: column; gap: var(--sp-2); }
+.flip__row { display: grid; grid-template-columns: 132px 1fr; gap: var(--sp-3); align-items: center; font-size: 13px; }
+.flip__track { position: relative; height: 22px; }
+.flip__seg { position: absolute; top: 6px; height: 10px; border-radius: 1px; }
+.flip__raw { background: var(--seq-2); }
+.flip__clean { background: var(--accent); }
+.flip__value { font-family: var(--font-num); font-size: 11px; }
+.flip__moved { color: var(--accent); font-weight: 600; }
+
+/* ------------------------------------------------------------- kpi -------- */
+
+.kpirow { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: var(--sp-3); margin-bottom: var(--sp-4); }
+.kpi { border: 1px solid var(--border); border-left: 3px solid var(--accent); padding: var(--sp-3); border-radius: 2px; }
+.kpi__label { font-family: var(--font-num); font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: var(--sp-1); }
+.kpi__value { font-size: clamp(22px, 3vw, 34px); font-weight: 600; line-height: 1.05; letter-spacing: -0.02em; }
+.kpi__delta { font-size: 12px; }
+
+/* ------------------------------------------------------- controls/chips ---- */
+
+.controls { display: flex; flex-wrap: wrap; gap: var(--sp-4); margin-top: var(--sp-4); align-items: flex-end; }
+.control { display: flex; flex-direction: column; gap: var(--sp-2); flex: 1 1 260px; }
+.control__label { font-family: var(--font-num); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); }
+.control input[type="range"] { accent-color: var(--accent); width: 100%; min-height: 24px; }
+
+.btn {
+  font-family: var(--font-num); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  background: none; border: 1px solid var(--border-strong); color: var(--ink);
+  padding: var(--sp-2) var(--sp-3); border-radius: 2px; cursor: pointer; min-height: 32px;
+}
+.btn:hover { background: var(--bg-sunken); }
+.btn--primary { background: var(--accent); border-color: var(--accent); color: var(--ink-inverse); }
+
+.chipbar { display: flex; flex-wrap: wrap; gap: var(--sp-2); align-items: center; margin-top: var(--sp-4); }
+.chip {
+  font-family: var(--font-num); font-size: 11px;
+  border: 1px solid var(--accent); background: var(--accent-weak); color: var(--ink);
+  padding: 4px var(--sp-2); border-radius: 2px; display: inline-flex; gap: 6px;
+  align-items: center; min-height: 28px; cursor: pointer;
+}
+.chip__x { font-weight: 700; color: var(--accent); }
+.chipbar__hint { font-size: 12px; color: var(--ink-muted); }
+
+/* ------------------------------------------------------------ so what ----- */
+
+.sowhat { margin-top: var(--sp-7); border-top: 2px solid var(--ink); padding-top: var(--sp-5); }
+.sowhat__h { font-family: var(--font-num); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-muted); margin: 0 0 var(--sp-4); }
+.sowhat__list { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--sp-4); grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.sowhat__item { border-left: 3px solid var(--accent); padding-left: var(--sp-4); }
+.sowhat__n { font-family: var(--font-num); font-size: 26px; font-weight: 600; color: var(--accent); line-height: 1; }
+.sowhat__text { font-size: 15px; font-weight: 600; margin: var(--sp-2) 0; }
+.sowhat__ev { font-family: var(--font-num); font-size: 11px; color: var(--ink-muted); line-height: 1.5; }
+
+/* ------------------------------------------------------------ explore ----- */
+
+.explore { margin-top: var(--sp-6); }
+.explore summary { font-family: var(--font-num); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; padding: var(--sp-3) 0; min-height: 44px; display: flex; align-items: center; }
+.explore-grid { display: grid; gap: var(--sp-5); grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); margin-top: var(--sp-4); }
+.data { width: 100%; border-collapse: collapse; font-size: 12px; }
+.data th, .data td { text-align: left; padding: 4px var(--sp-2); border-bottom: 1px solid var(--border); }
+.data th { font-family: var(--font-num); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); }
+.flag { font-family: var(--font-num); font-size: 10px; border: 1px solid var(--border-strong); color: var(--ink-muted); padding: 1px 5px; border-radius: 2px; }
+
+/* ------------------------------------------------------- provenance strip -- */
+
+.prov { display: flex; flex-direction: column; gap: 2px; }
+.prov__row { display: grid; grid-template-columns: 188px 62px minmax(0,1fr); gap: var(--sp-2); align-items: center; font-size: 12px; }
+.prov__name { font-family: var(--font-num); font-size: 11px; }
+.prov__block { font-family: var(--font-num); font-size: 9px; letter-spacing: 0.08em; padding: 1px 4px; border-radius: 2px; text-align: center; }
+.prov__block.is-original { background: var(--slate-weak); color: var(--slate); border: 1px solid var(--slate); }
+.prov__block.is-appended { background: var(--bg-sunken); color: var(--ink-muted); border: 1px solid var(--border-strong); }
+.prov__track { background: var(--bg-sunken); height: 10px; border-radius: 1px; position: relative; }
+.prov__bar { display: block; height: 100%; border-radius: 1px; }
+.prov__bar.is-original { background: var(--slate); }
+.prov__bar.is-appended { background: repeating-linear-gradient(45deg, var(--ink-muted), var(--ink-muted) 3px, transparent 3px, transparent 6px); }
+
+/* --------------------------------------------------------- provenance ----- */
+
+.provenance { margin-top: var(--sp-7); border-top: 1px solid var(--ink); padding-top: var(--sp-4); font-family: var(--font-num); font-size: 10.5px; line-height: 1.7; color: var(--ink-muted); }
+.provenance p { margin: 0 0 var(--sp-2); max-width: 105ch; }
+.provenance strong { color: var(--ink); letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* ---------------------------------------------------------------- tour ---- */
+
+.tour-backdrop { position: fixed; inset: 0; background: rgba(10,10,12,0.62); display: grid; place-items: center; z-index: 900; padding: var(--sp-4); }
+.tour-card { background: var(--bg-raised); border: 1px solid var(--ink); border-top: 4px solid var(--accent); border-radius: 2px; padding: var(--sp-5); max-width: 480px; }
+.tour-steps { font-family: var(--font-num); font-size: 11px; letter-spacing: 0.1em; color: var(--ink-muted); }
+.tour-actions { display: flex; gap: var(--sp-2); margin-top: var(--sp-4); }
+
+/* ------------------------------------------------------------ reduced ----- */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+@media (max-width: 700px) {
+  .app { padding: var(--sp-4) var(--sp-3) var(--sp-7); }
+  .kpirow { grid-template-columns: minmax(0,1fr); }
+  .bars__row { grid-template-columns: 96px minmax(0,1fr) 52px; }
+  .prov__row { grid-template-columns: 128px 54px minmax(0,1fr); }
+}
+
+/* -------------------------------------------------------------- poster ---- */
+
+/* 2560x1440 is a WIDE box and a stacked report will not fit it - August's lesson,
+   applied first this time instead of after two rounds of font-tuning. `display: contents`
+   dissolves the .hero and .evidence wrappers so their panels become direct children of an
+   explicit poster grid and can be placed individually. Panels are flex columns so the
+   FIGURE absorbs leftover height and the SVG letterboxes rather than being clipped -
+   August shipped a poster with an entire x-axis silently cut off by overflow:hidden. */
+
+.poster-root { background: var(--bg); }
+
+.poster {
+  width: 2560px; height: 1440px;
+  padding: 32px 44px 24px;
+  display: grid;
+  gap: 16px 22px;
+  grid-template-columns: 1.5fr 0.95fr 1.05fr;
+  grid-template-rows: auto minmax(0, 1.35fr) auto minmax(0, 1fr) auto;
+  grid-template-areas:
+    "head    head    head"
+    "wall    cost    cannot"
+    "evtitle evtitle evtitle"
+    "flip    ladder  sowhat"
+    "prov    prov    prov";
+  overflow: hidden;
+}
+
+.poster .hero, .poster .evidence { display: contents; }
+.poster .masthead      { grid-area: head; }
+.poster .panel--hero   { grid-area: wall; }
+.poster #cost          { grid-area: cost; }
+.poster #cannot        { grid-area: cannot; }
+.poster .section__title{ grid-area: evtitle; margin: 0; padding-bottom: 6px; font-size: 15px; }
+.poster #flip          { grid-area: flip; }
+.poster #ladder        { grid-area: ladder; }
+.poster .sowhat        { grid-area: sowhat; }
+.poster .provenance    { grid-area: prov; }
+
+.poster .panel {
+  padding: 16px 18px; min-height: 0; overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.poster .panel .chartfig {
+  flex: 1 1 auto; min-height: 0;
+  display: flex; flex-direction: column; overflow: hidden;
+}
+.poster .panel .chartfig > svg { flex: 1 1 auto; min-height: 0; height: 100%; width: 100%; }
+.poster .live-only { display: none !important; }
+
+.poster .masthead { padding-bottom: 8px; }
+.poster .masthead__rule { font-size: 15px; padding-bottom: 6px; }
+.poster .thesis { font-size: 68px; max-width: 26ch; margin: 14px 0 12px; }
+.poster .rulebox { padding: 12px 16px; margin-bottom: 10px; }
+.poster .rulebox__row { font-size: 25px; }
+.poster .rulebox__note { font-size: 15px; padding-top: 6px; }
+.poster .contextstrip { font-size: 16px; }
+
+.poster .panel__title { font-size: 23px; margin-bottom: 4px; }
+.poster .panel__sub { font-size: 14px; margin-bottom: 8px; max-width: 80ch; }
+.poster .chartfig__cap { font-size: 15px; margin-bottom: 6px; }
+.poster .figure-note { font-size: 12px; margin-top: 6px; padding-top: 6px; }
+.poster .kpi__value { font-size: 40px; }
+.poster .kpi__label { font-size: 12px; }
+.poster .callout { font-size: 15px; margin-top: 8px; padding: 8px 12px; }
+
+.poster .bars__row { min-height: 0; padding: 0 4px; grid-template-columns: 116px minmax(0,1fr) 58px; }
+.poster .bars__label, .poster .bars__value { font-size: 13px; }
+.poster .bars__track { height: 11px; }
+
+.poster .flip__row { grid-template-columns: 120px 1fr; font-size: 12px; }
+.poster .flip__track { height: 20px; }
+.poster .flip__value { font-size: 11px; }
+
+.poster .prov__row { grid-template-columns: 176px 58px minmax(0,1fr); }
+.poster .prov__name { font-size: 11px; }
+
+.poster .sowhat { margin: 0; border-top: 2px solid var(--ink); padding-top: 10px; }
+.poster .sowhat__list { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+.poster .sowhat__n { font-size: 19px; }
+.poster .sowhat__text { font-size: 15px; margin: 2px 0; }
+.poster .sowhat__ev { font-size: 11.5px; }
+
+.poster .provenance { margin: 0; padding-top: 8px; font-size: 12px; line-height: 1.5; }
+.poster .provenance p { margin-bottom: 2px; max-width: none; }
+
+/* --- poster round 2: the signature must be the biggest thing on the page ---
+   Round 1 gave the wall a 449px cell; after panel chrome the SVG (aspect 2.09) letterboxed
+   to about a third of the panel width. The fix is vertical room plus less chrome, not a
+   smaller typeface. Measured with tools/qa/measure.mjs, not eyeballed. */
+
+.poster {
+  grid-template-rows: auto minmax(0, 1.9fr) auto minmax(0, 1fr) auto;
+}
+/* the wall carries its finding in the figcaption; the intro paragraph is redundant on a
+   static poster where the reader cannot interact anyway */
+.poster .panel--hero .panel__sub { display: none; }
+.poster .panel--hero .figure-note { font-size: 11px; margin-top: 4px; padding-top: 4px; }
+.poster .panel--hero .chartfig__cap { font-size: 16px; }
+
+/* all seven grades must be visible - the panel names D and the reader will look for G */
+.poster #ladder .panel__sub { display: none; }
+.poster #ladder .bars__row { min-height: 0; padding: 0 4px; }
+.poster #ladder .bars__label, .poster #ladder .bars__value { font-size: 12.5px; }
+.poster #ladder .bars__track { height: 10px; }
+.poster #ladder .figure-note { display: none; }
+
+.poster #flip .panel__sub { font-size: 13px; margin-bottom: 6px; }
+.poster #cannot .panel__sub { font-size: 13px; margin-bottom: 6px; }
+
+/* three recommendations in one column - tighten so none is clipped */
+.poster .sowhat__item { padding-left: 12px; }
+.poster .sowhat__n { font-size: 16px; }
+.poster .sowhat__text { font-size: 13.5px; margin: 1px 0; line-height: 1.35; }
+.poster .sowhat__ev { font-size: 10.5px; line-height: 1.4; }
+.poster .sowhat__h { font-size: 11px; margin-bottom: 8px; }
+
+/* --- poster round 3: nothing may be truncated --- */
+.poster .wall-rent { stroke-width: 4.5 !important; }
+.poster .wall-ceiling-label, .poster .wall-boundary-label { font-size: 12px; }
+.poster .wall-label { font-size: 12px; }
+.poster .ticklabel { font-size: 11px; }
+
+/* all six purposes, all seven grades, all three recommendations */
+.poster #flip .figure-note { display: none; }
+.poster #flip .chartfig__cap { font-size: 13px; margin-bottom: 4px; }
+.poster #flip .flip__row { grid-template-columns: 104px 1fr; font-size: 11px; }
+.poster #flip .flip__track { height: 17px; }
+.poster #flip .flip__seg { top: 4px; height: 7px; }
+.poster #flip .flip__value { font-size: 10px; }
+.poster #ladder .chartfig__cap { font-size: 13px; margin-bottom: 4px; }
+.poster #ladder .bars { gap: 1px; }
+.poster .sowhat__list { gap: 5px; }
+.poster .sowhat__text { font-size: 12.5px; }
+.poster .sowhat__ev { font-size: 10px; }
+
+/* --- poster round 4: the last two truncations --- */
+/* all six loan purposes must show - the panel's whole point is a rank inversion, and a
+   reader cannot see an inversion in a truncated list */
+.poster #flip .panel__sub { display: none; }
+.poster #flip .flip__row { grid-template-columns: 100px 1fr; }
+.poster #flip .flip__track { height: 15px; }
+.poster #flip .flip__seg { top: 3px; height: 6px; }
+
+/* recommendation 3's evidence was clipping at the bottom edge */
+.poster .sowhat { padding-top: 8px; }
+.poster .sowhat__ev { font-size: 9.5px; line-height: 1.35; }
+.poster .sowhat__item { padding-left: 10px; }
