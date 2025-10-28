@@ -1,0 +1,11 @@
+harness   : tools/qa/overflow.mjs
+date      : 2025-10-28
+bundle    : dist/assets/index-C6y5MsUq.js + dist/assets/index-CAuU6iMx.css
+url       : http://localhost:5310  (vite preview --port 5310 --strictPort)
+tour key  : datadna-2025-10-tour-seen (seeded, so the overlay is in no measured context)
+command   : QA_URL=http://localhost:5310 QA_TOUR_KEY=datadna-2025-10-tour-seen node ../../../tools/qa/overflow.mjs
+----------------------------------------------------------------------------
+375px -> scrollWidth 375 clientWidth 375 ok
+768px -> scrollWidth 768 clientWidth 768 ok
+1024px -> scrollWidth 1024 clientWidth 1024 ok
+1440px -> scrollWidth 1440 clientWidth 1440 ok

@@ -1,0 +1,270 @@
+harness   : 2025/10/analysis/integrity.py
+date      : 2025-10-28
+bundle    : dist/assets/index-C6y5MsUq.js + dist/assets/index-CAuU6iMx.css
+url       : http://localhost:5310  (vite preview --port 5310 --strictPort)
+tour key  : datadna-2025-10-tour-seen (seeded, so the overlay is in no measured context)
+command   : uv run python 2025/10/analysis/integrity.py
+----------------------------------------------------------------------------
+Loaded 62,516 complaints x 22 cols, 1,081 companies, 28-row dictionary
+
+==============================================================================
+1. GRAIN - a genuine two-table star, and the ID is unique
+==============================================================================
+  PASS  fact is 62,516 rows (expected 62,516)
+  PASS  company dimension is 1,081 rows
+  PASS  Complaint ID is unique: 62,516 over 62,516
+        Standing scoreboard: NOT unique in May or June, unique in July, ABSENT in
+        August, unique in September and October. Three of six.
+  PASS  no duplicate rows
+  PASS  no orphan company keys (0)
+  PASS  every company in the dimension appears in the fact (0 unused)
+  PASS  the Data Dictionary documents 28 columns across both tables
+
+==============================================================================
+2. IDENTITIES HOLD - AND THE TABLE IS STILL LOGICALLY INCONSISTENT
+==============================================================================
+  PASS  Response_Time_Days = Company_Response_Date - Date submitted on all 62,516 rows
+  PASS  Complaint_Count matches the fact for all 1,081 companies (total 62,516)
+  PASS  Avg_Response_Time_Days matches the fact exactly
+  PASS  Complaints_per_1pct_Share = Complaint_Count / Market_Share_Percent (max error 5.0e-05)
+  PASS  market share sums to 99.9955%
+        Timely_Response_Rate is stored as a FRACTION (0.81-1.00) although the
+        dictionary calls it a 'Percentage'. Reading it as documented would
+        understate every company 100-fold -- so one identity is DOCUMENTED WRONG.
+  PASS  Timely_Response_Rate = timely / ALL complaints on 1,081/1,081 companies (max error 0.0e+00) -- the identity holds, on the denominator this month rejects
+  PASS  ...and FAILS on the resolved denominator for 815 of 1,081 companies (max error 0.1040, mean 0.0229) -- so the dashboard's 96.06% and the dimension's column are not the same measure
+  PASS  count-weighting the shipped column reproduces the WRONG headline exactly: 93.7664% against the all-rows 93.7664%
+  PASS  DEFECT CONFIRMED: 2,150 complaints (3.44%) were ANSWERED BEFORE THEY WERE RECEIVED -- up to 259 days early
+  PASS  DEFECT CONFIRMED: all 1,494 'In progress' complaints carry a response date and a response time -- you cannot be in progress and have responded
+        Response_Time_Days is the only date arithmetic in the file that ignores
+        `Date received`, which is exactly what generates these rows.
+
+==============================================================================
+3. MISSINGNESS - right-censored, not structural, and it moves the headline
+==============================================================================
+        Sub-product                           7  (0.0%)
+        Sub-issue                        10,858  (17.4%)
+        Company public response           2,175  (3.5%)
+        Timely response?                  1,494  (2.4%)
+  PASS  1,494 complaints are In progress
+  PASS  `Timely response?` is null on EXACTLY the in-progress complaints and nowhere else
+
+        In-progress share by month -- this is CENSORING, not missingness:
+          2023-04  n=1,058  in progress  0.00%
+          2023-05  n=1,085  in progress  0.65%
+          2023-06  n=1,018  in progress  3.63%
+          2023-07  n=1,749  in progress 49.34%
+          2023-08  n=  717  in progress 81.87%
+  PASS  the final month is 81.9% in progress and the one before it 49.3% -- any OUTCOME measure must censor from 2023-05, not merely drop the nulls
+
+        timeliness counting In-progress as UNTIMELY : 93.77%
+        timeliness excluding In-progress (correct)   : 96.06%
+  PASS  the denominator is worth 2.30pp -- an earlier draft of brief.md published 93.77% and has been corrected to 96.06%
+        A complaint still in progress has not failed to be timely; it has not yet
+        been judged. Putting it in the denominator as a failure is the single
+        easiest wrong number to publish from this file.
+
+==============================================================================
+4. NOISE - response time is a uniform draw, and 'timely' is unrelated to it
+==============================================================================
+  PASS  Response_Time_Days is U(0,30): chi2 p=0.0711, mean 15.088 (uniform 15.000), sd 8.914 (uniform 8.944)
+
+        And uniform WITHIN every group, not just pooled (the June lesson):
+          Submitted via                     4 groups, p range 0.104-0.424, rejecting 0
+  PASS  no group within Submitted via departs from uniform
+          Product                           7 groups, p range 0.152-0.748, rejecting 0
+  PASS  no group within Product departs from uniform
+          Census_Region                     4 groups, p range 0.165-0.834, rejecting 0
+  PASS  no group within Census_Region departs from uniform
+          Company response to consumer      4 groups, p range 0.313-0.856, rejecting 0
+  PASS  no group within Company response to consumer departs from uniform
+
+        'Yes' took 15.09 days on average; 'No' took 15.05.
+  PASS  `Timely response?` is INDEPENDENT of how long the response took (p=0.831) -- it is a label, not a measurement of speed
+        Both span the full 0-30 range. A 'timely' response takes exactly as long
+        as an untimely one, so brief Q5's 'how fast' has no answer in this file.
+
+==============================================================================
+5+6. THE Q6 METRIC IS CORRECT ARITHMETIC AND A WRONG ANSWER
+==============================================================================
+  PASS  complaint volume does NOT track market share: Spearman -0.0483 (p=0.112)
+  PASS  the shipped KPI tracks 1/market_share at Spearman +0.9903
+  PASS  ...and tracks the numerator it is meant to normalise at only +0.1765
+
+        Complaint volume is flat across size, while the KPI is not:
+
+        tier         n   mean share   mean complaints    mean KPI
+        Large      108      0.3021%              57.1       203.6
+        Medium     216      0.1502%              58.0       400.2
+        Small      757      0.0461%              57.9      2244.1
+  PASS  complaint count does not differ by size tier (Kruskal p=0.557)
+  PASS  yet the KPI is 11.0x higher for Small than Large -- entirely the denominator
+  PASS  all 10 'worst offenders' by the shipped metric are Small-tier, every one at the minimum 0.0099% share
+        A regulator ranking on this column targets small companies for being small.
+
+        And company timeliness carries no real between-company variation:
+          observed sd 0.0320   binomial expectation at n~58: 0.0318
+  PASS  observed/expected sd = 1.005 -- the spread in company timeliness is SAMPLING NOISE, so ranking companies on it ranks nothing
+
+==============================================================================
+7. Q7 - company traits correlate with nothing, and here is what we could have seen
+==============================================================================
+  The distributional characterisation, tested rather than asserted:
+
+  PASS  Reputation_Score IS uniform: integers 50-100, 51 levels, chi2 p=0.4213, mean 75.068 vs 75.000 expected
+  PASS  Market_Share_Percent is NOT uniform: KS D=0.5996, p=0.00e+00; mean 0.0925 against a uniform midpoint of 0.3246, skew +1.954. Right-skewed, which is what real market shares are.
+  PASS  Enforcement_History is NOT a coin flip: 211/1081 = 19.52% Yes, binomial p vs 0.5 = 1.79e-95
+        Company_Size_Tier is {'Small': np.int64(757), 'Medium': np.int64(216), 'Large': np.int64(108)} -- also neither.
+        The CONCLUSION the sentence supported survives untouched: none of these
+        columns carries information about any outcome. Only the description of
+        their shapes was wrong, and it was wrong inside the thesis paragraph.
+
+  12 pre-declared tests, Bonferroni alpha = 4.17e-03
+
+    Market_Share_Percent   -> Timely_Response_Rate     rho=-0.0221  p=0.4684
+    Market_Share_Percent   -> Avg_Response_Time_Days   rho=+0.0188  p=0.5378
+    Market_Share_Percent   -> Complaint_Count          rho=-0.0483  p=0.1121
+    Reputation_Score       -> Timely_Response_Rate     rho=-0.0192  p=0.5279
+    Reputation_Score       -> Avg_Response_Time_Days   rho=+0.0278  p=0.3615
+    Reputation_Score       -> Complaint_Count          rho=+0.0314  p=0.3028
+    Company_Size_Tier      -> Timely_Response_Rate     KW p=0.2088  eta2=0.00165
+    Company_Size_Tier      -> Avg_Response_Time_Days   KW p=0.7042  eta2=0.00069
+    Company_Size_Tier      -> Complaint_Count          KW p=0.5569  eta2=0.00109
+    Enforcement_History    -> Timely_Response_Rate     KW p=0.5587  eta2=0.00055
+    Enforcement_History    -> Avg_Response_Time_Days   KW p=0.0846  eta2=0.00237
+    Enforcement_History    -> Complaint_Count          KW p=0.3891  eta2=0.00107
+  PASS  0 of 12 trait-outcome tests clear Bonferroni
+
+  What WOULD have been detectable (80% power, alpha=0.05):
+    Company_Size_Tier      n=  757 vs   108  MDE on timely rate = 0.92pp
+    Enforcement_History    n=  870 vs   211  MDE on timely rate = 0.69pp
+    Market_Share_Percent   n=1,081          MDE on Spearman rho = 0.085
+    Reputation_Score       n=1,081          MDE on Spearman rho = 0.085
+  Every observed effect is far below these. The null is a measurement.
+
+  POSITIVE test - complaint counts vs an equal-share multinomial:
+    chi2=1,122.6  df=1,080  chi2/df=1.0395  p=0.1789  (mean 57.83, variance 60.11)
+  PASS  complaint counts FIT an equal-share multinomial at chi2/df=1.0395 (p=0.1789) -- the overlay is not merely 'not significant', it is the shape a random deal produces
+
+==============================================================================
+8. WHAT IS REAL - the consumer side carries genuine structure
+==============================================================================
+  PASS  complaint volume trends +8.7010/month over 75 FULL months (r=0.7969, p=1.2e-17) -- volume grows 1.7117x over the span, not 'triples'
+        2017-05-01 00:00:00 .. 2023-08-01 00:00:00   min 356  max 1,749
+        Including the partial final month gives +8.2523/month - the figure
+        brief.md records as an error. The final month stops 2023-08-28 and must
+        not be drawn as a fall; the month before it is the series maximum.
+
+        Concentration - real, and the thing a regulator can act on:
+          Product      9 values, top 3 =  77.9% of all complaints (Checking or savings account, Credit card or prepaid card)
+          State       51 values, top 3 =  39.8% of all complaints (CA, FL)
+          Issue       76 values, top 3 =  39.1% of all complaints (Managing an account, Incorrect information on your report)
+  PASS  the top two products are 65.6% of every complaint
+
+        But state 'hotspots' have NO denominator in this file:
+  PASS  no population or per-capita column exists (none)
+          top 4 states = 46.9% of complaints (CA, FL, TX, NY)
+          which is the four most populous states. Ranking states by raw volume
+          ranks them by population, and brief Q2 asks for 'hotspots'.
+
+==============================================================================
+9. THE CONSUMER SIDE IS A REAL REGISTER - positive tests, not a free pass
+==============================================================================
+  PASS  Complaint ID tracks submission date at Spearman 0.9999878 (range 2,471,340-7,458,912, 1.3% dense)
+  PASS  ...but NOT in strict date order: 7,036 of 62,515 adjacent pairs (11.25%) move backwards, by a median of 1 day(s), worst 182. 'Strict' means zero, and the published masthead said strict.
+  PASS  WHAT DOES HOLD: the median Complaint ID rises in every one of the 75 month-to-month steps. A sequential issuing register with day-scale jitter, which is what a real intake queue looks like.
+
+        Day-of-week, observed / expected:
+          Mon 1.11   Tue 1.32   Wed 1.29   Thu 1.23   Fri 1.15   Sat 0.52   Sun 0.37
+  PASS  weekends collapse (Sat 0.5189, Sun 0.3708) -- chi2 p=0.0e+00. Multinomial draws do not produce weekends.
+  PASS  the taxonomy is SPARSE: 111 of 684 Product x Issue cells are populated (16.23%)
+  PASS  and strongly HIERARCHICAL: 63 of 76 issues sit under exactly one product
+  PASS  ...but it is NOT a tree: 13 issues appear under up to 7 products and carry 13,085 rows = 20.93% of the register. Of those, 2.29% of the file sits outside its issue's modal product -- so 'a genuine tree' was an overstatement, not a small one.
+
+==============================================================================
+10. WHERE THE MONEY IS - relief concentration (Q3 + Q4)
+==============================================================================
+        29 issues with n>=300; monetary relief rate 0.86% .. 50.77%
+
+        issue                                                     n  relief %
+        Fees or interest                                      1,422    50.77%
+        Problem caused by your funds being low                1,330    47.37%
+        Problem with a purchase shown on your statement       4,415    41.02%
+        Problem with a lender or other company charging yo    2,493    39.23%
+        Getting a credit card                                 1,867     3.05%
+        Struggling to pay mortgage                            1,904     2.73%
+        Improper use of your report                           1,624     0.86%
+  PASS  the spread is 59x across issues -- an order of magnitude larger than anything on the company side
+  PASS  Issue -> monetary relief: Cramer V=0.346, chi2=7,150, p=0.0e+00
+  PASS  Product -> monetary relief: Cramer V=0.265, chi2=4,381, p=0.0e+00
+
+        Top 5 product-issue pairs = 65.4% of ALL monetary relief on 42.2% of complaints:
+          Checking or savings account    Managing an account                  n=15,109  relieved=5,206
+          Credit card or prepaid card    Problem with a purchase shown on y   n= 4,415  relieved=1,811
+          Checking or savings account    Problem with a lender or other com   n= 2,493  relieved=  978
+          Checking or savings account    Closing an account                   n= 2,953  relieved=  889
+          Credit card or prepaid card    Fees or interest                     n= 1,422  relieved=  722
+  PASS  relief is concentrated: 65.4% of it sits in five pairs
+
+==============================================================================
+11. TWO CLOCKS - Response_Time_Days is fabricated; the intake lag is real
+==============================================================================
+        intake lag: median 0, mean 1.225, p99 25, max 275
+
+        channel                n   mean lag   % delayed
+        Fax                  233      0.485       13.3%
+        Phone              4,684      1.787       20.0%
+        Postal mail        1,318      1.272       14.5%
+        Referral          10,766      3.298       75.6%
+        Web               45,423      0.679        7.8%
+        Web Referral          90      0.978       53.3%
+  PASS  channel explains the intake lag: Kruskal H=22,781, epsilon^2=0.364 -- Referral is delayed on three quarters of complaints, Web on eight per cent
+        This is the only speed measure in the file that is not fabricated, and it
+        answers Q5's 'how fast' and Q8's 'do channels differ' at the same time.
+  PASS  but the intake lag does NOT vary by company (Kruskal p=0.347) -- the company thesis holds on a column it was never tested on
+
+==============================================================================
+12. TIMELINESS BROKE IN 2021 - the answer 96.06% hides
+==============================================================================
+          year  n resolved   timely %  untimely
+          2017       5,394     99.83%         9
+          2018       7,872     99.85%        12
+          2019       7,075     99.90%         7
+          2020       8,942     99.31%        62
+          2021      11,149     89.02%     1,224
+          2022      12,953     95.62%       567
+          2023       7,637     93.16%       522
+  PASS  timeliness runs 99.72% through 2020 then falls to 89.02% -- a regime break, not a drift, and pooling to one 96.06% figure hides it
+  PASS  Mortgage holds at 99.58% in 2021 while everything else breaks -- the one product that never fails (n=953)
+
+        Universality, all cuts with n>=30 either side of the boundary:
+        cut      value                                           n pre  n 2021    pre %   2021 %    drop
+        product  Checking or savings account                    11,537   4,006   99.74%   92.16%   7.58pp
+        product  Credit card or prepaid card                     7,270   3,084   99.48%   87.39%  12.09pp
+        product  Credit reporting, credit repair services, or    2,898   1,642   99.76%   81.43%  18.33pp
+        product  Debt collection                                 1,360     671   99.78%   80.48%  19.30pp
+        product  Money transfer, virtual currency, or money s    1,212     599   99.67%   89.65%  10.02pp
+        product  Mortgage                                        4,515     953   99.84%   99.58%   0.26pp
+        product  Payday loan, title loan, or personal loan         170      76  100.00%   92.11%   7.89pp
+        product  Vehicle loan or lease                             292     113   99.66%   88.50%  11.16pp
+        channel  Phone                                           1,890     897   99.79%   90.75%   9.04pp
+        channel  Postal mail                                       996     104   99.70%   83.65%  16.04pp
+        channel  Referral                                        6,919   2,063   99.62%   91.08%   8.54pp
+        channel  Web                                            19,254   8,074   99.71%   88.36%  11.35pp
+        region   Midwest                                         3,048     973   99.74%   90.34%   9.40pp
+        region   Northeast                                       5,896   2,338   99.71%   89.09%  10.62pp
+        region   South                                          11,069   3,829   99.71%   89.45%  10.26pp
+        region   West                                            9,270   4,009   99.64%   88.25%  11.39pp
+  PASS  the break is universal with exactly ONE exception: 15 of 16 testable cuts fall by more than 5pp (4 cuts too thin to test)
+
+        Right-censoring, month by month, from the boundary:
+          2023-05  n=1,085  in progress  0.65%  timely among resolved  96.38%
+          2023-06  n=1,018  in progress  3.63%  timely among resolved  99.49%
+          2023-07  n=1,749  in progress 49.34%  timely among resolved 100.00%
+          2023-08  n=  717  in progress 81.87%  timely among resolved 100.00%
+  PASS  the 2023 bar is 93.1649% pooled and 89.5221% on the uncensored window (Jan-Apr, n=4,562) -- 3.64pp of apparent recovery is 3,075 fast cases closing first
+
+==============================================================================
+RESULT
+==============================================================================
+All checks pass. The conclusions in analysis/profile.md are reproduced above.

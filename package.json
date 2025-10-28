@@ -10,10 +10,10 @@
     "lint:a11y": "pnpm -r --if-present exec playwright test a11y"
   },
   "devDependencies": {
-    "@axe-core/playwright": "^4.10.0",
-    "@malloydata/db-duckdb": "^0.0.313",
-    "@malloydata/malloy": "^0.0.313",
-    "playwright": "^1.55.0",
+    "@axe-core/playwright": "^4.11.0",
+    "@malloydata/db-duckdb": "^0.0.318",
+    "@malloydata/malloy": "^0.0.318",
+    "playwright": "^1.56.0",
     "typescript": "^5.9.0"
   }
 }

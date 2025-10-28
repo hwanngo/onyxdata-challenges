@@ -17,7 +17,7 @@ The dashboards are the output. **`packages/dna-kit` is the actual product.**
 | Node 22+ | `brew install node` | via [nvm](https://github.com/nvm-sh/nvm) | `winget install OpenJS.NodeJS` |
 | [pnpm](https://pnpm.io) | `corepack enable pnpm` | `corepack enable pnpm` | `corepack enable pnpm` |
 
-Python 3.13 is installed by `just setup` via uv - you don't need it beforehand.
+Python 3.14 is installed by `just setup` via uv - you don't need it beforehand.
 
 `just doctor` checks all of this and tells you what's missing.
 
@@ -25,7 +25,7 @@ Python 3.13 is installed by `just setup` via uv - you don't need it beforehand.
 
 ```bash
 just doctor                # verify the toolchain
-just setup                 # python 3.13 + deps + playwright chromium + pnpm install
+just setup                 # python 3.14 + deps + playwright chromium + pnpm install
 
 # start a month (copies templates/_month into <year>/<month> and registers it in the workspace)
 just new <year> <month>
@@ -121,7 +121,7 @@ Be unconventional where it costs nothing; conventional where the rubric punishes
 
 | | | |
 |---|---|---|
-| Python 3.13 + uv + Polars + DuckDB | data layer | build-time only |
+| Python 3.14 + uv + Polars + DuckDB | data layer | build-time only |
 | **Malloy** | semantic layer | a real modelling language - our answer to the rubric's "DAX / data modelling" line |
 | **SolidJS** | UI | fine-grained signals: a cross-filter updates one chart, not the tree. Response time is scored |
 | **UnoCSS** | styling | per-month token presets, so each challenge reskins without forking components |

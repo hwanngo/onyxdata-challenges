@@ -1,0 +1,80 @@
+harness   : tools/verify_metrics.py
+date      : 2025-10-28
+bundle    : dist/assets/index-C6y5MsUq.js + dist/assets/index-CAuU6iMx.css
+url       : http://localhost:5310  (vite preview --port 5310 --strictPort)
+tour key  : datadna-2025-10-tour-seen (seeded, so the overlay is in no measured context)
+command   : uv run python tools/verify_metrics.py 2025 10 --url http://localhost:5310
+----------------------------------------------------------------------------
+metric                                           rendered         recomputed  
+--------------------------------------------------------------------------------
+break_falling                                     15.0000            15.0000  ok
+break_tested                                      16.0000            16.0000  ok
+censored_resolved                              3,075.0000         3,075.0000  ok
+channel.Fax.days                                  15.5150            15.5150  ok
+channel.Fax.delayed                               13.3047            13.3047  ok
+channel.Phone.days                                15.1909            15.1909  ok
+channel.Phone.delayed                             20.0470            20.0470  ok
+channel.Postal mail.days                          14.9825            14.9825  ok
+channel.Postal mail.delayed                       14.4917            14.4917  ok
+channel.Referral.days                             15.1365            15.1365  ok
+channel.Referral.delayed                          75.5898            75.5898  ok
+channel.Web Referral.days                         14.8222            14.8222  ok
+channel.Web Referral.delayed                      53.3333            53.3333  ok
+channel.Web.days                                  15.0678            15.0678  ok
+channel.Web.delayed                                7.7802             7.7802  ok
+chi_weaker_than_company                           46.0000            46.0000  ok
+companies                                      1,081.0000         1,081.0000  ok
+company_v_max                                      0.1342             0.1342  ok
+company_v_min                                      0.1278             0.1278  ok
+complaints                                    62,516.0000        62,516.0000  ok
+diagonal_closest                                   1.1500             1.1500  ok
+diagonal_separation                                3.2578             3.2578  ok
+early_max                                        259.0000           259.0000  ok
+early_n                                        2,150.0000         2,150.0000  ok
+early_pct                                          3.4391             3.4391  ok
+id_backwards_pct                                  11.2549            11.2549  ok
+id_month_steps_rising                             75.0000            75.0000  ok
+in_progress                                    1,494.0000         1,494.0000  ok
+issues                                            76.0000            76.0000  ok
+issues_single_parent                              63.0000            63.0000  ok
+issues_total                                      76.0000            76.0000  ok
+kpi_rank_corr                                      0.9894             0.9894  ok
+lag_eps2                                           0.3644             0.3644  ok
+max_in_progress                                   81.8689            81.8689  ok
+mortgage_2021                                     99.5803            99.5803  ok
+multi_parent_row_pct                              20.9306            20.9306  ok
+off_hierarchy_row_pct                              2.2890             2.2890  ok
+pair.Closing an account.relief_share               6.0489             6.0489  ok
+pair.Fees or interest.relief_share                 4.9126             4.9126  ok
+pair.Managing an account.relief_share             35.4222            35.4222  ok
+pair.Problem with a lender or other company charging your account.relief_share             6.6544             6.6544  ok
+pair.Problem with a purchase shown on your statement.relief_share            12.3222            12.3222  ok
+products                                           9.0000             9.0000  ok
+resolved                                      61,022.0000        61,022.0000  ok
+severity_issues                                   29.0000            29.0000  ok
+severity_max                                      50.7736            50.7736  ok
+severity_min                                       0.8621             0.8621  ok
+states                                            51.0000            51.0000  ok
+sun_index                                          0.3708             0.3708  ok
+tier.Large.complaints                             57.0833            57.0833  ok
+tier.Large.kpi                                   203.6129           203.6129  ok
+tier.Medium.complaints                            58.0278            58.0278  ok
+tier.Medium.kpi                                  400.2118           400.2118  ok
+tier.Small.complaints                             57.8824            57.8824  ok
+tier.Small.kpi                                 2,244.0861         2,244.0861  ok
+timely.2017                                       99.8331            99.8331  ok
+timely.2018                                       99.8476            99.8476  ok
+timely.2019                                       99.9011            99.9011  ok
+timely.2020                                       99.3066            99.3066  ok
+timely.2021                                       89.0214            89.0214  ok
+timely.2022                                       95.6226            95.6226  ok
+timely.2023                                       89.5221            89.5221  ok
+timely_2023_pooled                                93.1649            93.1649  ok
+timely_rate                                       96.0621            96.0621  ok
+timely_wrong                                      93.7664            93.7664  ok
+top5_relief_share                                 65.3603            65.3603  ok
+top5_volume_share                                 42.2164            42.2164  ok
+--------------------------------------------------------------------------------
+Specified but not rendered (21): channel.Fax, channel.Phone, channel.Postal mail, channel.Referral, channel.Web, channel.Web Referral, pair.Closing an account, pair.Fees or interest, pair.Managing an account, pair.Problem with a lender or other company charging your account, pair.Problem with a purchase shown on your statement, tier.Large, tier.Medium, tier.Small, timely.2017.rate, timely.2018.rate, timely.2019.rate, timely.2020.rate, timely.2021.rate, timely.2022.rate, timely.2023.rate
+
+All 67 rendered metrics reconcile.

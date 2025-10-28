@@ -4,10 +4,10 @@
 # Era 1 = Playground-only, gated, no brief. Era 2 = full challenge page, ungated.
 
 meta:
-  verified_on: 2025-09-26
-  total: 58
+  verified_on: 2025-10-28
+  total: 59
   era1_count: 52
-  era2_count: 6
+  era2_count: 7
   playground_index: https://datadna.onyxdata.co.uk/playground/
   challenge_index: https://datadna.onyxdata.co.uk/challenges/
   work_order: era2_oldest_first_then_era1_backfill
@@ -182,8 +182,47 @@ challenges:
     title: "October 2025 DataDNA - Consumer Financial Complaints (CFPB)"
     playground_url: "https://datadna.onyxdata.co.uk/playground/2025-10-october-2025-datadna-consumer-financial-complaints-analytics-challenge/"
     challenge_url: "https://datadna.onyxdata.co.uk/challenges/october-2025-datadna-consumer-financial-complaints-analytics-challenge/"
-    dataset_url: "https://datadna.onyxdata.co.uk/wp-content/uploads/2025/09/DataDNA-Dataset-Challenge-Consumer-Financial-Complaints-Dataset-October-2025.zip"
+    dataset_url: "https://datadna.onyxdata.co.uk/wp-content/uploads/2025/09/DataDNA-Dataset-Challenge-Consumer-Financial-Complaints-Dataset-October-2025.zip"   # scraped 2025-10-28   # scrape the Download Dataset anchor
     dataset_folder: "DataDNA-Dataset-Challenge-Consumer-Financial-Complaints-Dataset-October-2025"
+    formats: [XLSX, DOCX, PDF, TXT]   # verified 2025-10-28 from the ZIP; registry said [CSV] (5th correction)
+    status: done
+    notes: >-
+      Completed 2025-10-28, G1-G8. Thesis: two datasets, one register. 62,516 complaints are a
+      real register (IDs in strict date order rho=0.99999, weekends collapse to 0.37-0.52 of
+      expected, product-issue taxonomy is a tree); the 1,081 companies are a uniform random
+      overlay. Signature "The Diagonal of Nothing": every association test as chi2 vs df, with
+      the chi2=df line drawn. Six company tests land ON it (0.945-1.018x df across 1,080-8,640
+      df); eight consumer tests sit 5.7x-747x above. No overlap. So the file supports
+      supervision PRIORITIES and answers nothing about supervision TARGETS -- and the two
+      questions it appears to answer best (Q6's shipped KPI, Q5's response time) are computed
+      entirely from the fabricated half. Affirmative findings: five product-issue pairs carry
+      65.4% of all monetary relief on 42.2% of complaints; timeliness broke in 2021 (99.3 ->
+      89.0) everywhere except Mortgage (99.58); the intake lag is the only real speed measure
+      (Referral delayed 75.6% vs Web 7.8%, eps2=0.364) and does not vary by company.
+      THREE ERRORS OF MINE, all corrected and recorded: I called the file "not broken" after
+      testing only within-column identities (2,150 complaints were answered before they were
+      received); I published 93.77% timeliness by counting in-progress as failures (96.06%);
+      and three trend numbers were wrong, one of which contradicted my own integrity.py output.
+      67/67 metrics reconciled, 27 pytest, 15/15 Malloy views across 2 sources, 12 integrity
+      checks, 0 axe violations. Self-score 29/34 under the page's stated "3 = solid" bar.
+      Not deployed: STACK.md defers.
+    zip_sha256: "73a60d72294e37387ea747c5eeee3567e81354a389d0d8133f3c7c008bdbc384"
+    file_sha256:
+      "Cheat_Sheet_ZoomCharts.pdf": "b3ebf7fba6416e51fcd308719aa796abf9a5ba4a3db65f09d141970e0d665406"
+      "Consumer Financial Complaints Analytics Challenge_Brief.docx": "66c88db2de3386ef463834692ab852dce8585de852708807d889ca27b3d74fdf"
+      "DataDNA Dataset Challenge - Consumer Financial Complaints Dataset - October 2025.xlsx": "c70451b6cc3eff11160e58364cbc6236099b9f440107a1fb8a256ed400e30d35"
+      "READ ME BEFORE PARTICIPATING.txt": "1ce5eb7eaf36079b9ce4ef136bd1684e08f1db3f13d7a223d1a583f86ed1b492"
+      "ZoomCharts_Mini_Challenge.pdf": "1223e10820e231a96eea8813c7d602709a5d68a91a74123da76522df8203f433"
+    self_scores: {judge_34: 29, ai_storytelling: 4, ai_design: 4, ai_technical: 5, ai_insights: 5, ai_b_accessibility: 5}
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2025/11"
+    era: 2
+    title: "November 2025 DataDNA - E-commerce Analytics"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2025-11-november-2025-datadna-e-commerce-analytics-challenge/"
+    challenge_url: "https://datadna.onyxdata.co.uk/challenges/november-2025-datadna-e%e2%80%91commerce-analytics-challenge/"
+    dataset_url: "https://datadna.onyxdata.co.uk/wp-content/uploads/2025/10/DataDNA-Dataset-Challenge-E-commerce-Dataset-November-2025.zip"   # scrape the Download Dataset anchor
+    dataset_folder: "DataDNA-Dataset-Challenge-E-commerce-Dataset-November-2025"
     formats: [XLSX, DOCX, PDF, TXT]
     status: todo
     scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}

@@ -1,6 +1,6 @@
 # onyxdata-dnakit task runner
 #
-# Prerequisites: just, uv, node >=22, pnpm, Python 3.13 (via `uv python install 3.13`)
+# Prerequisites: just, uv, node >=22, pnpm, Python 3.14 (via `uv python install 3.14`)
 # Usage: just <recipe> [args]
 
 default:
@@ -10,7 +10,7 @@ default:
 
 # Install everything. pnpm workspaces means one install covers dna-kit AND every month app.
 setup:
-    uv python install 3.13
+    uv python install 3.14
     uv sync --all-extras
     uv run playwright install chromium
     pnpm install

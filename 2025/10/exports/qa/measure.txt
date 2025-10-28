@@ -1,0 +1,22 @@
+harness   : tools/qa/measure.mjs
+date      : 2025-10-28
+bundle    : dist/assets/index-C6y5MsUq.js + dist/assets/index-CAuU6iMx.css
+url       : http://localhost:5310  (vite preview --port 5310 --strictPort)
+tour key  : datadna-2025-10-tour-seen (seeded, so the overlay is in no measured context)
+command   : QA_URL=http://localhost:5310 QA_TOUR_KEY=datadna-2025-10-tour-seen node ../../../tools/qa/measure.mjs
+----------------------------------------------------------------------------
+poster root 2560x1440  (scroll 2560x1440)
+body scroll 2560x1440
+
+direct children:
+  header.masthead                    h=  277  bottom=307
+  div.panel.panel--hero              h=  570  bottom=891
+  div#money.panel                    h=  570  bottom=891
+  h2.section__title                  h=   30  bottom=935
+  div#timeliness.panel               h=  380  bottom=1329
+  div#clocks.panel.panel--fake       h=  380  bottom=1329
+  div#kpi.panel.panel--fake          h=  570  bottom=891
+  section.sowhat                     h=  380  bottom=1329
+  footer.provenance                  h=   75  bottom=1418
+
+FITS. 0px of vertical slack, 0px horizontal.

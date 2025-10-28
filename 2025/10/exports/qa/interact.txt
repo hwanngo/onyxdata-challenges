@@ -1,0 +1,32 @@
+harness   : 2025/10/app/interact.mjs
+date      : 2025-10-28
+bundle    : dist/assets/index-C6y5MsUq.js + dist/assets/index-CAuU6iMx.css
+url       : http://localhost:5310  (vite preview --port 5310 --strictPort)
+tour key  : datadna-2025-10-tour-seen (seeded, so the overlay is in no measured context)
+command   : QA_URL=http://localhost:5310 QA_TOUR_KEY=datadna-2025-10-tour-seen node interact.mjs
+----------------------------------------------------------------------------
+PASS  baseline complaints = 62,516
+PASS  baseline timeliness = 96.0621% (resolved denominator)
+PASS  the real clock renders an effect size (eps2 = 0.3644)
+PASS  channel cross-filter applies (88ms, budget 200ms)
+PASS  chip bar shows the active filter
+PASS  URL encodes filter state
+PASS  the pressed bar reports its state to assistive tech
+PASS  the timeliness panel recomputed under the filter
+PASS  the relief priority list recomputed under the filter
+PASS  the integrity callout recomputed under the filter
+PASS  the censoring hold-out recomputed under the filter
+PASS  clear-all restores the full register
+PASS  ...and the effect size with it
+PASS  channel bars are keyboard focusable
+PASS  Enter on a focused bar filters
+PASS  the diagonal ships all 78 tests as a table (78 rows)
+PASS  the two-clocks table carries both clocks for 6 channels (6 rows)
+PASS  the timeliness table carries censored AND pooled for 7 years (7 rows)
+PASS  ...with Cramér's V and the Bonferroni verdict, which the picture cannot carry
+PASS  tour re-opens from the masthead button
+PASS  Esc closes the tour
+PASS  deep link restores filter state (Web = 45,423)
+PASS  an empty filter combination renders without error
+
+all interaction checks pass

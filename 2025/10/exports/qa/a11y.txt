@@ -1,0 +1,15 @@
+harness   : tools/qa/a11y.mjs
+date      : 2025-10-28
+bundle    : dist/assets/index-C6y5MsUq.js + dist/assets/index-CAuU6iMx.css
+url       : http://localhost:5310  (vite preview --port 5310 --strictPort)
+tour key  : datadna-2025-10-tour-seen (seeded, so the overlay is in no measured context)
+command   : QA_URL=http://localhost:5310 QA_TOUR_KEY=datadna-2025-10-tour-seen node ../../../tools/qa/a11y.mjs
+----------------------------------------------------------------------------
+
+=== desktop light: 0 violations
+
+=== desktop dark: 0 violations
+
+=== mobile light: 0 violations
+
+=== poster: 0 violations

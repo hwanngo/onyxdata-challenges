@@ -1,0 +1,9 @@
+harness   : tools/lint_prose_numbers.mjs
+date      : 2025-10-28
+bundle    : dist/assets/index-C6y5MsUq.js + dist/assets/index-CAuU6iMx.css
+url       : http://localhost:5310  (vite preview --port 5310 --strictPort)
+tour key  : datadna-2025-10-tour-seen (seeded, so the overlay is in no measured context)
+command   : node tools/lint_prose_numbers.mjs 2025 10
+----------------------------------------------------------------------------
+2025/10  ok - every published statistic is tagged or declared
+exit=0

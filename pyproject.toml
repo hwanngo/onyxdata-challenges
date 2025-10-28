@@ -2,7 +2,7 @@
 name = "onyxdata-dnakit"
 version = "0.1.0"
 description = "Tooling for the OnyxData DataDNA challenge program"
-requires-python = ">=3.13"
+requires-python = ">=3.14"
 dependencies = [
     "polars>=1.0",
     "duckdb>=1.1",

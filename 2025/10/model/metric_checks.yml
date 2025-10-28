@@ -1,0 +1,254 @@
+# Every number rendered in the UI, recomputed from the curated parquet by DuckDB.
+# Zero tolerance: a mismatch fails G7.
+#
+# THE DENOMINATOR RULE runs through this file. `timely_rate` divides by RESOLVED complaints;
+# `timely_wrong` is specified only because one footnote shows the 2.30pp gap deliberately.
+# Getting this wrong is how brief.md came to publish 93.77%.
+#
+# THE CENSORING RULE runs through it too, and did not used to. Resolution is right-censored
+# from 2023-05 (2023-07 is 49% in progress, 2023-08 is 82%), so the `timely` SET below stops
+# at 2023-04. `timely_2023_pooled` exists for the same reason `timely_wrong` does: the page
+# shows what pooling costs rather than hiding it.
+
+metrics:
+  complaints: >
+    select count(*) from fct_complaint
+  companies: >
+    select count(*) from dim_company
+  resolved: >
+    select count(*) from fct_complaint where is_resolved
+  products: >
+    select count(distinct product) from fct_complaint
+  issues: >
+    select count(distinct issue) from fct_complaint
+  states: >
+    select count(distinct state) from fct_complaint
+  timely_rate: >
+    select 100.0 * avg(case when is_timely then 1.0 else 0.0 end)
+    from fct_complaint where is_resolved
+  timely_wrong: >
+    select 100.0 * avg(case when is_timely then 1.0 else 0.0 end) from fct_complaint
+
+  # ---- the three POSITIVE tests that the consumer half is a real register ----
+  # These replace "the IDs are issued in strict date order" and "the taxonomy is a tree",
+  # neither of which survived. `id_backwards_pct` is published BECAUSE it refutes the first.
+  id_month_steps_rising: >
+    with m as (select month, median(complaint_id) as mid from fct_complaint group by 1),
+         s as (select mid, lag(mid) over (order by month) as prev from m)
+    select count(*) from s where prev is not null and mid > prev
+  id_backwards_pct: >
+    with s as (
+      select date_submitted, lag(date_submitted) over (order by complaint_id) as prev
+      from fct_complaint
+    )
+    select 100.0 * count(*) filter (where date_submitted < prev)
+                 / count(*) filter (where prev is not null)
+    from s
+  sun_index: >
+    select 7.0 * count(*) filter (where dayofweek(date_submitted) = 0) / count(*)
+    from fct_complaint
+  issues_total: >
+    select count(distinct issue) from fct_complaint
+  issues_single_parent: >
+    select count(*) from (
+      select issue from fct_complaint group by 1 having count(distinct product) = 1)
+  multi_parent_row_pct: >
+    select 100.0 * count(*) filter (
+             where issue in (select issue from fct_complaint
+                             group by 1 having count(distinct product) > 1))
+                 / count(*)
+    from fct_complaint
+  # Of the multi-parent rows, the ones NOT under their issue's most common product.
+  off_hierarchy_row_pct: >
+    with c as (select issue, product, count(*) as n from fct_complaint group by 1, 2),
+         m as (select issue, max(n) as top, sum(n) as tot, count(*) as parents
+               from c group by 1)
+    select 100.0 * coalesce(sum(tot - top) filter (where parents > 1), 0)
+                 / (select count(*) from fct_complaint)
+    from m
+
+  # ---- the supervision priority list ----
+  top5_relief_share: >
+    with p as (
+      select product, issue, sum(case when got_money then 1 else 0 end) as relieved
+      from fct_complaint group by 1, 2
+    )
+    select 100.0 * (select sum(relieved) from (select relieved from p order by relieved desc limit 5))
+                 / (select sum(relieved) from p)
+  top5_volume_share: >
+    with p as (
+      select product, issue, count(*) as n,
+             sum(case when got_money then 1 else 0 end) as relieved
+      from fct_complaint group by 1, 2
+    )
+    select 100.0 * (select sum(n) from (select n, relieved from p order by relieved desc limit 5))
+                 / (select count(*) from fct_complaint)
+
+  # ---- the severity proxy, across issues with n >= 300 ----
+  severity_issues: >
+    select count(*) from (select issue from fct_complaint group by 1 having count(*) >= 300)
+  severity_max: >
+    select max(r) from (
+      select 100.0 * avg(case when got_money then 1.0 else 0.0 end) as r
+      from fct_complaint group by issue having count(*) >= 300)
+  severity_min: >
+    select min(r) from (
+      select 100.0 * avg(case when got_money then 1.0 else 0.0 end) as r
+      from fct_complaint group by issue having count(*) >= 300)
+
+  # ---- the 2021 regime break, and whether it is compositional ----
+  mortgage_2021: >
+    select 100.0 * avg(case when is_timely then 1.0 else 0.0 end)
+    from fct_complaint
+    where product = 'Mortgage' and is_resolved and year(month) = 2021
+  # A cut is TESTABLE with >= 30 resolved complaints on each side of the 2021 boundary and
+  # FALLS when its 2021 rate is more than 5pp below its pre-2021 rate. Mirrors
+  # `breakUniversality()` in app/src/data.ts, which is what the DOM renders.
+  break_tested: >
+    with u as (
+      select 'product' as cut, product as k, is_timely, year(month) as yr
+      from fct_complaint where is_resolved
+      union all select 'channel', channel, is_timely, year(month)
+      from fct_complaint where is_resolved
+      union all select 'region', region, is_timely, year(month)
+      from fct_complaint where is_resolved
+    ),
+    g as (
+      select cut, k,
+             count(*) filter (where yr <= 2020) as n_pre,
+             count(*) filter (where yr = 2021) as n_21
+      from u group by 1, 2
+    )
+    select count(*) from g where n_pre >= 30 and n_21 >= 30
+  break_falling: >
+    with u as (
+      select 'product' as cut, product as k, is_timely, year(month) as yr
+      from fct_complaint where is_resolved
+      union all select 'channel', channel, is_timely, year(month)
+      from fct_complaint where is_resolved
+      union all select 'region', region, is_timely, year(month)
+      from fct_complaint where is_resolved
+    ),
+    g as (
+      select cut, k,
+             count(*) filter (where yr <= 2020) as n_pre,
+             count(*) filter (where yr = 2021) as n_21,
+             100.0 * avg(case when is_timely then 1.0 else 0.0 end) filter (where yr <= 2020) as pre,
+             100.0 * avg(case when is_timely then 1.0 else 0.0 end) filter (where yr = 2021) as y21
+      from u group by 1, 2
+    )
+    select count(*) from g where n_pre >= 30 and n_21 >= 30 and pre - y21 > 5
+
+  # ---- right-censoring: what the year bars hold out, and what it would cost ----
+  censored_resolved: >
+    select count(*) from fct_complaint
+    where is_resolved and month >= date '2023-05-01'
+  timely_2023_pooled: >
+    select 100.0 * avg(case when is_timely then 1.0 else 0.0 end)
+    from fct_complaint where is_resolved and year(month) = 2023
+  max_in_progress: >
+    select max(r) from (
+      select 100.0 * avg(case when is_resolved then 0.0 else 1.0 end) as r
+      from fct_complaint group by month)
+
+  # ---- the cross-column integrity break ----
+  early_n: >
+    select count(*) from fct_complaint where date_responded < date_received
+  early_pct: >
+    select 100.0 * count(*) filter (where date_responded < date_received) / count(*)
+    from fct_complaint
+  early_max: >
+    select max(datediff('day', date_responded, date_received)) from fct_complaint
+  in_progress: >
+    select count(*) from fct_complaint where not is_resolved
+
+  # ---- the real clock: Kruskal-Wallis epsilon^2 of intake lag by channel ----
+  # Tie-corrected, because 79% of complaints have a lag of exactly zero. Channels with
+  # n >= 50, matching `lagEffectSize()` in app/src/data.ts and `integrity.py` section 11.
+  lag_eps2: >
+    with k as (
+      select channel from fct_complaint group by 1 having count(*) >= 50
+    ),
+    f as (
+      select channel, intake_lag from fct_complaint where channel in (select channel from k)
+    ),
+    r as (
+      select channel, intake_lag,
+             (rank() over (order by intake_lag) + count(*) over (partition by intake_lag)
+              + rank() over (order by intake_lag) - 1) / 2.0 as rk
+      from f
+    ),
+    n as (select count(*) as n, count(distinct channel) as k from f),
+    ties as (
+      select sum(power(c, 3) - c) as t
+      from (select count(*) as c from f group by intake_lag)
+    ),
+    g as (select channel, sum(rk) as R, count(*) as ng from r group by 1),
+    h as (
+      select ((12.0 / (n.n * (n.n + 1))) * (select sum(R * R / ng) from g) - 3 * (n.n + 1))
+             / (1 - ties.t / (power(n.n, 3) - n.n)) as H, n.n as n, n.k as k
+      from n, ties
+    )
+    select (H - k + 1) / (n - k) from h
+
+  # ---- the shipped Q6 metric IS the size ranking inverted ----
+  kpi_rank_corr: >
+    select corr(kpi_rank, share_rank) from dim_company
+
+  # ---- the signature chart, RECOMPUTED from the persisted grid ----
+  # Never a literal: these are the numbers the poster leads with, and the earlier version
+  # of this file could only express the separation of a hand-picked fourteen.
+  diagonal_closest: >
+    select (select min(ratio) from dim_chitest where side = 'consumer')
+         / (select max(ratio) from dim_chitest where side = 'company')
+  diagonal_separation: >
+    select (select min(ratio) from dim_chitest
+            where family = 'structural' and not definitional)
+         / (select max(ratio) from dim_chitest where side = 'company')
+  company_v_min: >
+    select min("cramersV") from dim_chitest where side = 'company'
+  company_v_max: >
+    select max("cramersV") from dim_chitest where side = 'company'
+  chi_weaker_than_company: >
+    select count(*) from dim_chitest
+    where side = 'consumer'
+      and "cramersV" < (select min("cramersV") from dim_chitest where side = 'company')
+
+metric_sets:
+  # Timeliness by year - the regime break. CENSORED: months from 2023-05 are excluded,
+  # which is what the bars draw. The pooled 2023 figure is `timely_2023_pooled` above.
+  timely: >
+    select cast(year(month) as varchar) as key, 'rate' as measure,
+           100.0 * avg(case when is_timely then 1.0 else 0.0 end) as value
+    from fct_complaint
+    where is_resolved and month < date '2023-05-01'
+    group by 1
+
+  # The two clocks, on the same channels: the fabricated response time (flat) and the
+  # share delayed at intake (not flat at all). n >= 50, matching what the panel draws.
+  channel: >
+    select channel as key, 'days' as measure, avg(response_days) as value
+    from fct_complaint group by 1 having count(*) >= 50
+    union all
+    select channel as key, 'delayed' as measure,
+           100.0 * avg(case when intake_lag > 0 then 1.0 else 0.0 end) as value
+    from fct_complaint group by 1 having count(*) >= 50
+
+  # The five product-issue pairs that carry two thirds of all relief.
+  pair: >
+    with p as (
+      select product, issue, count(*) as n,
+             sum(case when got_money then 1 else 0 end) as relieved
+      from fct_complaint group by 1, 2
+    )
+    select issue as key, 'relief_share' as measure,
+           100.0 * relieved / (select sum(relieved) from p) as value
+    from p order by relieved desc limit 5
+
+  # The company size tiers: volume flat, KPI not.
+  tier: >
+    select size_tier as key, 'complaints' as measure, avg(complaints) as value
+    from dim_company group by 1
+    union all
+    select size_tier as key, 'kpi' as measure, avg(kpi_per_1pct_share) as value
+    from dim_company group by 1

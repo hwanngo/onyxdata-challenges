@@ -8,7 +8,7 @@ Re-verify in Phase 0 and whenever something breaks - this program runs for month
 
 | Thing | Pin | Notes |
 |---|---|---|
-| Python | 3.13.x | current stable line. don't chase the next minor when it lands. Skip free-threaded builds, no benefit here |
+| Python | 3.14.x | current stable line. don't chase the next minor when it lands. Skip free-threaded builds, no benefit here |
 | Node | 22 LTS or 24 | |
 | pnpm | 10.x | pinned via `packageManager` in the root package.json; enable with `corepack enable pnpm` |
 | uv | latest | Python env + lockfile |

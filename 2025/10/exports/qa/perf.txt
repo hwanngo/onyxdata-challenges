@@ -1,0 +1,9 @@
+harness   : tools/qa/perf.mjs
+date      : 2025-10-28
+bundle    : dist/assets/index-C6y5MsUq.js + dist/assets/index-CAuU6iMx.css
+url       : http://localhost:5310  (vite preview --port 5310 --strictPort)
+tour key  : datadna-2025-10-tour-seen (seeded, so the overlay is in no measured context)
+command   : QA_URL=http://localhost:5310 QA_TOUR_KEY=datadna-2025-10-tour-seen node ../../../tools/qa/perf.mjs
+----------------------------------------------------------------------------
+cold load to first real number: 1587ms  (budget 3000ms)
+interaction-to-paint: 1ms, 1ms, 2ms, 1ms, 1ms  max 2ms (budget 200ms)
