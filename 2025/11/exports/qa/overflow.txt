@@ -1,0 +1,15 @@
+Horizontal overflow - four viewports
+====================================
+
+harness   : tools/qa/overflow.mjs
+date      : 2025-11-27
+month     : 2025/11 - E-commerce Analytics
+app       : datadna-2025-11 (private workspace package, unversioned)
+build     : dist/assets/index-CiC2RTrU.js
+url       : http://localhost:5311  (vite preview --strictPort)
+tour key  : ecom-2025-11-tour-seen  (seeded so the overlay does not intercept clicks)
+
+375px -> scrollWidth 375 clientWidth 375 ok
+768px -> scrollWidth 768 clientWidth 768 ok
+1024px -> scrollWidth 1024 clientWidth 1024 ok
+1440px -> scrollWidth 1440 clientWidth 1440 ok

@@ -1,0 +1,26 @@
+Interaction - cross-filter, URL state, keyboard, empty state
+============================================================
+
+harness   : tools/qa/../../2025/11/app/interact.mjs (month-local)
+date      : 2025-11-27
+month     : 2025/11 - E-commerce Analytics
+app       : datadna-2025-11 (private workspace package, unversioned)
+build     : dist/assets/index-CiC2RTrU.js
+url       : http://localhost:5311  (vite preview --strictPort)
+tour key  : ecom-2025-11-tour-seen  (seeded so the overlay does not intercept clicks)
+
+ok    baseline renders  - revenue 28006707.87
+ok    no filters at rest
+ok    ASP country mark cross-filters  - 28006708 -> 2174460
+ok      and the signature chart consumes it
+ok      and a chip appears
+ok    filter state is in the URL  - ?f=%255B%257B%2522field%2522%253A%2522country%2522%252C%2522
+ok    deep link restores the filter  - 2174460
+ok    clear-all restores the baseline
+ok      and removes every chip
+ok    channel bar cross-filters  - 12693074
+ok    signature dot activates by keyboard
+ok    impossible filter shows an empty state, not a blank page  - 1022 chars
+ok      and offers a way back
+
+13 passed, 0 failed

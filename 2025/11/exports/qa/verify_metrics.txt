@@ -1,0 +1,5 @@
+# verify_metrics - 2025/11
+# 2025-11-27 · tools/verify_metrics.py · tour key ecom-2025-11-tour-seen · port 5330
+# recomputed from data/curated/*.parquet via DuckDB, asserted against the rendered DOM
+
+All 42 rendered metrics reconcile.

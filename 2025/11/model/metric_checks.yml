@@ -1,0 +1,300 @@
+# Every number rendered in the UI, recomputed from the curated parquet by DuckDB and asserted
+# against the DOM by tools/verify_metrics.py. Zero tolerance: a mismatch fails G7.
+#
+# THE THREE-REVENUE RULE runs through this file. `revenue` is ALWAYS net_usd - ex-tax, refunds
+# zeroed. `revenue_reported` is specified separately and only where a panel deliberately shows
+# the file's own figure next to the corrected one. Confusing them is the entire failure mode
+# this month exists to demonstrate.
+#
+# The thesis metrics (correction_span_*, region_flip_*) are computed from dim_correction and the
+# fact table respectively - never from a literal. An earlier month shipped `select 5.6` in a spec
+# and only caught it because the schema was rebuilt; see .workbench/docs/LEARNINGS.md 2025/10.
+
+metrics:
+  # ---- scale -------------------------------------------------------------------------
+  events: >
+    select count(*) from fct_event
+  customers: >
+    select count(*) from dim_customer
+  skus: >
+    select count(*) from dim_product
+  families: >
+    select count(distinct family) from dim_product
+  countries: >
+    select count(*) from dim_geo
+  months: >
+    select count(*) from dim_month
+
+  # ---- THE CORRECTION ----------------------------------------------------------------
+  revenue_reported: >
+    select sum(reported_usd) from fct_event
+  revenue_ex_tax: >
+    select sum(ex_tax_usd) from fct_event
+  revenue: >
+    select sum(net_usd) from fct_event
+  tax_total: >
+    select sum(tax_usd) from fct_event
+  refunded_ex_tax: >
+    select sum(ex_tax_usd) filter (where is_refunded) from fct_event
+  correction_pct: >
+    select 100.0 * (sum(reported_usd) - sum(net_usd)) / sum(reported_usd) from fct_event
+  tax_share_of_reported: >
+    select 100.0 * sum(tax_usd) / sum(reported_usd) from fct_event
+
+  # ---- THE THESIS: correction span by cut, recomputed, never asserted -----------------
+  correction_span_channel: >
+    select span from dim_correction where cut = 'channel'
+  correction_span_month: >
+    select span from dim_correction where cut = 'month'
+  correction_span_family: >
+    select span from dim_correction where cut = 'family'
+  correction_span_currency: >
+    select span from dim_correction where cut = 'currency'
+  correction_span_region: >
+    select span from dim_correction where cut = 'region'
+  correction_span_country: >
+    select span from dim_correction where cut = 'country'
+  correction_span_payment_method: >
+    select span from dim_correction where cut = 'payment_method'
+  correction_span_category: >
+    select span from dim_correction where cut = 'category'
+  correction_span_segment: >
+    select span from dim_correction where cut = 'segment'
+  correction_span_discount_code: >
+    select span from dim_correction where cut = 'discount_code'
+  # The separation itself: the widest non-geographic span against the narrowest geographic one.
+  correction_separation: >
+    select (select min(span) from dim_correction where cut in ('country','region','currency'))
+         - (select max(span) from dim_correction
+            where cut not in ('country','region','currency','discount_code'))
+
+  # ---- THE REGION FLIP ---------------------------------------------------------------
+  region_top_reported: >
+    select region from fct_event group by 1 order by sum(reported_usd) desc limit 1
+  region_top_corrected: >
+    select region from fct_event group by 1 order by sum(net_usd) desc limit 1
+  eu_reported: >
+    select sum(reported_usd) from fct_event where region = 'EU'
+  eu_revenue: >
+    select sum(net_usd) from fct_event where region = 'EU'
+  na_reported: >
+    select sum(reported_usd) from fct_event where region = 'North America'
+  na_revenue: >
+    select sum(net_usd) from fct_event where region = 'North America'
+  region_flip_swing: >
+    select (select sum(reported_usd) from fct_event where region = 'EU')
+         - (select sum(reported_usd) from fct_event where region = 'North America')
+         + (select sum(net_usd) from fct_event where region = 'North America')
+         - (select sum(net_usd) from fct_event where region = 'EU')
+  # The two halves of the swing, stated separately because the tour quotes them that way.
+  eu_lead_reported: >
+    select (select sum(reported_usd) from fct_event where region = 'EU')
+         - (select sum(reported_usd) from fct_event where region = 'North America')
+  na_lead_restated: >
+    select (select sum(net_usd) from fct_event where region = 'North America')
+         - (select sum(net_usd) from fct_event where region = 'EU')
+  # A-2. The file's blank region label is exactly {United States, Canada}; build.py asserts it.
+  blank_region_events: >
+    select count(*) from fct_event where region = 'North America'
+
+  # ---- the correction's own range, by month -------------------------------------------
+  correction_month_lo: >
+    select lo from dim_correction where cut = 'month'
+  correction_month_hi: >
+    select hi from dim_correction where cut = 'month'
+  # The two rates that make geography the exception. 0% and 20% are not assumed - they are
+  # measured from the raw tax_local column by build_geo() and asserted statutory there.
+  us_tax_rate_pct: >
+    select 100.0 * tax_rate_statutory from dim_geo where country = 'United States'
+  eu_tax_rate_pct: >
+    select 100.0 * max(tax_rate_statutory) from dim_geo where region = 'EU'
+
+  # ---- Q9: revenue per event, by country ---------------------------------------------
+  # NAMING. These four are means of a LINE TOTAL over EVENTS - they are revenue per event,
+  # not average selling price. `reported_usd` is never divided by `quantity` (a seat count,
+  # mean 6.03, range 1-25). The panel used to be captioned "AVERAGE SELLING PRICE", which
+  # asserted a per-unit price no query here computes; the per-unit measure is specified
+  # separately below and the axis now names whichever one it draws. C3.
+  asp_reported_max: >
+    select max(a) from (select avg(reported_usd) a from fct_event group by country)
+  asp_reported_min: >
+    select min(a) from (select avg(reported_usd) a from fct_event group by country)
+  asp_ex_tax_spread: >
+    select max(a) - min(a) from (select avg(ex_tax_usd) a from fct_event group by country)
+  asp_reported_spread: >
+    select max(a) - min(a) from (select avg(reported_usd) a from fct_event group by country)
+
+  # ---- C3: the test itself, not a literal ---------------------------------------------
+  # Kruskal-Wallis H across the ten countries, WITH the tie correction, in plain SQL. The
+  # app computes the same statistic in the browser from the same cent-quantised numbers
+  # (app/src/stats.ts) and this recomputes it from the parquet through a second engine -
+  # which is the only reason the figure is trustworthy. Agrees with scipy.stats.kruskal to
+  # 1e-11; see model/test_metrics.py.
+  #
+  # Ties are the whole game. Money quantised to cents produces thousands of exact ties, and
+  # `rank() + (n_ties - 1)/2` is the average rank of a tied block. Originally this
+  # statistic was a hardcoded 0.853 computed off UNQUANTISED float64 revenue that the app
+  # never shipped, and nothing in the pipeline could see the difference.
+  #
+  # p is not computed here: DuckDB has no chi-square CDF (no erf/erfc, no incomplete gamma).
+  # H is the sufficient statistic - p is a pure function of (H, df = countries - 1 = 9), and
+  # `countries` is itself asserted above. test_metrics.py checks the p the app will render.
+  asp_kw_h_reported: >
+    with ranked as (
+      select country, reported_usd as x,
+             rank() over (order by reported_usd)
+               + (count(*) over (partition by reported_usd) - 1) / 2.0 as rk
+      from fct_event),
+    n as (select count(*)::double c from ranked),
+    grp as (select country, count(*)::double ni, sum(rk) ri from ranked group by country),
+    ties as (select sum(power(t,3) - t) s from (select count(*)::double t from ranked group by x))
+    select (12.0 / ((select c from n) * ((select c from n) + 1))
+            * (select sum(ri*ri/ni) from grp) - 3 * ((select c from n) + 1))
+           / (1 - (select s from ties) / (power((select c from n),3) - (select c from n)))
+  asp_kw_h_ex_tax: >
+    with ranked as (
+      select country, ex_tax_usd as x,
+             rank() over (order by ex_tax_usd)
+               + (count(*) over (partition by ex_tax_usd) - 1) / 2.0 as rk
+      from fct_event),
+    n as (select count(*)::double c from ranked),
+    grp as (select country, count(*)::double ni, sum(rk) ri from ranked group by country),
+    ties as (select sum(power(t,3) - t) s from (select count(*)::double t from ranked group by x))
+    select (12.0 / ((select c from n) * ((select c from n) + 1))
+            * (select sum(ri*ri/ni) from grp) - 3 * ((select c from n) + 1))
+           / (1 - (select s from ties) / (power((select c from n),3) - (select c from n)))
+  # The same test on the TRUE per-unit price. Same direction, sharper contrast: the reported
+  # per-unit gap is larger and the ex-tax one is still nothing. Published so the panel's
+  # label can name revenue-per-event honestly without weakening the conclusion.
+  asp_kw_h_per_unit_reported: >
+    with ranked as (
+      select country, reported_usd / quantity as x,
+             rank() over (order by reported_usd / quantity)
+               + (count(*) over (partition by reported_usd / quantity) - 1) / 2.0 as rk
+      from fct_event),
+    n as (select count(*)::double c from ranked),
+    grp as (select country, count(*)::double ni, sum(rk) ri from ranked group by country),
+    ties as (select sum(power(t,3) - t) s from (select count(*)::double t from ranked group by x))
+    select (12.0 / ((select c from n) * ((select c from n) + 1))
+            * (select sum(ri*ri/ni) from grp) - 3 * ((select c from n) + 1))
+           / (1 - (select s from ties) / (power((select c from n),3) - (select c from n)))
+  asp_kw_h_per_unit_ex_tax: >
+    with ranked as (
+      select country, ex_tax_usd / quantity as x,
+             rank() over (order by ex_tax_usd / quantity)
+               + (count(*) over (partition by ex_tax_usd / quantity) - 1) / 2.0 as rk
+      from fct_event),
+    n as (select count(*)::double c from ranked),
+    grp as (select country, count(*)::double ni, sum(rk) ri from ranked group by country),
+    ties as (select sum(power(t,3) - t) s from (select count(*)::double t from ranked group by x))
+    select (12.0 / ((select c from n) * ((select c from n) + 1))
+            * (select sum(ri*ri/ni) from grp) - 3 * ((select c from n) + 1))
+           / (1 - (select s from ties) / (power((select c from n),3) - (select c from n)))
+  mean_quantity: >
+    select avg(quantity) from fct_event
+  # The share of the reported country spread that the ex-tax spread does not account for.
+  # This is the WITHDRAWN measurement, published as the thing the test replaced: measuring a
+  # residual is not the same as showing there is one. C3.
+  asp_spread_explained_pct: >
+    select 100.0 * (1 - (select max(a) - min(a)
+                         from (select avg(ex_tax_usd) a from fct_event group by country))
+                      / (select max(a) - min(a)
+                         from (select avg(reported_usd) a from fct_event group by country)))
+
+  # ---- C14: the promotional calendar is decorative ------------------------------------
+  # Pearson chi-square of BFCM10 + BFCM20 redemptions against the file's own base rate,
+  # binned by CALENDAR month - twelve bins, df = 11 - because the question is whether
+  # November behaves like a Black Friday, not whether 2024-11 differs from 2025-03.
+  bfcm_month_chi2: >
+    with m as (
+      select extract(month from event_date) cm, count(*)::double n,
+             count(*) filter (where discount_code in ('BFCM10','BFCM20'))::double o
+      from fct_event group by 1),
+    r as (select sum(o) / sum(n) rate from m)
+    select sum(power(o - n * (select rate from r), 2) / (n * (select rate from r))) from m
+  bfcm_events: >
+    select count(*) from fct_event where discount_code in ('BFCM10','BFCM20')
+
+  # ---- Q2 channels -------------------------------------------------------------------
+  top_channel: >
+    select channel from fct_event group by 1 order by sum(net_usd) desc limit 1
+  top_channel_revenue: >
+    select sum(net_usd) from fct_event where channel = 'Website'
+  top_channel_share: >
+    select 100.0 * sum(net_usd) filter (where channel = 'Website') / sum(net_usd) from fct_event
+
+  # ---- Q5 products: the merge changes the answer --------------------------------------
+  top_family_name: >
+    select family_name from fct_event group by 1 order by sum(net_usd) desc limit 1
+  top_family_revenue: >
+    select sum(net_usd) from fct_event
+    where family = (select family from fct_event group by 1 order by sum(net_usd) desc limit 1)
+  pure_dup_families: >
+    select count(distinct family) from dim_product where is_pure_dup
+  # Rank of the true #1 family when you group by the file's own key instead
+  naive_top_sku_revenue: >
+    select max(r) from (select sum(net_usd) r from fct_event group by product_id)
+
+  # ---- Q10 refunds -------------------------------------------------------------------
+  refund_rate: >
+    select 100.0 * count(*) filter (where is_refunded) / count(*) from fct_event
+  refund_rate_max_channel: >
+    select max(r) from (select 100.0 * count(*) filter (where is_refunded) / count(*) r
+                        from fct_event group by channel)
+  refund_rate_min_channel: >
+    select min(r) from (select 100.0 * count(*) filter (where is_refunded) / count(*) r
+                        from fct_event group by channel)
+
+  # ---- Q3/Q4 loyalty has no variance -------------------------------------------------
+  repeat_buyers: >
+    select count(*) from dim_customer where is_repeat_buyer
+  repeat_buyer_pct: >
+    select 100.0 * count(*) filter (where is_repeat_buyer) / count(*) from dim_customer
+  mean_orders: >
+    select avg(orders) from dim_customer
+  var_orders: >
+    select var_samp(orders) from dim_customer
+  mean_events_per_customer: >
+    select avg(events) from dim_customer
+  # C10: the tell. 48,000 events over exactly 4,000 customers.
+  events_per_customer_exact: >
+    select (select count(*) from fct_event)::double / (select count(*) from dim_customer)
+
+  # ---- C15 the signup defect ----------------------------------------------------------
+  events_before_signup: >
+    select count(*) filter (where before_signup) from fct_event
+  events_before_signup_pct: >
+    select 100.0 * count(*) filter (where before_signup) / count(*) from fct_event
+  customers_affected_by_signup_defect: >
+    select count(distinct customer_id) from fct_event where before_signup
+
+  # ---- C14 the one non-random thing in the discount column ---------------------------
+  discount_codes: >
+    select count(distinct discount_code) from fct_event where discount_code is not null
+  discounted_events: >
+    select count(*) from fct_event where discount_code is not null
+  sale15_events: >
+    select count(*) from fct_event where discount_code = 'SALE15'
+  sale15_us_pct: >
+    select 100.0 * count(*) filter (where country = 'United States') / count(*)
+    from fct_event where discount_code = 'SALE15'
+  loyalty15_us_pct: >
+    select 100.0 * count(*) filter (where country = 'United States') / count(*)
+    from fct_event where discount_code = 'LOYALTY15'
+
+  # ---- C3d tax on the undiscounted price ---------------------------------------------
+  tax_overcharge: >
+    select sum(tax_local * fx_rate_to_usd)
+         - sum(tax_rate_statutory * (quantity * unit_price_local - discount_local)
+               * fx_rate_to_usd)
+    from fct_event where discount_local > 0
+
+  # ---- C8 concentration ---------------------------------------------------------------
+  top_quintile_share: >
+    select 100.0 * sum(r) filter (where q = 1) / sum(r) from (
+      select sum(net_usd) r, ntile(5) over (order by sum(net_usd) desc) q
+      from fct_event group by customer_id)
+  top_decile_share: >
+    select 100.0 * sum(r) filter (where q = 1) / sum(r) from (
+      select sum(net_usd) r, ntile(10) over (order by sum(net_usd) desc) q
+      from fct_event group by customer_id)

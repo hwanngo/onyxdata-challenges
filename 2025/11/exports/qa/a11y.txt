@@ -1,0 +1,19 @@
+Accessibility - axe-core, four contexts
+=======================================
+
+harness   : tools/qa/a11y.mjs
+date      : 2025-11-27
+month     : 2025/11 - E-commerce Analytics
+app       : datadna-2025-11 (private workspace package, unversioned)
+build     : dist/assets/index-CiC2RTrU.js
+url       : http://localhost:5311  (vite preview --strictPort)
+tour key  : ecom-2025-11-tour-seen  (seeded so the overlay does not intercept clicks)
+
+
+=== desktop light: 0 violations
+
+=== desktop dark: 0 violations
+
+=== mobile light: 0 violations
+
+=== poster: 0 violations

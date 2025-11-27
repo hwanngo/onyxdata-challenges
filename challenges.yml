@@ -4,10 +4,10 @@
 # Era 1 = Playground-only, gated, no brief. Era 2 = full challenge page, ungated.
 
 meta:
-  verified_on: 2025-10-28
-  total: 59
+  verified_on: 2025-11-27
+  total: 60
   era1_count: 52
-  era2_count: 7
+  era2_count: 8
   playground_index: https://datadna.onyxdata.co.uk/playground/
   challenge_index: https://datadna.onyxdata.co.uk/challenges/
   work_order: era2_oldest_first_then_era1_backfill
@@ -224,6 +224,49 @@ challenges:
     dataset_url: "https://datadna.onyxdata.co.uk/wp-content/uploads/2025/10/DataDNA-Dataset-Challenge-E-commerce-Dataset-November-2025.zip"   # scrape the Download Dataset anchor
     dataset_folder: "DataDNA-Dataset-Challenge-E-commerce-Dataset-November-2025"
     formats: [XLSX, DOCX, PDF, TXT]
+    status: done
+    notes: >-
+      Completed 2025-11-27, G1-G8. Thesis: the file's revenue column includes sales tax and
+      refunds are flagged but never reversed; correcting both removes 12.02%. The correction
+      is a flat 12% on every marginal cut a dashboard actually draws (channel 0.58pp, payment
+      0.82, category 1.60, month 1.90, segment 2.50, family 4.71) and NOT on geography
+      (currency 13.30, region 15.81, country 17.69), because the US pays 0% sales tax and
+      Europe 20%. Two consequences: the region revenue ranking FLIPS (EU $13.69M leads as
+      reported; North America $11.40M leads as restated, a $2.23M swing), and country ASP
+      stops being a difference at all -- KW p = 0.853 ex-tax against p = 6.9e-23 as reported,
+      so 100% of the apparent country price gap is VAT. Signature "The Span": ten cuts of the
+      same correction as ten strips of dots; six collapse onto the 12.02% line, three spray
+      across the full width.
+      Second half: the brief's central variable has no variance. 3,995 of 4,000 customers are
+      repeat buyers, and the file is a fixed pool -- 48,000 events over exactly 4,000
+      customers, mean exactly 12.0000 -- so order counts are allocation noise by construction.
+      No channel differs by as much as 0.29 orders (MDE-bounded). SALE15 is 100% US and
+      LOYALTY15 0% US, the one non-random structure in the discount column. Black Friday codes
+      peak in May-August (chi2 = 6.10, p = 0.867). Q12 declined outright: add-on ownership is
+      independent of core ownership at every grain (max phi = 0.049 over 696 pairs, none
+      surviving Bonferroni).
+      FOUR CLAIMS OF MINE WITHDRAWN and published as withdrawn: a country ranking on a measure
+      that does not differ; "orders per customer is a Poisson draw" when the fixed pool forces
+      var/mean to 1; "the discount column is pure noise"; and a correlation with an endogenous
+      variable. Also caught: a published $2.22M that is $2.23M, a design doc naming Germany
+      where the data says France, and the build disagreeing with the browser about money in the
+      fourth decimal (float64 vs integer cents).
+      42/42 rendered metrics reconcile exactly, 30 pytest, 21/21 Malloy views, 13/13
+      interaction cases, 0 axe violations across 4 contexts. Self-score 30/34.
+      Not deployed: STACK.md defers. Promoted to dna-kit: spreadLabels, the poster-sheet grid,
+      and pointer-events discipline for decoration.
+    self_scores: {judge_34: 30, ai_storytelling: 4, ai_design: 4, ai_technical: 5, ai_insights: 5, ai_b_accessibility: 5}
+    sha256: "5a1656e8102f2813b3fddd9141b82b61f7299847e7707066f8db6a705ef97316"
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2025/12"
+    era: 2
+    title: "December 2025 DataDNA - Animal Shelter Operations"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2025-12-december-2025-datadna-animal-shelter-operations-challenge/"
+    challenge_url: "https://datadna.onyxdata.co.uk/challenges/december-2025-datadna-animal-shelter-operations-challenge/"
+    dataset_url: "https://datadna.onyxdata.co.uk/wp-content/uploads/2025/11/DataDNA-Dataset-Challenge-Animal-Shelter-Operations-December-2025.zip"
+    dataset_folder: "DataDNA-Dataset-Challenge-Animal-Shelter-Operations-December-2025"
+    formats: [CSV, DOCX, PDF, TXT]
     status: todo
     scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
 

@@ -1,0 +1,13 @@
+Performance - cold load and interaction-to-paint
+================================================
+
+harness   : tools/qa/perf.mjs
+date      : 2025-11-27
+month     : 2025/11 - E-commerce Analytics
+app       : datadna-2025-11 (private workspace package, unversioned)
+build     : dist/assets/index-CiC2RTrU.js
+url       : http://localhost:5311  (vite preview --strictPort)
+tour key  : ecom-2025-11-tour-seen  (seeded so the overlay does not intercept clicks)
+
+cold load to first real number: 1661ms  (budget 3000ms)
+interaction-to-paint: 1ms, 2ms, 0ms, 0ms, 1ms  max 2ms (budget 200ms)

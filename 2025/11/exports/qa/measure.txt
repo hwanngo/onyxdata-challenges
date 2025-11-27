@@ -1,0 +1,20 @@
+Poster fit - 2560x1440 measurement
+==================================
+
+harness   : tools/qa/measure.mjs
+date      : 2025-11-27
+month     : 2025/11 - E-commerce Analytics
+app       : datadna-2025-11 (private workspace package, unversioned)
+build     : dist/assets/index-CiC2RTrU.js
+url       : http://localhost:5311  (vite preview --strictPort)
+tour key  : ecom-2025-11-tour-seen  (seeded so the overlay does not intercept clicks)
+
+poster root 2560x1440  (scroll 2560x1440)
+body scroll 2560x1440
+
+direct children:
+  div.sr-only                        h=    1  bottom=0
+  main#main                          h= 1440  bottom=1440
+  footer.poster-footer               h=    0  bottom=1440
+
+FITS. 0px of vertical slack, 0px horizontal.
