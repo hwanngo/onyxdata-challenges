@@ -1,0 +1,88 @@
+harness: tools/qa/measure.mjs  (2025-12-29 revision - adds the `clipped` check)
+month:   2025/12 - Animal Shelter Operations (City of Long Beach)
+date:    2025-12-29
+build:   datadna-2025-12 vite build → dist/assets/index-CKzyO_dA.js + index-CMTMaZuC.css
+url:     http://localhost:5312 (vite preview, production build)
+tour:    QA_TOUR_KEY=shelter-2025-12-tour-seen - the app's real key (NOT datadna-...; seeding the
+         wrong one leaves the tour open and its backdrop swallows every click)
+---
+poster root 2560x1440  (scroll 2560x1440)
+body scroll 2560x1440
+
+direct children:
+  div.sr-only                        h=    1  bottom=0
+  main#main                          h= 1440  bottom=1440
+  footer.poster-footer               h=    0  bottom=1440
+
+CONTENT CLIPPED INSIDE ITS OWN CONTAINER (silently cut, reader never sees it):
+  div.poster-sheet                   losing 13px vertically
+
+CLIPPED: 1 element(s) are cutting their own contents. The poster "fits" only because overflow:hidden is hiding the evidence.
+exit=1
+
+===============================================================================================
+ADJUDICATION OF THE `clipped` FINDING - FALSE POSITIVE. Nothing is cut. Layout NOT changed.
+===============================================================================================
+
+The 13px is `.poster-sheet { padding: 38px 60px 28px }` - bottom padding, not content.
+
+WHAT IS ACTUALLY IN THOSE 13 PIXELS: nothing is. They are the unrenderable remainder of a
+28px bottom padding that the grid has partly grown into.
+
+  .poster-sheet   border-box, height 1440, overflow:hidden, display:grid,
+                  grid-template-areas "head head" / "ctl ctl" / "real action"
+  content box     1440 - 38 (pad-top) - 28 (pad-bottom)            = 1374px
+  measured rows   473.594 + 18 + 426.172 + 18 + 450.734            = 1386.5px
+  overshoot                                                          12.5px
+
+Rows 1-2 are `auto`; row 3 is `1fr`, which resolves to `minmax(auto, 1fr)`. Its `auto` MINIMUM
+is the min-content height of the two charts in it - 450.734px - and a track will not shrink
+below that floor. So the grid ends 12.5px past its content box and eats 12.5 of the 28px of
+bottom padding. Chrome computes an overflow container's `scrollHeight` as
+(scrollable overflow region) + padding-bottom, so it reports 1453 against a clientHeight of
+1440, and `scrollHeight - clientHeight` reads 13.
+
+BUT THE PADDING BOX EDGE IS 1440 AND THE CONTENT STOPS AT 1424.5.
+
+EVIDENCE 1 - nothing paints below the cut line, even with every clip removed:
+  set overflow:visible on <html>, <body>, .poster, .poster-sheet and main#main, then measure:
+    document.scrollHeight  1440        (unchanged - the page does not grow)
+    max painted bottom     1424.5px    (15.5px of clear space above the poster edge)
+    elements below 1440.5  0
+  A genuinely clipped poster grows when you unclip it. This one does not.
+
+EVIDENCE 2 - the reported "loss" tracks the padding declaration and nothing else. Varying ONLY
+`padding-bottom`, with no other change:
+    padding-bottom   28px (shipped)  →  lost 13px   max painted bottom 1424.5
+    padding-bottom   20px            →  lost  5px   max painted bottom 1424.5
+    padding-bottom   15px            →  lost  0px   max painted bottom 1425.0
+    padding-bottom   13px            →  lost  0px   max painted bottom 1427.0
+    padding-bottom    0px            →  lost  0px   max painted bottom 1440.0
+    padding-bottom   60px            →  lost 45px   max painted bottom 1424.5
+  `lost` = padding-bottom - 15 exactly. No content is revealed as the number falls to zero; the
+  chart merely stretches into the space, because row 3 is `1fr`. The check is reading a padding
+  declaration, not a truncation. Setting `padding-bottom: 15px` would silence it while making
+  the poster's bottom margin visibly tighter - the layout contortion this note exists to avoid.
+
+EVIDENCE 3 - read the shipped PNG. exports/dashboard.png, band y=1360→1440 at 2x: the final row
+of BOTH bar charts ("I/I REPORT · 89.2% · 526" and "AMPHIBIAN · 100.0% · 3") renders complete,
+including the orange "too few to rank" annotations beneath them, with clear background below.
+
+SUGGESTED HARNESS CORRECTION (tools/qa/ is shared - not edited from this month):
+The `clipped` predicate is right to exist and right about 2025/06; it is testing the wrong
+quantity. `scrollHeight - clientHeight` includes padding-bottom, so it fires on any padded
+overflow container whose content encroaches on its own bottom padding - a cosmetic condition -
+and it would also MISS content clipped inside a container with no padding at all if that
+container's scroll region happened to round down. Compare painted geometry against the clip
+edge instead:
+
+    const pad = e.getBoundingClientRect();                 // padding box = the clip edge
+    const worst = Math.max(...[...e.querySelectorAll('*')]
+      .filter(c => !c.closest('.sr-only') && c.getBoundingClientRect().height > 0)
+      .map(c => c.getBoundingClientRect().bottom));
+    if (worst > pad.bottom + 0.5) → REAL clipping, report (worst - pad.bottom)
+
+On 2025/12 that yields worst=1424.5 vs pad.bottom=1440 → no finding, correctly.
+On a 2025/06-style truncation the cut child's bottom exceeds the parent's padding box and it
+fires, correctly. Same idea for X. Worth keeping the current check as a WARNING (it does flag
+"your padding is being consumed", which is real if cosmetic) but it should not exit non-zero.

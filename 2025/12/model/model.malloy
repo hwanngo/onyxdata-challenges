@@ -1,0 +1,196 @@
+// Semantic layer - 2025/12 Animal Shelter Operations  (Gate G4)
+//
+// THREE RULES, each one an error this file invites:
+//
+//   1. THERE ARE TWO LIVE-RELEASE RATES AND THEY ARE NAMED FOR WHOSE THEY ARE.
+//      `live_release_rate` is live / (live + dead), excluding administrative dispositions
+//      and animals still in the shelter. `live_release_rate_as_filed` is the source's own
+//      was_outcome_alive. 78.49% against 79.26% overall - and 75.02% against 78.76% in 2025,
+//      because the source counts 399 animals that have not left yet as saved.
+//
+//   2. A CENSORED MONTH IS NOT A DATA POINT. dim_month carries is_censored; `intakes_settled`
+//      and every trend view exclude it. 2025-11 is 45% unresolved.
+//
+//   3. AGE HAS TWO COLUMNS AND THE HONEST ONE IS SMALLER. 37.77% of dates of birth are
+//      back-computed from the intake date in whole years. `age_years` includes them,
+//      `age_trusted` does not, and the two give different answers to the brief's Q5.
+
+source: stay is duckdb.table('../data/curated/fct_stay.parquet') extend {
+  measure:
+    stays is count()
+    animals is count(animal_id)
+    live is count() { where: is_live }
+    dead is count() { where: is_dead }
+    unresolved_stays is count() { where: unresolved }
+
+    // --- rule 1 ---
+    live_release_rate is count() { where: is_live } / count() { where: is_live or is_dead } * 100.0
+    live_release_rate_as_filed is was_outcome_alive.avg() * 100.0
+    overstatement_pp is
+      was_outcome_alive.avg() * 100.0
+      - count() { where: is_live } / count() { where: is_live or is_dead } * 100.0
+
+    // --- length of stay. 28% of stays are same-day, so the mean describes nobody. ---
+    median_los is los.avg()          // Malloy has no median aggregate; see los_median view
+    same_day_share is count() { where: los = 0 } / count() * 100.0
+
+    // --- rule 3 ---
+    mean_age is age_years.avg()
+    mean_age_trusted is age_trusted.avg()
+    estimated_dob_share is count() { where: dob_estimated } / count() * 100.0
+
+  dimension:
+    is_pet is animal_type = 'DOG' or animal_type = 'CAT'
+    severity is pick 'severe' when intake_condition = 'ILL SEVERE'
+                    pick 'severe' when intake_condition = 'INJURED  SEVERE'
+                    pick 'normal' when intake_condition = 'NORMAL'
+                    else 'other'
+
+  // ------------------------------------------------------------------------------
+  // THE THESIS: what the file measures about itself
+  // ------------------------------------------------------------------------------
+
+  // Rule 1 made visible. The gap is under a point until 2025, then it is 3.7.
+  view: rate_by_year is {
+    group_by: intake_year
+    aggregate: stays, live_release_rate, live_release_rate_as_filed, overstatement_pp
+    order_by: intake_year
+  }
+
+  // Rule 2. Every trend view must exclude the censored tail; this one shows why.
+  view: censored_tail is {
+    group_by: intake_month
+    aggregate:
+      stays
+      pct_unresolved is count() { where: unresolved } / count() * 100.0
+      live_release_rate
+      live_release_rate_as_filed
+    where: intake_year = 2025
+    order_by: intake_month
+  }
+
+  // Rule 3. The same question, two columns, two answers.
+  view: age_two_ways is {
+    group_by: age_band is pick 'under 6mo' when age_years < 0.5
+                            pick '6-12mo'  when age_years < 1
+                            pick '1-3y'    when age_years < 3
+                            pick '3-7y'    when age_years < 7
+                            pick '7-12y'   when age_years < 12
+                            else '12y+'
+    aggregate:
+      stays
+      live_release_rate
+      trusted is count() { where: age_trusted != null }
+      live_release_rate_trusted is
+        count() { where: is_live and age_trusted != null }
+        / count() { where: (is_live or is_dead) and age_trusted != null } * 100.0
+    where: age_years != null
+    order_by: stays desc
+  }
+
+  // THE WEEKDAY CLAIM. Public-counter intakes swing 3.1x across the week; officer-driven
+  // ones swing 1.2x. That contrast is the whole argument.
+  view: weekday_by_channel is {
+    group_by: channel, intake_dow
+    aggregate: stays
+    order_by: channel, intake_dow
+  }
+
+  // The control that makes the weekday claim a finding: seasonality survives in BOTH series.
+  view: seasonality_by_channel is {
+    group_by: month_of_year is month(intake_date)
+    aggregate:
+      public_counter is count() { where: channel = 'Public counter' }
+      officer_driven is count() { where: channel = 'Officer-driven' }
+    order_by: month_of_year
+  }
+
+  // ------------------------------------------------------------------------------
+  // What the file measures about animals, which is real
+  // ------------------------------------------------------------------------------
+
+  view: by_condition is {
+    group_by: intake_condition
+    aggregate: stays, live_release_rate, same_day_share
+    having: stays >= 500
+    order_by: live_release_rate
+  }
+
+  view: by_species is {
+    group_by: animal_type
+    aggregate: stays, live_release_rate, same_day_share
+    order_by: stays desc
+  }
+
+  view: by_intake_type is {
+    group_by: intake_type, channel
+    aggregate: stays, live_release_rate
+    having: stays >= 100
+    order_by: stays desc
+  }
+
+  // Q12's tension: the outcome the shelter most wants is the slowest one it does.
+  view: los_by_outcome is {
+    group_by: outcome
+    aggregate: stays, same_day_share, mean_los is los.avg()
+    where: is_live
+    having: stays >= 300
+    order_by: mean_los desc
+  }
+
+  view: adoptions_by_year is {
+    group_by: intake_year
+    aggregate:
+      stays
+      adoptions is count() { where: outcome = 'ADOPTION' }
+      rescues is count() { where: outcome = 'RESCUE' }
+    order_by: intake_year
+  }
+}
+
+// Rule 1 as a table you can read: my verdict and the file's, per outcome type.
+source: outcome_dim is duckdb.table('../data/curated/dim_outcome.parquet') extend {
+  view: where_the_file_and_i_disagree is {
+    group_by: outcome, is_live, is_dead, is_other
+    aggregate: stays is stays.sum(), filed_alive is file_says_alive.max()
+    where: disagrees
+    order_by: stays desc
+  }
+  view: all_outcomes is {
+    group_by: outcome, is_live, disagrees
+    aggregate: stays is stays.sum()
+    order_by: stays desc
+  }
+}
+
+// Rule 2 as a table: which months cannot be compared with a finished one.
+source: month_dim is duckdb.table('../data/curated/dim_month.parquet') extend {
+  view: censorship is {
+    group_by: intake_month, is_censored
+    aggregate: intakes is intakes.sum(), pct is pct_unresolved.max() * 100.0
+    where: is_censored
+    order_by: intake_month
+  }
+}
+
+// C9: repeat visits are a property of the ANIMAL, not of a stay.
+source: animal is duckdb.table('../data/curated/dim_animal.parquet') extend {
+  measure:
+    animals is count()
+    repeaters is count() { where: is_repeat }
+    repeat_share is count() { where: is_repeat } / count() * 100.0
+
+  view: repeat_by_species is {
+    group_by: animal_type
+    aggregate: animals, repeaters, repeat_share
+    order_by: animals desc
+  }
+
+  view: what_a_repeat_visit_is is {
+    group_by: is_repeat
+    aggregate:
+      animals
+      reclaimed is count() { where: ever_returned_to_owner } / count() * 100.0
+      mean_live_share is live_share.avg() * 100.0
+  }
+}

@@ -4,10 +4,10 @@
 # Era 1 = Playground-only, gated, no brief. Era 2 = full challenge page, ungated.
 
 meta:
-  verified_on: 2025-11-27
-  total: 60
+  verified_on: 2025-12-29
+  total: 61
   era1_count: 52
-  era2_count: 8
+  era2_count: 9
   playground_index: https://datadna.onyxdata.co.uk/playground/
   challenge_index: https://datadna.onyxdata.co.uk/challenges/
   work_order: era2_oldest_first_then_era1_backfill
@@ -267,6 +267,54 @@ challenges:
     dataset_url: "https://datadna.onyxdata.co.uk/wp-content/uploads/2025/11/DataDNA-Dataset-Challenge-Animal-Shelter-Operations-December-2025.zip"
     dataset_folder: "DataDNA-Dataset-Challenge-Animal-Shelter-Operations-December-2025"
     formats: [CSV, DOCX, PDF, TXT]
+    status: done
+    notes: >-
+      Completed 2025-12-29, G1-G8. FIRST REAL DATASET of Era 2 - City of Long Beach Animal
+      Care Services, 52,339 stays, 2017-2025. Thesis: three of the brief's twelve guiding
+      questions ask the file about its own processes rather than about its animals.
+      (1) The live-release flag was_outcome_alive is a default, not a measurement - "not
+      explicitly euthanasia or died" - so it counts 132 DISPOSAL records (120 subtype ACS
+      DISPO, body disposal, which the file's OWN outcome_is_dead column flags as dead) and 399
+      of the 400 animals still in the kennel as saved. 78.49% corrected against 79.26% filed,
+      and 75.02% against 78.76% in 2025 because November is 45.1% unresolved.
+      (2) Age is a staff estimate for 37.77% of animals: 17,301 of 45,814 DOBs share the exact
+      month AND day of the intake date against ~125 expected by chance, with implied ages
+      clustering on whole years. Drop them and the senior penalty mostly dissolves - 12y+ goes
+      from 77.46% to 87.73% and every adult band lands between 87.7% and 93.3%.
+      (3) The weekday intake pattern is the opening hours: public-counter intakes swing 14.14pp
+      across the week, field officers 3.13pp.
+      THE CONTROL: seasonality reads the same in BOTH channels (2.85x summer peak in the
+      officer series too), which is what makes the weekday result a finding rather than a
+      story. The signature chart is four measurements each done twice - three move, one holds,
+      and the one that holds is drawn in the page's only third colour.
+      Affirmative half: intake CONDITION predicts survival better than anything else here
+      (Cramér's V = 0.530 vs species 0.382; 95.2% NORMAL to 20.8% ILL SEVERE). Largest outcome
+      is RESCUE (12,233), not ADOPTION (11,170). Adoption is the SLOWEST live outcome (median
+      25 days vs rescue's 5), so Q12's two goals conflict. A repeat intake is usually not a
+      failure - 95.07% live against 77.30%. Q5's breed half is unanswerable: no breed column.
+      Three claims of mine tested and killed: the senior penalty, the Wednesday staffing case,
+      and the sterilisation effect (the sex column carries species and condition).
+      49/49 rendered metrics reconcile exactly, 23 pytest, 15/15 Malloy views, 13/13
+      interaction cases, 0 axe violations. Self-score 30/34. Not deployed: STACK.md defers.
+      Promoted to dna-kit: the recommendations block, after it broke in two consecutive months.
+    self_scores: {judge_34: 30, ai_storytelling: 4, ai_design: 4, ai_technical: 5, ai_insights: 5, ai_b_accessibility: 5}
+    sha256: "ca22fdae65501e0ced0cfc7777c6e45c7624b9f4eefc705f09d3dc8034023d5f"
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2026/02"
+    era: 2
+    title: "Jan-Feb 2026 DataDNA - Pharmacy Sales & Profitability"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2026-02-january-february-2026-datadna-pharmacy-sales-profitability-analytics-challenge/"
+    challenge_url: "https://datadna.onyxdata.co.uk/challenges/january-february-2026-datadna-pharmacy-sales-profitability-analytics-challenge/"
+    # Scraped from the Download Dataset anchor, not guessed. Note the upload folder is
+    # 2026/01 for a Jan-Feb challenge, and the stem says "Pharma" where the title says
+    # "Pharmacy" - both are why this is never constructed by hand.
+    dataset_url: "https://datadna.onyxdata.co.uk/wp-content/uploads/2026/01/DataDNA-Dataset-Challenge-Pharma-Data-20260102.zip"
+    dataset_folder: "DataDNA-Dataset-Challenge-Pharma-Data-20260102"
+    # Registry said CSV; the archive is XLSX and ships a DOCX brief, a TXT read-me and two
+    # sponsor PDFs. Ninth month running that the ZIP carries requirements the challenge
+    # page does not.
+    formats: [XLSX, DOCX, TXT, PDF]
     status: todo
     scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
 

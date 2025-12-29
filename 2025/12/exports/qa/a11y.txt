@@ -1,0 +1,26 @@
+harness: tools/qa/a11y.mjs
+month:   2025/12 - Animal Shelter Operations (City of Long Beach)
+date:    2025-12-29
+build:   datadna-2025-12 vite build → dist/assets/index-CKzyO_dA.js + index-CMTMaZuC.css
+url:     http://localhost:5312 (vite preview, production build)
+tour:    QA_TOUR_KEY=shelter-2025-12-tour-seen - the app's real key (NOT datadna-...; seeding the
+         wrong one leaves the tour open and its backdrop swallows every click)
+---
+
+=== desktop light: 0 violations
+
+=== desktop dark: 0 violations
+
+=== mobile light: 0 violations
+
+=== poster: 0 violations
+
+Cross-check, same build, tour LEFT OPEN (no key seeded, i.e. a genuine first-time visitor):
+desktop light 0 · desktop dark 0 · mobile light 0. The kit's TourOverlay carries role="dialog",
+aria-modal, a focus trap and Esc-to-close, and axe finds nothing in either state.
+
+On the `nested-interactive` history: no chart in this month now puts role="button" marks inside
+a role="img" container. charts/Supporting.tsx:133 carries the note that made that permanent, and
+TheControl.tsx:65 / Supporting.tsx:64 are the only two role="img" wrappers left - both over
+purely decorative <g aria-hidden="true"> content with a text alternative on the wrapper. Axe is
+clean because the defect is gone, not because it was not looked for.

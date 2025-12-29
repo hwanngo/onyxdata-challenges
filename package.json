@@ -11,8 +11,8 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.0",
-    "@malloydata/db-duckdb": "^0.0.324",
-    "@malloydata/malloy": "^0.0.324",
+    "@malloydata/db-duckdb": "^0.0.330",
+    "@malloydata/malloy": "^0.0.330",
     "playwright": "^1.57.0",
     "typescript": "^5.9.0"
   }

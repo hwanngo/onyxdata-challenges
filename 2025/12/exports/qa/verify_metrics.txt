@@ -1,0 +1,5 @@
+# verify_metrics - 2025/12
+# 2025-12-29 · tools/verify_metrics.py · tour key shelter-2025-12-tour-seen · port 5330
+# recomputed from data/curated/*.parquet via DuckDB, asserted against the rendered DOM
+
+All 49 rendered metrics reconcile.

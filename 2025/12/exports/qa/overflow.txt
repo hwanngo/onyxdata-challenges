@@ -1,0 +1,12 @@
+harness: tools/qa/overflow.mjs
+month:   2025/12 - Animal Shelter Operations (City of Long Beach)
+date:    2025-12-29
+build:   datadna-2025-12 vite build → dist/assets/index-CKzyO_dA.js + index-CMTMaZuC.css
+url:     http://localhost:5312 (vite preview, production build)
+tour:    QA_TOUR_KEY=shelter-2025-12-tour-seen - the app's real key (NOT datadna-...; seeding the
+         wrong one leaves the tour open and its backdrop swallows every click)
+---
+375px -> scrollWidth 375 clientWidth 375 ok
+768px -> scrollWidth 768 clientWidth 768 ok
+1024px -> scrollWidth 1024 clientWidth 1024 ok
+1440px -> scrollWidth 1440 clientWidth 1440 ok

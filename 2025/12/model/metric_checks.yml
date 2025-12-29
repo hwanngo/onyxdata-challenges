@@ -1,0 +1,235 @@
+# Every number rendered in the UI, recomputed from the curated parquet by DuckDB and asserted
+# against the DOM by tools/verify_metrics.py. Zero tolerance.
+#
+# THE DENOMINATOR RULE. `live_release_rate` divides by live+dead - NOT by all stays, and not by
+# the source's was_outcome_alive. `live_release_rate_as_filed` is specified separately and used
+# only where a panel deliberately shows the file's own figure beside the corrected one.
+# Confusing them is the failure this month exists to demonstrate.
+
+metrics:
+  # ---- scale -------------------------------------------------------------------------
+  stays: >
+    select count(*) from fct_stay
+  animals: >
+    select count(*) from dim_animal
+  repeat_animals: >
+    select count(*) from dim_animal where is_repeat
+  first_year: >
+    select min(intake_year) from fct_stay
+  last_intake: >
+    select max(intake_date)::varchar from fct_stay
+
+  # ---- THE CORRECTION ----------------------------------------------------------------
+  live_release_rate: >
+    select 100.0 * count(*) filter (where is_live)
+         / count(*) filter (where is_live or is_dead) from fct_stay
+  live_release_rate_as_filed: >
+    select 100.0 * avg(was_outcome_alive) from fct_stay
+  overstatement_pp: >
+    select 100.0 * avg(was_outcome_alive)
+         - 100.0 * count(*) filter (where is_live)
+         / count(*) filter (where is_live or is_dead) from fct_stay
+  live_stays: >
+    select count(*) filter (where is_live) from fct_stay
+  dead_stays: >
+    select count(*) filter (where is_dead) from fct_stay
+  other_stays: >
+    select count(*) filter (where is_other) from fct_stay
+  unresolved_stays: >
+    select count(*) filter (where unresolved) from fct_stay
+  unresolved_counted_alive: >
+    select count(*) filter (where unresolved and was_outcome_alive = 1) from fct_stay
+  disposal_stays: >
+    select stays from dim_outcome where outcome = 'DISPOSAL'
+  outcomes_where_file_disagrees: >
+    select count(*) from dim_outcome where disagrees
+
+  # ---- THE HEADLINE GAP, DECOMPOSED --------------------------------------------------
+  # The 0.76pp overstatement is TWO mistakes and this month's argument is about one of them,
+  # so the page states the split. `gap_denominator_pp` holds the file's own flag fixed and
+  # moves only from its all-stay denominator to the live+dead population; `gap_flag_pp` then
+  # corrects the flag within that population. They sum to overstatement_pp exactly.
+  # The *_flag_first pair is the same decomposition in the opposite order - published because
+  # the split is order-dependent by ~0.006pp and hiding that would be the same sin again.
+  gap_denominator_pp: >
+    select (select 100.0 * avg(was_outcome_alive) from fct_stay)
+         - (select 100.0 * avg(was_outcome_alive) from fct_stay where is_live or is_dead)
+  gap_flag_pp: >
+    select (select 100.0 * avg(was_outcome_alive) from fct_stay where is_live or is_dead)
+         - (select 100.0 * count(*) filter (where is_live)
+                 / count(*) filter (where is_live or is_dead) from fct_stay)
+  gap_flag_pp_flag_first: >
+    select (select 100.0 * avg(was_outcome_alive) from fct_stay)
+         - (select 100.0 * count(*) filter (where was_outcome_alive = 1 and not is_dead)
+                 / count(*) from fct_stay)
+  gap_denominator_pp_flag_first: >
+    select (select 100.0 * count(*) filter (where was_outcome_alive = 1 and not is_dead)
+                 / count(*) from fct_stay)
+         - (select 100.0 * count(*) filter (where is_live)
+                 / count(*) filter (where is_live or is_dead) from fct_stay)
+
+  # ---- CENSORSHIP --------------------------------------------------------------------
+  censored_months: >
+    select count(*) from dim_month where is_censored
+  last_settled_month: >
+    select max(intake_month)::varchar from dim_month where not is_censored
+  worst_month_unresolved_pct: >
+    select 100.0 * max(pct_unresolved) from dim_month
+  rate_2025_as_filed: >
+    select 100.0 * avg(was_outcome_alive) from fct_stay where intake_year = 2025
+  rate_2025_corrected: >
+    select 100.0 * count(*) filter (where is_live)
+         / count(*) filter (where is_live or is_dead) from fct_stay where intake_year = 2025
+
+  # ---- AGE ---------------------------------------------------------------------------
+  estimated_dob_share: >
+    select 100.0 * count(*) filter (where dob_estimated) / count(*) filter (where dob is not null)
+    from fct_stay
+  estimated_dob_count: >
+    select count(*) filter (where dob_estimated) from fct_stay
+  dob_present_count: >
+    select count(*) filter (where dob is not null) from fct_stay
+  # THE NULL, WITH SEASONALITY IN IT. A flat 1/365 null gives 125 expected matches and is
+  # wrong: intakes are strongly seasonal, and a back-dated DOB inherits that seasonality, so
+  # month-day collisions beat uniform chance. This is the collision probability of two
+  # independent draws from the shelter's OWN month-day distributions - intake dates, and DOB
+  # month-days estimated from the NON-matching rows so the effect does not build its own null.
+  dob_match_expected_seasonal: >
+    with d as (
+      select strftime(intake_date, '%m-%d') imd, strftime(dob, '%m-%d') dmd
+      from fct_stay where dob is not null),
+    pi as (select imd md, count(*)::double / (select count(*) from d) p from d group by imd),
+    pd as (select dmd md, count(*)::double / (select count(*) from d where imd <> dmd) p
+           from d where imd <> dmd group by dmd)
+    select (select count(*) from d) * sum(pi.p * pd.p) from pi join pd using (md)
+  dob_match_excess_ratio: >
+    with d as (
+      select strftime(intake_date, '%m-%d') imd, strftime(dob, '%m-%d') dmd
+      from fct_stay where dob is not null),
+    pi as (select imd md, count(*)::double / (select count(*) from d) p from d group by imd),
+    pd as (select dmd md, count(*)::double / (select count(*) from d where imd <> dmd) p
+           from d where imd <> dmd group by dmd),
+    e as (select (select count(*) from d) * sum(pi.p * pd.p) x from pi join pd using (md))
+    select (select count(*) filter (where dob_estimated) from fct_stay) / e.x from e
+  impossible_dob_count: >
+    select count(*) filter (where dob_impossible) from fct_stay
+  age_trusted_count: >
+    select count(*) filter (where age_trusted is not null) from fct_stay
+  # The senior penalty, both ways. C3.
+  senior_live_all: >
+    select 100.0 * count(*) filter (where is_live) / count(*) filter (where is_live or is_dead)
+    from fct_stay where age_years >= 12
+  senior_live_trusted: >
+    select 100.0 * count(*) filter (where is_live) / count(*) filter (where is_live or is_dead)
+    from fct_stay where age_trusted >= 12
+
+  # ---- THE WEEKDAY CLAIM -------------------------------------------------------------
+  public_dow_spread: >
+    select max(share) - min(share) from dim_dow where channel = 'Public counter'
+  officer_dow_spread: >
+    select max(share) - min(share) from dim_dow where channel = 'Officer-driven'
+  wednesday_share_public: >
+    select share from dim_dow where channel = 'Public counter' and dow_name = 'Wed'
+  monday_share_public: >
+    select share from dim_dow where channel = 'Public counter' and dow_name = 'Mon'
+  # the control: seasonality survives in the officer series
+  officer_summer_peak: >
+    select max(n) from (select count(*) n from fct_stay
+      where channel = 'Officer-driven' group by month(intake_date))
+  officer_winter_trough: >
+    select min(n) from (select count(*) n from fct_stay
+      where channel = 'Officer-driven' group by month(intake_date))
+
+  # ---- WHAT IS REAL ------------------------------------------------------------------
+  condition_live_normal: >
+    select live_rate from dim_condition where intake_condition = 'NORMAL'
+  condition_live_ill_severe: >
+    select live_rate from dim_condition where intake_condition = 'ILL SEVERE'
+  dog_live_rate: >
+    select 100.0 * count(*) filter (where is_live) / count(*) filter (where is_live or is_dead)
+    from fct_stay where animal_type = 'DOG'
+  cat_live_rate: >
+    select 100.0 * count(*) filter (where is_live) / count(*) filter (where is_live or is_dead)
+    from fct_stay where animal_type = 'CAT'
+  top_outcome: >
+    select outcome from dim_outcome order by stays desc limit 1
+  top_outcome_stays: >
+    select max(stays) from dim_outcome
+  adoption_stays: >
+    select stays from dim_outcome where outcome = 'ADOPTION'
+  # Cramér's V of live/dead against condition and against species. The outcome is binary, so
+  # min(r-1, c-1) = 1 and V reduces to sqrt(chi2 / n). The population is the DENOMINATOR RULE
+  # population - live + dead - exactly as `cramersV` in app/src/data.ts computes it.
+  cramers_v_condition: >
+    with t as (
+      select intake_condition k, count(*) filter (where is_live)::double l, count(*)::double tot
+      from fct_stay where is_live or is_dead group by 1),
+    m as (select sum(l) / sum(tot) p, sum(tot) n from t)
+    select sqrt(sum(power(t.l - t.tot * m.p, 2) / (t.tot * m.p)
+                  + power(t.tot - t.l - t.tot * (1 - m.p), 2) / (t.tot * (1 - m.p)))
+                / any_value(m.n))
+    from t, m
+  cramers_v_species: >
+    with t as (
+      select animal_type k, count(*) filter (where is_live)::double l, count(*)::double tot
+      from fct_stay where is_live or is_dead group by 1),
+    m as (select sum(l) / sum(tot) p, sum(tot) n from t)
+    select sqrt(sum(power(t.l - t.tot * m.p, 2) / (t.tot * m.p)
+                  + power(t.tot - t.l - t.tot * (1 - m.p), 2) / (t.tot * (1 - m.p)))
+                / any_value(m.n))
+    from t, m
+
+  median_los_overall: >
+    select median(los) from fct_stay where los is not null
+  # THE MEAN OVER THE SAME POPULATION AS THE MEDIAN. An earlier draft published a mean of 22.5
+  # days beside this median: that mean was live releases only, a slower population, so the two
+  # numbers were not comparable and the contrast between them was partly the subsetting.
+  mean_los_overall: >
+    select avg(los) from fct_stay where los is not null
+  same_day_share: >
+    select 100.0 * count(*) filter (where los = 0) / count(*) from fct_stay where los is not null
+  adoption_median_los: >
+    select median_los from dim_outcome where outcome = 'ADOPTION'
+  rescue_median_los: >
+    select median_los from dim_outcome where outcome = 'RESCUE'
+  rto_median_los: >
+    select median_los from dim_outcome where outcome = 'RETURN TO OWNER'
+
+  # ---- REPEAT INTAKES ----------------------------------------------------------------
+  repeat_share_dog: >
+    select 100.0 * count(*) filter (where is_repeat) / count(*)
+    from dim_animal where animal_type = 'DOG'
+  repeat_share_cat: >
+    select 100.0 * count(*) filter (where is_repeat) / count(*)
+    from dim_animal where animal_type = 'CAT'
+  # Composition of repeat versus single-visit STAYS. `is_repeat` is a property of the ANIMAL;
+  # these shares are over the stays that belong to such animals, which is what the page draws.
+  repeat_dog_share: >
+    select 100.0 * count(*) filter (where s.animal_type = 'DOG') / count(*)
+    from fct_stay s join dim_animal a using (animal_id) where a.is_repeat
+  single_dog_share: >
+    select 100.0 * count(*) filter (where s.animal_type = 'DOG') / count(*)
+    from fct_stay s join dim_animal a using (animal_id) where not a.is_repeat
+  repeat_rto_share: >
+    select 100.0 * count(*) filter (where s.outcome = 'RETURN TO OWNER') / count(*)
+    from fct_stay s join dim_animal a using (animal_id) where a.is_repeat
+  single_rto_share: >
+    select 100.0 * count(*) filter (where s.outcome = 'RETURN TO OWNER') / count(*)
+    from fct_stay s join dim_animal a using (animal_id) where not a.is_repeat
+  repeat_live_share: >
+    select 100.0 * count(*) filter (where s.is_live) / count(*) filter (where s.is_live or s.is_dead)
+    from fct_stay s join dim_animal a using (animal_id) where a.is_repeat
+  single_live_share: >
+    select 100.0 * count(*) filter (where s.is_live) / count(*) filter (where s.is_live or s.is_dead)
+    from fct_stay s join dim_animal a using (animal_id) where not a.is_repeat
+
+  # ---- KILLED CLAIM: sterilisation ---------------------------------------------------
+  # Rendered in the method panel's "claims I tested and killed" list. Specified here because
+  # a killed claim still puts two numbers on the page, and they obey the DENOMINATOR RULE
+  # like every other rate. The earlier copy used live/(live+dead+other) and truncated it.
+  spayed_live_rate: >
+    select 100.0 * count(*) filter (where is_live) / count(*) filter (where is_live or is_dead)
+    from fct_stay where sex = 'Spayed'
+  unknown_sex_live_rate: >
+    select 100.0 * count(*) filter (where is_live) / count(*) filter (where is_live or is_dead)
+    from fct_stay where sex = 'Unknown'
