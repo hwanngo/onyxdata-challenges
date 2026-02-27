@@ -7,3 +7,4 @@ export * from "./components/TourOverlay";
 export * from "./components/Controls";
 export * from "./components/CutPanel";
 export * from "./charts/labels";
+export * from "./stats";

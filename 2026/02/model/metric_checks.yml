@@ -1,0 +1,119 @@
+# G7 verification spec - every number the UI renders, and the SQL that reproduces it.
+#
+# ZERO TOLERANCE. The characteristic failure across the published field is a polished
+# dashboard whose numbers are wrong (May 2025's best-looking entry was off by ~600x).
+#
+# `metrics`     - scalars. The DOM carries <el data-metric="NAME" data-value="N">.
+# `metric_sets` - one row per chart mark. The DOM carries data-metric="SET.KEY.MEASURE";
+#                 the SQL returns (key, measure, value) triples. THIS is what verifies the
+#                 charts rather than only the KPI strip. Do not skip it.
+#
+# These run against the curated PARQUET via DuckDB in Python - a different engine and code
+# path from the browser's typed-array aggregation, so agreement means something.
+#
+# RULE 1 APPLIES HERE TOO: every rate below is sum(margin)/sum(revenue), never avg() of a
+# row rate. A query here that averaged a rate would "verify" the browser doing the same
+# wrong thing.
+
+metrics:
+  # --- the number the whole month is about ---------------------------------------------
+  margin_pct: |
+    SELECT sum(margin_eur) / sum(revenue_eur) * 100 FROM fct_sales
+
+  lines: |
+    SELECT count(*)::DOUBLE FROM fct_sales
+
+  foot_lines: |
+    SELECT count(*)::DOUBLE FROM fct_sales
+
+  # --- I2: the signature's observed spread across all 120 shops -------------------------
+  store_spread: |
+    SELECT max(m) - min(m) FROM (
+      SELECT sum(margin_eur) / sum(revenue_eur) * 100 AS m
+      FROM fct_sales GROUP BY pharmacy_key)
+
+  store_spread_pp: |
+    SELECT max(m) - min(m) FROM (
+      SELECT sum(margin_eur) / sum(revenue_eur) * 100 AS m
+      FROM fct_sales GROUP BY pharmacy_key)
+
+  # --- I1: same-store growth, the honest series -----------------------------------------
+  same_store_growth: |
+    SELECT (y2025 / y2024 - 1) * 100 FROM (
+      SELECT
+        sum(f.revenue_eur) FILTER (WHERE d.year = 2024) AS y2024,
+        sum(f.revenue_eur) FILTER (WHERE d.year = 2025) AS y2025
+      FROM fct_sales f
+      JOIN dim_date d USING (date_key)
+      JOIN dim_pharmacy p USING (pharmacy_key)
+      WHERE p.cohort = 'established')
+
+  # --- I5: the lever, and what it costs -------------------------------------------------
+  promo_forgone: |
+    SELECT sum(revenue_eur) FILTER (WHERE is_promo)
+         * (sum(margin_eur) FILTER (WHERE NOT is_promo)
+          / sum(revenue_eur) FILTER (WHERE NOT is_promo))
+         - sum(margin_eur) FILTER (WHERE is_promo)
+    FROM fct_sales
+
+  promo_forgone_kpi: |
+    SELECT sum(revenue_eur) FILTER (WHERE is_promo)
+         * (sum(margin_eur) FILTER (WHERE NOT is_promo)
+          / sum(revenue_eur) FILTER (WHERE NOT is_promo))
+         - sum(margin_eur) FILTER (WHERE is_promo)
+    FROM fct_sales
+
+  # --- I4 / I2: the only structural lever, and the ratio the signature quotes ------------
+  category_spread: |
+    SELECT max(m) - min(m) FROM (
+      SELECT sum(f.margin_eur) / sum(f.revenue_eur) * 100 AS m
+      FROM fct_sales f JOIN dim_product p USING (product_key)
+      GROUP BY p.category)
+
+  volume_ratio: |
+    SELECT max(rpd) / min(rpd) FROM (
+      SELECT sum(f.revenue_eur) / any_value(p.exposure_days) AS rpd
+      FROM fct_sales f JOIN dim_pharmacy p USING (pharmacy_key)
+      GROUP BY f.pharmacy_key)
+
+  # --- I6: the defect, as a share of sales lines ----------------------------------------
+  prelaunch_share: |
+    SELECT count(*) FILTER (WHERE is_prelaunch)::DOUBLE / count(*) * 100 FROM fct_sales
+
+  # --- I3: the only time signal, measured on COUNT not size -----------------------------
+  weekend_gap: |
+    SELECT (we / wk - 1) * 100 FROM (
+      SELECT
+        avg(n) FILTER (WHERE is_weekend) AS we,
+        avg(n) FILTER (WHERE NOT is_weekend) AS wk
+      FROM (
+        SELECT d.date_key, d.is_weekend, count(*)::DOUBLE AS n
+        FROM fct_sales f JOIN dim_date d USING (date_key)
+        GROUP BY 1, 2))
+
+metric_sets:
+  # ⑥ the category panel - every bar, not just the headline
+  cats: |
+    SELECT p.category AS key, 'marginPct' AS measure,
+           sum(f.margin_eur) / sum(f.revenue_eur) * 100 AS value
+    FROM fct_sales f JOIN dim_product p USING (product_key)
+    GROUP BY 1
+
+  # ⑤ the lever, both measures - the margin gap AND the null sitting next to it
+  promo: |
+    SELECT CASE WHEN is_promo THEN 'Promoted' ELSE 'Not promoted' END AS key,
+           'marginPct' AS measure,
+           sum(margin_eur) / sum(revenue_eur) * 100 AS value
+    FROM fct_sales GROUP BY 1
+    UNION ALL
+    SELECT CASE WHEN is_promo THEN 'Promoted' ELSE 'Not promoted' END AS key,
+           'unitsPerLine' AS measure,
+           sum(units_sold)::DOUBLE / count(*) AS value
+    FROM fct_sales GROUP BY 1
+
+  # the map that has nothing to say - verified anyway, because "flat" is itself a claim
+  country: |
+    SELECT p.country AS key, 'marginPct' AS measure,
+           sum(f.margin_eur) / sum(f.revenue_eur) * 100 AS value
+    FROM fct_sales f JOIN dim_pharmacy p USING (pharmacy_key)
+    GROUP BY 1

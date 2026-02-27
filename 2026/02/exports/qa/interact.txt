@@ -1,0 +1,28 @@
+PASS  baseline margin rate is 28.04% (got 28.0420)
+PASS  baseline is 62,139 sales lines
+PASS  category cross-filter applies (66ms, budget 200ms)
+PASS  margin rate recomputes under filter (Prescription = 21.92%)
+PASS  chip bar shows the active filter
+PASS  URL encodes filter state
+PASS  signature still draws all 120 shops under filter
+PASS  clear-all restores the full dataset
+PASS  promo cross-filter applies (7,431 promoted lines)
+PASS  filtered spread does not claim to beat the whole-book yardstick
+PASS  filtered spread differs from the unfiltered one (so the caption matters)
+PASS  unfiltered caption restores the chance comparison
+PASS  grid state toggles to volume
+PASS  volume state is the one rendered
+PASS  grid state toggles back to margin
+PASS  signature grid is focusable
+PASS  arrow keys move the focused shop (read-out: "Rotterdam HealthPoint #022")
+PASS  Enter on a cell cross-filters the report
+PASS  country drill pushes a breadcrumb
+PASS  country drill filters the report
+PASS  tour re-opens from the ? button
+PASS  tour stop 1 renders real content ("One number runs this whole chain")
+PASS  Esc closes the tour
+PASS  deep link restores the filter (Austria = 4,693 lines)
+PASS  deep link restores the grid state
+PASS  a three-way filter renders without error (98 lines)
+
+All interaction checks passed.

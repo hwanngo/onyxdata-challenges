@@ -1,0 +1,1332 @@
+sources: dim_cut, sales   views: 21
+
+==============================================================================
+run: dim_cut -> the_thesis   (7 rows)
+==============================================================================
+[
+ {
+  "cut_label": "Store size band",
+  "cut_family": "structural",
+  "k_groups": 3,
+  "spread_pp": 0.03308505645513904,
+  "chance_spread_p95_pp": 0.22117330053251835,
+  "exceeds_chance": false
+ },
+ {
+  "cut_label": "Pharmacy type",
+  "cut_family": "structural",
+  "k_groups": 3,
+  "spread_pp": 0.12337284682659799,
+  "chance_spread_p95_pp": 0.24003509104604276,
+  "exceeds_chance": false
+ },
+ {
+  "cut_label": "Country",
+  "cut_family": "geographic",
+  "k_groups": 8,
+  "spread_pp": 0.32471778083423075,
+  "chance_spread_p95_pp": 0.4441381265811477,
+  "exceeds_chance": false
+ },
+ {
+  "cut_label": "Region",
+  "cut_family": "geographic",
+  "k_groups": 38,
+  "spread_pp": 0.9126224414222719,
+  "chance_spread_p95_pp": 1.7323332236451718,
+  "exceeds_chance": false
+ },
+ {
+  "cut_label": "Pharmacy",
+  "cut_family": "geographic",
+  "k_groups": 120,
+  "spread_pp": 4.608107321603853,
+  "chance_spread_p95_pp": 5.731265364447446,
+  "exceeds_chance": false
+ },
+ {
+  "cut_label": "Promotion",
+  "cut_family": "lever",
+  "k_groups": 2,
+  "spread_pp": 9.075935203616758,
+  "chance_spread_p95_pp": 0.21164634044670846,
+  "exceeds_chance": true
+ },
+ {
+  "cut_label": "Product category",
+  "cut_family": "assortment",
+  "k_groups": 5,
+  "spread_pp": 11.662155805473493,
+  "chance_spread_p95_pp": 0.3386971789628001,
+  "exceeds_chance": true
+ }
+]
+
+==============================================================================
+run: sales -> margin_by_country   (8 rows)
+==============================================================================
+[
+ {
+  "country": "Germany",
+  "revenue": 1567633.949999998,
+  "margin": 439238.0399999997,
+  "margin_pct": 28.019171184701648,
+  "lines": 10628,
+  "stores": 22
+ },
+ {
+  "country": "France",
+  "revenue": 1406811.7399999935,
+  "margin": 393705.5299999997,
+  "margin_pct": 27.98565855016262,
+  "lines": 10187,
+  "stores": 20
+ },
+ {
+  "country": "Italy",
+  "revenue": 1332155.5099999912,
+  "margin": 374344.1999999997,
+  "margin_pct": 28.100638190506917,
+  "lines": 9872,
+  "stores": 18
+ },
+ {
+  "country": "Belgium",
+  "revenue": 1246510.769999998,
+  "margin": 351005.49,
+  "margin_pct": 28.159041899012276,
+  "lines": 8280,
+  "stores": 14
+ },
+ {
+  "country": "Netherlands",
+  "revenue": 947748.2000000041,
+  "margin": 265194.6200000004,
+  "margin_pct": 27.981548263557688,
+  "lines": 6138,
+  "stores": 11
+ },
+ {
+  "country": "Spain",
+  "revenue": 735600.2400000001,
+  "margin": 204777.9800000002,
+  "margin_pct": 27.838215495960167,
+  "lines": 5700,
+  "stores": 12
+ },
+ {
+  "country": "Poland",
+  "revenue": 714235.7300000002,
+  "margin": 200443.1900000003,
+  "margin_pct": 28.064010463324234,
+  "lines": 6641,
+  "stores": 13
+ },
+ {
+  "country": "Austria",
+  "revenue": 683281.1700000013,
+  "margin": 192432.01999999976,
+  "margin_pct": 28.162933276794295,
+  "lines": 4693,
+  "stores": 10
+ }
+]
+
+==============================================================================
+run: sales -> margin_by_region   (10 rows)
+==============================================================================
+[
+ {
+  "country": "Italy",
+  "region": "Lombardy",
+  "revenue": 507428.29,
+  "margin_pct": 28.103486307395283,
+  "stores": 5
+ },
+ {
+  "country": "Germany",
+  "region": "Hamburg",
+  "revenue": 478511.9700000002,
+  "margin_pct": 28.041315246513072,
+  "stores": 5
+ },
+ {
+  "country": "Netherlands",
+  "region": "Utrecht",
+  "revenue": 447640.5199999995,
+  "margin_pct": 27.86017673288387,
+  "stores": 4
+ },
+ {
+  "country": "Belgium",
+  "region": "Wallonia",
+  "revenue": 428836.53999999847,
+  "margin_pct": 27.9897207453452,
+  "stores": 4
+ },
+ {
+  "country": "Germany",
+  "region": "Bavaria",
+  "revenue": 422873.1800000005,
+  "margin_pct": 27.98801758957615,
+  "stores": 7
+ },
+ {
+  "country": "France",
+  "region": "Auvergne-Rhône-Alpes",
+  "revenue": 409453.3500000012,
+  "margin_pct": 28.1931311588975,
+  "stores": 5
+ },
+ {
+  "country": "Netherlands",
+  "region": "South Holland",
+  "revenue": 369608.2600000003,
+  "margin_pct": 28.054554300274535,
+  "stores": 5
+ },
+ {
+  "country": "Italy",
+  "region": "Campania",
+  "revenue": 344134.63000000117,
+  "margin_pct": 28.21406552429771,
+  "stores": 6
+ },
+ {
+  "country": "Germany",
+  "region": "Hesse",
+  "revenue": 322603.28000000067,
+  "margin_pct": 28.00079714006623,
+  "stores": 5
+ },
+ {
+  "country": "France",
+  "region": "Hauts-de-France",
+  "revenue": 319716.62000000017,
+  "margin_pct": 27.851154563062764,
+  "stores": 5
+ }
+]
+
+==============================================================================
+run: sales -> margin_by_pharmacy_type   (3 rows)
+==============================================================================
+[
+ {
+  "pharmacy_type": "Urban",
+  "stores": 50,
+  "lines": 29552,
+  "revenue": 4125299.269999984,
+  "margin_pct": 27.98160022945457,
+  "revenue_per_store_day": 120.05410831732682
+ },
+ {
+  "pharmacy_type": "Suburban",
+  "stores": 47,
+  "lines": 22403,
+  "revenue": 3109295.5599999875,
+  "margin_pct": 28.104973076281013,
+  "revenue_per_store_day": 93.86552633962226
+ },
+ {
+  "pharmacy_type": "Rural",
+  "stores": 23,
+  "lines": 10184,
+  "revenue": 1399382.4799999925,
+  "margin_pct": 28.08021721123749,
+  "revenue_per_store_day": 86.20071947763905
+ }
+]
+
+==============================================================================
+run: sales -> margin_by_size_band   (3 rows)
+==============================================================================
+[
+ {
+  "store_size_band": "M",
+  "stores": 53,
+  "revenue": 3835577.809999997,
+  "margin_pct": 28.028047487322443
+ },
+ {
+  "store_size_band": "L",
+  "stores": 25,
+  "revenue": 3172447.0799999703,
+  "margin_pct": 28.061132543777866
+ },
+ {
+  "store_size_band": "S",
+  "stores": 42,
+  "revenue": 1625952.4200000023,
+  "margin_pct": 28.037654385975326
+ }
+]
+
+==============================================================================
+run: sales -> margin_by_category   (5 rows)
+==============================================================================
+[
+ {
+  "category": "Wellness",
+  "lines": 12483,
+  "units": 89423,
+  "revenue": 1712456.8799999896,
+  "margin": 575116.9999999984,
+  "margin_pct": 33.584320091026285
+ },
+ {
+  "category": "Personal Care",
+  "lines": 11073,
+  "units": 101510,
+  "revenue": 1454603.1499999915,
+  "margin": 486875.1799999986,
+  "margin_pct": 33.4713409633412
+ },
+ {
+  "category": "OTC",
+  "lines": 19412,
+  "units": 177686,
+  "revenue": 1797329.5499999928,
+  "margin": 528166.0299999992,
+  "margin_pct": 29.38615403057282
+ },
+ {
+  "category": "Medical Devices",
+  "lines": 6051,
+  "units": 13897,
+  "revenue": 872571.9700000017,
+  "margin": 217816.46999999977,
+  "margin_pct": 24.962579304489847
+ },
+ {
+  "category": "Prescription",
+  "lines": 13120,
+  "units": 63277,
+  "revenue": 2797015.759999993,
+  "margin": 613166.3900000015,
+  "margin_pct": 21.922164285552796
+ }
+]
+
+==============================================================================
+run: sales -> margin_by_brand_within_category   (10 rows)
+==============================================================================
+[
+ {
+  "category": "Prescription",
+  "brand_within_category": "Prescription · AntiBioX",
+  "revenue": 726405.2700000006,
+  "margin_pct": 23.39186636132188
+ },
+ {
+  "category": "Prescription",
+  "brand_within_category": "Prescription · GlucoSafe",
+  "revenue": 482885.75000000116,
+  "margin_pct": 21.88835557893347
+ },
+ {
+  "category": "Prescription",
+  "brand_within_category": "Prescription · NeuroMed",
+  "revenue": 474936.8300000009,
+  "margin_pct": 21.36388538239912
+ },
+ {
+  "category": "Prescription",
+  "brand_within_category": "Prescription · DermRx",
+  "revenue": 403308.5299999996,
+  "margin_pct": 21.35711089472872
+ },
+ {
+  "category": "OTC",
+  "brand_within_category": "OTC · PainLess",
+  "revenue": 392994.5299999988,
+  "margin_pct": 27.79202804680269
+ },
+ {
+  "category": "Wellness",
+  "brand_within_category": "Wellness · BioBalance",
+  "revenue": 388566.68000000104,
+  "margin_pct": 32.88370222583148
+ },
+ {
+  "category": "Wellness",
+  "brand_within_category": "Wellness · ImmunoPlus",
+  "revenue": 343443.3400000002,
+  "margin_pct": 33.70121546104228
+ },
+ {
+  "category": "OTC",
+  "brand_within_category": "OTC · EuroRelief",
+  "revenue": 319436.62000000017,
+  "margin_pct": 31.61280632132904
+ },
+ {
+  "category": "Personal Care",
+  "brand_within_category": "Personal Care · SmileBright",
+  "revenue": 318619.30000000016,
+  "margin_pct": 33.30048744693113
+ },
+ {
+  "category": "OTC",
+  "brand_within_category": "OTC · Medica",
+  "revenue": 302059.66000000027,
+  "margin_pct": 27.289079250105758
+ }
+]
+
+==============================================================================
+run: sales -> growth_by_cohort   (2 rows)
+==============================================================================
+[
+ {
+  "year": 2024,
+  "revenue": 4223414.130000027,
+  "revenue_same_store": 4141787.1700000283,
+  "revenue_new_store": 81626.96000000006,
+  "lines": 30312
+ },
+ {
+  "year": 2025,
+  "revenue": 4410563.180000005,
+  "revenue_same_store": 4144630.20000001,
+  "revenue_new_store": 265932.97999999946,
+  "lines": 31827
+ }
+]
+
+==============================================================================
+run: sales -> revenue_by_month   (10 rows)
+==============================================================================
+[
+ {
+  "year_month": "2024-01",
+  "revenue": 348141.16000000056,
+  "revenue_same_store": 348141.16000000056,
+  "margin_pct": 27.73838634880163,
+  "lines": 2615
+ },
+ {
+  "year_month": "2024-02",
+  "revenue": 327319.25,
+  "revenue_same_store": 326371.67000000004,
+  "margin_pct": 27.983942282649128,
+  "lines": 2380
+ },
+ {
+  "year_month": "2024-03",
+  "revenue": 346366.74000000005,
+  "revenue_same_store": 345498.77,
+  "margin_pct": 28.08224600318146,
+  "lines": 2509
+ },
+ {
+  "year_month": "2024-04",
+  "revenue": 330369.3100000003,
+  "revenue_same_store": 328160.29000000027,
+  "margin_pct": 28.144642127926456,
+  "lines": 2394
+ },
+ {
+  "year_month": "2024-05",
+  "revenue": 357866.9700000007,
+  "revenue_same_store": 350514.90000000066,
+  "margin_pct": 27.977507954981068,
+  "lines": 2580
+ },
+ {
+  "year_month": "2024-06",
+  "revenue": 342538.26000000065,
+  "revenue_same_store": 336137.7100000006,
+  "margin_pct": 27.972676687269892,
+  "lines": 2431
+ },
+ {
+  "year_month": "2024-07",
+  "revenue": 388334.11,
+  "revenue_same_store": 380470.4,
+  "margin_pct": 28.00852080699268,
+  "lines": 2696
+ },
+ {
+  "year_month": "2024-08",
+  "revenue": 373987.77000000025,
+  "revenue_same_store": 362983.5100000001,
+  "margin_pct": 28.30293086856827,
+  "lines": 2637
+ },
+ {
+  "year_month": "2024-09",
+  "revenue": 357304.8299999991,
+  "revenue_same_store": 346774.19999999943,
+  "margin_pct": 27.677297281427794,
+  "lines": 2564
+ },
+ {
+  "year_month": "2024-10",
+  "revenue": 368336.44000000024,
+  "revenue_same_store": 355343.7600000006,
+  "margin_pct": 28.056995935563656,
+  "lines": 2608
+ }
+]
+
+==============================================================================
+run: sales -> same_store_yoy   (2 rows)
+==============================================================================
+[
+ {
+  "year": 2024,
+  "revenue_same_store": 4141787.1700000283,
+  "margin_pct": 27.974181163237994
+ },
+ {
+  "year": 2025,
+  "revenue_same_store": 4144630.20000001,
+  "margin_pct": 28.106967283030837
+ }
+]
+
+==============================================================================
+run: sales -> trading_week   (7 rows)
+==============================================================================
+[
+ {
+  "day_of_week": 1,
+  "day_name": "Mon",
+  "trading_day": "weekday",
+  "lines": 9582,
+  "revenue": 1331520.8200000026,
+  "units": 68441,
+  "margin_pct": 28.07123436492719
+ },
+ {
+  "day_of_week": 2,
+  "day_name": "Tue",
+  "trading_day": "weekday",
+  "lines": 9459,
+  "revenue": 1294668.529999992,
+  "units": 67344,
+  "margin_pct": 28.07438673125094
+ },
+ {
+  "day_of_week": 3,
+  "day_name": "Wed",
+  "trading_day": "weekday",
+  "lines": 9250,
+  "revenue": 1292026.5799999977,
+  "units": 66360,
+  "margin_pct": 27.85021342207993
+ },
+ {
+  "day_of_week": 4,
+  "day_name": "Thu",
+  "trading_day": "weekday",
+  "lines": 9359,
+  "revenue": 1289776.5099999995,
+  "units": 67381,
+  "margin_pct": 28.04288783333469
+ },
+ {
+  "day_of_week": 5,
+  "day_name": "Fri",
+  "trading_day": "weekday",
+  "lines": 9304,
+  "revenue": 1314180.0000000028,
+  "units": 66799,
+  "margin_pct": 28.084110243650052
+ },
+ {
+  "day_of_week": 6,
+  "day_name": "Sat",
+  "trading_day": "weekend",
+  "lines": 7562,
+  "revenue": 1071070.2999999993,
+  "units": 55129,
+  "margin_pct": 28.134449251370373
+ },
+ {
+  "day_of_week": 7,
+  "day_name": "Sun",
+  "trading_day": "weekend",
+  "lines": 7623,
+  "revenue": 1040734.5699999966,
+  "units": 54339,
+  "margin_pct": 28.05309522869032
+ }
+]
+
+==============================================================================
+run: sales -> units_per_line_by_trading_day   (2 rows)
+==============================================================================
+[
+ {
+  "trading_day": "weekday",
+  "lines": 46954,
+  "units": 336325,
+  "margin_pct": 28.02506521891347
+ },
+ {
+  "trading_day": "weekend",
+  "lines": 15185,
+  "units": 109468,
+  "margin_pct": 28.094356558615342
+ }
+]
+
+==============================================================================
+run: sales -> promo_overall   (1 rows)
+==============================================================================
+[
+ {
+  "promo_lines": 7431,
+  "promo_share": 11.95867329696326,
+  "margin_pct_promo": 19.924027082773318,
+  "margin_pct_non_promo": 28.999962286389973,
+  "promo_margin_gap_pp": 9.075935203616655,
+  "promo_margin_forgone": 82709.09371547168,
+  "units_per_line_promo": 7.022607993540573,
+  "units_per_line_non_promo": 7.194706441471083
+ }
+]
+
+==============================================================================
+run: sales -> promo_by_category   (5 rows)
+==============================================================================
+[
+ {
+  "category": "Prescription",
+  "promo_lines": 1606,
+  "margin_pct_promo": 13.764408676765399,
+  "margin_pct_non_promo": 22.94920132266763,
+  "promo_margin_gap_pp": 9.184792645902231,
+  "units_per_line_promo": 4.839975093399751,
+  "units_per_line_non_promo": 4.820566267153031,
+  "promo_margin_forgone": 28726.387789139524
+ },
+ {
+  "category": "OTC",
+  "promo_lines": 2316,
+  "margin_pct_promo": 21.560951647480593,
+  "margin_pct_non_promo": 30.293540077529418,
+  "promo_margin_gap_pp": 8.732588430048825,
+  "units_per_line_promo": 9.030656303972366,
+  "units_per_line_non_promo": 9.170039775386055,
+  "promo_margin_forgone": 16308.71755452978
+ },
+ {
+  "category": "Wellness",
+  "promo_lines": 1491,
+  "margin_pct_promo": 25.820451289438473,
+  "margin_pct_non_promo": 34.48647682417131,
+  "promo_margin_gap_pp": 8.666025534732839,
+  "units_per_line_promo": 7.074446680080483,
+  "units_per_line_non_promo": 7.1756732168850075,
+  "promo_margin_forgone": 15449.04504512572
+ },
+ {
+  "category": "Personal Care",
+  "promo_lines": 1288,
+  "margin_pct_promo": 25.917808679176463,
+  "margin_pct_non_promo": 34.27932610506047,
+  "promo_margin_gap_pp": 8.361517425884006,
+  "units_per_line_promo": 8.770962732919255,
+  "units_per_line_non_promo": 9.21951967296883,
+  "promo_margin_forgone": 11752.977322981831
+ },
+ {
+  "category": "Medical Devices",
+  "promo_lines": 730,
+  "margin_pct_promo": 16.98837744462143,
+  "margin_pct_non_promo": 25.91332225400324,
+  "promo_margin_gap_pp": 8.92494480938181,
+  "units_per_line_promo": 2.263013698630137,
+  "units_per_line_non_promo": 2.3012591618116893,
+  "promo_margin_forgone": 8295.916484205549
+ }
+]
+
+==============================================================================
+run: sales -> prelaunch_overall   (1 rows)
+==============================================================================
+[
+ {
+  "lines": 62139,
+  "prelaunch_lines": 6221,
+  "revenue": 8633977.31000006,
+  "revenue_prelaunch": 795899.3300000016,
+  "prelaunch_share": 9.21822355356637
+ }
+]
+
+==============================================================================
+run: sales -> prelaunch_by_product   (10 rows)
+==============================================================================
+[
+ {
+  "product_key": "PR0124",
+  "product_name": "AntiBioX ACE Inhibitor 400 mg",
+  "category": "Prescription",
+  "launch_date": "2025-12-13T00:00:00.000Z",
+  "prelaunch_lines": 302,
+  "revenue_prelaunch": 72882.57000000007
+ },
+ {
+  "product_key": "PR0092",
+  "product_name": "NeuroMed Antidepressant 100 mg",
+  "category": "Prescription",
+  "launch_date": "2025-07-14T00:00:00.000Z",
+  "prelaunch_lines": 200,
+  "revenue_prelaunch": 59203.19
+ },
+ {
+  "product_key": "PR0027",
+  "product_name": "GlucoMeterX Digital Thermometer Smart",
+  "category": "Medical Devices",
+  "launch_date": "2025-10-16T00:00:00.000Z",
+  "prelaunch_lines": 203,
+  "revenue_prelaunch": 48006.4499999999
+ },
+ {
+  "product_key": "PR0154",
+  "product_name": "CareEquip Digital Thermometer Advance",
+  "category": "Medical Devices",
+  "launch_date": "2025-07-30T00:00:00.000Z",
+  "prelaunch_lines": 221,
+  "revenue_prelaunch": 45773.39000000003
+ },
+ {
+  "product_key": "PR0143",
+  "product_name": "RxNova ACE Inhibitor 500 mg",
+  "category": "Prescription",
+  "launch_date": "2025-12-20T00:00:00.000Z",
+  "prelaunch_lines": 212,
+  "revenue_prelaunch": 40278.63999999998
+ },
+ {
+  "product_key": "PR0015",
+  "product_name": "DermRx Inhaler 400 mg",
+  "category": "Prescription",
+  "launch_date": "2025-07-06T00:00:00.000Z",
+  "prelaunch_lines": 187,
+  "revenue_prelaunch": 39817.61000000004
+ },
+ {
+  "product_key": "PR0024",
+  "product_name": "DermaSoft Moisturizer Classic",
+  "category": "Personal Care",
+  "launch_date": "2025-10-15T00:00:00.000Z",
+  "prelaunch_lines": 237,
+  "revenue_prelaunch": 37934.70000000004
+ },
+ {
+  "product_key": "PR0005",
+  "product_name": "CleanWave Moisturizer Sensitive",
+  "category": "Personal Care",
+  "launch_date": "2025-08-11T00:00:00.000Z",
+  "prelaunch_lines": 225,
+  "revenue_prelaunch": 26999.039999999986
+ },
+ {
+  "product_key": "PR0078",
+  "product_name": "ImmunoPlus Multivitamin Max",
+  "category": "Wellness",
+  "launch_date": "2024-11-14T00:00:00.000Z",
+  "prelaunch_lines": 151,
+  "revenue_prelaunch": 25959.939999999995
+ },
+ {
+  "product_key": "PR0186",
+  "product_name": "SmileBright Moisturizer Fresh",
+  "category": "Personal Care",
+  "launch_date": "2025-03-08T00:00:00.000Z",
+  "prelaunch_lines": 138,
+  "revenue_prelaunch": 24793.130000000005
+ }
+]
+
+==============================================================================
+run: sales -> category_rank_launched_only   (5 rows)
+==============================================================================
+[
+ {
+  "category": "Prescription",
+  "revenue": 2519205.889999999,
+  "margin_pct": 21.787043773544195
+ },
+ {
+  "category": "OTC",
+  "revenue": 1635942.3099999956,
+  "margin_pct": 29.46480857262022
+ },
+ {
+  "category": "Wellness",
+  "revenue": 1598905.5699999926,
+  "margin_pct": 33.58517601511644
+ },
+ {
+  "category": "Personal Care",
+  "revenue": 1335231.1699999934,
+  "margin_pct": 33.66441782511729
+ },
+ {
+  "category": "Medical Devices",
+  "revenue": 748793.040000002,
+  "margin_pct": 24.627760963162714
+ }
+]
+
+==============================================================================
+run: sales -> store_volume_vs_rate   (10 rows)
+==============================================================================
+[
+ {
+  "pharmacy_key": "PH0095",
+  "pharmacy_name": "Munich HealthPoint #095",
+  "country": "Germany",
+  "region": "Bavaria",
+  "pharmacy_type": "Urban",
+  "cohort": "established",
+  "lines": 919,
+  "revenue": 162320.2899999998,
+  "margin_pct": 27.829275070910775,
+  "revenue_per_store_day": 222.05238030095734
+ },
+ {
+  "pharmacy_key": "PH0023",
+  "pharmacy_name": "Rotterdam HealthPoint #023",
+  "country": "Netherlands",
+  "region": "South Holland",
+  "pharmacy_type": "Urban",
+  "cohort": "established",
+  "lines": 896,
+  "revenue": 159495.0099999998,
+  "margin_pct": 27.682514957678006,
+  "revenue_per_store_day": 218.1874281805743
+ },
+ {
+  "pharmacy_key": "PH0058",
+  "pharmacy_name": "Utrecht HealthPoint #058",
+  "country": "Netherlands",
+  "region": "Utrecht",
+  "pharmacy_type": "Urban",
+  "cohort": "established",
+  "lines": 881,
+  "revenue": 158935.65999999974,
+  "margin_pct": 27.485040172859883,
+  "revenue_per_store_day": 217.42224350205163
+ },
+ {
+  "pharmacy_key": "PH0078",
+  "pharmacy_name": "Brussels HealthPoint #078",
+  "country": "Belgium",
+  "region": "Brussels-Capital",
+  "pharmacy_type": "Urban",
+  "cohort": "established",
+  "lines": 887,
+  "revenue": 151533.96000000005,
+  "margin_pct": 28.40699206963243,
+  "revenue_per_store_day": 207.29679890560882
+ },
+ {
+  "pharmacy_key": "PH0010",
+  "pharmacy_name": "Liège HealthPoint #010",
+  "country": "Belgium",
+  "region": "Wallonia",
+  "pharmacy_type": "Urban",
+  "cohort": "established",
+  "lines": 855,
+  "revenue": 147924.27000000014,
+  "margin_pct": 27.863399292083663,
+  "revenue_per_store_day": 202.35878248974026
+ },
+ {
+  "pharmacy_key": "PH0073",
+  "pharmacy_name": "Lyon HealthPoint #073",
+  "country": "France",
+  "region": "Auvergne-Rhône-Alpes",
+  "pharmacy_type": "Urban",
+  "cohort": "established",
+  "lines": 844,
+  "revenue": 143722.53,
+  "margin_pct": 28.020081472264625,
+  "revenue_per_store_day": 196.61084815321476
+ },
+ {
+  "pharmacy_key": "PH0055",
+  "pharmacy_name": "Frankfurt HealthPoint #055",
+  "country": "Germany",
+  "region": "Hesse",
+  "pharmacy_type": "Suburban",
+  "cohort": "established",
+  "lines": 775,
+  "revenue": 137422.28999999986,
+  "margin_pct": 28.32285068164709,
+  "revenue_per_store_day": 187.99218878248956
+ },
+ {
+  "pharmacy_key": "PH0109",
+  "pharmacy_name": "Antwerp HealthPoint #109",
+  "country": "Belgium",
+  "region": "Flanders",
+  "pharmacy_type": "Urban",
+  "cohort": "established",
+  "lines": 840,
+  "revenue": 135770.62000000005,
+  "margin_pct": 28.065173452106173,
+  "revenue_per_store_day": 185.7327222982217
+ },
+ {
+  "pharmacy_key": "PH0074",
+  "pharmacy_name": "Vienna HealthPoint #074",
+  "country": "Austria",
+  "region": "Vienna",
+  "pharmacy_type": "Suburban",
+  "cohort": "established",
+  "lines": 785,
+  "revenue": 135215.31999999998,
+  "margin_pct": 27.552048096325166,
+  "revenue_per_store_day": 184.97307797537616
+ },
+ {
+  "pharmacy_key": "PH0085",
+  "pharmacy_name": "Milan HealthPoint #085",
+  "country": "Italy",
+  "region": "Lombardy",
+  "pharmacy_type": "Urban",
+  "cohort": "established",
+  "lines": 855,
+  "revenue": 134961.07000000004,
+  "margin_pct": 27.838035071891454,
+  "revenue_per_store_day": 184.62526675786597
+ }
+]
+
+==============================================================================
+run: sales -> region_share_of_country   (8 rows)
+==============================================================================
+[
+ {
+  "country": "Germany",
+  "revenue": 1567633.949999998,
+  "margin_pct": 28.019171184701648,
+  "regions": [
+   {
+    "region": "Hamburg",
+    "revenue": 478511.9700000002,
+    "margin_pct": 28.041315246513072,
+    "stores": 5
+   },
+   {
+    "region": "Bavaria",
+    "revenue": 422873.1800000005,
+    "margin_pct": 27.98801758957615,
+    "stores": 7
+   },
+   {
+    "region": "Hesse",
+    "revenue": 322603.28000000067,
+    "margin_pct": 28.00079714006623,
+    "stores": 5
+   },
+   {
+    "region": "Berlin",
+    "revenue": 206192.18999999997,
+    "margin_pct": 28.154349590059613,
+    "stores": 3
+   },
+   {
+    "region": "North Rhine-Westphalia",
+    "revenue": 137453.32999999987,
+    "margin_pct": 27.878269664329018,
+    "stores": 2
+   }
+  ]
+ },
+ {
+  "country": "France",
+  "revenue": 1406811.7399999935,
+  "margin_pct": 27.98565855016262,
+  "regions": [
+   {
+    "region": "Auvergne-Rhône-Alpes",
+    "revenue": 409453.3500000012,
+    "margin_pct": 28.1931311588975,
+    "stores": 5
+   },
+   {
+    "region": "Hauts-de-France",
+    "revenue": 319716.62000000017,
+    "margin_pct": 27.851154563062764,
+    "stores": 5
+   },
+   {
+    "region": "Nouvelle-Aquitaine",
+    "revenue": 274287.33,
+    "margin_pct": 27.914712648229166,
+    "stores": 4
+   },
+   {
+    "region": "Provence-Alpes-Côte d'Azur",
+    "revenue": 267063.88000000047,
+    "margin_pct": 27.694291717771772,
+    "stores": 4
+   },
+   {
+    "region": "Île-de-France",
+    "revenue": 136290.55999999997,
+    "margin_pct": 28.391599535580436,
+    "stores": 2
+   }
+  ]
+ },
+ {
+  "country": "Italy",
+  "revenue": 1332155.5099999912,
+  "margin_pct": 28.100638190506917,
+  "regions": [
+   {
+    "region": "Lombardy",
+    "revenue": 507428.29,
+    "margin_pct": 28.103486307395283,
+    "stores": 5
+   },
+   {
+    "region": "Campania",
+    "revenue": 344134.63000000117,
+    "margin_pct": 28.21406552429771,
+    "stores": 6
+   },
+   {
+    "region": "Veneto",
+    "revenue": 269018.51000000024,
+    "margin_pct": 28.065403380607528,
+    "stores": 4
+   },
+   {
+    "region": "Lazio",
+    "revenue": 144708.6700000004,
+    "margin_pct": 28.047248309309968,
+    "stores": 2
+   },
+   {
+    "region": "Emilia-Romagna",
+    "revenue": 66865.40999999995,
+    "margin_pct": 27.75255546926284,
+    "stores": 1
+   }
+  ]
+ },
+ {
+  "country": "Belgium",
+  "revenue": 1246510.769999998,
+  "margin_pct": 28.159041899012276,
+  "regions": [
+   {
+    "region": "Wallonia",
+    "revenue": 428836.53999999847,
+    "margin_pct": 27.9897207453452,
+    "stores": 4
+   },
+   {
+    "region": "Brussels-Capital",
+    "revenue": 256762.47999999975,
+    "margin_pct": 28.21515822716779,
+    "stores": 3
+   },
+   {
+    "region": "East Flanders",
+    "revenue": 205116.70999999964,
+    "margin_pct": 28.026512320717355,
+    "stores": 3
+   },
+   {
+    "region": "West Flanders",
+    "revenue": 186707.58999999997,
+    "margin_pct": 28.606914159194048,
+    "stores": 2
+   },
+   {
+    "region": "Flanders",
+    "revenue": 169087.44999999998,
+    "margin_pct": 28.169482714417924,
+    "stores": 2
+   }
+  ]
+ },
+ {
+  "country": "Netherlands",
+  "revenue": 947748.2000000041,
+  "margin_pct": 27.981548263557688,
+  "regions": [
+   {
+    "region": "Utrecht",
+    "revenue": 447640.5199999995,
+    "margin_pct": 27.86017673288387,
+    "stores": 4
+   },
+   {
+    "region": "South Holland",
+    "revenue": 369608.2600000003,
+    "margin_pct": 28.054554300274535,
+    "stores": 5
+   },
+   {
+    "region": "North Holland",
+    "revenue": 91851.60999999991,
+    "margin_pct": 28.22397996072147,
+    "stores": 1
+   },
+   {
+    "region": "Gelderland",
+    "revenue": 38647.80999999998,
+    "margin_pct": 28.112977164812197,
+    "stores": 1
+   }
+  ]
+ },
+ {
+  "country": "Spain",
+  "revenue": 735600.2400000001,
+  "margin_pct": 27.838215495960167,
+  "regions": [
+   {
+    "region": "Community of Madrid",
+    "revenue": 265580.5600000002,
+    "margin_pct": 27.699150871584898,
+    "stores": 3
+   },
+   {
+    "region": "Catalonia",
+    "revenue": 189503.14999999962,
+    "margin_pct": 27.9394
+
+==============================================================================
+run: sales -> geography_drill   (8 rows)
+==============================================================================
+[
+ {
+  "country": "Germany",
+  "revenue": 1567633.949999998,
+  "margin_pct": 28.019171184701648,
+  "stores": 22,
+  "by_region": [
+   {
+    "region": "Hamburg",
+    "revenue": 478511.9700000002,
+    "margin_pct": 28.041315246513072,
+    "by_pharmacy": [
+     {
+      "pharmacy_name": "Hamburg HealthPoint #106",
+      "revenue": 134838.86999999994,
+      "margin_pct": 28.109490979863615,
+      "revenue_per_store_day": 184.45809849521194
+     },
+     {
+      "pharmacy_name": "Hamburg HealthPoint #053",
+      "revenue": 124277.51000000005,
+      "margin_pct": 28.32349956158601,
+      "revenue_per_store_day": 170.01027359781128
+     },
+     {
+      "pharmacy_name": "Hamburg HealthPoint #037",
+      "revenue": 100519.27999999998,
+      "margin_pct": 28.099136802412456,
+      "revenue_per_store_day": 137.50927496580024
+     },
+     {
+      "pharmacy_name": "Hamburg HealthPoint #112",
+      "revenue": 84869.94000000008,
+      "margin_pct": 27.482392470172545,
+      "revenue_per_store_day": 116.10114911080721
+     },
+     {
+      "pharmacy_name": "Hamburg HealthPoint #038",
+      "revenue": 34006.36999999999,
+      "margin_pct": 27.96373150089233,
+      "revenue_per_store_day": 46.520341997264005
+     }
+    ]
+   },
+   {
+    "region": "Bavaria",
+    "revenue": 422873.1800000005,
+    "margin_pct": 27.98801758957615,
+    "by_pharmacy": [
+     {
+      "pharmacy_name": "Munich HealthPoint #095",
+      "revenue": 162320.2899999998,
+      "margin_pct": 27.829275070910775,
+      "revenue_per_store_day": 222.05238030095734
+     },
+     {
+      "pharmacy_name": "Munich HealthPoint #081",
+      "revenue": 63469.22999999997,
+      "margin_pct": 28.44176619127095,
+      "revenue_per_store_day": 86.82521203830365
+     },
+     {
+      "pharmacy_name": "Munich HealthPoint #009",
+      "revenue": 50248.92000000001,
+      "margin_pct": 27.964959246885325,
+      "revenue_per_store_day": 68.7399726402189
+     },
+     {
+      "pharmacy_name": "Munich HealthPoint #029",
+      "revenue": 43756.45999999998,
+      "margin_pct": 27.423493582433313,
+      "revenue_per_store_day": 59.85835841313266
+     },
+     {
+      "pharmacy_name": "Munich HealthPoint #047",
+      "revenue": 39701.41,
+      "margin_pct": 27.90951253368584,
+      "revenue_per_store_day": 54.31109439124487
+     },
+     {
+      "pharmacy_name": "Munich HealthPoint #060",
+      "revenue": 37614.369999999995,
+      "margin_pct": 28.85806674417252,
+      "revenue_per_store_day": 51.4560465116279
+     },
+     {
+      "pharmacy_name": "Munich HealthPoint #031",
+      "revenue": 25762.499999999996,
+      "margin_pct": 27.724793789422613,
+      "revenue_per_store_day": 35.24281805745554
+     }
+    ]
+   },
+   {
+    "region": "Hesse",
+    "revenue": 322603.28000000067,
+    "margin_pct": 28.00079714006623,
+    "by_pharmacy": [
+     {
+      "pharmacy_name": "Frankfurt HealthPoint #055",
+      "revenue": 137422.28999999986,
+      "margin_pct": 28.32285068164709,
+      "revenue_per_store_day": 187.99218878248956
+     },
+     {
+      "pharmacy_name": "Frankfurt HealthPoint #113",
+      "revenue": 67256.98999999998,
+      "margin_pct": 27.999112062552907,
+      "revenue_per_store_day": 92.00682626538985
+     },
+     {
+      "pharmacy_name": "Frankfurt HealthPoint #097",
+      "revenue": 55035.87999999998,
+      "margin_pct": 27.75322207985047,
+      "revenue_per_store_day": 75.28848153214771
+     },
+     {
+      "pharmacy_name": "Frankfurt HealthPoint #086",
+      "revenue": 44704.60000000002,
+      "margin_pct": 27.414046876607813,
+      "revenue_per_store_day": 61.155403556771574
+     },
+     {
+      "pharmacy_name": "Frankfurt HealthPoint #084",
+      "revenue": 18183.520000000004,
+      "margin_pct": 27.76497619822785,
+      "revenue_per_store_day": 99.90945054945057
+     }
+    ]
+   },
+   {
+    "region": "Berlin",
+    "revenue": 206192.18999999997,
+    "margin_pct": 28.154349590059613,
+    "by_pharmacy": [
+     {
+      "pharmacy_name": "Berlin HealthPoint #101",
+      "revenue": 95378.94,
+      "margin_pct"
+
+==============================================================================
+run: sales -> product_volume_vs_margin   (10 rows)
+==============================================================================
+[
+ {
+  "product_key": "PR0054",
+  "product_name": "EuroRelief Paracetamol 20 mg",
+  "category": "OTC",
+  "units": 3580,
+  "revenue": 32804.000000000015,
+  "margin_pct": 32.50097549079377
+ },
+ {
+  "product_key": "PR0207",
+  "product_name": "VitaCare Ibuprofen 200 mg",
+  "category": "OTC",
+  "units": 3492,
+  "revenue": 26063.390000000007,
+  "margin_pct": 31.56861022299861
+ },
+ {
+  "product_key": "PR0079",
+  "product_name": "PainLess Throat Lozenges 20 mg",
+  "category": "OTC",
+  "units": 3470,
+  "revenue": 45772.540000000045,
+  "margin_pct": 25.84066778902808
+ },
+ {
+  "product_key": "PR0045",
+  "product_name": "ColdAway Throat Lozenges 10 mg",
+  "category": "OTC",
+  "units": 3450,
+  "revenue": 21577.15000000004,
+  "margin_pct": 29.741926065305176
+ },
+ {
+  "product_key": "PR0200",
+  "product_name": "ColdAway Ibuprofen 200 mg",
+  "category": "OTC",
+  "units": 3444,
+  "revenue": 25509.169999999976,
+  "margin_pct": 30.530001564143415
+ },
+ {
+  "product_key": "PR0174",
+  "product_name": "Medica Ibuprofen 500 mg",
+  "category": "OTC",
+  "units": 3405,
+  "revenue": 29195.07999999999,
+  "margin_pct": 27.168413307995753
+ },
+ {
+  "product_key": "PR0204",
+  "product_name": "PainLess Ibuprofen 20 mg",
+  "category": "OTC",
+  "units": 3391,
+  "revenue": 30606.99999999999,
+  "margin_pct": 30.61459796778517
+ },
+ {
+  "product_key": "PR0063",
+  "product_name": "Medica Allergy Tabs 500 mg",
+  "category": "OTC",
+  "units": 3385,
+  "revenue": 13435.129999999997,
+  "margin_pct": 33.98657102685277
+ },
+ {
+  "product_key": "PR0007",
+  "product_name": "EuroRelief Antacid 500 mg",
+  "category": "OTC",
+  "units": 3374,
+  "revenue": 55565.31999999998,
+  "margin_pct": 33.703252316372875
+ },
+ {
+  "product_key": "PR0059",
+  "product_name": "EuroRelief Allergy Tabs 20 mg",
+  "category": "OTC",
+  "units": 3348,
+  "revenue": 33578.51,
+  "margin_pct": 32.73132131235128
+ }
+]
+
+21/21 views ran clean.

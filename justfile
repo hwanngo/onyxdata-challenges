@@ -83,6 +83,12 @@ build-model YEAR MONTH:
 malloy YEAR MONTH:
     node tools/run_malloy.mjs {{YEAR}} {{MONTH}}
 
+# Promoted after four months of identical hand-written copies.
+#
+# Check the shared statistical helpers in packages/dna-kit/src/stats
+test-kit:
+    npx --yes tsx packages/dna-kit/src/stats/verify.mjs
+
 # G4 - metric assertions
 test-model YEAR MONTH:
     uv run pytest {{YEAR}}/{{MONTH}}/model -v

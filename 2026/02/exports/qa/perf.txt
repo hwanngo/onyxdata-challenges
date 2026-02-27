@@ -1,0 +1,3 @@
+cold load to first real number: 998ms  (budget 3000ms)
+interaction-to-paint: 1ms, 2ms, 1ms, 3ms, 1ms  max 3ms (budget 200ms)
+  measured by clicking: [role="button"][data-metric], button[aria-pressed], figure [role="button"], .chartfig [role="button"]

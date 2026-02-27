@@ -1,0 +1,69 @@
+metric                                           rendered         recomputed  
+--------------------------------------------------------------------------------
+category_spread                                   11.6622            11.6622  ok
+cats.Medical Devices.marginPct                    24.9626            24.9626  ok
+cats.OTC.marginPct                                29.3862            29.3862  ok
+cats.Personal Care.marginPct                      33.4713            33.4713  ok
+cats.Prescription.marginPct                       21.9222            21.9222  ok
+cats.Wellness.marginPct                           33.5843            33.5843  ok
+country.Austria.marginPct                         28.1629            28.1629  ok
+country.Belgium.marginPct                         28.1590            28.1590  ok
+country.France.marginPct                          27.9857            27.9857  ok
+country.Germany.marginPct                         28.0192            28.0192  ok
+country.Italy.marginPct                           28.1006            28.1006  ok
+country.Netherlands.marginPct                     27.9815            27.9815  ok
+country.Poland.marginPct                          28.0640            28.0640  ok
+country.Spain.marginPct                           27.8382            27.8382  ok
+foot_lines                                    62,139.0000        62,139.0000  ok
+lines                                         62,139.0000        62,139.0000  ok
+margin_pct                                        28.0420            28.0420  ok
+prelaunch_share                                   10.0114            10.0114  ok
+promo.Not promoted.marginPct                      29.0000            29.0000  ok
+promo.Not promoted.unitsPerLine                    7.1947             7.1947  ok
+promo.Promoted.marginPct                          19.9240            19.9240  ok
+promo.Promoted.unitsPerLine                        7.0226             7.0226  ok
+promo_forgone                                 82,709.0937        82,709.0937  ok
+promo_forgone_kpi                             82,709.0937        82,709.0937  ok
+same_store_growth                                  0.0686             0.0686  ok
+store_spread                                       4.6081             4.6081  ok
+store_spread_pp                                    4.6081             4.6081  ok
+weekend_gap                                      -18.6831           -18.6831  ok
+--------------------------------------------------------------------------------
+Specified but not rendered (16): cats.Medical Devices, cats.OTC, cats.Personal Care, cats.Prescription, cats.Wellness, country.Austria, country.Belgium, country.France, country.Germany, country.Italy, country.Netherlands, country.Poland, country.Spain, promo.Not promoted, promo.Promoted, volume_ratio
+
+All 28 rendered metrics reconcile.
+metric                                           rendered         recomputed  
+--------------------------------------------------------------------------------
+category_spread                                   11.6622            11.6622  ok
+cats.Medical Devices.marginPct                    24.9626            24.9626  ok
+cats.OTC.marginPct                                29.3862            29.3862  ok
+cats.Personal Care.marginPct                      33.4713            33.4713  ok
+cats.Prescription.marginPct                       21.9222            21.9222  ok
+cats.Wellness.marginPct                           33.5843            33.5843  ok
+country.Austria.marginPct                         28.1629            28.1629  ok
+country.Belgium.marginPct                         28.1590            28.1590  ok
+country.France.marginPct                          27.9857            27.9857  ok
+country.Germany.marginPct                         28.0192            28.0192  ok
+country.Italy.marginPct                           28.1006            28.1006  ok
+country.Netherlands.marginPct                     27.9815            27.9815  ok
+country.Poland.marginPct                          28.0640            28.0640  ok
+country.Spain.marginPct                           27.8382            27.8382  ok
+foot_lines                                    62,139.0000        62,139.0000  ok
+lines                                         62,139.0000        62,139.0000  ok
+margin_pct                                        28.0420            28.0420  ok
+prelaunch_share                                   10.0114            10.0114  ok
+promo.Not promoted.marginPct                      29.0000            29.0000  ok
+promo.Not promoted.unitsPerLine                    7.1947             7.1947  ok
+promo.Promoted.marginPct                          19.9240            19.9240  ok
+promo.Promoted.unitsPerLine                        7.0226             7.0226  ok
+promo_forgone                                 82,709.0937        82,709.0937  ok
+promo_forgone_kpi                             82,709.0937        82,709.0937  ok
+same_store_growth                                  0.0686             0.0686  ok
+store_spread                                       4.6081             4.6081  ok
+store_spread_pp                                    4.6081             4.6081  ok
+volume_ratio                                       8.0433             8.0433  ok
+weekend_gap                                      -18.6831           -18.6831  ok
+--------------------------------------------------------------------------------
+Specified but not rendered (15): cats.Medical Devices, cats.OTC, cats.Personal Care, cats.Prescription, cats.Wellness, country.Austria, country.Belgium, country.France, country.Germany, country.Italy, country.Netherlands, country.Poland, country.Spain, promo.Not promoted, promo.Promoted
+
+All 29 rendered metrics reconcile.

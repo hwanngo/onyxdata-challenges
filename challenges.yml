@@ -4,10 +4,10 @@
 # Era 1 = Playground-only, gated, no brief. Era 2 = full challenge page, ungated.
 
 meta:
-  verified_on: 2025-12-29
-  total: 61
+  verified_on: 2026-02-27
+  total: 62
   era1_count: 52
-  era2_count: 9
+  era2_count: 10
   playground_index: https://datadna.onyxdata.co.uk/playground/
   challenge_index: https://datadna.onyxdata.co.uk/challenges/
   work_order: era2_oldest_first_then_era1_backfill
@@ -315,6 +315,25 @@ challenges:
     # sponsor PDFs. Ninth month running that the ZIP carries requirements the challenge
     # page does not.
     formats: [XLSX, DOCX, TXT, PDF]
+    status: done
+    sha256: "2a4e1cf724aca1e10bed5443a667a0a5aa710b59d6ba1162578718838448c6cd"
+    # Self-assessed at G7 against the page's own bar that 3 = solid competent work.
+    # AI scores are SELF-assessed: /portfolio/ hides per-entry scores behind a login and
+    # there is no account, so no published score exists to record here.
+    scores: {judge_34: 28, ai_storytelling: 4, ai_design: 4, ai_technical: 4, ai_insights: 4}
+
+  - folder: "2026/04"
+    era: 2
+    title: "Mar-Apr 2026 DataDNA - Maritime Logistics & Terminal Efficiency"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2026-04-march-april-2026-datadna-international-maritime-logistics-terminal-efficiency-analytics-challenge/"
+    challenge_url: "https://datadna.onyxdata.co.uk/challenges/march-april-2026-datadna-international-maritime-logistics-terminal-efficiency-analytics-challenge/"
+    # Scraped from the Download Dataset anchor. Upload folder is 2026/03 for a Mar-Apr
+    # challenge, and the stem carries no month or year at all - a third naming shape.
+    dataset_url: "https://datadna.onyxdata.co.uk/wp-content/uploads/2026/03/DataDNA-Dataset-Challenge-International-Maritime-Logistics-Terminal-Efficiency.zip"
+    dataset_folder: "DataDNA-Dataset-Challenge-International-Maritime-Logistics-Terminal-Efficiency"
+    # CSV star schema, and the archive ships its OWN brief and data dictionary as markdown.
+    # Tenth month running that the ZIP carries requirements the challenge page does not.
+    formats: [CSV, MD]
     status: todo
     scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
 
