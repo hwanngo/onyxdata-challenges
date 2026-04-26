@@ -1,0 +1,21 @@
+PASS  baseline is 15,000 movements
+PASS  largest eta2 is 0.0079
+PASS  movement_id has 1,001 distinct values
+PASS  the blockage week holds 56 movements
+PASS  a cut cell isolates and writes the URL
+PASS  clicking it again clears the isolation
+PASS  terminal cross-filter applies (329 movements)
+PASS  chip bar shows the active filter
+PASS  URL encodes filter state
+PASS  drill pushes a breadcrumb
+PASS  the eta2 panel still renders all eight axes under filter
+PASS  clear-all restores the full dataset
+PASS  the histogram is focusable
+PASS  arrow keys move between bins ("100-150h: 782 movements ·")
+PASS  tour re-opens from the ? button
+PASS  tour stop 1 renders real content ("This is every question the bri")
+PASS  Esc closes the tour
+PASS  deep link restores the filter (LATAM = 2647 movements)
+PASS  a four-way filter renders without error (69 movements)
+
+All interaction checks passed.

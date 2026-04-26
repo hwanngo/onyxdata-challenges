@@ -1,0 +1,40 @@
+metric                                           rendered         recomputed  
+--------------------------------------------------------------------------------
+corrupt_rows                                     909.0000           909.0000  ok
+cut.Day label (Day/Night).eta2                     0.0002             0.0002  ok
+cut.Fiscal year.eta2                               0.0001             0.0001  ok
+cut.Month.eta2                                     0.0011             0.0011  ok
+cut.Quarter.eta2                                   0.0002             0.0002  ok
+cut.Regional hub.eta2                              0.0001             0.0001  ok
+cut.Terminal.eta2                                  0.0029             0.0029  ok
+cut.Vessel build year.eta2                         0.0079             0.0079  ok
+cut.Vessel category.eta2                           0.0005             0.0005  ok
+foot_movements                                15,000.0000        15,000.0000  ok
+largest_eta2                                       0.0079             0.0079  ok
+movement_id_distinct                           1,001.0000         1,001.0000  ok
+movements                                     15,000.0000        15,000.0000  ok
+suez_week_movements                               56.0000            56.0000  ok
+--------------------------------------------------------------------------------
+Specified but not rendered (8): cut.Day label (Day/Night), cut.Fiscal year, cut.Month, cut.Quarter, cut.Regional hub, cut.Terminal, cut.Vessel build year, cut.Vessel category
+
+All 14 rendered metrics reconcile.
+metric                                           rendered         recomputed  
+--------------------------------------------------------------------------------
+corrupt_rows                                     909.0000           909.0000  ok
+cut.Day label (Day/Night).eta2                     0.0002             0.0002  ok
+cut.Fiscal year.eta2                               0.0001             0.0001  ok
+cut.Month.eta2                                     0.0011             0.0011  ok
+cut.Quarter.eta2                                   0.0002             0.0002  ok
+cut.Regional hub.eta2                              0.0001             0.0001  ok
+cut.Terminal.eta2                                  0.0029             0.0029  ok
+cut.Vessel build year.eta2                         0.0079             0.0079  ok
+cut.Vessel category.eta2                           0.0005             0.0005  ok
+foot_movements                                15,000.0000        15,000.0000  ok
+largest_eta2                                       0.0079             0.0079  ok
+movement_id_distinct                           1,001.0000         1,001.0000  ok
+movements                                     15,000.0000        15,000.0000  ok
+suez_week_movements                               56.0000            56.0000  ok
+--------------------------------------------------------------------------------
+Specified but not rendered (8): cut.Day label (Day/Night), cut.Fiscal year, cut.Month, cut.Quarter, cut.Regional hub, cut.Terminal, cut.Vessel build year, cut.Vessel category
+
+All 14 rendered metrics reconcile.

@@ -4,10 +4,10 @@
 # Era 1 = Playground-only, gated, no brief. Era 2 = full challenge page, ungated.
 
 meta:
-  verified_on: 2026-02-27
-  total: 62
+  verified_on: 2026-04-26
+  total: 63
   era1_count: 52
-  era2_count: 10
+  era2_count: 11
   playground_index: https://datadna.onyxdata.co.uk/playground/
   challenge_index: https://datadna.onyxdata.co.uk/challenges/
   work_order: era2_oldest_first_then_era1_backfill
@@ -333,6 +333,21 @@ challenges:
     dataset_folder: "DataDNA-Dataset-Challenge-International-Maritime-Logistics-Terminal-Efficiency"
     # CSV star schema, and the archive ships its OWN brief and data dictionary as markdown.
     # Tenth month running that the ZIP carries requirements the challenge page does not.
+    formats: [CSV, MD]
+    status: done
+    sha256: "98c73bc7efd6f7569546e6bf7ba29b223d5024bd089d4ca98016f3ed550566c1"
+    # Self-assessed. /portfolio/ hides per-entry AI scores behind a login and there is no
+    # account, so no published score exists to record here.
+    scores: {judge_34: 27, ai_storytelling: 4, ai_design: 4, ai_technical: 4, ai_insights: 4}
+
+  - folder: "2026/05"
+    era: 2
+    title: "May 2026 DataDNA - Music Streaming Platform Performance"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2026-05-may-2026-datadna-engagement-subscription-churn-content-performance-analytics-challenge/"
+    challenge_url: "https://datadna.onyxdata.co.uk/challenges/may-2026-datadna-engagement-subscription-churn-content-performance-analytics-challenge/"
+    dataset_url: "https://datadna.onyxdata.co.uk/wp-content/uploads/2026/04/DataDNA-Dataset-Challenge-Streaming-Analytics-User-Engagement-Subscription-Churn-Content-Performance.zip"
+    dataset_folder: "DataDNA-Dataset-Challenge-Streaming-Analytics-User-Engagement-Subscription-Churn-Content-Performance"
+    # Two fact tables and a markdown data dictionary - same generator family as 2026/04.
     formats: [CSV, MD]
     status: todo
     scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}

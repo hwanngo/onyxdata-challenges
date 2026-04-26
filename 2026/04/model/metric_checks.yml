@@ -1,0 +1,37 @@
+# G7 verification spec - every number the UI renders, and the SQL that reproduces it.
+# ZERO TOLERANCE. Run against the curated PARQUET via DuckDB - a different engine and code
+# path from the browser's typed-array aggregation, so agreement means something.
+#
+# THIS MONTH MOSTLY VERIFIES ABSENCES. The claims are that nothing predicts duration and that
+# one signal is real; the queries below recompute exactly those, so a change to either fails
+# the gate rather than quietly altering the report.
+
+metrics:
+  movements: |
+    SELECT count(*)::DOUBLE FROM fct_movements
+
+  foot_movements: |
+    SELECT count(*)::DOUBLE FROM fct_movements
+
+  # the largest effect any factor has on move_duration - the headline KPI
+  largest_eta2: |
+    SELECT max(eta2) FROM dim_cut
+
+  # there is no unique row key; movement_id_raw has this many values across 15,000 rows
+  movement_id_distinct: |
+    SELECT count(DISTINCT movement_id_raw)::DOUBLE FROM fct_movements
+
+  # the blockage week. The Mann-Whitney p is NOT here: it cannot be recomputed in SQL, so it
+  # is a declared prose number instead. A tag nothing can verify is worse than no tag.
+  suez_week_movements: |
+    SELECT count(*)::DOUBLE FROM fct_movements f
+    JOIN dim_date d USING (date_key) WHERE d.in_suez_week
+
+  # the second vessel key, disagreeing with the dimension
+  corrupt_rows: |
+    SELECT count(*)::DOUBLE FROM fct_movements WHERE vessel_id_disagrees
+
+metric_sets:
+  # ⑥ every axis the brief names - each bar, not just the largest
+  cut: |
+    SELECT cut_label AS key, 'eta2' AS measure, eta2 AS value FROM dim_cut

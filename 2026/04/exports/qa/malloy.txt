@@ -1,0 +1,990 @@
+sources: dim_cut, dim_year, movements   views: 15
+
+==============================================================================
+run: dim_cut -> what_explains_duration   (8 rows)
+==============================================================================
+[
+ {
+  "cut_label": "Vessel build year",
+  "cut_family": "vessel",
+  "k_groups": 123,
+  "kw_p": 0.5738968200245367,
+  "eta2": 0.00787858241735771,
+  "is_predictive": false
+ },
+ {
+  "cut_label": "Terminal",
+  "cut_family": "geography",
+  "k_groups": 50,
+  "kw_p": 0.7154302553004703,
+  "eta2": 0.0028679189467774404,
+  "is_predictive": false
+ },
+ {
+  "cut_label": "Month",
+  "cut_family": "time",
+  "k_groups": 12,
+  "kw_p": 0.13414444143532223,
+  "eta2": 0.001082181681808249,
+  "is_predictive": false
+ },
+ {
+  "cut_label": "Vessel category",
+  "cut_family": "vessel",
+  "k_groups": 4,
+  "kw_p": 0.06827281889585905,
+  "eta2": 0.0004751380743835632,
+  "is_predictive": false
+ },
+ {
+  "cut_label": "Day label (Day/Night)",
+  "cut_family": "time",
+  "k_groups": 2,
+  "kw_p": 0.060141332633696525,
+  "eta2": 0.00023749021986823942,
+  "is_predictive": false
+ },
+ {
+  "cut_label": "Quarter",
+  "cut_family": "time",
+  "k_groups": 4,
+  "kw_p": 0.43983082327808365,
+  "eta2": 0.00018139441882177496,
+  "is_predictive": false
+ },
+ {
+  "cut_label": "Regional hub",
+  "cut_family": "geography",
+  "k_groups": 4,
+  "kw_p": 0.7114555003469902,
+  "eta2": 0.00009081992769892477,
+  "is_predictive": false
+ },
+ {
+  "cut_label": "Fiscal year",
+  "cut_family": "time",
+  "k_groups": 4,
+  "kw_p": 0.7123478526485363,
+  "eta2": 0.00009013639878572048,
+  "is_predictive": false
+ }
+]
+
+==============================================================================
+run: dim_year -> the_only_real_trend   (4 rows)
+==============================================================================
+[
+ {
+  "fiscal_year": 2021,
+  "movements": 3000,
+  "yoy_pct": null,
+  "mean_duration": 496.94574750245613,
+  "is_suez_year": true
+ },
+ {
+  "fiscal_year": 2022,
+  "movements": 3750,
+  "yoy_pct": 25,
+  "mean_duration": 501.86766751113606,
+  "is_suez_year": false
+ },
+ {
+  "fiscal_year": 2023,
+  "movements": 4050,
+  "yoy_pct": 8.000000000000007,
+  "mean_duration": 500.196561948358,
+  "is_suez_year": false
+ },
+ {
+  "fiscal_year": 2024,
+  "movements": 4200,
+  "yoy_pct": 3.703703703703698,
+  "mean_duration": 504.75262958745685,
+  "is_suez_year": false
+ }
+]
+
+==============================================================================
+run: movements -> movements_by_year   (4 rows)
+==============================================================================
+[
+ {
+  "fiscal_year": 2021,
+  "movements": 3000,
+  "containers": 1488085,
+  "duration_mean": 496.94574750245613
+ },
+ {
+  "fiscal_year": 2022,
+  "movements": 3750,
+  "containers": 1910661,
+  "duration_mean": 501.86766751113606
+ },
+ {
+  "fiscal_year": 2023,
+  "movements": 4050,
+  "containers": 2013262,
+  "duration_mean": 500.1965619483584
+ },
+ {
+  "fiscal_year": 2024,
+  "movements": 4200,
+  "containers": 2108008,
+  "duration_mean": 504.7526295874576
+ }
+]
+
+==============================================================================
+run: movements -> movements_by_month   (10 rows)
+==============================================================================
+[
+ {
+  "fiscal_year": 2021,
+  "month": 1,
+  "movements": 268
+ },
+ {
+  "fiscal_year": 2021,
+  "month": 2,
+  "movements": 214
+ },
+ {
+  "fiscal_year": 2021,
+  "month": 3,
+  "movements": 262
+ },
+ {
+  "fiscal_year": 2021,
+  "month": 4,
+  "movements": 259
+ },
+ {
+  "fiscal_year": 2021,
+  "month": 5,
+  "movements": 248
+ },
+ {
+  "fiscal_year": 2021,
+  "month": 6,
+  "movements": 235
+ },
+ {
+  "fiscal_year": 2021,
+  "month": 7,
+  "movements": 293
+ },
+ {
+  "fiscal_year": 2021,
+  "month": 8,
+  "movements": 242
+ },
+ {
+  "fiscal_year": 2021,
+  "month": 9,
+  "movements": 246
+ },
+ {
+  "fiscal_year": 2021,
+  "month": 10,
+  "movements": 243
+ }
+]
+
+==============================================================================
+run: movements -> suez_window   (10 rows)
+==============================================================================
+[
+ {
+  "date": "2021-03-02T00:00:00.000Z",
+  "in_suez_week": false,
+  "movements": 7,
+  "duration_mean": 488.0513783516552
+ },
+ {
+  "date": "2021-03-03T00:00:00.000Z",
+  "in_suez_week": false,
+  "movements": 5,
+  "duration_mean": 624.419816306565
+ },
+ {
+  "date": "2021-03-04T00:00:00.000Z",
+  "in_suez_week": false,
+  "movements": 10,
+  "duration_mean": 394.93147639573044
+ },
+ {
+  "date": "2021-03-05T00:00:00.000Z",
+  "in_suez_week": false,
+  "movements": 7,
+  "duration_mean": 616.3527999545629
+ },
+ {
+  "date": "2021-03-06T00:00:00.000Z",
+  "in_suez_week": false,
+  "movements": 7,
+  "duration_mean": 486.9506617995703
+ },
+ {
+  "date": "2021-03-07T00:00:00.000Z",
+  "in_suez_week": false,
+  "movements": 7,
+  "duration_mean": 607.1790426621725
+ },
+ {
+  "date": "2021-03-08T00:00:00.000Z",
+  "in_suez_week": false,
+  "movements": 6,
+  "duration_mean": 424.31967339217823
+ },
+ {
+  "date": "2021-03-09T00:00:00.000Z",
+  "in_suez_week": false,
+  "movements": 10,
+  "duration_mean": 419.19877017135605
+ },
+ {
+  "date": "2021-03-10T00:00:00.000Z",
+  "in_suez_week": false,
+  "movements": 9,
+  "duration_mean": 609.6541750566844
+ },
+ {
+  "date": "2021-03-11T00:00:00.000Z",
+  "in_suez_week": false,
+  "movements": 11,
+  "duration_mean": 435.33160734526433
+ }
+]
+
+==============================================================================
+run: movements -> by_hub   (4 rows)
+==============================================================================
+[
+ {
+  "hub_label": "EMEA",
+  "movements": 5727,
+  "terminals": 19,
+  "duration_mean": 501.9880199175354,
+  "duration_min": 0.5755643648684972,
+  "duration_max": 999.9937332940073
+ },
+ {
+  "hub_label": "APAC",
+  "movements": 3638,
+  "terminals": 12,
+  "duration_mean": 499.11460581554695,
+  "duration_min": 0.1520294050545434,
+  "duration_max": 999.9091585229412
+ },
+ {
+  "hub_label": "AMER",
+  "movements": 2988,
+  "terminals": 10,
+  "duration_mean": 505.6575934277878,
+  "duration_min": 0.0274648336596738,
+  "duration_max": 999.8444051465788
+ },
+ {
+  "hub_label": "LATAM",
+  "movements": 2647,
+  "terminals": 9,
+  "duration_mean": 497.5553081395492,
+  "duration_min": 0.4913922774196777,
+  "duration_max": 998.9409251011152
+ }
+]
+
+==============================================================================
+run: movements -> by_terminal   (10 rows)
+==============================================================================
+[
+ {
+  "terminal_id": 350,
+  "terminal_label": "Jason Gonzalez",
+  "hub_label": "EMEA",
+  "movements": 329,
+  "duration_mean": 505.12924484516174
+ },
+ {
+  "terminal_id": 778,
+  "terminal_label": "Shannon Gray",
+  "hub_label": "APAC",
+  "movements": 327,
+  "duration_mean": 481.0708445859505
+ },
+ {
+  "terminal_id": 672,
+  "terminal_label": "Deborah Perez",
+  "hub_label": "AMER",
+  "movements": 324,
+  "duration_mean": 530.0809915657497
+ },
+ {
+  "terminal_id": 272,
+  "terminal_label": "Lauren Little",
+  "hub_label": "LATAM",
+  "movements": 322,
+  "duration_mean": 520.569335715593
+ },
+ {
+  "terminal_id": 506,
+  "terminal_label": "Patricia Gallegos",
+  "hub_label": "APAC",
+  "movements": 321,
+  "duration_mean": 517.0482332059582
+ },
+ {
+  "terminal_id": 99,
+  "terminal_label": "Kayla Mitchell",
+  "hub_label": "APAC",
+  "movements": 320,
+  "duration_mean": 514.3372686871896
+ },
+ {
+  "terminal_id": 737,
+  "terminal_label": "John Juarez",
+  "hub_label": "LATAM",
+  "movements": 319,
+  "duration_mean": 488.5373427954202
+ },
+ {
+  "terminal_id": 395,
+  "terminal_label": "Shawn Martinez",
+  "hub_label": "APAC",
+  "movements": 316,
+  "duration_mean": 521.8021649104455
+ },
+ {
+  "terminal_id": 371,
+  "terminal_label": "Isaac Moore",
+  "hub_label": "EMEA",
+  "movements": 316,
+  "duration_mean": 509.31156026154423
+ },
+ {
+  "terminal_id": 374,
+  "terminal_label": "Diamond Newman",
+  "hub_label": "EMEA",
+  "movements": 314,
+  "duration_mean": 487.39033761517953
+ }
+]
+
+==============================================================================
+run: movements -> by_vessel_category   (4 rows)
+==============================================================================
+[
+ {
+  "vessel_category": "Passenger",
+  "movements": 3935,
+  "vessels": 251,
+  "duration_mean": 511.67123925102834,
+  "duration_min": 0.5525096436814758,
+  "duration_max": 999.9091585229412
+ },
+ {
+  "vessel_category": "Cargo",
+  "movements": 3888,
+  "vessels": 253,
+  "duration_mean": 498.1426910900091,
+  "duration_min": 0.0274648336596738,
+  "duration_max": 999.8444051465788
+ },
+ {
+  "vessel_category": "Container",
+  "movements": 3606,
+  "vessels": 237,
+  "duration_mean": 495.8529440734708,
+  "duration_min": 0.1425960488177224,
+  "duration_max": 998.0708849098328
+ },
+ {
+  "vessel_category": "Tanker",
+  "movements": 3571,
+  "vessels": 251,
+  "duration_mean": 498.5570680741015,
+  "duration_min": 0.1520294050545434,
+  "duration_max": 999.9937332940073
+ }
+]
+
+==============================================================================
+run: movements -> by_day_label   (2 rows)
+==============================================================================
+[
+ {
+  "calendar_day_label": "Night",
+  "movements": 7548,
+  "duration_mean": 496.81250520156726
+ },
+ {
+  "calendar_day_label": "Day",
+  "movements": 7452,
+  "duration_mean": 505.7242789279202
+ }
+]
+
+==============================================================================
+run: movements -> duration_distribution   (10 rows)
+==============================================================================
+[
+ {
+  "duration_band": 0,
+  "movements": 1512
+ },
+ {
+  "duration_band": 100,
+  "movements": 1511
+ },
+ {
+  "duration_band": 200,
+  "movements": 1482
+ },
+ {
+  "duration_band": 300,
+  "movements": 1440
+ },
+ {
+  "duration_band": 400,
+  "movements": 1466
+ },
+ {
+  "duration_band": 500,
+  "movements": 1540
+ },
+ {
+  "duration_band": 600,
+  "movements": 1478
+ },
+ {
+  "duration_band": 700,
+  "movements": 1581
+ },
+ {
+  "duration_band": 800,
+  "movements": 1483
+ },
+ {
+  "duration_band": 900,
+  "movements": 1507
+ }
+]
+
+==============================================================================
+run: movements -> container_distribution   (10 rows)
+==============================================================================
+[
+ {
+  "container_band": 0,
+  "movements": 1444
+ },
+ {
+  "container_band": 100,
+  "movements": 1505
+ },
+ {
+  "container_band": 200,
+  "movements": 1469
+ },
+ {
+  "container_band": 300,
+  "movements": 1520
+ },
+ {
+  "container_band": 400,
+  "movements": 1550
+ },
+ {
+  "container_band": 500,
+  "movements": 1457
+ },
+ {
+  "container_band": 600,
+  "movements": 1545
+ },
+ {
+  "container_band": 700,
+  "movements": 1501
+ },
+ {
+  "container_band": 800,
+  "movements": 1519
+ },
+ {
+  "container_band": 900,
+  "movements": 1472
+ }
+]
+
+==============================================================================
+run: movements -> duration_distribution_by_hub   (4 rows)
+==============================================================================
+[
+ {
+  "hub_label": "EMEA",
+  "movements": 5727,
+  "bands": [
+   {
+    "duration_band": 0,
+    "movements": 580
+   },
+   {
+    "duration_band": 100,
+    "movements": 566
+   },
+   {
+    "duration_band": 200,
+    "movements": 575
+   },
+   {
+    "duration_band": 300,
+    "movements": 557
+   },
+   {
+    "duration_band": 400,
+    "movements": 541
+   },
+   {
+    "duration_band": 500,
+    "movements": 581
+   },
+   {
+    "duration_band": 600,
+    "movements": 555
+   },
+   {
+    "duration_band": 700,
+    "movements": 629
+   },
+   {
+    "duration_band": 800,
+    "movements": 562
+   },
+   {
+    "duration_band": 900,
+    "movements": 581
+   }
+  ]
+ },
+ {
+  "hub_label": "APAC",
+  "movements": 3638,
+  "bands": [
+   {
+    "duration_band": 0,
+    "movements": 383
+   },
+   {
+    "duration_band": 100,
+    "movements": 348
+   },
+   {
+    "duration_band": 200,
+    "movements": 355
+   },
+   {
+    "duration_band": 300,
+    "movements": 337
+   },
+   {
+    "duration_band": 400,
+    "movements": 373
+   },
+   {
+    "duration_band": 500,
+    "movements": 399
+   },
+   {
+    "duration_band": 600,
+    "movements": 377
+   },
+   {
+    "duration_band": 700,
+    "movements": 366
+   },
+   {
+    "duration_band": 800,
+    "movements": 355
+   },
+   {
+    "duration_band": 900,
+    "movements": 345
+   }
+  ]
+ },
+ {
+  "hub_label": "AMER",
+  "movements": 2988,
+  "bands": [
+   {
+    "duration_band": 0,
+    "movements": 281
+   },
+   {
+    "duration_band": 100,
+    "movements": 304
+   },
+   {
+    "duration_band": 200,
+    "movements": 297
+   },
+   {
+    "duration_band": 300,
+    "movements": 311
+   },
+   {
+    "duration_band": 400,
+    "movements": 296
+   },
+   {
+    "duration_band": 500,
+    "movements": 284
+   },
+   {
+    "duration_band": 600,
+    "movements": 284
+   },
+   {
+    "duration_band": 700,
+    "movements": 305
+   },
+   {
+    "duration_band": 800,
+    "movements": 302
+   },
+   {
+    "duration_band": 900,
+    "movements": 324
+   }
+  ]
+ },
+ {
+  "hub_label": "LATAM",
+  "movements": 2647,
+  "bands": [
+   {
+    "duration_band": 0,
+    "movements": 268
+   },
+   {
+    "duration_band": 100,
+    "movements": 293
+   },
+   {
+    "duration_band": 200,
+    "movements": 255
+   },
+   {
+    "duration_band": 300,
+    "movements": 235
+   },
+   {
+    "duration_band": 400,
+    "movements": 256
+   },
+   {
+    "duration_band": 500,
+    "movements": 276
+   },
+   {
+    "duration_band": 600,
+    "movements": 262
+   },
+   {
+    "duration_band": 700,
+    "movements": 281
+   },
+   {
+    "duration_band": 800,
+    "movements": 264
+   },
+   {
+    "duration_band": 900,
+    "movements": 257
+   }
+  ]
+ }
+]
+
+==============================================================================
+run: movements -> data_defects   (1 rows)
+==============================================================================
+[
+ {
+  "movements": 15000,
+  "corrupt_vessel_rows": 909,
+  "corrupt_vessel_pct": 6.0600000000000005,
+  "mean_route_offset_deg": 124.37714209496909,
+  "suez_week_movements": 56
+ }
+]
+
+==============================================================================
+run: movements -> hub_drill   (4 rows)
+==============================================================================
+[
+ {
+  "hub_label": "EMEA",
+  "movements": 5727,
+  "terminals": 19,
+  "by_terminal": [
+   {
+    "terminal_label": "Jason Gonzalez",
+    "movements": 329,
+    "duration_mean": 505.12924484516174
+   },
+   {
+    "terminal_label": "Isaac Moore",
+    "movements": 316,
+    "duration_mean": 509.31156026154423
+   },
+   {
+    "terminal_label": "Diamond Newman",
+    "movements": 314,
+    "duration_mean": 487.39033761517953
+   },
+   {
+    "terminal_label": "Courtney Mclaughlin",
+    "movements": 312,
+    "duration_mean": 505.36583423532966
+   },
+   {
+    "terminal_label": "Angel Castillo",
+    "movements": 310,
+    "duration_mean": 518.6247358444219
+   },
+   {
+    "terminal_label": "Terry Flores",
+    "movements": 307,
+    "duration_mean": 499.10133821159224
+   },
+   {
+    "terminal_label": "Tammy Strong",
+    "movements": 307,
+    "duration_mean": 512.5535639831646
+   },
+   {
+    "terminal_label": "Todd Hardin",
+    "movements": 307,
+    "duration_mean": 499.09692449253834
+   },
+   {
+    "terminal_label": "John Anderson",
+    "movements": 305,
+    "duration_mean": 488.91774017927867
+   },
+   {
+    "terminal_label": "Cindy Martin",
+    "movements": 303,
+    "duration_mean": 492.1811979263291
+   },
+   {
+    "terminal_label": "Michael Stewart",
+    "movements": 302,
+    "duration_mean": 501.4739852407084
+   },
+   {
+    "terminal_label": "Steven Lynn",
+    "movements": 302,
+    "duration_mean": 518.3176432136326
+   },
+   {
+    "terminal_label": "Regina White",
+    "movements": 301,
+    "duration_mean": 495.12125960373146
+   },
+   {
+    "terminal_label": "Michelle Love",
+    "movements": 294,
+    "duration_mean": 497.1189185915549
+   },
+   {
+    "terminal_label": "Andrew Baldwin",
+    "movements": 294,
+    "duration_mean": 485.55547813671745
+   },
+   {
+    "terminal_label": "Mercedes Miller",
+    "movements": 287,
+    "duration_mean": 505.42977479055224
+   },
+   {
+    "terminal_label": "Nicole Miller",
+    "movements": 286,
+    "duration_mean": 500.20339972105285
+   },
+   {
+    "terminal_label": "John Park",
+    "movements": 280,
+    "duration_mean": 536.1346772518777
+   },
+   {
+    "terminal_label": "Sara Sanders",
+    "movements": 271,
+    "duration_mean": 479.94961498015186
+   }
+  ]
+ },
+ {
+  "hub_label": "APAC",
+  "movements": 3638,
+  "terminals": 12,
+  "by_terminal": [
+   {
+    "terminal_label": "Shannon Gray",
+    "movements": 327,
+    "duration_mean": 481.0708445859505
+   },
+   {
+    "terminal_label": "Patricia Gallegos",
+    "movements": 321,
+    "duration_mean": 517.0482332059582
+   },
+   {
+    "terminal_label": "Kayla Mitchell",
+    "movements": 320,
+    "duration_mean": 514.3372686871896
+   },
+   {
+    "terminal_label": "Shawn Martinez",
+    "movements": 316,
+    "duration_mean": 521.8021649104455
+   },
+   {
+    "terminal_label": "Matthew Ramirez",
+    "movements": 312,
+    "duration_mean": 504.9642704732514
+   },
+   {
+    "terminal_label": "Tara Walker",
+    "movements": 304,
+    "duration_mean": 498.6973722007148
+   },
+   {
+    "terminal_label": "Jamie Banks",
+    "movements": 302,
+    "duration_mean": 493.85452395638544
+   },
+   {
+    "terminal_label": "Luke Jones",
+    "movements": 300,
+    "duration_mean": 484.9756684143977
+   },
+   {
+    "terminal_label": "Sherry Jones",
+    "movements": 295,
+    "duration_mean": 494.18796995259373
+   },
+   {
+    "terminal_label": "Seth Jackson",
+    "movements": 293,
+    "duration_mean": 497.1734659469229
+   },
+   {
+    "terminal_label": "Scott Ray",
+    "movements": 282,
+    "duration_mean": 471.0434949452305
+   },
+   {
+    "terminal_label": "Carlos Spears",
+    "movements": 266,
+    "duration_mean": 507.28464021729553
+   }
+  ]
+ },
+ {
+  "hub_label": "AMER",
+  "movements": 2988,
+  "terminals": 10,
+  "by_terminal": [
+   {
+    "terminal_label": "Deborah Perez",
+    "movements": 324,
+    "duration_mean": 530.0809915657497
+   },
+   {
+    "terminal_label": "Dale Davis",
+    "movements": 311,
+    "duration_mean": 476.58192165104344
+   },
+   {
+    "terminal_label": "Elizabeth Welch",
+    "movements
+
+==============================================================================
+run: movements -> vessel_age_vs_duration   (10 rows)
+==============================================================================
+[
+ {
+  "age_band": 0,
+  "movements": 1279,
+  "duration_mean": 490.80603953473155,
+  "duration_min": 0.0274648336596738,
+  "duration_max": 999.9091585229412
+ },
+ {
+  "age_band": 10,
+  "movements": 1109,
+  "duration_mean": 507.8637466018002,
+  "duration_min": 0.1520294050545434,
+  "duration_max": 999.8444051465788
+ },
+ {
+  "age_band": 20,
+  "movements": 1026,
+  "duration_mean": 512.8189160456235,
+  "duration_min": 1.4430076601016362,
+  "duration_max": 999.0731809890628
+ },
+ {
+  "age_band": 30,
+  "movements": 1253,
+  "duration_mean": 492.96690534300024,
+  "duration_min": 0.5820741894840831,
+  "duration_max": 999.2286998425328
+ },
+ {
+  "age_band": 40,
+  "movements": 1412,
+  "duration_mean": 500.5772179505548,
+  "duration_min": 0.1425960488177224,
+  "duration_max": 999.9937332940073
+ },
+ {
+  "age_band": 50,
+  "movements": 1175,
+  "duration_mean": 517.0372275780325,
+  "duration_min": 1.1860208688685423,
+  "duration_max": 998.3226268779684
+ },
+ {
+  "age_band": 60,
+  "movements": 1142,
+  "duration_mean": 501.6940540253014,
+  "duration_min": 0.5525096436814758,
+  "duration_max": 997.9990839683236
+ },
+ {
+  "age_band": 70,
+  "movements": 1309,
+  "duration_mean": 510.9240895453781,
+  "duration_min": 0.8153504851846627,
+  "duration_max": 999.0951134240696
+ },
+ {
+  "age_band": 80,
+  "movements": 1346,
+  "duration_mean": 496.13437281689835,
+  "duration_min": 0.5755643648684972,
+  "duration_max": 998.9409251011152
+ },
+ {
+  "age_band": 90,
+  "movements": 1060,
+  "duration_mean": 493.9654806295296,
+  "duration_min": 0.4913922774196777,
+  "duration_max": 999.7777897962374
+ }
+]
+
+15/15 views ran clean.
