@@ -1,0 +1,24 @@
+{
+  "name": "datadna-2026-05",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@onyxdata/dna-kit": "workspace:*",
+    "solid-js": "^1.9.0"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.11.0",
+    "playwright": "^1.60.0",
+    "unocss": "^66.7.0",
+    "vite": "^8.0.0",
+    "vite-plugin-solid": "^2.11.0",
+    "vitest": "^4.1.0"
+  }
+}

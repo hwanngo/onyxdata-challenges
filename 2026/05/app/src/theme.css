@@ -1,0 +1,548 @@
+/* =========================================================================================
+   2026/05 - Music Streaming Platform Performance
+   Identity per .workbench/2026/05/design/direction.md. Every ratio below is MEASURED by tools/audit_contrast.py,
+   not estimated (2026/02 shipped four estimated ratios and every one was wrong).
+
+   This month goes DARK, for a specific reason rather than taste: the signature draws 448
+   overlapping hairlines, and thin light strokes on a dark ground hold their perceived weight
+   far better than thin dark strokes on light. At 1px on a light ground the braid greys out
+   and the crossing stops reading.
+
+   Written against THIS month's DOM. It deliberately does not reuse the scaffold's class
+   names - in particular there is no bare `.sowhat` rule here. An unscoped
+   `.sowhat { display:grid }` describes exactly one possible DOM and silently mangles any
+   other; that collision has now cost this programme four times.
+   ========================================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,600;1,6..72,500&family=Schibsted+Grotesk:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg:        #16151A;   /* warm charcoal - the listening room, not a terminal    */
+  --bg-raised: #201F26;   /* section ground                                         */
+  --ink:       #F4F2EF;   /* 16.25:1                                                */
+  --ink-muted: #ADA8B2;   /*  7.80:1                                                */
+  --ground:    #6E6876;   /*  3.38:1 - clears the 3:1 data-ink floor                */
+  --inflated:  #F0A63C;   /*  8.84:1 - only things that SHRINK when counted right   */
+  --surfaced:  #5FC9E8;   /*  9.52:1 - only things that were being HELD DOWN        */
+  /* a11y-decorative: rule -- 1px section dividers, table borders and chip outlines only.
+     Never a gridline, an axis, or any data mark: those take --ground, which clears 3:1.
+     WCAG 1.4.11 exempts pure decoration, and a 3:1 divider on every section and table cell
+     would make an analytical report read as a spreadsheet for no accessibility gain. */
+  --rule:      #3A3843;
+  --focus:     #FFD166;
+
+  --font-display: "Newsreader", Georgia, serif;
+  --font-body:    "Schibsted Grotesk", system-ui, sans-serif;
+  --font-num:     "DM Mono", ui-monospace, monospace;
+
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 16px;
+  --sp-4: 24px; --sp-5: 40px; --sp-6: 64px;
+
+  --maxw: 1220px;
+}
+
+/* Light mode is DESIGNED as a pair, not inverted. Ratios measured separately. */
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg:        #F5F3EF;
+    --bg-raised: #FFFFFF;
+    --ink:       #171519;   /* 16.37:1 */
+    --ink-muted: #57525C;   /*  6.85:1 */
+    --ground:    #8A8492;   /*  3.27:1 */
+    --inflated:  #9A5B00;   /*  4.90:1 */
+    --surfaced:  #0E6E8C;   /*  5.22:1 */
+    --rule:      #D6D2CC;
+    --focus:     #7A4A00;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.012em; font-weight: 600; }
+
+/* Every figure is tabular so columns never jitter as filters change. */
+.num, .kpi__value, .matrix td, .ledger td, .ledger th, .cliff__tick {
+  font-family: var(--font-num);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+svg .cx-num { font-family: var(--font-num); font-variant-numeric: tabular-nums; }
+
+code {
+  font-family: var(--font-num);
+  font-size: 0.9em;
+  background: var(--bg-raised);
+  padding: 1px 5px;
+  border-radius: 2px;
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.skip-link { position: absolute; left: -9999px; }
+.skip-link:focus {
+  left: var(--sp-3); top: var(--sp-3);
+  background: var(--bg-raised); color: var(--ink);
+  padding: var(--sp-2) var(--sp-3); z-index: 100;
+  border: 2px solid var(--focus);
+}
+
+*:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+/* ---- layout ---------------------------------------------------------------------- */
+
+.page {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: var(--sp-5) var(--sp-4) var(--sp-6);
+}
+
+section { margin-top: var(--sp-6); min-width: 0; }
+
+.sec__h {
+  font-size: 1.5rem; margin: 0 0 var(--sp-3);
+  display: flex; align-items: baseline; gap: var(--sp-2);
+  border-bottom: 1px solid var(--rule); padding-bottom: var(--sp-2);
+}
+.sec__n {
+  font-family: var(--font-num); font-size: 0.85rem; color: var(--ink-muted);
+  border: 1px solid var(--rule); border-radius: 50%;
+  width: 1.9em; height: 1.9em; display: inline-flex;
+  align-items: center; justify-content: center; flex: none;
+}
+
+.two   { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-5); }
+.three { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-5); }
+.explore-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-5); }
+
+/* Grid and flex children default to min-width:auto, which lets a wide table push the whole
+   page wider than the viewport. Pin them to 0 so they shrink instead. */
+.two > *, .three > *, .explore-grid > * { min-width: 0; }
+.chartfig, figure, .page > * { min-width: 0; }
+h1, h2, h3, p, td, th { overflow-wrap: break-word; }
+
+/* ---- ① thesis --------------------------------------------------------------------- */
+
+.thesis__h {
+  font-size: clamp(2rem, 4.4vw, 3.2rem);
+  line-height: 1.08; margin: 0 0 var(--sp-3); max-width: 22ch;
+}
+.thesis__em { color: var(--inflated); font-style: italic; }
+.thesis__p {
+  font-size: 1.15rem; color: var(--ink-muted);
+  max-width: 62ch; margin: 0 0 var(--sp-3);
+}
+.thesis__meta {
+  font-family: var(--font-num); font-size: 0.82rem;
+  color: var(--ink-muted); border-top: 1px solid var(--rule);
+  padding-top: var(--sp-2); margin: 0;
+}
+
+/* ---- ② KPI ------------------------------------------------------------------------ */
+
+.kpis {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-4); margin-top: var(--sp-5);
+}
+.kpi { border-top: 3px solid var(--inflated); padding-top: var(--sp-2); min-width: 0; }
+.kpi:nth-child(3) { border-top-color: var(--surfaced); }
+.kpi__value { font-size: 2.4rem; line-height: 1.05; font-weight: 500; }
+.kpi__label { font-size: 0.82rem; color: var(--ink-muted); line-height: 1.35; }
+
+/* ---- ③ the crossing --------------------------------------------------------------- */
+
+.crossing { display: block; width: 100%; height: auto; }
+
+/* Axis rules and the log gridlines are INFORMATIONAL - the reader needs them to read
+   the scale - so they take --ground (3.38:1) and not the decorative --rule. */
+.cx-rule { stroke: var(--ground); stroke-width: 1; }
+.cx-axis-title {
+  fill: var(--ink-muted); font-family: var(--font-body);
+  font-size: 13px; text-transform: uppercase; letter-spacing: 0.07em;
+}
+
+.cx-ground line { stroke: var(--ground); stroke-width: 0.4; opacity: 0.13; }
+.cx-grid line { stroke: var(--ground); stroke-width: 1; stroke-dasharray: 2 5; opacity: 0.55; }
+.cx-tick { fill: var(--ink-muted); font-family: var(--font-num); font-size: 11px; }
+.cx-tick--unit { font-family: var(--font-body); letter-spacing: 0.06em; text-transform: uppercase; font-size: 10px; }
+
+/* The FALLS are the finding - nine of the top ten leaving - so they carry full weight.
+   The rises are the necessary counterpart (someone has to take those places) and are drawn
+   lighter so they read as context rather than competing with the headline. */
+.cx-line { fill: none; }
+.cx-falls  { stroke: var(--inflated); stroke-width: 1.6; }
+.cx-rises  { stroke: var(--surfaced); stroke-width: 1; stroke-dasharray: 4 4; opacity: 0.6; }
+.cx-active { stroke-width: 3.2; }
+.cx-dim    { opacity: 0.22; }
+
+.cx-labels circle { fill: var(--ground); }
+.cx-labels .cx-falls circle { fill: var(--inflated); }
+.cx-labels .cx-rises circle { fill: var(--surfaced); }
+.cx-label { fill: var(--ink); font-family: var(--font-body); font-size: 12.5px; }
+.cx-num   { fill: var(--ink-muted); font-size: 12px; }
+
+.cx-bracket line { stroke: var(--surfaced); stroke-width: 3; opacity: 0.35; }
+.cx-bracket line.cx-falls { stroke: var(--inflated); }
+
+.cx-leader { fill: none; stroke: var(--ground); stroke-width: 1; }
+.cx-falls .cx-leader { stroke: var(--inflated); opacity: 0.55; }
+.cx-rises .cx-leader { stroke: var(--surfaced); opacity: 0.55; }
+
+.cx-hit line { cursor: pointer; }
+
+.cx-legend {
+  font-size: 0.85rem; color: var(--ink-muted);
+  margin: var(--sp-2) 0 0; max-width: 92ch;
+}
+.cx-key {
+  display: inline-block; width: 22px; height: 0; vertical-align: middle;
+  border-top: 2px solid var(--ground); margin-right: 3px;
+}
+.cx-key--falls { border-top-color: var(--inflated); }
+.cx-key--rises { border-top: 2px dashed var(--surfaced); }
+
+/* basis toggle - a real radio group, keyboard-operable */
+.basis { margin-bottom: var(--sp-3); }
+.basis__set {
+  border: 1px solid var(--rule); border-radius: 3px;
+  padding: var(--sp-2) var(--sp-3); margin: 0;
+  display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-3); align-items: center;
+}
+.basis__legend {
+  font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--ink-muted); padding: 0 var(--sp-1);
+}
+.basis__opt {
+  display: inline-flex; align-items: center; gap: var(--sp-1);
+  font-size: 0.9rem; cursor: pointer;
+  padding: 6px 8px; border-radius: 3px; min-height: 44px;
+}
+.basis__opt--on { color: var(--surfaced); font-weight: 500; }
+.basis__note {
+  font-size: 0.85rem; color: var(--ink-muted);
+  margin: var(--sp-2) 0 0; max-width: 84ch;
+}
+
+.picked {
+  font-size: 0.9rem; border-left: 3px solid var(--surfaced);
+  padding-left: var(--sp-3); margin-top: var(--sp-3);
+}
+
+/* ---- ④ ⑤ cohort ------------------------------------------------------------------- */
+
+.shape__cap, .revscale__lab {
+  font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--ink-muted);
+}
+.shape__row {
+  display: grid; grid-template-columns: 11em 1fr auto;
+  gap: var(--sp-2); align-items: center; margin-top: var(--sp-2);
+  font-size: 0.9rem;
+}
+.shape__bar { background: var(--bg-raised); height: 18px; border-radius: 2px; }
+.shape__fill { display: block; height: 100%; border-radius: 2px; }
+.shape__fill--inflated { background: var(--inflated); }
+.shape__fill--surfaced { background: var(--surfaced); }
+.shape__why, .shape__name-note, .cliff__cap, .farm__cap, .axes__floorcap {
+  font-size: 0.87rem; color: var(--ink-muted);
+  margin: var(--sp-3) 0 0; max-width: 74ch;
+}
+.shape__name-note { border-left: 3px solid var(--rule); padding-left: var(--sp-3); }
+
+.farm__head { font-size: 0.95rem; margin: 0 0 var(--sp-2); }
+.farm__bar { height: 26px; background: var(--bg-raised); border-radius: 2px; overflow: hidden; }
+.farm__one { display: block; height: 100%; background: var(--inflated); }
+.farm__ltv { margin-top: var(--sp-4); }
+
+/* ---- ⑥ cliff ---------------------------------------------------------------------- */
+
+.cliff { display: block; width: 100%; height: auto; }
+.cliff__bar { fill: var(--ground); }
+.cliff__bar--band  { fill: var(--inflated); }
+.cliff__bar--under { fill: var(--ground); opacity: 0.5; }
+.cliff__cut { stroke: var(--surfaced); stroke-width: 2; stroke-dasharray: 4 3; }
+.cliff__cutlab { fill: var(--surfaced); font-family: var(--font-body); font-size: 11px; }
+.cliff__note   { fill: var(--ink-muted); font-family: var(--font-body); font-size: 11px; }
+.cliff__tick   { fill: var(--ink-muted); font-size: 11px; }
+.cliff__slider {
+  display: flex; align-items: center; gap: var(--sp-3);
+  font-size: 0.88rem; margin-top: var(--sp-2); min-height: 44px;
+}
+.cliff__slider input { flex: 1; min-width: 120px; accent-color: var(--surfaced); }
+
+/* ---- ⑦ revenue scale -------------------------------------------------------------- */
+
+.revscale__row {
+  display: grid; grid-template-columns: 12em 1fr auto;
+  gap: var(--sp-2); align-items: center; margin-top: var(--sp-2); font-size: 0.9rem;
+}
+.revscale__track { background: var(--bg-raised); height: 20px; border-radius: 2px; }
+.revscale__fill { display: block; height: 100%; border-radius: 2px; }
+.revscale__fill--real { background: var(--surfaced); width: 100%; }
+.revscale__fill--fake { background: var(--inflated); min-width: 2px; }
+
+/* ---- ⑧ growth --------------------------------------------------------------------- */
+
+.growth__split { display: flex; height: 34px; border-radius: 2px; overflow: hidden; }
+.growth__cust  { background: var(--surfaced); }
+.growth__recon { background: var(--inflated); }
+.growth__cust span, .growth__recon span {
+  font-size: 0.72rem; color: var(--bg); padding-left: 6px;
+  display: block; line-height: 34px; white-space: nowrap; overflow: hidden;
+}
+.growth__nums { display: flex; gap: var(--sp-4); margin-top: var(--sp-2); }
+.growth__nums b { font-family: var(--font-num); font-size: 1.2rem; display: block; }
+.growth__nums small { color: var(--ink-muted); font-size: 0.76rem; }
+.growth__years { list-style: none; padding: 0; margin: var(--sp-3) 0 0; }
+.growth__years li {
+  display: grid; grid-template-columns: 4em 1fr 4em;
+  gap: var(--sp-2); align-items: center; font-size: 0.84rem;
+}
+.growth__mini { background: var(--bg-raised); height: 10px; border-radius: 2px; }
+.growth__mini i { display: block; height: 100%; background: var(--inflated); border-radius: 2px; }
+
+/* ---- ⑨ axes ----------------------------------------------------------------------- */
+
+.axes { list-style: none; padding: 0; margin: 0; }
+.axes li {
+  display: grid; grid-template-columns: 11em 1fr 5em 4.5em;
+  gap: var(--sp-3); align-items: center;
+  font-size: 0.88rem; padding: 3px 0;
+}
+.axes__track { position: relative; background: var(--bg-raised); height: 14px; border-radius: 2px; }
+.axes__fill  { display: block; height: 100%; background: var(--ground); border-radius: 2px; }
+.axes--real .axes__fill { background: var(--surfaced); }
+.axes__floor { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--inflated); }
+.axes__verdict {
+  font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-muted);
+}
+.axes--real .axes__verdict { color: var(--surfaced); font-weight: 700; }
+.axes__extras { margin-top: var(--sp-4); display: grid; gap: var(--sp-3); }
+.axes__extras p { font-size: 0.88rem; margin: 0; max-width: 92ch; }
+
+.dowchip {
+  display: inline-block; font-family: var(--font-num); font-size: 0.76rem;
+  border: 1px solid var(--rule); border-radius: 2px;
+  padding: 1px 6px; margin: 2px 3px 0 0; color: var(--ink-muted);
+}
+.dowchip--hi { border-color: var(--surfaced); color: var(--surfaced); }
+button.dowchip { background: none; cursor: pointer; font: inherit; font-size: 0.76rem;
+  font-family: var(--font-num); min-height: 26px; }
+.dowchip--on { background: var(--surfaced); color: var(--bg); border-color: var(--surfaced); }
+.shape__pick {
+  background: none; border: none; color: inherit; font: inherit; cursor: pointer;
+  padding: 2px 4px; border-radius: 2px; text-align: left;
+}
+.shape__pick[aria-pressed="true"] { color: var(--surfaced); font-weight: 700; }
+.matrix__cell {
+  background: none; border: none; color: inherit; font: inherit;
+  font-family: var(--font-num); cursor: pointer; width: 100%; text-align: right;
+  padding: 0; min-height: 22px;
+}
+.matrix__cell[aria-pressed="true"] { color: var(--surfaced); font-weight: 700; }
+
+/* ---- ⑩ recommendations ------------------------------------------------------------ */
+
+.recs { margin: 0; padding-left: 1.4em; display: grid; gap: var(--sp-3); }
+.recs li { max-width: 84ch; }
+.recs b { color: var(--surfaced); }
+
+/* ---- churn / matrix / ledger ------------------------------------------------------ */
+
+.churn { list-style: none; padding: 0; margin: 0; }
+.churn li {
+  display: grid; grid-template-columns: 5.5em 1fr 4em;
+  gap: var(--sp-2); align-items: center; font-size: 0.85rem; padding: 2px 0;
+}
+.churn__track { background: var(--bg-raised); height: 14px; border-radius: 2px; }
+.churn__track i { display: block; height: 100%; background: var(--ground); border-radius: 2px; }
+.churn__track i.churn__near { background: var(--inflated); }
+
+/* A wide table must scroll inside its own region, and a scrollable region must be
+   keyboard-reachable or axe flags scrollable-region-focusable (serious). */
+.matrix-wrap, .ledger-wrap { overflow-x: auto; }
+.matrix, .ledger { border-collapse: collapse; font-size: 0.78rem; width: 100%; }
+.matrix th, .matrix td, .ledger th, .ledger td {
+  border: 1px solid var(--rule); padding: 3px 6px; text-align: left;
+}
+.matrix td { text-align: right; color: var(--ink-muted); }
+.matrix--hi { background: color-mix(in srgb, var(--inflated) 26%, transparent); color: var(--ink); }
+.matrix--lo { background: color-mix(in srgb, var(--surfaced) 14%, transparent); }
+.ledger td { vertical-align: top; font-size: 0.76rem; }
+.ledger--undoc th, .ledger--undoc td { border-left-color: var(--inflated); }
+
+/* ---- chips, tour, footer ---------------------------------------------------------- */
+
+.chips { display: flex; flex-wrap: wrap; gap: var(--sp-2); align-items: center; margin-top: var(--sp-4); }
+.chips__lab, .chips__n { font-size: 0.8rem; color: var(--ink-muted); }
+.chip {
+  background: var(--bg-raised); color: var(--ink);
+  border: 1px solid var(--rule); border-radius: 3px;
+  padding: 6px 10px; font: inherit; font-size: 0.82rem; cursor: pointer;
+  min-height: 34px;
+}
+.chip:hover { border-color: var(--surfaced); }
+.chip--clear { color: var(--ink-muted); margin-left: var(--sp-2); }
+
+.tour-btn {
+  position: fixed; right: 20px; bottom: 20px;
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--surfaced); color: var(--bg);
+  border: none; font-size: 1.4rem; font-weight: 700; cursor: pointer;
+  font-family: var(--font-display);
+}
+
+.foot {
+  margin-top: var(--sp-6); border-top: 1px solid var(--rule);
+  padding-top: var(--sp-3); font-size: 0.8rem; color: var(--ink-muted);
+}
+.foot p { margin: 0 0 var(--sp-2); max-width: 100ch; }
+
+.error { color: var(--inflated); border: 1px solid var(--inflated); padding: var(--sp-3); }
+
+.chartfig { margin: 0; }
+.chartfig__cap {
+  font-family: var(--font-display); font-size: 1.05rem; font-weight: 600;
+  line-height: 1.3; margin-bottom: var(--sp-3); max-width: 72ch;
+}
+
+/* loading skeletons - never a placeholder number */
+.skel { background: var(--bg-raised); border-radius: 3px; }
+.skel--line  { display: inline-block; width: 24em; height: 1em; }
+.skel--kpi   { height: 92px; }
+.skel--chart { height: 260px; }
+
+/* ---- responsive ------------------------------------------------------------------- */
+
+@media (max-width: 1000px) {
+  .three { grid-template-columns: 1fr 1fr; }
+  .kpis  { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 720px) {
+  .two, .three, .explore-grid { grid-template-columns: 1fr; }
+  .kpis { grid-template-columns: 1fr 1fr; }
+  .page { padding: var(--sp-4) var(--sp-3) var(--sp-5); }
+  .shape__row, .revscale__row { grid-template-columns: 1fr; gap: 2px; }
+  .axes li { grid-template-columns: 8em 1fr 4em; }
+  .axes__verdict { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* =========================================================================================
+   POSTER ROUTE - exactly 2560x1440, live affordances hidden.
+
+   The poster gets its OWN geometry rather than inheriting the live column. A `width:100%`
+   SVG scales its HEIGHT with its container, so a chart sized for a 1220px column becomes
+   ~700px tall in a 2400px one and overflows the fixed canvas. 2026/04 lost a gate to
+   exactly that, by 924px.
+   ========================================================================================= */
+
+.page--poster {
+  /* The submission PNG pins the dark palette rather than inheriting the OS preference.
+     The dark ground is a legibility argument about 448 overlapping hairlines, not a taste
+     preference, and Playwright renders with prefers-color-scheme: light by default - so
+     without this the poster would ship in the palette the design explicitly argued against. */
+  --bg:        #16151A;
+  --bg-raised: #201F26;
+  --ink:       #F4F2EF;
+  --ink-muted: #ADA8B2;
+  --ground:    #6E6876;
+  --inflated:  #F0A63C;
+  --surfaced:  #5FC9E8;
+  --rule:      #3A3843;
+  --focus:     #FFD166;
+  background: var(--bg); color: var(--ink);
+
+  width: 2560px; height: 1440px; max-width: none;
+  padding: 22px 44px 14px;
+  overflow: hidden;
+
+  /* EXPLICIT ROW HEIGHTS, summing to the canvas. Not flex.
+     A flex column with `flex: 1` on a `width:100%; height:auto` SVG collapses that SVG to
+     zero - which is exactly what happened on the first G6 capture: the signature vanished
+     and objects 4 and 5 rendered on top of object 3. Fixed rows cannot do that, and any
+     future overgrowth is clipped visibly rather than silently reflowing the page. */
+  /* Two columns exist ONLY so objects 9 and 10 can share the final content row. The
+     design doc's own self-critique named this as the fix if the page read as crowded,
+     and the measure harness confirmed it: at eleven full-width objects the poster was
+     silently clipping eight of them. */
+  display: grid;
+  grid-template-columns: 1.32fr 1fr;
+  grid-template-rows: 164px 86px 306px 256px 288px 230px 50px;
+  row-gap: 6px; column-gap: 34px;
+  align-content: start;
+}
+.page--poster > header.thesis,
+.page--poster > section.kpis,
+.page--poster > section.sig,
+.page--poster > section.two,
+.page--poster > section.three,
+.page--poster > footer.foot { grid-column: 1 / -1; }
+.page--poster > section.wide          { grid-column: 1; grid-row: 6; }
+.page--poster > section.sowhat-block  { grid-column: 2; grid-row: 6; }
+.page--poster > * { min-height: 0; overflow: hidden; }
+.page--poster section { margin-top: 0; }
+.page--poster .sec__h { font-size: 19px; padding-bottom: 3px; margin-bottom: 5px; }
+.page--poster .sec__n { font-size: 11px; }
+.page--poster .thesis__h { font-size: 46px; max-width: 52ch; margin-bottom: 4px; }
+.page--poster .thesis__p { font-size: 18px; max-width: 150ch; margin-bottom: 4px; }
+.page--poster .thesis__meta { font-size: 13px; padding-top: 4px; }
+.page--poster .kpis { margin-top: 0; gap: 26px; }
+.page--poster .kpi__value { font-size: 40px; }
+.page--poster .kpi__label { font-size: 13px; }
+.page--poster .chartfig__cap { font-size: 17px; max-width: 170ch; margin-bottom: 4px; }
+.page--poster .cx-legend { font-size: 13px; max-width: none; margin-top: 4px; }
+.page--poster .cx-label { font-size: 13px; }
+.page--poster .cx-num { font-size: 12.5px; }
+.page--poster .two, .page--poster .three { gap: 30px; }
+.page--poster .shape__why,
+.page--poster .shape__name-note,
+.page--poster .cliff__cap,
+.page--poster .farm__cap,
+.page--poster .axes__floorcap { font-size: 12px; max-width: none; margin-top: 5px; line-height: 1.45; }
+.page--poster .shape__row, .page--poster .revscale__row { margin-top: 5px; font-size: 13px; }
+.page--poster .farm__ltv { margin-top: 10px; }
+.page--poster .farm__head { font-size: 13px; }
+.page--poster .growth__years { margin-top: 8px; }
+.page--poster .growth__years li { font-size: 12.5px; }
+.page--poster .growth__nums b { font-size: 17px; }
+.page--poster .axes li { font-size: 11.5px; padding: 0; grid-template-columns: 9em 1fr 4.5em 4em; }
+.page--poster .axes { line-height: 1.2; }
+.page--poster .axes__extras { margin-top: 8px; gap: 2px; }
+.page--poster .axes__extras p { font-size: 12.5px; max-width: none; }
+.page--poster .recs { font-size: 12.5px; gap: 2px; padding-left: 1.2em; line-height: 1.4; }
+.page--poster .recs li { max-width: none; }
+.page--poster .foot { margin-top: 0; padding-top: 4px; font-size: 10.5px; line-height: 1.4; }
+.page--poster .foot p { max-width: none; margin-bottom: 0; }
+.page--poster .tour-btn { display: none; }
+
+/* ⑨ and ⑩ share one row on the poster: the design's own self-critique named this as the
+   fix if the page read as crowded, and it did. */
+.page--poster .wide .chartfig {
+  display: grid; grid-template-columns: 1.05fr 1fr; column-gap: 30px;
+  align-items: start;
+}
+.page--poster .wide .chartfig__cap  { grid-column: 1 / -1; grid-row: 1; }
+.page--poster .wide .axes           { grid-column: 1; grid-row: 2; }
+.page--poster .wide .axes__floorcap { grid-column: 1; grid-row: 3; margin-top: 4px; font-size: 11.5px; }
+.page--poster .wide .axes__extras   { grid-column: 2; grid-row: 2 / span 2; margin-top: 0; gap: 5px; }
+

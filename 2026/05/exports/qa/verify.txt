@@ -1,0 +1,108 @@
+metric                                           rendered         recomputed  
+--------------------------------------------------------------------------------
+algo_cliffs_delta                                  0.0026             0.0026  ok
+axis.Age band.eta_squared                          0.0016             0.0016  ok
+axis.Country.eta_squared                           0.0009             0.0009  ok
+axis.Day of week.eta_squared                       0.0001             0.0001  ok
+axis.Device type.eta_squared                       0.0032             0.0032  ok
+axis.Gender.eta_squared                            0.0003             0.0003  ok
+axis.Genre.eta_squared                             0.0126             0.0126  ok
+axis.Hour of day.eta_squared                       0.0445             0.0445  ok
+axis.Subscription tier.eta_squared                 0.0159             0.0159  ok
+axis.Year.eta_squared                              0.0003             0.0003  ok
+band_share                                         0.4693             0.4693  ok
+customer_net_mrr_usd                           5,495.2600         5,495.2600  ok
+dow.Friday.share                                   0.1731             0.1731  ok
+dow.Monday.share                                   0.1187             0.1187  ok
+dow.Saturday.share                                 0.1768             0.1768  ok
+dow.Sunday.share                                   0.1777             0.1777  ok
+dow.Thursday.share                                 0.1172             0.1172  ok
+dow.Tuesday.share                                  0.1191             0.1191  ok
+dow.Wednesday.share                                0.1175             0.1175  ok
+ltv_clean_usd                                    179.1653           179.1653  ok
+ltv_diff_ci_hi_pct                                 1.7090             1.7090  ok
+ltv_diff_ci_lo_pct                               -21.4116           -21.4116  ok
+ltv_flagged_usd                                  161.5153           161.5153  ok
+ltv_mde_pct                                       16.5244            16.5244  ok
+markets                                           10.0000            10.0000  ok
+reconciliation_net_usd                         2,648.2400         2,648.2400  ok
+repeat_concentrated_session_share                  0.7016             0.7016  ok
+repeat_concentrated_user_share                     0.5016             0.5016  ok
+session_column_total_usd                         852.1400           852.1400  ok
+session_vs_subscription_ratio                    196.7000           196.7000  ok
+sessions                                     224,078.0000       224,078.0000  ok
+subscription_revenue_total_usd               167,647.1900       167,647.1900  ok
+threshold.20.qualifying                      152,664.0000       152,664.0000  ok
+threshold.25.qualifying                      150,649.0000       150,649.0000  ok
+threshold.28.qualifying                      149,489.0000       149,489.0000  ok
+threshold.30.qualifying                      148,668.0000       148,668.0000  ok
+threshold.32.qualifying                      126,177.0000       126,177.0000  ok
+threshold.35.qualifying                       92,190.0000        92,190.0000  ok
+threshold.40.qualifying                       79,384.0000        79,384.0000  ok
+threshold.45.qualifying                       77,397.0000        77,397.0000  ok
+threshold.60.qualifying                       77,396.0000        77,396.0000  ok
+top10_overlap                                      1.0000             1.0000  ok
+top_listener_share                                 0.8747             0.8747  ok
+tracks_at_30_clean                                22.4918            22.4918  ok
+tracks_at_30_flagged                               9.4452             9.4452  ok
+tracks_played                                    772.0000           772.0000  ok
+users                                            961.0000           961.0000  ok
+weekend_share                                      0.5276             0.5276  ok
+--------------------------------------------------------------------------------
+Specified but not rendered (25): axis.Age band, axis.Country, axis.Day of week, axis.Device type, axis.Gender, axis.Genre, axis.Hour of day, axis.Subscription tier, axis.Year, dow.Friday, dow.Monday, dow.Saturday, dow.Sunday, dow.Thursday, dow.Tuesday, dow.Wednesday, threshold.20, threshold.25, threshold.28, threshold.30, threshold.32, threshold.35, threshold.40, threshold.45, threshold.60
+
+All 48 rendered metrics reconcile.
+metric                                           rendered         recomputed  
+--------------------------------------------------------------------------------
+algo_cliffs_delta                                  0.0026             0.0026  ok
+axis.Age band.eta_squared                          0.0016             0.0016  ok
+axis.Country.eta_squared                           0.0009             0.0009  ok
+axis.Day of week.eta_squared                       0.0001             0.0001  ok
+axis.Device type.eta_squared                       0.0032             0.0032  ok
+axis.Gender.eta_squared                            0.0003             0.0003  ok
+axis.Genre.eta_squared                             0.0126             0.0126  ok
+axis.Hour of day.eta_squared                       0.0445             0.0445  ok
+axis.Subscription tier.eta_squared                 0.0159             0.0159  ok
+axis.Year.eta_squared                              0.0003             0.0003  ok
+band_share                                         0.4693             0.4693  ok
+customer_net_mrr_usd                           5,495.2600         5,495.2600  ok
+dow.Friday.share                                   0.1731             0.1731  ok
+dow.Monday.share                                   0.1187             0.1187  ok
+dow.Saturday.share                                 0.1768             0.1768  ok
+dow.Sunday.share                                   0.1777             0.1777  ok
+dow.Thursday.share                                 0.1172             0.1172  ok
+dow.Tuesday.share                                  0.1191             0.1191  ok
+dow.Wednesday.share                                0.1175             0.1175  ok
+ltv_clean_usd                                    179.1653           179.1653  ok
+ltv_diff_ci_hi_pct                                 1.7090             1.7090  ok
+ltv_diff_ci_lo_pct                               -21.4116           -21.4116  ok
+ltv_flagged_usd                                  161.5153           161.5153  ok
+ltv_mde_pct                                       16.5244            16.5244  ok
+markets                                           10.0000            10.0000  ok
+reconciliation_net_usd                         2,648.2400         2,648.2400  ok
+repeat_concentrated_session_share                  0.7016             0.7016  ok
+repeat_concentrated_user_share                     0.5016             0.5016  ok
+session_column_total_usd                         852.1400           852.1400  ok
+session_vs_subscription_ratio                    196.7000           196.7000  ok
+sessions                                     224,078.0000       224,078.0000  ok
+subscription_revenue_total_usd               167,647.1900       167,647.1900  ok
+threshold.20.qualifying                      152,664.0000       152,664.0000  ok
+threshold.25.qualifying                      150,649.0000       150,649.0000  ok
+threshold.28.qualifying                      149,489.0000       149,489.0000  ok
+threshold.30.qualifying                      148,668.0000       148,668.0000  ok
+threshold.32.qualifying                      126,177.0000       126,177.0000  ok
+threshold.35.qualifying                       92,190.0000        92,190.0000  ok
+threshold.40.qualifying                       79,384.0000        79,384.0000  ok
+threshold.45.qualifying                       77,397.0000        77,397.0000  ok
+threshold.60.qualifying                       77,396.0000        77,396.0000  ok
+top10_overlap                                      1.0000             1.0000  ok
+top_listener_share                                 0.8747             0.8747  ok
+tracks_at_30_clean                                22.4918            22.4918  ok
+tracks_at_30_flagged                               9.4452             9.4452  ok
+tracks_played                                    772.0000           772.0000  ok
+users                                            961.0000           961.0000  ok
+weekend_share                                      0.5276             0.5276  ok
+--------------------------------------------------------------------------------
+Specified but not rendered (25): axis.Age band, axis.Country, axis.Day of week, axis.Device type, axis.Gender, axis.Genre, axis.Hour of day, axis.Subscription tier, axis.Year, dow.Friday, dow.Monday, dow.Saturday, dow.Sunday, dow.Thursday, dow.Tuesday, dow.Wednesday, threshold.20, threshold.25, threshold.28, threshold.30, threshold.32, threshold.35, threshold.40, threshold.45, threshold.60
+
+All 48 rendered metrics reconcile.

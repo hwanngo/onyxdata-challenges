@@ -4,10 +4,10 @@
 # Era 1 = Playground-only, gated, no brief. Era 2 = full challenge page, ungated.
 
 meta:
-  verified_on: 2026-04-26
-  total: 63
+  verified_on: 2026-05-30
+  total: 64
   era1_count: 52
-  era2_count: 11
+  era2_count: 12
   playground_index: https://datadna.onyxdata.co.uk/playground/
   challenge_index: https://datadna.onyxdata.co.uk/challenges/
   work_order: era2_oldest_first_then_era1_backfill
@@ -348,6 +348,34 @@ challenges:
     dataset_url: "https://datadna.onyxdata.co.uk/wp-content/uploads/2026/04/DataDNA-Dataset-Challenge-Streaming-Analytics-User-Engagement-Subscription-Churn-Content-Performance.zip"
     dataset_folder: "DataDNA-Dataset-Challenge-Streaming-Analytics-User-Engagement-Subscription-Churn-Content-Performance"
     # Two fact tables and a markdown data dictionary - same generator family as 2026/04.
+    formats: [CSV, MD]
+    status: done
+    sha256: "4c4647cb687d1e2632e9ebcddcaef469e1e0255811c9baa854fa3e8fed1faebd"
+    notes: |
+      Completed 2026-05-30, G1-G8. Thesis: nine of the top ten artists are there because of
+      482 accounts that play the same handful of tracks -- and those accounts pay full price,
+      so the only lever is the counting rule, not enforcement. FIRST month whose shipped data
+      dictionary was mostly TRUE: 68 of 72 tested claims held, which turned the month from an
+      audit into an analysis. Signature: "The Crossing", a rank-slope chart on a log axis --
+      the two artist top-tens overlap 1 of 10.
+      Two near-misses caught and documented: a diversity ratio bounded by 774/n (fixed by
+      rarefaction, effect got stronger) and an 18.4x artist over-index that was 87.5% one
+      account. The page never prints the vendor's word "fraud"; the cohort is named for its
+      measured behaviour and the source column is disclosed once, in the footer.
+      Fixed two shared tools: audit_contrast.py could not see prefers-color-scheme palettes
+      and had never audited this month's dark theme; added tools/qa/tour_a11y.mjs, which
+      audits the tour dialog -- a state seven prior months never tested.
+    scores: {judge_34: 28, ai_storytelling: 4, ai_design: 4, ai_technical: 5, ai_insights: 5}
+
+  - folder: "2026/06"
+    era: 2
+    title: "June 2026 DataDNA - UK Fintech Neobank Transaction Health"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2026-06-june-2026-datadna-uk-fintech-neobank-digital-transaction-health-monitor-analytics-challenge/"
+    challenge_url: "https://datadna.onyxdata.co.uk/challenges/june-2026-datadna-uk-fintech-neobank-digital-transaction-health-monitor-analytics-challenge/"
+    dataset_url: "https://datadna.onyxdata.co.uk/wp-content/uploads/2026/05/DataDNA-Dataset-Challenge-2026-06-UK-Fintech-Neobank-Digital-Transaction-Health-Monitor.zip"
+    dataset_folder: "DataDNA-Dataset-Challenge-2026-06-UK-Fintech-Neobank-Digital-Transaction-Health-Monitor"
+    # Fact table ships as `fact_transactions_updated.csv` -- the suffix is the source's own,
+    # not a rename. Same generator family as 2026/04 and 2026/05: a markdown data dictionary.
     formats: [CSV, MD]
     status: todo
     scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}

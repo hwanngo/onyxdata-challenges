@@ -1,0 +1,32 @@
+
+Declared decorative (WCAG 1.4.11 exempts pure decoration):
+    --rule: 1px section dividers, table borders and chip outlines only.
+
+=== LIGHT  (background #F5F3EF)
+    token              value        ratio   needs  verdict
+    ink                #171519     16.37:1     4.5  PASS
+    ink-muted          #57525C      6.85:1     4.5  PASS
+    ground             #8A8492      3.27:1     3.0  PASS
+    inflated           #9A5B00      4.90:1     3.0  PASS
+    surfaced           #0E6E8C      5.22:1     3.0  PASS
+    focus              #7A4A00      6.75:1     3.0  PASS
+
+=== BASE  (background #16151A)
+    token              value        ratio   needs  verdict
+    ink                #F4F2EF     16.25:1     4.5  PASS
+    ink-muted          #ADA8B2      7.80:1     4.5  PASS
+    ground             #6E6876      3.38:1     3.0  PASS
+    inflated           #F0A63C      8.84:1     3.0  PASS
+    surfaced           #5FC9E8      9.52:1     3.0  PASS
+    focus              #FFD166     12.60:1     3.0  PASS
+
+=== .PAGE--POSTER  (background #16151A)
+    token              value        ratio   needs  verdict
+    ink                #F4F2EF     16.25:1     4.5  PASS
+    ink-muted          #ADA8B2      7.80:1     4.5  PASS
+    ground             #6E6876      3.38:1     3.0  PASS
+    inflated           #F0A63C      8.84:1     3.0  PASS
+    surfaced           #5FC9E8      9.52:1     3.0  PASS
+    focus              #FFD166     12.60:1     3.0  PASS
+
+All pairs clear WCAG 2.1 AA.

@@ -1,0 +1,26 @@
+PASS  baseline sessions = 224,078
+PASS  baseline top-ten overlap = 1
+PASS  baseline cohort share of plays ~= 0.7016
+PASS  all 448 artists are drawn, not just the movers
+PASS  the signature carries a screen-reader table
+PASS  basis toggle recomputes the ranking (clean -> capped moves the labels)
+PASS  day-of-week chip cross-filters the KPI strip (184ms)
+PASS  chip bar shows the active filter
+PASS  URL encodes filter state
+PASS  KPI label says the figure is now a filtered subset
+PASS  filtered play count is a strict subset of 224,078
+PASS  clear-all restores the baseline
+PASS  the over-index matrix also emits a filter
+PASS  threshold slider recomputes the royalty text
+PASS  tour opens from the ? button
+PASS  Esc closes the tour
+PASS  poster hides the tour button
+PASS  poster hides the basis toggle
+PASS  poster hides the threshold slider
+PASS  poster renders the signature
+PASS  poster is exactly 2560x1440
+PASS  the poster prints "fraud" exactly once, as the source column (found 1)
+PASS  the live route names the source column once, in the footer (found 1)
+PASS  the tour names the source column exactly once across all steps (found 1)
+
+All interaction assertions pass.

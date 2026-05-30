@@ -1,0 +1,341 @@
+sources: session, listener, artist_rank, mrr_month, subscription_event, axis, flag, defect, threshold, churn_window, post_churn   views: 26
+
+!! growth_by_month FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+no viable alternative at input '{group_by:month'
+Expected 'is' or '(' following identifier 'expansion_usd'
+no viable alternative at input 'contraction_usd'
+Expected 'is' or '(' following identifier 'contraction_usd'
+no viable alternative at input 'reconciliation_usd'
+Expected 'is' or '(' following identifier 'reconciliation_usd'
+no viable alternative at input 'customer_net_usd'
+Expected 'is' or '(' following identifier 'customer_net_usd'
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! weekly_cycle FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+no viable alternative at input '{group_by:month'
+Expected 'is' or '(' following identifier 'expansion_usd'
+no viable alternative at input 'contraction_usd'
+Expected 'is' or '(' following identifier 'contraction_usd'
+no viable alternative at input 'reconciliation_usd'
+Expected 'is' or '(' following identifier 'reconciliation_usd'
+no viable alternative at input 'customer_net_usd'
+Expected 'is' or '(' following identifier 'customer_net_usd'
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! hour_of_day FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+no viable alternative at input '{group_by:month'
+Expected 'is' or '(' following identifier 'expansion_usd'
+no viable alternative at input 'contraction_usd'
+Expected 'is' or '(' following identifier 'contraction_usd'
+no viable alternative at input 'reconciliation_usd'
+Expected 'is' or '(' following identifier 'reconciliation_usd'
+no viable alternative at input 'customer_net_usd'
+Expected 'is' or '(' following identifier 'customer_net_usd'
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! by_tier FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+no viable alternative at input '{group_by:month'
+Expected 'is' or '(' following identifier 'expansion_usd'
+no viable alternative at input 'contraction_usd'
+Expected 'is' or '(' following identifier 'contraction_usd'
+no viable alternative at input 'reconciliation_usd'
+Expected 'is' or '(' following identifier 'reconciliation_usd'
+no viable alternative at input 'customer_net_usd'
+Expected 'is' or '(' following identifier 'customer_net_usd'
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! null_axis_country FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+no viable alternative at input '{group_by:month'
+Expected 'is' or '(' following identifier 'expansion_usd'
+no viable alternative at input 'contraction_usd'
+Expected 'is' or '(' following identifier 'contraction_usd'
+no viable alternative at input 'reconciliation_usd'
+Expected 'is' or '(' following identifier 'reconciliation_usd'
+no viable alternative at input 'customer_net_usd'
+Expected 'is' or '(' following identifier 'customer_net_usd'
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! by_genre FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+no viable alternative at input '{group_by:month'
+Expected 'is' or '(' following identifier 'expansion_usd'
+no viable alternative at input 'contraction_usd'
+Expected 'is' or '(' following identifier 'contraction_usd'
+no viable alternative at input 'reconciliation_usd'
+Expected 'is' or '(' following identifier 'reconciliation_usd'
+no viable alternative at input 'customer_net_usd'
+Expected 'is' or '(' following identifier 'customer_net_usd'
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! genre_by_country FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+no viable alternative at input '{group_by:month'
+Expected 'is' or '(' following identifier 'expansion_usd'
+no viable alternative at input 'contraction_usd'
+Expected 'is' or '(' following identifier 'contraction_usd'
+no viable alternative at input 'reconciliation_usd'
+Expected 'is' or '(' following identifier 'reconciliation_usd'
+no viable alternative at input 'customer_net_usd'
+Expected 'is' or '(' following identifier 'customer_net_usd'
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! payout_exposure FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+no viable alternative at input '{group_by:month'
+Expected 'is' or '(' following identifier 'expansion_usd'
+no viable alternative at input 'contraction_usd'
+Expected 'is' or '(' following identifier 'contraction_usd'
+no viable alternative at input 'reconciliation_usd'
+Expected 'is' or '(' following identifier 'reconciliation_usd'
+no viable alternative at input 'customer_net_usd'
+Expected 'is' or '(' following identifier 'customer_net_usd'
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! depth_shape FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+no viable alternative at input '{group_by:month'
+Expected 'is' or '(' following identifier 'expansion_usd'
+no viable alternative at input 'contraction_usd'
+Expected 'is' or '(' following identifier 'contraction_usd'
+no viable alternative at input 'reconciliation_usd'
+Expected 'is' or '(' following identifier 'reconciliation_usd'
+no viable alternative at input 'customer_net_usd'
+Expected 'is' or '(' following identifier 'customer_net_usd'
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! algorithmic_effect FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+no viable alternative at input '{group_by:month'
+Expected 'is' or '(' following identifier 'expansion_usd'
+no viable alternative at input 'contraction_usd'
+Expected 'is' or '(' following identifier 'contraction_usd'
+no viable alternative at input 'reconciliation_usd'
+Expected 'is' or '(' following identifier 'reconciliation_usd'
+no viable alternative at input 'customer_net_usd'
+Expected 'is' or '(' following identifier 'customer_net_usd'
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! cohort_by_tier FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+no viable alternative at input '{group_by:month'
+Expected 'is' or '(' following identifier 'expansion_usd'
+no viable alternative at input 'contraction_usd'
+Expected 'is' or '(' following identifier 'contraction_usd'
+no viable alternative at input 'reconciliation_usd'
+Expected 'is' or '(' following identifier 'reconciliation_usd'
+no viable alternative at input 'customer_net_usd'
+Expected 'is' or '(' following identifier 'customer_net_usd'
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! cohort_definition FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+no viable alternative at input '{group_by:month'
+Expected 'is' or '(' following identifier 'expansion_usd'
+no viable alternative at input 'contraction_usd'
+Expected 'is' or '(' following identifier 'contraction_usd'
+no viable alternative at input 'reconciliation_usd'
+Expected 'is' or '(' following identifier 'reconciliation_usd'
+no viable alternative at input 'customer_net_usd'
+Expected 'is' or '(' following identifier 'customer_net_usd'
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! cohort_value FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+no viable alternative at input '{group_by:month'
+Expected 'is' or '(' following identifier 'expansion_usd'
+no viable alternative at input 'contraction_usd'
+Expected 'is' or '(' following identifier 'contraction_usd'
+no viable alternative at input 'reconciliation_usd'
+Expected 'is' or '(' following identifier 'reconciliation_usd'
+no viable alternative at input 'customer_net_usd'
+Expected 'is' or '(' following identifier 'customer_net_usd'
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! engagement_by_age FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+no viable alternative at input '{group_by:month'
+Expected 'is' or '(' following identifier 'expansion_usd'
+no viable alternative at input 'contraction_usd'
+Expected 'is' or '(' following identifier 'contraction_usd'
+no viable alternative at input 'reconciliation_usd'
+Expected 'is' or '(' following identifier 'reconciliation_usd'
+no viable alternative at input 'customer_net_usd'
+Expected 'is' or '(' following identifier 'customer_net_usd'
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! the_crossing FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+no viable alternative at input '{group_by:month'
+Expected 'is' or '(' following identifier 'expansion_usd'
+no viable alternative at input 'contraction_usd'
+Expected 'is' or '(' following identifier 'contraction_usd'
+no viable alternative at input 'reconciliation_usd'
+Expected 'is' or '(' following identifier 'reconciliation_usd'
+no viable alternative at input 'customer_net_usd'
+Expected 'is' or '(' following identifier 'customer_net_usd'
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! rank_stability FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+no viable alternative at input '{group_by:month'
+Expected 'is' or '(' following identifier 'expansion_usd'
+no viable alternative at input 'contraction_usd'
+Expected 'is' or '(' following identifier 'contraction_usd'
+no viable alternative at input 'reconciliation_usd'
+Expected 'is' or '(' following identifier 'reconciliation_usd'
+no viable alternative at input 'customer_net_usd'
+Expected 'is' or '(' following identifier 'customer_net_usd'
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! waterfall_by_month FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+no viable alternative at input '{group_by:month'
+Expected 'is' or '(' following identifier 'expansion_usd'
+no viable alternative at input 'contraction_usd'
+Expected 'is' or '(' following identifier 'contraction_usd'
+no viable alternative at input 'reconciliation_usd'
+Expected 'is' or '(' following identifier 'reconciliation_usd'
+no viable alternative at input 'customer_net_usd'
+Expected 'is' or '(' following identifier 'customer_net_usd'
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! growth_quality_by_year FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+no viable alternative at input '{group_by:month'
+Expected 'is' or '(' following identifier 'expansion_usd'
+no viable alternative at input 'contraction_usd'
+Expected 'is' or '(' following identifier 'contraction_usd'
+no viable alternative at input 'reconciliation_usd'
+Expected 'is' or '(' following identifier 'reconciliation_usd'
+no viable alternative at input 'customer_net_usd'
+Expected 'is' or '(' following identifier 'customer_net_usd'
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! by_type FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+no viable alternative at input '{group_by:month'
+Expected 'is' or '(' following identifier 'expansion_usd'
+no viable alternative at input 'contraction_usd'
+Expected 'is' or '(' following identifier 'contraction_usd'
+no viable alternative at input 'reconciliation_usd'
+Expected 'is' or '(' following identifier 'reconciliation_usd'
+no viable alternative at input 'customer_net_usd'
+Expected 'is' or '(' following identifier 'customer_net_usd'
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! by_trigger FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+no viable alternative at input '{group_by:month'
+Expected 'is' or '(' following identifier 'expansion_usd'
+no viable alternative at input 'contraction_usd'
+Expected 'is' or '(' following identifier 'contraction_usd'
+no viable alternative at input 'reconciliation_usd'
+Expected 'is' or '(' following identifier 'reconciliation_usd'
+no viable alternative at input 'customer_net_usd'
+Expected 'is' or '(' following identifier 'customer_net_usd'
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! what_explains_listening FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+no viable alternative at input '{group_by:month'
+Expected 'is' or '(' following identifier 'expansion_usd'
+no viable alternative at input 'contraction_usd'
+Expected 'is' or '(' following identifier 'contraction_usd'
+no viable alternative at input 'reconciliation_usd'
+Expected 'is' or '(' following identifier 'reconciliation_usd'
+no viable alternative at input 'customer_net_usd'
+Expected 'is' or '(' following identifier 'customer_net_usd'
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! flags_compared FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+no viable alternative at input '{group_by:month'
+Expected 'is' or '(' following identifier 'expansion_usd'
+no viable alternative at input 'contraction_usd'
+Expected 'is' or '(' following identifier 'contraction_usd'
+no viable alternative at input 'reconciliation_usd'
+Expected 'is' or '(' following identifier 'reconciliation_usd'
+no viable alternative at input 'customer_net_usd'
+Expected 'is' or '(' following identifier 'customer_net_usd'
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! ledger FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+no viable alternative at input '{group_by:month'
+Expected 'is' or '(' following identifier 'expansion_usd'
+no viable alternative at input 'contraction_usd'
+Expected 'is' or '(' following identifier 'contraction_usd'
+no viable alternative at input 'reconciliation_usd'
+Expected 'is' or '(' following identifier 'reconciliation_usd'
+no viable alternative at input 'customer_net_usd'
+Expected 'is' or '(' following identifier 'customer_net_usd'
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! payout_sensitivity FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+no viable alternative at input '{group_by:month'
+Expected 'is' or '(' following identifier 'expansion_usd'
+no viable alternative at input 'contraction_usd'
+Expected 'is' or '(' following identifier 'contraction_usd'
+no viable alternative at input 'reconciliation_usd'
+Expected 'is' or '(' following identifier 'reconciliation_usd'
+no viable alternative at input 'customer_net_usd'
+Expected 'is' or '(' following identifier 'customer_net_usd'
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! leading_indicator FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+no viable alternative at input '{group_by:month'
+Expected 'is' or '(' following identifier 'expansion_usd'
+no viable alternative at input 'contraction_usd'
+Expected 'is' or '(' following identifier 'contraction_usd'
+no viable alternative at input 'reconciliation_usd'
+Expected 'is' or '(' following identifier 'reconciliation_usd'
+no viable alternative at input 'customer_net_usd'
+Expected 'is' or '(' following identifier 'customer_net_usd'
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! revolving_door FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+no viable alternative at input '{group_by:month'
+Expected 'is' or '(' following identifier 'expansion_usd'
+no viable alternative at input 'contraction_usd'
+Expected 'is' or '(' following identifier 'contraction_usd'
+no viable alternative at input 'reconciliation_usd'
+Expected 'is' or '(' following identifier 'reconciliation_usd'
+no viable alternative at input 'customer_net_usd'
+Expected 'is' or '(' following identifier 'customer_net_usd'
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+0/26 views ran clean.

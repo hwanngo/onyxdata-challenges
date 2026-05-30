@@ -1,0 +1,112 @@
+# G7 verification spec - every number the UI renders, and the SQL that reproduces it.
+#
+# ZERO TOLERANCE. The characteristic failure across the published field is a polished
+# dashboard whose numbers are wrong (May 2025's best-looking entry was off by ~600x).
+#
+# These run against the curated PARQUET via DuckDB in Python - a different engine and code
+# path from the browser, which sums a JSON cube in JavaScript. Agreement between the two
+# means the aggregation is right, not merely self-consistent.
+#
+# Note that `headline` is itself written by model/build.py, so a check that only read from
+# it would be circular. Every entry below therefore recomputes from the FACT tables
+# wherever the quantity is derivable, and reads `headline` only for scalars that are
+# definitionally stored (the statistical effect sizes).
+
+metrics:
+  # ---- provenance strip ----
+  users: |
+    SELECT count(*)::DOUBLE FROM dim_listener
+  sessions: |
+    SELECT count(*)::DOUBLE FROM fact_session
+  tracks_played: |
+    SELECT count(DISTINCT track_id)::DOUBLE FROM fact_session
+      WHERE track_id IS NOT NULL
+  markets: |
+    SELECT count(DISTINCT country_name)::DOUBLE FROM fact_session
+
+  # ---- the signature ----
+  top10_overlap: |
+    SELECT count(*)::DOUBLE FROM
+      (SELECT artist_id FROM dim_artist_rank ORDER BY rank_all  LIMIT 10) a
+    JOIN
+      (SELECT artist_id FROM dim_artist_rank ORDER BY rank_clean LIMIT 10) b USING (artist_id)
+
+  # ---- the cohort, by measured behaviour ----
+  repeat_concentrated_user_share: |
+    SELECT (count(*) FILTER (WHERE is_repeat_concentrated))::DOUBLE / count(*) FROM dim_listener
+  repeat_concentrated_session_share: |
+    SELECT (count(*) FILTER (WHERE is_repeat_concentrated))::DOUBLE / count(*) FROM fact_session
+  tracks_at_30_flagged: |
+    SELECT avg(tracks_at_30) FROM dim_listener WHERE is_repeat_concentrated
+  tracks_at_30_clean: |
+    SELECT avg(tracks_at_30) FROM dim_listener WHERE NOT is_repeat_concentrated
+
+  # ---- the fairness guardrail ----
+  ltv_flagged_usd: |
+    SELECT avg(lifetime_value_usd) FROM dim_listener WHERE is_repeat_concentrated
+  ltv_clean_usd: |
+    SELECT avg(lifetime_value_usd) FROM dim_listener WHERE NOT is_repeat_concentrated
+  # How wide the LTV null is. Recomputed from dim_listener in SQL rather than read back out
+  # of headline - `SELECT ltv_mde_pct FROM headline` is a tautology that cannot fail, which
+  # the integrity pass guards against for country_min_p. 2.801585 = z(.975) + z(.80).
+  ltv_mde_pct: |
+    WITH g AS (SELECT is_repeat_concentrated AS rc, count(*) n, avg(lifetime_value_usd) m,
+                      var_samp(lifetime_value_usd) v FROM dim_listener GROUP BY 1),
+         a AS (SELECT * FROM g WHERE rc), b AS (SELECT * FROM g WHERE NOT rc)
+    SELECT 100 * 2.801585
+           * (sqrt(((a.n-1)*a.v + (b.n-1)*b.v)/(a.n+b.n-2)) * sqrt(1.0/a.n + 1.0/b.n))
+           / b.m FROM a, b
+  ltv_diff_ci_lo_pct: |
+    WITH g AS (SELECT is_repeat_concentrated AS rc, count(*) n, avg(lifetime_value_usd) m,
+                      var_samp(lifetime_value_usd) v FROM dim_listener GROUP BY 1),
+         a AS (SELECT * FROM g WHERE rc), b AS (SELECT * FROM g WHERE NOT rc)
+    SELECT 100 * ((a.m - b.m) - 1.959964
+           * (sqrt(((a.n-1)*a.v + (b.n-1)*b.v)/(a.n+b.n-2)) * sqrt(1.0/a.n + 1.0/b.n))) / b.m
+    FROM a, b
+  ltv_diff_ci_hi_pct: |
+    WITH g AS (SELECT is_repeat_concentrated AS rc, count(*) n, avg(lifetime_value_usd) m,
+                      var_samp(lifetime_value_usd) v FROM dim_listener GROUP BY 1),
+         a AS (SELECT * FROM g WHERE rc), b AS (SELECT * FROM g WHERE NOT rc)
+    SELECT 100 * ((a.m - b.m) + 1.959964
+           * (sqrt(((a.n-1)*a.v + (b.n-1)*b.v)/(a.n+b.n-2)) * sqrt(1.0/a.n + 1.0/b.n))) / b.m
+    FROM a, b
+  top_listener_share: |
+    SELECT top_listener_share FROM dim_artist_rank ORDER BY rank_all LIMIT 1
+
+  # ---- the counting rules ----
+  band_share: |
+    SELECT (count(*) FILTER (WHERE listen_seconds BETWEEN 30 AND 44))::DOUBLE / count(*)
+      FROM fact_session
+  session_column_total_usd: |
+    SELECT round(sum(royalty_or_ad_usd), 2) FROM fact_session
+  subscription_revenue_total_usd: |
+    SELECT round(sum(mrr_usd), 2) FROM fact_mrr_month
+  session_vs_subscription_ratio: |
+    SELECT round(
+      (SELECT sum(mrr_usd) FROM fact_mrr_month) /
+      (SELECT sum(royalty_or_ad_usd) FROM fact_session), 1)
+  reconciliation_net_usd: |
+    SELECT round(sum(mrr_change_usd), 2) FROM fact_subscription_event WHERE is_reconciliation
+  customer_net_mrr_usd: |
+    SELECT round(sum(mrr_change_usd), 2) FROM fact_subscription_event WHERE NOT is_reconciliation
+
+  # ---- effect sizes: definitionally stored, so read from where they are computed ----
+  weekend_share: |
+    SELECT sum(share_of_sessions) FROM fact_dow WHERE dow_num >= 5
+  algo_cliffs_delta: |
+    SELECT cliffs_delta FROM dim_flag WHERE flag = 'is_algorithmic_recommendation'
+
+metric_sets:
+  # One row per chart mark. The DOM carries data-metric="SET.KEY.MEASURE" and the SQL
+  # returns (key, measure, value) triples - this is what verifies the CHARTS rather than
+  # only the KPI strip.
+  axis: |
+    SELECT axis AS key, 'eta_squared' AS measure, eta_squared::DOUBLE AS value
+    FROM dim_axis
+  dow: |
+    SELECT session_weekday AS key, 'share' AS measure, share_of_sessions::DOUBLE AS value
+    FROM fact_dow
+  threshold: |
+    SELECT threshold_seconds::VARCHAR AS key, 'qualifying' AS measure,
+           qualifying_plays::DOUBLE AS value
+    FROM fact_threshold_sensitivity
