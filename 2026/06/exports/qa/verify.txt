@@ -1,0 +1,56 @@
+metric                                           rendered         recomputed  
+--------------------------------------------------------------------------------
+claims_false                                      11.0000            11.0000  ok
+claims_tested                                     14.0000            14.0000  ok
+customers                                         20.0000            20.0000  ok
+design_effect                                     75.0000            75.0000  ok
+fee_design_effect                                 49.1789            49.1789  ok
+fee_effective_n                                   30.5009            30.5009  ok
+fee_gross_over_gbp                               587.2800           587.2800  ok
+fee_gross_total_gbp                            1,174.3900         1,174.3900  ok
+fee_gross_under_gbp                              587.1100           587.1100  ok
+fee_icc                                            0.6511             0.6511  ok
+fee_net_variance_gbp                              -0.1700            -0.1700  ok
+fee_rows_wrong                                   725.0000           725.0000  ok
+fraud_customers                                    4.0000             4.0000  ok
+kyc_fisher_p                                       0.5377             0.5377  ok
+non_kyc_customers                                  4.0000             4.0000  ok
+non_kyc_flagged                                    0.0000             0.0000  ok
+rate.Completed.customers                           3.0000             3.0000  ok
+rate.Declined.customers                            7.0000             7.0000  ok
+rate.Fraud-flagged.customers                       4.0000             4.0000  ok
+rate.Reversed.customers                            5.0000             5.0000  ok
+se_inflation                                       8.6603             8.6603  ok
+transactions                                   1,500.0000         1,500.0000  ok
+--------------------------------------------------------------------------------
+Specified but not rendered (10): rate.Completed, rate.Declined, rate.Failing (Declined+Reversed), rate.Failing (Declined+Reversed).customers, rate.Fraud-flagged, rate.Non-KYC, rate.Non-KYC.customers, rate.Pending, rate.Pending.customers, rate.Reversed
+
+All 22 rendered metrics reconcile.
+metric                                           rendered         recomputed  
+--------------------------------------------------------------------------------
+claims_false                                      11.0000            11.0000  ok
+claims_tested                                     14.0000            14.0000  ok
+customers                                         20.0000            20.0000  ok
+design_effect                                     75.0000            75.0000  ok
+fee_design_effect                                 49.1789            49.1789  ok
+fee_effective_n                                   30.5009            30.5009  ok
+fee_gross_over_gbp                               587.2800           587.2800  ok
+fee_gross_total_gbp                            1,174.3900         1,174.3900  ok
+fee_gross_under_gbp                              587.1100           587.1100  ok
+fee_icc                                            0.6511             0.6511  ok
+fee_net_variance_gbp                              -0.1700            -0.1700  ok
+fee_rows_wrong                                   725.0000           725.0000  ok
+fraud_customers                                    4.0000             4.0000  ok
+kyc_fisher_p                                       0.5377             0.5377  ok
+non_kyc_customers                                  4.0000             4.0000  ok
+non_kyc_flagged                                    0.0000             0.0000  ok
+rate.Completed.customers                           3.0000             3.0000  ok
+rate.Declined.customers                            7.0000             7.0000  ok
+rate.Fraud-flagged.customers                       4.0000             4.0000  ok
+rate.Reversed.customers                            5.0000             5.0000  ok
+se_inflation                                       8.6603             8.6603  ok
+transactions                                   1,500.0000         1,500.0000  ok
+--------------------------------------------------------------------------------
+Specified but not rendered (10): rate.Completed, rate.Declined, rate.Failing (Declined+Reversed), rate.Failing (Declined+Reversed).customers, rate.Fraud-flagged, rate.Non-KYC, rate.Non-KYC.customers, rate.Pending, rate.Pending.customers, rate.Reversed
+
+All 22 rendered metrics reconcile.

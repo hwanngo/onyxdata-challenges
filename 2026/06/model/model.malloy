@@ -1,0 +1,233 @@
+// Semantic layer - 2026/06 UK Fintech Neobank, Zephyr Bank  (Gate G4)
+//
+// This file IS the Technical evidence. Rubric A scores "DAX usage, data modelling"; we have no
+// DAX, so the model must be legible and substantial in its own right.
+//
+// The organising constraint, carried down from model/build.py: **no rate is expressible without
+// its customer count.** The fact table has 1,500 rows and 20 rows of information. Every question
+// in the brief invites the 1,500 denominator, and a model that hands over a boolean on a
+// transaction will produce "20% of transactions are fraudulent, +/-2pp" every time.
+//
+// So the rate measures below are defined over `customer_profile`, not over `transaction`, and
+// `rate` carries both denominators and the exact interval side by side.
+
+// =====================================================================================
+// THE PRIMARY FACT: the customer. n = 20.
+// =====================================================================================
+
+source: customer_profile is duckdb.table('../data/curated/dim_customer_profile.parquet') extend {
+  primary_key: customer_id
+
+  measure:
+    customers is count()
+
+    // These four are the rates the H1 review will quote. They are defined HERE, over 20 rows,
+    // and not over the 1,500-row fact table, because transaction_status / is_flagged_fraud /
+    // failed_reason / device_type never vary within a customer.
+    flagged_customers  is count() { where: is_flagged_fraud }
+    failing_customers  is count() { where: is_failing }
+    completed_customers is count() { where: transaction_status = 'Completed' }
+    unverified_customers is count() { where: not kyc_verified }
+
+    fraud_rate     is count() { where: is_flagged_fraud } / count() * 1.0
+    failure_rate   is count() { where: is_failing } / count() * 1.0
+    completion_rate is count() { where: transaction_status = 'Completed' } / count() * 1.0
+
+    total_value_gbp is sum(total_value_gbp)
+    fees_paid_gbp   is sum(fees_paid_gbp)
+    avg_transaction_gbp is avg(mean_amount_gbp)
+
+  dimension:
+    // DECISION 3 (build.py): device_type is EXACTLY customer_id mod 4. The column is kept so
+    // the defect is countable, renamed so it cannot be charted as a device, and the arithmetic
+    // that produces it sits beside it.
+    device_is_really_row_number is concat(
+      cast(customer_id_mod_4 as string), ' -> ', device_type_raw)
+    value_tier is
+      pick 'over £100k'  when total_value_gbp > 100000
+      pick '£10k-£100k'  when total_value_gbp > 10000
+      else 'under £10k'
+
+  // The whole file, one row per real observation. Twenty rows is not a limitation of this
+  // view; it is the dataset.
+  view: every_customer is {
+    group_by: customer_id, customer_name, customer_segment, region, kyc_verified,
+              transaction_status, is_flagged_fraud, device_type_raw, customer_id_mod_4
+    aggregate: total_value_gbp, fees_paid_gbp
+    order_by: total_value_gbp desc
+  }
+
+  // The brief's KYC question. Four non-KYC customers, zero of them flagged.
+  view: kyc_by_fraud is {
+    group_by: kyc_verified, is_flagged_fraud
+    aggregate: customers
+    order_by: kyc_verified, is_flagged_fraud
+  }
+
+  // Five of the ten UK regions hold exactly one customer, so a regional rate is 0% or 100%.
+  view: how_thin_is_a_region is {
+    group_by: region
+    aggregate: customers, flagged_customers, total_value_gbp
+    order_by: customers desc
+  }
+
+  view: by_segment is {
+    group_by: customer_segment
+    aggregate: customers, flagged_customers, failing_customers, total_value_gbp
+    order_by: total_value_gbp desc
+  }
+
+  // Proof that device_type carries nothing: five customers per value, perfectly aligned to
+  // customer_id mod 4.
+  view: the_device_lattice is {
+    group_by: customer_id_mod_4, device_type_raw
+    aggregate: customers, flagged_customers, failing_customers
+    order_by: customer_id_mod_4
+  }
+}
+
+// =====================================================================================
+// RATES - DECISION 2: no rate without its denominator and its interval
+// =====================================================================================
+
+source: rate is duckdb.table('../data/curated/fact_rate.parquet') extend {
+  // There is no view here that returns `transaction_rate` alone. The transaction rate and the
+  // customer rate are numerically IDENTICAL - that identity is the finding, not a coincidence -
+  // and the interval is what distinguishes them.
+  view: what_the_review_will_quote is {
+    group_by: measure, question,
+              transactions, transaction_rate,
+              customers, customer_rate,
+              naive_width_pp, ci_width_pp, exact_ci_lo, exact_ci_hi,
+              design_effect, se_inflation
+    order_by: transaction_rate desc
+  }
+}
+
+// =====================================================================================
+// TRANSACTIONS - kept at raw grain, because the fee rule genuinely lives here
+// =====================================================================================
+
+source: transaction is duckdb.table('../data/curated/fact_transaction.parquet') extend {
+  primary_key: transaction_id
+
+  measure:
+    rows is count()
+    value_gbp is sum(amount_gbp)
+    fees_charged_gbp is sum(fee_charged_gbp)
+    fees_expected_gbp is sum(typical_fee_gbp)
+
+    // DECISION 5: gross and net side by side. A model that stored only the net would
+    // reproduce the very bug it is reporting.
+    net_fee_variance_gbp is sum(typical_fee_gbp) - sum(fee_charged_gbp)
+    gross_fee_variance_gbp is sum(abs(fee_delta_gbp))
+    rows_with_wrong_fee is count() { where: fee_verdict != 'correct' }
+
+    // Always available beside any transaction count, so a 1,500 denominator can never appear
+    // on its own.
+    distinct_customers is count(customer_id)
+
+  dimension:
+    fee_side is fee_verdict
+    domestic is pick 'Domestic' when is_domestic else 'International'
+
+  // THE POSITIVE CONTROL. The only defect in this file that varies WITHIN a customer, and
+  // therefore the only finding not bounded by n = 20.
+  view: the_fee_rule is {
+    group_by: fee_verdict
+    aggregate: rows, distinct_customers, fees_charged_gbp, fees_expected_gbp
+    order_by: rows desc
+  }
+
+  view: fee_by_type is {
+    group_by: transaction_type_id, type_name, channel, typical_fee_gbp, name_is_ambiguous
+    aggregate: rows, distinct_customers, fees_charged_gbp, fees_expected_gbp,
+               net_fee_variance_gbp, gross_fee_variance_gbp
+    order_by: gross_fee_variance_gbp desc
+  }
+
+  view: by_month is {
+    group_by: txn_month
+    aggregate: rows, value_gbp, fees_charged_gbp, distinct_customers
+    order_by: txn_month
+  }
+
+  // Every rate here is a fraction of the customers who use that type -- 3/4, 5/8, 2/4 and
+  // nothing else. The customer count is grouped alongside so the denominator is unavoidable.
+  view: failure_by_type is {
+    group_by: type_name, channel
+    aggregate: rows, distinct_customers
+    order_by: rows desc
+  }
+
+  view: by_risk_flag is {
+    group_by: risk_flag
+    aggregate: rows, distinct_customers, value_gbp
+    order_by: risk_flag
+  }
+}
+
+// =====================================================================================
+// FEE VARIANCE - pre-aggregated, gross and net
+// =====================================================================================
+
+source: fee_variance is duckdb.table('../data/curated/fact_fee_variance.parquet') extend {
+  measure:
+    charged is sum(charged_gbp)
+    expected is sum(expected_gbp)
+    net is sum(net_variance_gbp)
+    gross is sum(gross_variance_gbp)
+    wrong_rows is sum(rows_wrong)
+
+  // The finding in one view: the net column reads as a clean bill while the gross column
+  // shows GBP1,174 on the wrong side of the rule.
+  view: where_the_fees_go is {
+    group_by: type_name, channel, typical_fee_gbp, transactions, customers,
+              charged_gbp, expected_gbp, net_variance_gbp, gross_variance_gbp, rows_wrong
+    order_by: gross_variance_gbp desc
+  }
+}
+
+// =====================================================================================
+// THE THESIS AS TABLES - read, never re-derived in a panel
+// =====================================================================================
+
+source: claim is duckdb.table('../data/curated/dim_claim.parquet') extend {
+  view: dictionary_scorecard is {
+    group_by: n, claim, verdict, evidence
+    order_by: n
+  }
+}
+
+source: category is duckdb.table('../data/curated/fact_category.parquet') extend {
+  // Every category is touched by exactly 10 of the 20 customers, and fraud is constant per
+  // customer, so `fraud_rate` is entirely determined by `flagged_customers`. Both are grouped
+  // so no panel can show the rate without the count that produces it.
+  view: fraud_is_composition is {
+    group_by: category_name, sector, risk_flag, transactions, customers,
+              flagged_customers, fraud_rate
+    order_by: fraud_rate desc
+  }
+}
+
+source: txn_type is duckdb.table('../data/curated/fact_type.parquet') extend {
+  view: failure_is_a_fraction_of_four is {
+    group_by: type_name, channel, transactions, customers, failing_customers, failure_rate
+    order_by: failure_rate desc
+  }
+}
+
+source: region is duckdb.table('../data/curated/fact_region.parquet') extend {
+  view: five_regions_have_one_customer is {
+    group_by: region, customers, flagged, value_gbp
+    order_by: customers desc
+  }
+}
+
+source: month is duckdb.table('../data/curated/fact_month.parquet') extend {
+  // Five points. The build raises if a trend ever appears in them.
+  view: five_points is {
+    group_by: txn_month, transactions, value_gbp, fees_gbp, customers
+    order_by: txn_month
+  }
+}

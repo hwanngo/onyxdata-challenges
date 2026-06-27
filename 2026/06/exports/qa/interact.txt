@@ -1,0 +1,33 @@
+PASS  baseline transactions = 1,500
+PASS  baseline customers = 20
+PASS  design effect = 75
+PASS  4 of 20 customers flagged
+PASS  all 1,500 marks are drawn, none sampled
+PASS  20 columns, one per customer
+PASS  the signature carries a screen-reader table
+PASS  every one of the 20 columns is a single colour (max distinct = 1)
+PASS  re-sort control re-orders the columns
+PASS  blocks stay solid under a different ordering - not an artefact of the sort
+PASS  customer table cross-filters the page (189ms)
+PASS  chip bar shows the active filter
+PASS  chip bar states the denominator in customers
+PASS  URL encodes filter state
+PASS  the signature filters down to the selected customer
+PASS  caption follows the filter (75 marks, 1 fact)
+PASS  screen-reader label follows the filter (75 marks in 1 column)
+PASS  clear-all restores 20 columns
+PASS  caption restores to 1,500 marks and 20 facts
+PASS  the fraud KPI renders "k of n", never a bare percentage
+PASS  the interval panel prints a customer count for every measure
+PASS  the interval panel prints the exact interval
+PASS  the fee panel shows NET and GROSS side by side
+PASS  tour opens from the ? button
+PASS  Esc closes the tour
+PASS  poster hides the tour button
+PASS  poster hides the re-sort control
+PASS  poster draws all 1,500 marks too
+PASS  poster is exactly 2560x1440
+PASS  poster states why there is no map
+PASS  poster states why there is no trend line
+
+All interaction assertions pass.

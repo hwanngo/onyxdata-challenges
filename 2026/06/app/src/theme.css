@@ -1,0 +1,363 @@
+/* =========================================================================================
+   2026/06 - UK Fintech Neobank (Zephyr Bank)
+   Identity per .workbench/2026/06/design/direction.md. Every ratio is MEASURED by tools/audit_contrast.py.
+
+   Light this month. 2026/05 argued itself dark on a specific legibility ground (448
+   overlapping hairlines); that argument does not apply here and the subject is a printed
+   review pack. Not the cream this programme has over-used, and not 2025/12's cool blue-grey:
+   a pale LEDGER green-grey, the stock management accounts are printed on.
+
+   Written against THIS month's DOM. No bare `.sowhat` rule - that unscoped collision has cost
+   this programme four times.
+   ========================================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Spectral:wght@500;600&family=Public+Sans:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg:        #EBEEEA;   /* pale ledger stock                                     */
+  --bg-raised: #F8F9F6;
+  --ink:       #14171A;   /* 15.38:1                                               */
+  --ink-muted: #4E555A;   /*  6.48:1                                               */
+  --flat:      #767D83;   /*  3.57:1 - inert marks and every informational line     */
+  --reported:  #1F5C8B;   /*  6.06:1 - ONLY what the review pack claims             */
+  --measured:  #A2521A;   /*  4.78:1 - ONLY what the file supports                  */
+  --reversed:  #7B2D4A;   /*  7.75:1 - the fourth status, signature only            */
+  --focus:     #8A4B00;   /*  5.81:1                                               */
+
+  /* a11y-decorative: rule -- 1px section dividers, table borders and chip outlines only.
+     Never a gridline, an axis or any data mark: those take --flat, which clears 3:1. WCAG
+     1.4.11 exempts pure decoration, and a 3:1 divider on every table cell would make a
+     variance report read as a spreadsheet for no accessibility gain. */
+  --rule:      #CBD0CA;
+
+  --font-display: "Spectral", Georgia, serif;
+  --font-body:    "Public Sans", system-ui, sans-serif;
+  --font-num:     "IBM Plex Mono", ui-monospace, monospace;
+
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 16px; --sp-4: 24px; --sp-5: 40px; --sp-6: 64px;
+  --maxw: 1220px;
+}
+
+/* Designed as a pair, not inverted. Ratios measured separately. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:        #171A18;
+    --bg-raised: #20241F;
+    --ink:       #F1F3EF;   /* 15.71:1 */
+    --ink-muted: #A8AFA6;   /*  7.81:1 */
+    --flat:      #767D83;   /*  4.20:1 */
+    --reported:  #6FB3DE;   /*  7.67:1 */
+    --measured:  #E0904A;   /*  6.90:1 */
+    --reversed:  #DE87A6;   /*  6.78:1 */
+    --focus:     #FFD166;   /* 12.16:1 */
+    --rule:      #343A34;
+  }
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.008em; font-weight: 600; }
+
+.num, .kpi__value, .ctable td, .ctable th, .twobytwo td {
+  font-family: var(--font-num); font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+code {
+  font-family: var(--font-num); font-size: 0.9em;
+  background: var(--bg-raised); padding: 1px 5px; border-radius: 2px;
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.skip-link { position: absolute; left: -9999px; }
+.skip-link:focus {
+  left: var(--sp-3); top: var(--sp-3); background: var(--bg-raised); color: var(--ink);
+  padding: var(--sp-2) var(--sp-3); z-index: 100; border: 2px solid var(--focus);
+}
+*:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+/* ---- layout ---------------------------------------------------------------------- */
+.page { max-width: var(--maxw); margin: 0 auto; padding: var(--sp-5) var(--sp-4) var(--sp-6); }
+section { margin-top: var(--sp-6); min-width: 0; }
+.sec__h {
+  font-size: 1.45rem; margin: 0 0 var(--sp-3); display: flex; align-items: baseline;
+  gap: var(--sp-2); border-bottom: 1px solid var(--rule); padding-bottom: var(--sp-2);
+}
+.sec__n {
+  font-family: var(--font-num); font-size: 0.82rem; color: var(--ink-muted);
+  border: 1px solid var(--rule); border-radius: 50%; width: 1.9em; height: 1.9em;
+  display: inline-flex; align-items: center; justify-content: center; flex: none;
+}
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-5); }
+.explore-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-5); }
+.two > *, .explore-grid > * { min-width: 0; }
+.chartfig, figure, .page > * { min-width: 0; }
+h1, h2, h3, p, td, th { overflow-wrap: break-word; }
+
+/* ---- ① thesis --------------------------------------------------------------------- */
+.thesis__h { font-size: clamp(2rem, 4.2vw, 3.1rem); line-height: 1.08; margin: 0 0 var(--sp-3); max-width: 24ch; }
+.thesis__em { color: var(--measured); font-style: italic; }
+.thesis__p { font-size: 1.12rem; color: var(--ink-muted); max-width: 66ch; margin: 0 0 var(--sp-3); }
+.thesis__meta {
+  font-family: var(--font-num); font-size: 0.8rem; color: var(--ink-muted);
+  border-top: 1px solid var(--rule); padding-top: var(--sp-2); margin: 0;
+}
+
+/* ---- ② KPI ------------------------------------------------------------------------ */
+.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-4); margin-top: var(--sp-5); }
+.kpi { border-top: 3px solid var(--measured); padding-top: var(--sp-2); min-width: 0; }
+.kpi:first-child { border-top-color: var(--reported); }
+.kpi__value { font-size: 2.3rem; line-height: 1.05; font-weight: 500; }
+.kpi__label { font-size: 0.8rem; color: var(--ink-muted); line-height: 1.35; }
+
+/* ---- ③ the twenty blocks ---------------------------------------------------------- */
+.blocks { display: block; width: 100%; height: auto; }
+.b-mark { shape-rendering: crispEdges; }
+.b--completed .b-mark { fill: var(--reported); }
+.b--declined  .b-mark { fill: var(--measured); }
+.b--reversed  .b-mark { fill: var(--reversed); }
+.b--pending   .b-mark { fill: var(--flat); }
+.b--dim    { opacity: 0.3; }
+.b--active .b-mark { stroke: var(--ink); stroke-width: 0.4; }
+.blocks g { cursor: pointer; }
+.b-label {
+  fill: var(--ink-muted); font-family: var(--font-body); font-size: 8px;
+  text-transform: uppercase; letter-spacing: 0.04em;
+}
+.b-name { fill: var(--ink-muted); font-family: var(--font-body); font-size: 8px; }
+.b-flag { fill: var(--ink); font-family: var(--font-body); font-size: 11px; font-weight: 700; }
+
+.b-legend {
+  display: flex; flex-wrap: wrap; gap: var(--sp-3); font-size: 0.82rem;
+  color: var(--ink-muted); margin: var(--sp-3) 0 0;
+}
+.b-key { display: inline-flex; align-items: center; gap: 5px; }
+.b-key i { width: 12px; height: 12px; display: inline-block; border-radius: 1px; }
+.b-key i.b--completed { background: var(--reported); }
+.b-key i.b--declined  { background: var(--measured); }
+.b-key i.b--reversed  { background: var(--reversed); }
+.b-key i.b--pending   { background: var(--flat); }
+.b-key--note { color: var(--ink-muted); }
+
+.sortctl { margin-bottom: var(--sp-3); }
+.sortctl__set {
+  border: 1px solid var(--rule); border-radius: 3px; padding: var(--sp-2) var(--sp-3);
+  margin: 0; display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-3); align-items: center;
+}
+.sortctl__legend {
+  font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--ink-muted); padding: 0 var(--sp-1);
+}
+.sortctl__opt {
+  display: inline-flex; align-items: center; gap: var(--sp-1); font-size: 0.9rem;
+  cursor: pointer; padding: 6px 8px; border-radius: 3px; min-height: 44px;
+}
+.sortctl__opt--on { color: var(--reported); font-weight: 500; }
+.sortctl__note { font-size: 0.84rem; color: var(--ink-muted); margin: var(--sp-2) 0 0; max-width: 88ch; }
+.picked { font-size: 0.9rem; border-left: 3px solid var(--reported); padding-left: var(--sp-3); margin-top: var(--sp-3); }
+
+/* ---- ④ intervals ------------------------------------------------------------------ */
+.iv { list-style: none; padding: 0; margin: 0; }
+.iv li {
+  display: grid; grid-template-columns: 7.5em 1fr 5.5em 8em; gap: var(--sp-2);
+  align-items: center; font-size: 0.88rem; padding: 5px 0;
+}
+.iv__name { color: var(--ink-muted); }
+.iv__track { position: relative; height: 22px; background: var(--bg-raised); border-radius: 2px; }
+/* the TRUE interval is a BAR and the naive estimate is a POINT -- different mark types,
+   because --reported and --measured are only 1.27:1 apart in relative luminance */
+.iv__true  { position: absolute; top: 5px; bottom: 5px; background: var(--measured); border-radius: 2px; }
+.iv__naive { position: absolute; top: 10px; bottom: 10px; background: var(--reported); }
+.iv__point {
+  position: absolute; top: 3px; bottom: 3px; width: 3px; margin-left: -1.5px;
+  background: var(--reported);
+}
+.iv__ci { font-size: 0.78rem; color: var(--ink-muted); }
+.iv__scale {
+  display: flex; justify-content: space-between; font-family: var(--font-num);
+  font-size: 0.7rem; color: var(--ink-muted); margin: 2px 0 0;
+  padding-left: 8.1em; padding-right: 14em;
+}
+.iv__key { display: inline-block; vertical-align: middle; margin-right: 3px; }
+.iv__key--point { width: 3px; height: 12px; background: var(--reported); }
+.iv__key--true  { width: 22px; height: 8px; background: var(--measured); border-radius: 2px; }
+
+/* ---- ⑤ 2x2 ------------------------------------------------------------------------ */
+.twobytwo { border-collapse: collapse; font-size: 0.9rem; }
+.twobytwo th, .twobytwo td {
+  border: 1px solid var(--rule); padding: var(--sp-2) var(--sp-3); text-align: center;
+}
+.twobytwo th[scope="row"] { text-align: left; font-weight: 500; }
+.twobytwo td b { font-size: 1.4rem; }
+.twobytwo--zero b { color: var(--measured); }
+
+/* ---- ⑥ fee rule ------------------------------------------------------------------- */
+.fee__side { display: grid; grid-template-columns: 8em 1fr 6.5em; gap: var(--sp-2); align-items: center; font-size: 0.85rem; }
+.fee__lab { color: var(--ink-muted); }
+.fee__bar { display: block; height: 16px; border-radius: 2px; }
+.fee__bar--over  { background: var(--measured); }
+.fee__bar--under { background: var(--reported); }
+.fee__zero {
+  border-top: 1px dashed var(--flat); margin: 4px 0 4px 8.5em; position: relative; height: 0;
+}
+.fee__zero span {
+  position: absolute; right: 0; top: -0.7em; font-size: 0.7rem;
+  font-family: var(--font-num); color: var(--ink-muted); background: var(--bg); padding: 0 4px;
+}
+.fee__punch { display: flex; gap: var(--sp-4); margin: var(--sp-4) 0 0; }
+.fee__punch > span { display: flex; flex-direction: column; font-size: 0.7rem; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.07em; }
+.fee__punch b { font-family: var(--font-num); font-size: 1.5rem; color: var(--ink); text-transform: none; letter-spacing: 0; }
+.fee__punch small { text-transform: none; letter-spacing: 0; font-size: 0.72rem; }
+.fee__types { list-style: none; padding: 0; margin: var(--sp-4) 0 0; }
+.fee__types li { display: grid; grid-template-columns: 13em 1fr 5em; gap: var(--sp-2); align-items: center; font-size: 0.8rem; padding: 2px 0; }
+.fee__tname small { color: var(--ink-muted); display: block; font-size: 0.7rem; }
+.fee__track { display: flex; height: 12px; background: var(--bg-raised); border-radius: 2px; overflow: hidden; }
+.fee__seg { display: block; height: 100%; }
+.fee__seg--over  { background: var(--measured); }
+.fee__seg--under { background: var(--reported); }
+
+/* ---- ⑦ scorecard ------------------------------------------------------------------ */
+.score { list-style: none; padding: 0; margin: 0; }
+.score li { display: grid; grid-template-columns: 1.4em 1fr auto; gap: var(--sp-2); align-items: baseline; font-size: 0.83rem; padding: 2px 0; border-bottom: 1px solid var(--rule); }
+.score__mark { font-family: var(--font-num); color: var(--flat); }
+.score--bad .score__mark { color: var(--measured); font-weight: 700; }
+.score--bad .score__claim { color: var(--ink); }
+.score__claim { color: var(--ink-muted); }
+.score__verdict { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-muted); }
+.score--bad .score__verdict { color: var(--measured); font-weight: 700; }
+
+/* ---- ⑧ recs ----------------------------------------------------------------------- */
+.recs { margin: 0; padding-left: 1.4em; display: grid; gap: var(--sp-3); }
+.recs li { max-width: 88ch; }
+.recs b { color: var(--reported); }
+
+/* ---- web-only --------------------------------------------------------------------- */
+.scatter { display: block; width: 100%; height: auto; }
+.scatter__diag { stroke: var(--flat); stroke-width: 1; stroke-dasharray: 3 3; }
+.scatter__pt { fill: var(--flat); opacity: 0.55; }
+.scatter__pt--over  { fill: var(--measured); opacity: 0.8; }
+.scatter__pt--under { fill: var(--reported); opacity: 0.8; }
+.scatter__ax { fill: var(--ink-muted); font-family: var(--font-body); font-size: 10px; }
+
+.ctable-wrap { overflow-x: auto; max-height: 420px; overflow-y: auto; }
+.ctable { border-collapse: collapse; font-size: 0.78rem; width: 100%; }
+.ctable th, .ctable td { border-bottom: 1px solid var(--rule); padding: 3px 6px; text-align: left; }
+.ctable td.num { text-align: right; }
+.ctable--on { background: color-mix(in srgb, var(--reported) 12%, transparent); }
+.ctable__pick { background: none; border: none; color: inherit; font: inherit; cursor: pointer; padding: 2px 0; text-align: left; }
+.ctable__pick[aria-pressed="true"] { color: var(--reported); font-weight: 700; }
+
+.regions { list-style: none; padding: 0; margin: 0; }
+.regions li { display: grid; grid-template-columns: 9em 1fr 2em; gap: var(--sp-2); align-items: center; font-size: 0.82rem; padding: 2px 0; }
+.regions__track { display: flex; gap: 3px; }
+.regions__track i { width: 11px; height: 11px; background: var(--flat); border-radius: 50%; display: block; }
+.regions--thin .regions__track i { background: var(--measured); }
+.regions--thin .regions__name { color: var(--measured); font-weight: 500; }
+
+/* ---- chips, tour, footer ---------------------------------------------------------- */
+.chips { display: flex; flex-wrap: wrap; gap: var(--sp-2); align-items: center; margin-top: var(--sp-4); }
+.chips__lab, .chips__n { font-size: 0.8rem; color: var(--ink-muted); }
+.chip {
+  background: var(--bg-raised); color: var(--ink); border: 1px solid var(--rule);
+  border-radius: 3px; padding: 6px 10px; font: inherit; font-size: 0.82rem;
+  cursor: pointer; min-height: 34px;
+}
+.chip:hover { border-color: var(--reported); }
+.chip--clear { color: var(--ink-muted); margin-left: var(--sp-2); }
+.tour-btn {
+  position: fixed; right: 20px; bottom: 20px; width: 48px; height: 48px; border-radius: 50%;
+  background: var(--reported); color: var(--bg-raised); border: none; font-size: 1.4rem;
+  font-weight: 700; cursor: pointer; font-family: var(--font-display);
+}
+.foot { margin-top: var(--sp-6); border-top: 1px solid var(--rule); padding-top: var(--sp-3); font-size: 0.8rem; color: var(--ink-muted); }
+.foot p { margin: 0 0 var(--sp-2); max-width: 104ch; }
+.error { color: var(--measured); border: 1px solid var(--measured); padding: var(--sp-3); }
+
+.chartfig { margin: 0; }
+.chartfig__cap {
+  font-family: var(--font-display); font-size: 1.02rem; font-weight: 600;
+  line-height: 1.3; margin-bottom: var(--sp-3); max-width: 74ch;
+}
+.cap { font-size: 0.84rem; color: var(--ink-muted); margin: var(--sp-3) 0 0; max-width: 78ch; }
+
+.skel { background: var(--bg-raised); border-radius: 3px; }
+.skel--line { display: inline-block; width: 24em; height: 1em; }
+.skel--kpi { height: 92px; }
+.skel--chart { height: 260px; }
+
+/* ---- responsive ------------------------------------------------------------------- */
+@media (max-width: 1000px) { .kpis { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 720px) {
+  .two, .explore-grid { grid-template-columns: 1fr; }
+  .kpis { grid-template-columns: 1fr 1fr; }
+  .page { padding: var(--sp-4) var(--sp-3) var(--sp-5); }
+  .iv li { grid-template-columns: 6em 1fr 5em; }
+  .iv__ci { display: none; }
+  .iv__scale { padding-right: 5.5em; }
+  .fee__types li { grid-template-columns: 9em 1fr 4.5em; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* =========================================================================================
+   POSTER ROUTE - exactly 2560x1440.
+
+   Explicit grid rows summing to the canvas, budgeted in .workbench/2026/06/design/direction.md BEFORE the
+   components were written. Not flex: a flex column with `flex: 1` on a width:100%/height:auto
+   SVG collapses it to zero, which is how 2026/05 lost its signature on the first capture.
+
+   The palette is PINNED here rather than inherited, because Playwright renders with
+   prefers-color-scheme: light by default and the poster must not depend on that.
+   ========================================================================================= */
+.page--poster {
+  --bg: #EBEEEA; --bg-raised: #F8F9F6; --ink: #14171A; --ink-muted: #4E555A;
+  --flat: #767D83; --reported: #1F5C8B; --measured: #A2521A; --reversed: #7B2D4A;
+  --focus: #8A4B00; --rule: #CBD0CA;
+  background: var(--bg); color: var(--ink);
+
+  width: 2560px; height: 1440px; max-width: none;
+  padding: 22px 44px 22px; overflow: hidden;
+  display: grid;
+  grid-template-rows: 166px 90px 232px 256px 394px 150px 56px;
+  row-gap: 8px;
+  align-content: start;
+}
+.page--poster > * { min-height: 0; overflow: hidden; }
+.page--poster section { margin-top: 0; }
+.page--poster .sec__h { font-size: 19px; padding-bottom: 4px; margin-bottom: 6px; }
+.page--poster .sec__n { font-size: 11px; }
+.page--poster .thesis__h { font-size: 44px; max-width: 52ch; margin-bottom: 5px; }
+.page--poster .thesis__p { font-size: 18px; max-width: 150ch; margin-bottom: 5px; }
+.page--poster .thesis__meta { font-size: 13px; padding-top: 4px; }
+.page--poster .kpis { margin-top: 0; gap: 26px; }
+.page--poster .kpi__value { font-size: 40px; }
+.page--poster .kpi__label { font-size: 13px; }
+.page--poster .chartfig__cap { font-size: 17px; max-width: 170ch; margin-bottom: 5px; }
+.page--poster .b-legend { font-size: 13px; margin-top: 6px; }
+.page--poster .two { gap: 34px; }
+.page--poster .cap { font-size: 12.5px; max-width: none; margin-top: 6px; line-height: 1.45; }
+.page--poster .iv li { font-size: 12.5px; padding: 2px 0; }
+.page--poster .twobytwo th, .page--poster .twobytwo td { padding: 5px 10px; }
+.page--poster .twobytwo td b { font-size: 20px; }
+.page--poster .fee__punch b { font-size: 22px; }
+/* The per-type breakdown is the detail; the poster carries the totals and the punch line,
+   and the full table lives in the accessible table and the live app. Measured: the full list
+   overflowed its row by 403px. */
+.page--poster .fee__types { display: none; }
+.page--poster .fee__punch { margin-top: 10px; }
+.page--poster .fee__punch b { font-size: 24px; }
+.page--poster .score li { font-size: 11.5px; padding: 1px 0; }
+.page--poster .score__verdict { font-size: 9.5px; }
+
+.page--poster .recs { font-size: 13px; gap: 4px; line-height: 1.42; }
+.page--poster .recs li { max-width: none; }
+.page--poster .foot { margin-top: 0; padding-top: 5px; font-size: 11px; line-height: 1.4; }
+.page--poster .foot p { max-width: none; margin-bottom: 1px; }
+.page--poster .tour-btn { display: none; }

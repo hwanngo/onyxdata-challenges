@@ -1,0 +1,92 @@
+# G7 verification spec - every number the UI renders, and the SQL that reproduces it.
+#
+# ZERO TOLERANCE. These run against the curated PARQUET via DuckDB in Python - a different
+# engine and code path from the browser, which aggregates JSON in JavaScript.
+#
+# Where a quantity is derivable from a FACT table it is recomputed from one, rather than read
+# back out of `headline` (which build.py wrote, so reading it would be circular).
+
+metrics:
+  transactions: |
+    SELECT count(*)::DOUBLE FROM fact_transaction
+  customers: |
+    SELECT count(*)::DOUBLE FROM dim_customer_profile
+
+  # the cohort counts -- the honest denominators
+  fraud_customers: |
+    SELECT count(*)::DOUBLE FROM dim_customer_profile WHERE is_flagged_fraud
+  non_kyc_customers: |
+    SELECT count(*)::DOUBLE FROM dim_customer_profile WHERE NOT kyc_verified
+  non_kyc_flagged: |
+    SELECT count(*)::DOUBLE FROM dim_customer_profile
+      WHERE NOT kyc_verified AND is_flagged_fraud
+
+  # the clustering arithmetic
+  design_effect: |
+    SELECT (SELECT count(*) FROM fact_transaction)::DOUBLE
+         / (SELECT count(*) FROM dim_customer_profile)
+  se_inflation: |
+    SELECT sqrt((SELECT count(*) FROM fact_transaction)::DOUBLE
+              / (SELECT count(*) FROM dim_customer_profile))
+
+  # the fee rule -- the positive control
+  fee_rows_wrong: |
+    SELECT count(*)::DOUBLE FROM fact_transaction WHERE fee_verdict != 'correct'
+  fee_net_variance_gbp: |
+    SELECT round(sum(typical_fee_gbp) - sum(fee_charged_gbp), 2) FROM fact_transaction
+  fee_gross_over_gbp: |
+    SELECT round(sum(fee_delta_gbp), 2) FROM fact_transaction WHERE fee_delta_gbp > 0
+  fee_gross_under_gbp: |
+    SELECT round(-sum(fee_delta_gbp), 2) FROM fact_transaction WHERE fee_delta_gbp < 0
+  fee_gross_total_gbp: |
+    SELECT round(sum(abs(fee_delta_gbp)), 2) FROM fact_transaction
+
+  # the dictionary scorecard
+  claims_tested: |
+    SELECT count(*)::DOUBLE FROM dim_claim
+  claims_false: |
+    SELECT count(*)::DOUBLE FROM dim_claim WHERE verdict <> 'TRUE'
+
+  # Fisher's exact p is a statistic, not an aggregate; it is stored where it is computed.
+  kyc_fisher_p: |
+    SELECT kyc_fisher_p FROM headline
+
+  # The fee defect's own design effect, recomputed from fact_transaction rather than read
+  # back out of headline. One-way ANOVA ICC by customer, then DEFF = 1 + (m-1)*ICC.
+  fee_icc: |
+    WITH w AS (SELECT customer_id, CASE WHEN fee_verdict <> 'correct' THEN 1.0 ELSE 0.0 END x
+               FROM fact_transaction),
+         g AS (SELECT customer_id, count(*)::DOUBLE nk, avg(x) mk FROM w GROUP BY 1),
+         s AS (SELECT (SELECT avg(x) FROM w) gm, (SELECT count(*)::DOUBLE FROM g) k,
+                      (SELECT count(*)::DOUBLE FROM w) n, (SELECT avg(nk) FROM g) m),
+         v AS (SELECT (SELECT sum(g.nk*(g.mk-s.gm)*(g.mk-s.gm)) FROM g)/(s.k-1) msb,
+                      (SELECT sum((w.x-g.mk)*(w.x-g.mk)) FROM w JOIN g USING (customer_id))
+                        /(s.n-s.k) msw, s.m, s.n FROM s)
+    SELECT (msb-msw)/(msb+(m-1)*msw) FROM v
+  fee_design_effect: |
+    WITH w AS (SELECT customer_id, CASE WHEN fee_verdict <> 'correct' THEN 1.0 ELSE 0.0 END x
+               FROM fact_transaction),
+         g AS (SELECT customer_id, count(*)::DOUBLE nk, avg(x) mk FROM w GROUP BY 1),
+         s AS (SELECT (SELECT avg(x) FROM w) gm, (SELECT count(*)::DOUBLE FROM g) k,
+                      (SELECT count(*)::DOUBLE FROM w) n, (SELECT avg(nk) FROM g) m),
+         v AS (SELECT (SELECT sum(g.nk*(g.mk-s.gm)*(g.mk-s.gm)) FROM g)/(s.k-1) msb,
+                      (SELECT sum((w.x-g.mk)*(w.x-g.mk)) FROM w JOIN g USING (customer_id))
+                        /(s.n-s.k) msw, s.m, s.n FROM s)
+    SELECT 1+(m-1)*((msb-msw)/(msb+(m-1)*msw)) FROM v
+  fee_effective_n: |
+    WITH w AS (SELECT customer_id, CASE WHEN fee_verdict <> 'correct' THEN 1.0 ELSE 0.0 END x
+               FROM fact_transaction),
+         g AS (SELECT customer_id, count(*)::DOUBLE nk, avg(x) mk FROM w GROUP BY 1),
+         s AS (SELECT (SELECT avg(x) FROM w) gm, (SELECT count(*)::DOUBLE FROM g) k,
+                      (SELECT count(*)::DOUBLE FROM w) n, (SELECT avg(nk) FROM g) m),
+         v AS (SELECT (SELECT sum(g.nk*(g.mk-s.gm)*(g.mk-s.gm)) FROM g)/(s.k-1) msb,
+                      (SELECT sum((w.x-g.mk)*(w.x-g.mk)) FROM w JOIN g USING (customer_id))
+                        /(s.n-s.k) msw, s.m, s.n FROM s)
+    SELECT n/(1+(m-1)*((msb-msw)/(msb+(m-1)*msw))) FROM v
+
+metric_sets:
+  # One row per chart mark. The DOM carries data-metric="SET.KEY.MEASURE" - this is what
+  # verifies the CHARTS rather than only the KPI strip.
+  rate: |
+    SELECT measure AS key, 'customers' AS measure, customers::DOUBLE AS value
+    FROM fact_rate

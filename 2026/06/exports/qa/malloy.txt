@@ -1,0 +1,71 @@
+sources: customer_profile, rate, transaction, fee_variance, claim, category, txn_type, region, month   views: 17
+
+!! every_customer FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! kyc_by_fraud FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! how_thin_is_a_region FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! by_segment FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! the_device_lattice FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! what_the_review_will_quote FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! the_fee_rule FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! fee_by_type FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! by_month FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! failure_by_type FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! by_risk_flag FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! where_the_fees_go FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! dictionary_scorecard FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! fraud_is_composition FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! failure_is_a_fraction_of_four FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! five_regions_have_one_customer FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+!! five_points FAILED
+'month' is a reserved word, so to use it as a name you must quote it: `month`
+
+
+0/17 views ran clean.
