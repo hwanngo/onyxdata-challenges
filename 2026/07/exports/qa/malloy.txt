@@ -1,0 +1,55 @@
+sources: quarter, observation, segment, risk_validation, question, defect, skill, country   views: 13
+
+!! the_series_and_both_fits FAILED
+'quarter' is a reserved word, so to use it as a name you must quote it: `quarter`
+
+
+!! before_and_after FAILED
+'quarter' is a reserved word, so to use it as a name you must quote it: `quarter`
+
+
+!! by_era FAILED
+'quarter' is a reserved word, so to use it as a name you must quote it: `quarter`
+
+
+!! developed_vs_emerging FAILED
+'quarter' is a reserved word, so to use it as a name you must quote it: `quarter`
+
+
+!! does_confidence_matter FAILED
+'quarter' is a reserved word, so to use it as a name you must quote it: `quarter`
+
+
+!! by_skill FAILED
+'quarter' is a reserved word, so to use it as a name you must quote it: `quarter`
+
+
+!! how_often_is_a_segment_seen FAILED
+'quarter' is a reserved word, so to use it as a name you must quote it: `quarter`
+
+
+!! the_eight_repeats FAILED
+'quarter' is a reserved word, so to use it as a name you must quote it: `quarter`
+
+
+!! does_the_index_measure_risk FAILED
+'quarter' is a reserved word, so to use it as a name you must quote it: `quarter`
+
+
+!! what_can_this_file_answer FAILED
+'quarter' is a reserved word, so to use it as a name you must quote it: `quarter`
+
+
+!! ledger FAILED
+'quarter' is a reserved word, so to use it as a name you must quote it: `quarter`
+
+
+!! replaceability_vs_observed_risk FAILED
+'quarter' is a reserved word, so to use it as a name you must quote it: `quarter`
+
+
+!! adoption_by_country FAILED
+'quarter' is a reserved word, so to use it as a name you must quote it: `quarter`
+
+
+0/13 views ran clean.

@@ -1,0 +1,47 @@
+PASS  baseline rows = 300
+PASS  16 quarters
+PASS  292 segments
+PASS  0 of 8 risk drivers related
+PASS  all 16 observed quarterly means are drawn as points
+PASS  the step fit is drawn
+PASS  the linear fit is drawn
+PASS  the signature carries a screen-reader table
+PASS  the step path has exactly one riser and two levels (risers=1, levels=2)
+PASS  the two fits differ by mark type, not only colour (step "none", line "9px, 6px")
+PASS  both fits are labelled in place
+PASS  both residual sums of squares are printed (128.9, 465.2)
+PASS  the printed residuals reproduce the "times better" claim (3.61x)
+PASS  the y-axis starts at 0 (ticks 0, 10, 20, 30, 40, 50)
+PASS  the fit toggle is a real radio group, not styled divs
+PASS  selecting "linear trend" hides the step path
+PASS  the observed points survive the toggle - a fit never replaces the data
+PASS  selecting "step" hides the linear path
+PASS  the note under the toggle changes with the selection
+PASS  "both" restores the comparison
+PASS  the country table cross-filters the page (183ms)
+PASS  the filter narrows the country count in the context strip
+PASS  the chip bar states the denominator in countries, records and quarters
+PASS  a country filter never empties the quarterly series
+PASS  the page states why the country filter cannot reach the series
+PASS  clear-all restores all 30 countries
+PASS  clear-all leaves all 16 points
+PASS  clicking a quarter reports the observed mean and BOTH fitted values
+PASS  all eight risk drivers are drawn
+PASS  every driver prints a signed rho
+PASS  the band this page calls "no relationship" is stated, not implied
+PASS  all 300 job records are plotted, none sampled
+PASS  the break-even diagonal is drawn
+PASS  the panel gap states the observed-once count
+PASS  tour opens from the ? button
+PASS  Esc closes the tour
+PASS  the ? key reopens the tour
+PASS  poster hides the tour button
+PASS  poster hides the fit toggle
+PASS  poster draws both fits and all 16 points
+PASS  poster is exactly 2560x1440
+PASS  poster states why there is no map
+PASS  poster states why there is no risk ranking
+PASS  poster states that GDP is excluded
+PASS  poster says the step lands on a flag the data already carried
+
+All interaction assertions pass.

@@ -1,0 +1,7 @@
+poster root 2560x1440  (scroll 2560x1440)
+body scroll 2560x1440
+
+direct children:
+  div#root                           h= 1440  bottom=1440
+
+FITS. 0px of vertical slack, 0px horizontal.

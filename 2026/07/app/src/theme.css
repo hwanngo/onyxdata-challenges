@@ -1,0 +1,409 @@
+/* =========================================================================================
+   2026/07 - Global AI Adoption & Workforce Displacement Index
+   Identity per .workbench/2026/07/design/direction.md. Every ratio is MEASURED by tools/audit_contrast.py.
+
+   A pale cool grey-blue: the stock a statistical annex is printed on. Distinct from 2026/06's
+   ledger green-grey and from the creams this programme has over-used.
+
+   THE COLOUR CONSTRAINT THAT SHAPES EVERYTHING BELOW: --measured and --claimed clear AA
+   against the ground (6.18:1 and 5.62:1) but are only 1.10:1 apart from EACH OTHER. They are
+   indistinguishable in greyscale. So no rule in this file may make colour the sole encoding:
+   the two fits are different MARK TYPES, every verdict carries a glyph, and every null prints
+   its rho and p in text.
+
+   Written against THIS month's DOM. No bare `.sowhat` rule - that unscoped collision has cost
+   this programme four times.
+   ========================================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Bitter:wght@600&family=Libre+Franklin:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+  --bg:        #E8EBEE;   /* statistical-annex stock                                */
+  --bg-raised: #F5F7F9;
+  --ink:       #14181B;   /* 14.92:1                                                */
+  --ink-muted: #4B5257;   /*  6.64:1 - captions and caveats                         */
+  --flat:      #7A8288;   /*  3.26:1 - observed points, gridlines, inert marks       */
+  --measured:  #0F5F63;   /*  6.18:1 - ONLY what the file supports                   */
+  --claimed:   #A03A20;   /*  5.62:1 - ONLY the confident reading that is wrong      */
+  --focus:     #8A4200;   /*  6.14:1                                                */
+
+  /* a11y-decorative: rule -- 1px section dividers, table borders and chip outlines only.
+     Never a gridline, an axis or any data mark: those take --flat, which clears 3:1. WCAG
+     1.4.11 exempts pure decoration, and a 3:1 border on every cell of a 30-row country table
+     would make a policy annex read as a spreadsheet for no accessibility gain. */
+  --rule:      #C6CCD2;
+
+  --font-display: "Bitter", Georgia, serif;
+  --font-body:    "Libre Franklin", system-ui, sans-serif;
+  --font-num:     "Space Mono", ui-monospace, monospace;
+
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 16px; --sp-4: 24px; --sp-5: 40px; --sp-6: 64px;
+  --maxw: 1220px;
+}
+
+/* Designed as a pair, not inverted. Ratios measured separately by audit_contrast.py. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:        #14181B;
+    --bg-raised: #1E2429;
+    --ink:       #F0F3F5;   /* 16.02:1 */
+    --ink-muted: #A3ABB1;   /*  7.67:1 */
+    --flat:      #7E868C;   /*  4.83:1 */
+    --measured:  #56C6C4;   /*  8.73:1 */
+    --claimed:   #E0855F;   /*  6.54:1 */
+    --focus:     #FFD166;   /* 12.38:1 */
+    --rule:      #303840;
+  }
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.012em; font-weight: 600; }
+
+.num, .kpi__value, .ctable td, .ctable th, .ledger th {
+  font-family: var(--font-num); font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+code {
+  font-family: var(--font-num); font-size: 0.88em;
+  background: var(--bg-raised); padding: 1px 5px; border-radius: 2px;
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.skip-link { position: absolute; left: -9999px; }
+.skip-link:focus {
+  left: var(--sp-3); top: var(--sp-3); background: var(--bg-raised); color: var(--ink);
+  padding: var(--sp-2) var(--sp-3); z-index: 100; border: 2px solid var(--focus);
+}
+*:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+/* ---- layout ------------------------------------------------------------------------- */
+.page { max-width: var(--maxw); margin: 0 auto; padding: var(--sp-5) var(--sp-4) var(--sp-6); }
+section { margin-top: var(--sp-6); min-width: 0; }
+.sec__h {
+  font-size: 1.4rem; margin: 0 0 var(--sp-3); display: flex; align-items: baseline;
+  gap: var(--sp-2); border-bottom: 1px solid var(--rule); padding-bottom: var(--sp-2);
+}
+.sec__n {
+  font-family: var(--font-num); font-size: 0.78rem; color: var(--ink-muted);
+  border: 1px solid var(--rule); border-radius: 50%; width: 2em; height: 2em;
+  display: inline-flex; align-items: center; justify-content: center; flex: none;
+}
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-5); }
+.explore-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-5); }
+.two > *, .explore-grid > * { min-width: 0; }
+.chartfig, figure, .page > * { min-width: 0; }
+h1, h2, h3, p, td, th { overflow-wrap: break-word; }
+
+/* ---- ① thesis ------------------------------------------------------------------------ */
+.thesis__h { font-size: clamp(2rem, 4.1vw, 3.05rem); line-height: 1.08; margin: 0 0 var(--sp-3); max-width: 22ch; }
+.thesis__em { color: var(--measured); }
+.thesis__p { font-size: 1.1rem; color: var(--ink-muted); max-width: 66ch; margin: 0 0 var(--sp-3); }
+.thesis__meta {
+  font-family: var(--font-num); font-size: 0.76rem; color: var(--ink-muted);
+  border-top: 1px solid var(--rule); padding-top: var(--sp-2); margin: 0;
+}
+
+/* ---- ② KPI --------------------------------------------------------------------------- */
+.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-4); margin-top: var(--sp-5); }
+.kpi { border-top: 3px solid var(--claimed); padding-top: var(--sp-2); min-width: 0; }
+/* the last tile is the one figure on this page that needs no inference */
+.kpi:last-child { border-top-color: var(--measured); }
+.kpi__value { font-size: 2.15rem; line-height: 1.05; font-weight: 400; }
+.kpi__label { font-size: 0.78rem; color: var(--ink-muted); line-height: 1.35; }
+
+/* ---- ③ THE STEP ---------------------------------------------------------------------- */
+.stepchart { display: block; width: 100%; height: auto; }
+.sc-grid { stroke: var(--flat); stroke-width: 1; opacity: 0.4; }
+.sc-tick, .sc-axis { fill: var(--ink-muted); font-family: var(--font-num); font-size: 11px; }
+.sc-era { stroke: var(--flat); stroke-width: 1; stroke-dasharray: 2 4; }
+.sc-eralab { fill: var(--ink-muted); font-family: var(--font-num); font-size: 11px; }
+
+/* The two fits differ by MARK TYPE first and colour second - 1.10:1 apart in lightness. */
+.sc-step { fill: none; stroke: var(--measured); stroke-width: 2.6; stroke-linejoin: miter; }
+.sc-line { fill: none; stroke: var(--claimed); stroke-width: 2.6; stroke-dasharray: 9 6; }
+
+.sc-lab { font-family: var(--font-body); font-size: 13px; font-weight: 700; }
+/* A hairline from the end of each series to its label block. The blocks are pushed apart
+   because the two models converge; the leader is what keeps each one attached to its own
+   line. --flat, not --rule: this is informational, so it clears 3:1. */
+.sc-lead { stroke: var(--flat); stroke-width: 1; }
+.sc-sub { font-family: var(--font-num); font-size: 11px; }
+.sc-lab--step { fill: var(--measured); }
+.sc-lab--line { fill: var(--claimed); }
+
+.sc-pt { fill: var(--flat); stroke: var(--bg); stroke-width: 1; }
+.sc-hit { fill: transparent; cursor: pointer; }
+.stepchart g { cursor: pointer; }
+.sc-active .sc-pt { fill: var(--ink); }
+.sc-dim .sc-pt { opacity: 0.4; }
+
+.sc-legend { font-size: 0.84rem; color: var(--ink-muted); margin: var(--sp-3) 0 0; max-width: 96ch; }
+.sc-key {
+  display: inline-block; width: 26px; height: 0; vertical-align: middle;
+  margin-right: 3px; border-top-width: 3px;
+}
+.sc-key--step { border-top-style: solid; border-top-color: var(--measured); }
+.sc-key--line { border-top-style: dashed; border-top-color: var(--claimed); }
+
+.fitctl { margin-bottom: var(--sp-3); }
+.fitctl__set {
+  border: 1px solid var(--rule); border-radius: 3px; padding: var(--sp-2) var(--sp-3);
+  margin: 0; display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-3); align-items: center;
+}
+.fitctl__legend {
+  font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.09em;
+  color: var(--ink-muted); padding: 0 var(--sp-1);
+}
+.fitctl__opt {
+  display: inline-flex; align-items: center; gap: var(--sp-1); font-size: 0.9rem;
+  cursor: pointer; padding: 6px 8px; border-radius: 3px; min-height: 44px;
+}
+.fitctl__opt--on { color: var(--measured); font-weight: 500; }
+.fitctl__note { font-size: 0.84rem; color: var(--ink-muted); margin: var(--sp-2) 0 0; max-width: 92ch; }
+.picked {
+  font-size: 0.9rem; border-left: 3px solid var(--measured); padding-left: var(--sp-3);
+  margin-top: var(--sp-3);
+}
+
+/* ---- ④ the question ledger ----------------------------------------------------------- */
+.ql { list-style: none; padding: 0; margin: 0; }
+.ql li {
+  display: grid; grid-template-columns: 1.3em 1fr 1fr 5.5em; gap: var(--sp-2);
+  align-items: baseline; font-size: 0.82rem; padding: 3px 0;
+  border-bottom: 1px solid var(--rule);
+}
+/* the mark is a GLYPH, not a colour: ✓ / ✗ carries the verdict in greyscale and under CVD */
+.ql__mark { font-family: var(--font-num); color: var(--claimed); font-weight: 700; }
+.ql__q, .ql__a { color: var(--ink-muted); }
+.ql__s { font-size: 0.74rem; color: var(--ink-muted); text-align: right; }
+/* Grid items default to min-width:auto, so a long unbreakable statistic pushes its column
+   wider than the track and takes the whole page with it - 19px of horizontal scroll at 375px,
+   caught by tools/qa/overflow.mjs. */
+.ql li > *, .rv li > *, .sk li > * { min-width: 0; }
+.ql__s, .ql__q, .ql__a { overflow-wrap: anywhere; }
+.ql--real .ql__mark { color: var(--measured); }
+.ql--real .ql__q, .ql--real .ql__a { color: var(--ink); font-weight: 500; }
+
+/* ---- ⑤ risk validation --------------------------------------------------------------- */
+.rv { list-style: none; padding: 0; margin: 0; }
+.rv li {
+  display: grid; grid-template-columns: 12.5em 1fr 4em; gap: var(--sp-2);
+  align-items: center; font-size: 0.82rem; padding: 3px 0;
+}
+.rv__name { color: var(--ink-muted); }
+.rv__track { position: relative; height: 20px; display: block; }
+.rv__band {
+  position: absolute; left: 30%; right: 30%; top: 0; bottom: 0;
+  background: var(--bg-raised); border-radius: 2px;
+}
+.rv__zero { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--flat); }
+.rv__dot {
+  position: absolute; top: 5px; width: 10px; height: 10px; margin-left: -5px;
+  border-radius: 50%; background: var(--claimed);
+}
+.rv__scale {
+  display: flex; justify-content: space-between; font-family: var(--font-num);
+  font-size: 0.68rem; color: var(--ink-muted); margin: 2px 0 0;
+  padding-left: 13.1em; padding-right: 4.5em;
+}
+
+/* ---- ⑥ jobs -------------------------------------------------------------------------- */
+.jobs { display: block; width: 100%; height: auto; }
+.jobs__diag { stroke: var(--flat); stroke-width: 1; stroke-dasharray: 3 3; }
+.jobs__diaglab { fill: var(--ink-muted); font-family: var(--font-body); font-size: 10px; }
+.jobs__pt { fill: var(--flat); opacity: 0.6; }
+.jobs__fit { stroke: var(--claimed); stroke-width: 2; }
+.jobs__ax { fill: var(--ink-muted); font-family: var(--font-body); font-size: 11px; }
+
+/* ---- ⑦ the panel that is not there ---------------------------------------------------- */
+.pg__bar { display: flex; height: 34px; border-radius: 2px; overflow: hidden; background: var(--bg-raised); }
+.pg__once, .pg__twice { display: block; height: 100%; position: relative; }
+.pg__once { background: var(--flat); }
+.pg__twice { background: var(--measured); }
+.pg__key {
+  font-size: 0.78rem; color: var(--ink-muted); margin: var(--sp-2) 0 0;
+}
+.pg__nums { display: flex; gap: var(--sp-5); margin: var(--sp-4) 0 0; flex-wrap: wrap; }
+.pg__nums > span { display: flex; flex-direction: column; }
+.pg__nums b { font-family: var(--font-num); font-size: 1.5rem; line-height: 1.1; }
+.pg__nums small {
+  font-size: 0.72rem; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.06em;
+}
+
+/* ---- ⑧ recs -------------------------------------------------------------------------- */
+.recs { margin: 0; padding-left: 1.4em; display: grid; gap: var(--sp-3); }
+.recs li { max-width: 90ch; }
+.recs b { color: var(--measured); }
+
+/* ---- web-only ------------------------------------------------------------------------ */
+.ctable-wrap, .ledger-wrap { overflow-x: auto; max-height: 420px; overflow-y: auto; }
+.ctable, .ledger { border-collapse: collapse; font-size: 0.76rem; width: 100%; }
+.ctable th, .ctable td, .ledger th, .ledger td {
+  border-bottom: 1px solid var(--rule); padding: 3px 6px; text-align: left; vertical-align: top;
+}
+.ctable td.num { text-align: right; }
+.ctable--on { background: color-mix(in srgb, var(--measured) 14%, transparent); }
+.ctable__pick {
+  background: none; border: none; color: inherit; font: inherit; cursor: pointer;
+  padding: 2px 0; text-align: left;
+}
+.ctable__pick[aria-pressed="true"] { color: var(--measured); font-weight: 700; }
+
+.sk { list-style: none; padding: 0; margin: 0; }
+.sk li {
+  display: grid; grid-template-columns: 11em 1fr 3.5em 3.5em; gap: var(--sp-2);
+  align-items: center; font-size: 0.8rem; padding: 3px 0;
+}
+.sk__name { color: var(--ink-muted); }
+.sk__track { display: block; height: 12px; background: var(--bg-raised); border-radius: 2px; }
+.sk__replace { display: block; height: 100%; background: var(--flat); border-radius: 2px; }
+.sk__risk { color: var(--measured); text-align: right; }
+
+/* ---- chips, tour, footer -------------------------------------------------------------- */
+.chips { display: flex; flex-wrap: wrap; gap: var(--sp-2); align-items: center; margin-top: var(--sp-4); }
+.chips__lab, .chips__n { font-size: 0.8rem; color: var(--ink-muted); }
+.chip {
+  background: var(--bg-raised); color: var(--ink); border: 1px solid var(--rule);
+  border-radius: 3px; padding: 6px 10px; font: inherit; font-size: 0.82rem;
+  cursor: pointer; min-height: 34px;
+}
+.chip:hover { border-color: var(--measured); }
+.chip--clear { color: var(--ink-muted); margin-left: var(--sp-2); }
+.chips__blocked {
+  flex-basis: 100%; font-size: 0.82rem; color: var(--ink-muted); margin: var(--sp-2) 0 0;
+  border-left: 3px solid var(--claimed); padding-left: var(--sp-3); max-width: 92ch;
+}
+.tour-btn {
+  position: fixed; right: 20px; bottom: 20px; width: 48px; height: 48px; border-radius: 50%;
+  background: var(--measured); color: var(--bg-raised); border: none; font-size: 1.4rem;
+  font-weight: 700; cursor: pointer; font-family: var(--font-display);
+}
+.foot {
+  margin-top: var(--sp-6); border-top: 1px solid var(--rule); padding-top: var(--sp-3);
+  font-size: 0.8rem; color: var(--ink-muted);
+}
+.foot p { margin: 0 0 var(--sp-2); max-width: 104ch; }
+.error { color: var(--claimed); border: 1px solid var(--claimed); padding: var(--sp-3); }
+
+.chartfig { margin: 0; }
+.chartfig__cap {
+  font-family: var(--font-display); font-size: 1rem; font-weight: 600;
+  line-height: 1.3; margin-bottom: var(--sp-3); max-width: 74ch;
+}
+.cap { font-size: 0.82rem; color: var(--ink-muted); margin: var(--sp-3) 0 0; max-width: 80ch; }
+
+.skel { background: var(--bg-raised); border-radius: 3px; }
+.skel--line { display: inline-block; width: 24em; height: 1em; }
+.skel--kpi { height: 92px; }
+.skel--chart { height: 260px; }
+
+/* ---- responsive ----------------------------------------------------------------------- */
+@media (max-width: 1000px) { .kpis { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 720px) {
+  .two, .explore-grid { grid-template-columns: 1fr; }
+  .kpis { grid-template-columns: 1fr 1fr; }
+  .page { padding: var(--sp-4) var(--sp-3) var(--sp-5); }
+  /* the statistic moves under the question rather than into a 59px column it cannot fit */
+  .ql li { grid-template-columns: 1.3em 1fr; }
+  .ql__a { display: none; }
+  .ql__s { grid-column: 2; text-align: left; }
+  .rv li { grid-template-columns: 8.5em 1fr 3.5em; }
+  .rv__scale { padding-left: 9.1em; padding-right: 4em; }
+  .sk li { grid-template-columns: 8em 1fr 3em 3em; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* =========================================================================================
+   POSTER ROUTE - exactly 2560x1440.
+
+   Explicit grid rows summing to the canvas, budgeted in .workbench/2026/07/design/direction.md BEFORE the
+   components were written. Not flex: a flex column with `flex: 1` on a width:100%/height:auto
+   SVG collapses it to zero, which is how 2026/05 lost its signature on the first capture.
+
+   The palette is PINNED here rather than inherited, because Playwright renders with
+   prefers-color-scheme: light by default and the poster must not depend on that.
+
+   ROW BUDGET, REVISED AT G6 AGAINST tools/qa/measure.mjs.
+
+   The budget in .workbench/2026/07/design/direction.md put ④⑤ and ⑥⑦ on two full-width rows of 268 and 236.
+   Measured, they needed 882 and 854 - the four panels were each using half the width and
+   twice the height, and overflow:hidden was hiding 614px and 618px of them. A 2560x1440
+   canvas is 16:9; stacking two half-width rows spends the vertical budget the poster does
+   not have to spend the horizontal budget it does.
+
+   So the two `.two` sections sit SIDE BY SIDE in one row, giving four panels across. The
+   grid is two columns; everything spans both except `.two`, which spans one.
+
+     1440 - 44 padding = 1396, minus 5 gaps x 8 = 1356 for six rows.
+     148 + 88 + 478 + 396 + 158 + 88 = 1356.
+
+   Second revision: the first four-across capture left ~140px of dead band above the footer
+   and ~50px below the panels, while the signature - the one object the poster exists for -
+   was the most cramped thing on the page and clipped its own label. The slack moved there.
+   ========================================================================================= */
+.page--poster {
+  --bg: #E8EBEE; --bg-raised: #F5F7F9; --ink: #14181B; --ink-muted: #4B5257;
+  --flat: #7A8288; --measured: #0F5F63; --claimed: #A03A20;
+  --focus: #8A4200; --rule: #C6CCD2;
+  background: var(--bg); color: var(--ink);
+
+  width: 2560px; height: 1440px; max-width: none;
+  padding: 22px 44px 22px; overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 148px 88px 478px 396px 158px 88px;
+  column-gap: 40px;
+  row-gap: 8px;
+  align-content: start;
+}
+/* everything is full-bleed except the two panel pairs, which share row 4 */
+.page--poster > * { grid-column: 1 / -1; }
+.page--poster > .two { grid-column: auto / span 1; }
+.page--poster > * { min-height: 0; overflow: hidden; }
+.page--poster section { margin-top: 0; }
+.page--poster .sec__h { font-size: 19px; padding-bottom: 4px; margin-bottom: 6px; }
+.page--poster .two .sec__h { font-size: 15px; margin-bottom: 4px; }
+.page--poster .two .sec__n { font-size: 9.5px; }
+.page--poster .sec__n { font-size: 11px; }
+.page--poster .thesis__h { font-size: 42px; max-width: 54ch; margin-bottom: 4px; }
+.page--poster .thesis__p { font-size: 17px; max-width: 150ch; margin-bottom: 4px; }
+.page--poster .thesis__meta { font-size: 13px; padding-top: 4px; }
+.page--poster .kpis { margin-top: 0; gap: 26px; }
+.page--poster .kpi__value { font-size: 36px; }
+.page--poster .kpi__label { font-size: 13px; }
+.page--poster .chartfig__cap { font-size: 16px; max-width: 170ch; margin-bottom: 4px; }
+.page--poster .two .chartfig__cap { font-size: 14px; line-height: 1.25; }
+.page--poster .sc-legend { font-size: 13px; margin-top: 6px; max-width: none; line-height: 1.4; }
+.page--poster .two { gap: 26px; }
+.page--poster .cap { font-size: 11.5px; max-width: none; margin-top: 5px; line-height: 1.4; }
+/* Four panels across means each is ~593px wide. The ledger drops to its verdict and its
+   question; the full answer and statistic stay in the screen-reader table and the live app. */
+.page--poster .ql li { font-size: 11.5px; padding: 0; grid-template-columns: 1.2em 1fr 1fr; }
+.page--poster .ql__s { display: none; }
+.page--poster .rv li { font-size: 11.5px; padding: 0; grid-template-columns: 10.2em 1fr 4.6em; }
+.page--poster .rv__track { height: 15px; }
+.page--poster .rv__dot { top: 3px; width: 9px; height: 9px; margin-left: -4.5px; }
+.page--poster .rv__scale { padding-left: 10.3em; padding-right: 5.1em; font-size: 10px; }
+/* The skill-category detail is the second-order point; it lives in the accessible table and
+   the live app. Measured: with it, panel ⑤ overran its row by 61px. */
+.page--poster .cap--detail { display: none; }
+.page--poster .pg__bar { height: 24px; }
+.page--poster .pg__key { font-size: 11.5px; margin-top: 5px; }
+.page--poster .pg__nums { margin-top: 8px; gap: 22px; }
+.page--poster .pg__nums b { font-size: 19px; }
+.page--poster .pg__nums small { font-size: 10px; letter-spacing: 0.04em; }
+.page--poster .recs { font-size: 13px; gap: 4px; line-height: 1.42; }
+.page--poster .recs li { max-width: none; }
+.page--poster .foot { margin-top: 0; padding-top: 5px; font-size: 11px; line-height: 1.4; }
+.page--poster .foot p { max-width: none; margin-bottom: 1px; }
+.page--poster .tour-btn { display: none; }

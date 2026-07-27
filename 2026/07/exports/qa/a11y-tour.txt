@@ -1,0 +1,6 @@
+=== tour open, light: dialog present=true, 0 violations
+    focus trapped inside dialog: true | Esc closes: true
+=== tour open, dark: dialog present=true, 0 violations
+    focus trapped inside dialog: true | Esc closes: true
+
+Tour dialog clean in both themes.

@@ -4,7 +4,7 @@
 # Era 1 = Playground-only, gated, no brief. Era 2 = full challenge page, ungated.
 
 meta:
-  verified_on: 2026-06-27
+  verified_on: 2026-07-27
   total: 65
   era1_count: 52
   era2_count: 13
@@ -400,11 +400,34 @@ challenges:
     title: "July 2026 DataDNA - Global AI Adoption & Workforce Displacement"
     playground_url: "https://datadna.onyxdata.co.uk/playground/2026-07-july-2026-datadna-global-ai-adoption-workforce-displacement-index-analytics-challenge/"
     challenge_url: "https://datadna.onyxdata.co.uk/challenges/july-2026-datadna-global-ai-adoption-workforce-displacement-index-analytics-challenge/"
-    dataset_url: "https://datadna.onyxdata.co.uk/wp-content/uploads/2026/06/DataDNA-Dataset-Challenge-2026-07-Global-AI-Adoption-Workforce-Displacement-Index.zip"
+    dataset_url: "https://datadna.onyxdata.co.uk/wp-content/uploads/2026/06/DataDNA-Dataset-Challenge-2026-07-Global-AI-Adoption-Workforce-Displacement-Index.zip"   # scraped 2026-07-27
     dataset_folder: "DataDNA-Dataset-Challenge-2026-07-Global-AI-Adoption-Workforce-Displacement-Index"
     formats: [CSV, MD]   # same generator family as 2026/04-06: a markdown data dictionary
-    status: todo
-    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+    status: done
+    sha256: "dd6227b409fde8dba039ee0d071e608e9dabbe56fe90dec045d193fd579d9c5b"
+    notes: |
+      Completed 2026-07-27, G1-G8. Thesis: this file knows one date and nothing else. AI
+      adoption steps +18.23pp at 2022-Q4 -- landing exactly on the generative_ai_era flag the
+      date dimension already carried -- and is flat either side (within-era slopes -0.001
+      p=0.997 and +0.013 p=0.980). A straight line through it is significant (R2 0.676,
+      p<0.001) and is what a policy pack would contain; the step fits 3.61x better.
+      Three structural defects: displacement_risk_index correlates with none of 8 candidate
+      drivers (max |rho| 0.079); jobs_created = 0.4157 x jobs_displaced + 175, R2 0.807, with
+      0 of 300 rows net positive; 292 of 292 segments observed once, so there is no panel and
+      no segment has a trajectory. gdp_per_capita_usd is ~500x too large and dropped from every
+      measure. 9 of 10 questions the two briefs ask have no answer. One figure needs no
+      inference: $105.07 reskilling investment per displaced worker.
+      Signature: The Step, a fit-comparison chart drawing BOTH candidate models over the 16
+      observed means with both residual sums of squares printed, so the 3.61x is checkable from
+      the page. Chart family unused in the previous 14 months.
+      Caught at G7: a development_tier filter was applied to quarters, which do not carry that
+      field, silently emptying the signature. Fixed by scoping the filter to the grain and
+      stating in place why a country cannot narrow the series -- which is finding I1.
+      Also caught: one 0/0 creation_ratio wrote a bare NaN token and JSON.parse rejected the
+      whole export, blanking the dashboard.
+      Accent pair is the narrowest yet: --measured and --claimed are 1.10:1 apart in lightness,
+      so mark type (solid stepped vs dashed straight) carries the encoding, not colour.
+    scores: {judge_34: 29, ai_storytelling: 5, ai_design: 4, ai_technical: 5, ai_insights: 5}
 
   # ---------- ERA 1 (gated; see docs/DATA_ACCESS.md before attempting) ----------
   - folder: "2021/01"

@@ -1,0 +1,104 @@
+# G7 verification spec - every number the UI renders, and the SQL that reproduces it.
+#
+# ZERO TOLERANCE. The characteristic failure across the published field is a polished
+# dashboard whose numbers are wrong (May 2025's best-looking entry was off by ~600x).
+#
+# `metrics`     - scalars. The DOM carries <el data-metric="NAME" data-value="N">.
+# `metric_sets` - one row per chart mark. The DOM carries data-metric="SET.KEY.MEASURE";
+#                 the SQL returns (key, measure, value) triples. THIS is what verifies the
+#                 charts rather than only the KPI strip. Do not skip it.
+#
+# These run against the curated PARQUET via DuckDB in Python - a different engine and code
+# path from the browser's aggregation, so agreement means something.
+#
+# WHERE THIS FILE READS `headline` AND WHERE IT DOES NOT. Everything countable, summable or
+# regressable is recomputed from the FACT tables below, so the check does not depend on the
+# scalar the build happened to store. Two figures are scipy results with no SQL equivalent -
+# a Kruskal-Wallis p and the smallest of three Spearman p values. Those read `headline`,
+# which only proves the export path; both are independently asserted against the RAW CSVs in
+# model/test_metrics.py, which is the check that actually constrains them.
+
+metrics:
+  # ---- ① the context strip: shape of the file ------------------------------------------
+  rows: SELECT count(*)::DOUBLE FROM fact_index
+  countries: SELECT count(DISTINCT country_name)::DOUBLE FROM fact_index
+  industries: SELECT count(DISTINCT industry_name)::DOUBLE FROM fact_index
+  skills: SELECT count(DISTINCT skill_category_name)::DOUBLE FROM fact_index
+  quarters: SELECT count(*)::DOUBLE FROM fact_quarter
+
+  # ---- ③ the step -----------------------------------------------------------------------
+  # The step's height IS the distance between the two levels the step fit takes, so it is
+  # recomputed from the fitted column rather than read from a scalar someone stored.
+  step_size_pp: |
+    SELECT (max(step_fit) - min(step_fit))::DOUBLE FROM fact_quarter
+
+  # ---- ④ the question ledger -------------------------------------------------------------
+  questions_asked: SELECT count(*)::DOUBLE FROM dim_question
+  questions_answerable: SELECT count(*)::DOUBLE FROM dim_question WHERE verdict = 'REAL'
+
+  # ---- ⑤ the risk index does not measure risk ---------------------------------------------
+  risk_drivers_tested: SELECT count(*)::DOUBLE FROM dim_risk_validation
+  risk_drivers_related: SELECT count(*)::DOUBLE FROM dim_risk_validation WHERE is_related
+  risk_max_abs_rho: SELECT max(abs(spearman_rho))::DOUBLE FROM dim_risk_validation
+
+  # ---- ⑥ jobs created is jobs displaced, rescaled -------------------------------------------
+  # regr_slope / regr_r2 are DuckDB's own least squares, not the scipy call in build.py.
+  # Two independent implementations of the same regression agreeing is the point.
+  jobs_created_slope: |
+    SELECT regr_slope(jobs_created_count, jobs_displaced_count)::DOUBLE FROM fact_index
+  jobs_created_r2: |
+    SELECT regr_r2(jobs_created_count, jobs_displaced_count)::DOUBLE FROM fact_index
+  rows_net_positive: |
+    SELECT count(*)::DOUBLE FROM fact_index WHERE jobs_created_count > jobs_displaced_count
+
+  # ---- ⑦ there is no panel ------------------------------------------------------------------
+  segments: SELECT count(*)::DOUBLE FROM dim_segment
+  segments_seen_twice: SELECT count(*)::DOUBLE FROM dim_segment WHERE observations > 1
+  cube_cells: |
+    SELECT (count(DISTINCT country_name) * count(DISTINCT industry_name)
+            * count(DISTINCT skill_category_name) * count(DISTINCT year_quarter_label))::DOUBLE
+    FROM fact_index
+  cube_fill_pct: |
+    SELECT (100.0 * count(*) /
+            (count(DISTINCT country_name) * count(DISTINCT industry_name)
+             * count(DISTINCT skill_category_name) * count(DISTINCT year_quarter_label)))::DOUBLE
+    FROM fact_index
+
+  # ---- ⑧ the one figure that needs no inference ----------------------------------------------
+  reskilling_per_displaced_worker: |
+    SELECT (sum(reskilling_investment_usd) / sum(jobs_displaced_count))::DOUBLE FROM fact_index
+
+  # ---- ⑨ the omissions, stated as measurements ------------------------------------------------
+  # Spearman rho recomputed in SQL as the Pearson correlation of AVERAGE ranks - the same
+  # definition scipy uses, ties included, on an engine that has never heard of scipy. The three
+  # country attributes take only 30 distinct values across 300 rows, so the tie handling is what
+  # makes this equal rather than merely close.
+  country_max_abs_rho: |
+    WITH r AS (
+      SELECT avg(rn_a) OVER (PARTITION BY digital_infrastructure_score) AS dig,
+             avg(rn_b) OVER (PARTITION BY internet_penetration_pct)     AS net,
+             avg(rn_c) OVER (PARTITION BY stem_graduates_per_100k)      AS stem,
+             avg(rn_y) OVER (PARTITION BY ai_adoption_rate)             AS adopt
+      FROM (
+        SELECT digital_infrastructure_score, internet_penetration_pct,
+               stem_graduates_per_100k, ai_adoption_rate,
+               row_number() OVER (ORDER BY digital_infrastructure_score) AS rn_a,
+               row_number() OVER (ORDER BY internet_penetration_pct)     AS rn_b,
+               row_number() OVER (ORDER BY stem_graduates_per_100k)      AS rn_c,
+               row_number() OVER (ORDER BY ai_adoption_rate)             AS rn_y
+        FROM fact_index
+      )
+    )
+    SELECT greatest(abs(corr(dig, adopt)), abs(corr(net, adopt)), abs(corr(stem, adopt)))::DOUBLE
+    FROM r
+
+  # scipy results with no SQL equivalent - see the note at the head of this file.
+  country_min_p: SELECT country_min_p::DOUBLE FROM headline
+  tier_kruskal_p: SELECT tier_kruskal_p::DOUBLE FROM headline
+
+metric_sets:
+  # ⑤ one mark per candidate driver. This is what verifies the CHART rather than its caption:
+  # each dot's position is its own measured rho, asserted individually.
+  risk: |
+    SELECT driver AS key, 'rho' AS measure, spearman_rho::DOUBLE AS value
+    FROM dim_risk_validation

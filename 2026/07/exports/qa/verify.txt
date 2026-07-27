@@ -1,0 +1,71 @@
+metric                                           rendered         recomputed  
+--------------------------------------------------------------------------------
+countries                                         30.0000            30.0000  ok
+country_max_abs_rho                                0.0610             0.0610  ok
+country_min_p                                      0.2919             0.2919  ok
+cube_cells                                    96,000.0000        96,000.0000  ok
+cube_fill_pct                                      0.3125             0.3125  ok
+industries                                        25.0000            25.0000  ok
+jobs_created_r2                                    0.8070             0.8070  ok
+jobs_created_slope                                 0.4157             0.4157  ok
+quarters                                          16.0000            16.0000  ok
+questions_answerable                               1.0000             1.0000  ok
+questions_asked                                   10.0000            10.0000  ok
+reskilling_per_displaced_worker                  105.0666           105.0666  ok
+risk.ai_augmentation_potential.rho                -0.0349            -0.0349  ok
+risk.ai_replaceability_score.rho                   0.0137             0.0137  ok
+risk.automation_susceptibility.rho                -0.0176            -0.0176  ok
+risk.avg_ai_investment_pct_revenue.rho             0.0582             0.0582  ok
+risk.digital_infrastructure_score.rho             -0.0660            -0.0660  ok
+risk.internet_penetration_pct.rho                 -0.0657            -0.0657  ok
+risk.median_reskilling_duration_months.rho             0.0362             0.0362  ok
+risk.stem_graduates_per_100k.rho                  -0.0792            -0.0792  ok
+risk_drivers_related                               0.0000             0.0000  ok
+risk_drivers_tested                                8.0000             8.0000  ok
+risk_max_abs_rho                                   0.0792             0.0792  ok
+rows                                             300.0000           300.0000  ok
+rows_net_positive                                  0.0000             0.0000  ok
+segments                                         292.0000           292.0000  ok
+segments_seen_twice                                8.0000             8.0000  ok
+skills                                             8.0000             8.0000  ok
+step_size_pp                                      18.2343            18.2343  ok
+tier_kruskal_p                                     0.8228             0.8228  ok
+--------------------------------------------------------------------------------
+Specified but not rendered (8): risk.ai_augmentation_potential, risk.ai_replaceability_score, risk.automation_susceptibility, risk.avg_ai_investment_pct_revenue, risk.digital_infrastructure_score, risk.internet_penetration_pct, risk.median_reskilling_duration_months, risk.stem_graduates_per_100k
+
+All 30 rendered metrics reconcile.
+metric                                           rendered         recomputed  
+--------------------------------------------------------------------------------
+countries                                         30.0000            30.0000  ok
+country_max_abs_rho                                0.0610             0.0610  ok
+cube_cells                                    96,000.0000        96,000.0000  ok
+cube_fill_pct                                      0.3125             0.3125  ok
+industries                                        25.0000            25.0000  ok
+jobs_created_r2                                    0.8070             0.8070  ok
+jobs_created_slope                                 0.4157             0.4157  ok
+quarters                                          16.0000            16.0000  ok
+questions_answerable                               1.0000             1.0000  ok
+questions_asked                                   10.0000            10.0000  ok
+reskilling_per_displaced_worker                  105.0666           105.0666  ok
+risk.ai_augmentation_potential.rho                -0.0349            -0.0349  ok
+risk.ai_replaceability_score.rho                   0.0137             0.0137  ok
+risk.automation_susceptibility.rho                -0.0176            -0.0176  ok
+risk.avg_ai_investment_pct_revenue.rho             0.0582             0.0582  ok
+risk.digital_infrastructure_score.rho             -0.0660            -0.0660  ok
+risk.internet_penetration_pct.rho                 -0.0657            -0.0657  ok
+risk.median_reskilling_duration_months.rho             0.0362             0.0362  ok
+risk.stem_graduates_per_100k.rho                  -0.0792            -0.0792  ok
+risk_drivers_related                               0.0000             0.0000  ok
+risk_drivers_tested                                8.0000             8.0000  ok
+risk_max_abs_rho                                   0.0792             0.0792  ok
+rows                                             300.0000           300.0000  ok
+rows_net_positive                                  0.0000             0.0000  ok
+segments                                         292.0000           292.0000  ok
+segments_seen_twice                                8.0000             8.0000  ok
+skills                                             8.0000             8.0000  ok
+step_size_pp                                      18.2343            18.2343  ok
+tier_kruskal_p                                     0.8228             0.8228  ok
+--------------------------------------------------------------------------------
+Specified but not rendered (9): country_min_p, risk.ai_augmentation_potential, risk.ai_replaceability_score, risk.automation_susceptibility, risk.avg_ai_investment_pct_revenue, risk.digital_infrastructure_score, risk.internet_penetration_pct, risk.median_reskilling_duration_months, risk.stem_graduates_per_100k
+
+All 29 rendered metrics reconcile.
