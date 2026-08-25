@@ -1,0 +1,27 @@
+
+> datadna-2026-08@ test /Users/admin/Personal/onyxdata-dnakit/2026/08/app
+> vitest run --environment node
+
+
+ RUN  v4.1.10 /Users/admin/Personal/onyxdata-dnakit/2026/08/app
+
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  02:38:43
+   Duration  91ms (transform 16ms, setup 0ms, import 30ms, tests 2ms, environment 0ms)
+
+pnpm --filter datadna-2026-08 build
+
+> datadna-2026-08@ build /Users/admin/Personal/onyxdata-dnakit/2026/08/app
+> vite build
+
+vite v8.1.5 building client environment for production...
+[2Ktransforming...✓ 162 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  0.64 kB │ gzip:  0.37 kB
+dist/assets/index-D71Y6jit.css  20.54 kB │ gzip:  5.35 kB
+dist/assets/index-KHayevI7.js   64.00 kB │ gzip: 19.81 kB
+
+✓ built in 247ms

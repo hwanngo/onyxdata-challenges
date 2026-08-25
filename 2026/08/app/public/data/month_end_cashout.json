@@ -1,0 +1,16 @@
+[
+  {
+    "is_month_end": true,
+    "period": "Month end",
+    "reversal_rate": 0.5909090909090909,
+    "reversed": 78,
+    "transactions": 132
+  },
+  {
+    "is_month_end": false,
+    "period": "Other days",
+    "reversal_rate": 0.5081572612998128,
+    "reversed": 1900,
+    "transactions": 3739
+  }
+]

@@ -1,0 +1,24 @@
+uv run pytest 2026/08/model -v
+============================= test session starts ==============================
+platform darwin -- Python 3.14.4, pytest-9.1.1, pluggy-1.6.0 -- /Users/admin/Personal/onyxdata-dnakit/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/admin/Personal/onyxdata-dnakit
+configfile: pyproject.toml
+collecting ... collected 14 items
+
+2026/08/model/test_metrics.py::test_curated_contract_is_complete PASSED  [  7%]
+2026/08/model/test_metrics.py::test_transaction_grain_and_foreign_keys PASSED [ 14%]
+2026/08/model/test_metrics.py::test_invalid_financial_fields_are_explicitly_quarantined PASSED [ 21%]
+2026/08/model/test_metrics.py::test_headline_reproduces_the_g3_decision PASSED [ 28%]
+2026/08/model/test_metrics.py::test_claim_ledger_has_five_rejections_and_one_open_lead PASSED [ 35%]
+2026/08/model/test_metrics.py::test_broken_circuit_has_four_breaks_one_control_and_one_lead PASSED [ 42%]
+2026/08/model/test_metrics.py::test_control_validation_carries_every_continuous_control PASSED [ 50%]
+2026/08/model/test_metrics.py::test_status_alignment_and_open_lead_tables PASSED [ 57%]
+2026/08/model/test_metrics.py::test_calendar_repairs_week_without_overwriting_source PASSED [ 64%]
+2026/08/model/test_metrics.py::test_exposure_bins_preserve_the_identity_violation_counts PASSED [ 71%]
+2026/08/model/test_metrics.py::test_contract_ledger_names_every_configured_check PASSED [ 78%]
+2026/08/model/test_metrics.py::test_malloy_avoids_reserved_and_path_order_names PASSED [ 85%]
+2026/08/model/test_metrics.py::test_public_exports_are_finite_json PASSED [ 92%]
+2026/08/model/test_metrics.py::test_load_bearing_metrics_recompute_from_raw PASSED [100%]
+
+============================== 14 passed in 0.42s ==============================

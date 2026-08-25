@@ -1,0 +1,209 @@
+// Semantic layer — 2026/08 Connected Tables, Disconnected Risk (Gate G4)
+//
+// The wrong report is intentionally inexpressible:
+//   - no monetary total, loss-severity, market-exposure, revenue or ROI measure exists;
+//   - uncalibrated source controls are never combined into a vulnerability index;
+//   - every supplied claim is read with its verdict and uncertainty;
+//   - the open month-end lead cannot lose its denominator, interval or status.
+
+source: calendar is duckdb.table('../data/curated/dim_date.parquet') extend {
+  primary_key: date_id
+
+  view: calendar_contract is {
+    group_by: calendar_year, quarter_label, month_number, month_name, iso_week
+    aggregate: dates is count()
+    order_by: calendar_year, month_number
+  }
+}
+
+source: worker is duckdb.table('../data/curated/dim_worker.parquet') extend {
+  primary_key: worker_id
+}
+
+source: channel is duckdb.table('../data/curated/dim_channel.parquet') extend {
+  primary_key: channel_id
+}
+
+source: market is duckdb.table('../data/curated/dim_market.parquet') extend {
+  primary_key: market_id
+}
+
+source: transaction is duckdb.table('../data/curated/fact_transaction.parquet') extend {
+  primary_key: transaction_id
+  join_one: worker on worker_id = worker.worker_id
+  join_one: channel on channel_id = channel.channel_id
+  join_one: market on market_id = market.market_id
+  join_one: calendar on date_id = calendar.date_id
+
+  measure:
+    transactions is count()
+    workers is count(worker_id)
+    fraud_flags is count() { where: is_fraud_flagged }
+    dispute_flags is count() { where: is_disputed }
+    reversal_flags is count() { where: is_reversed }
+    fraud_flag_rate is fraud_flags / transactions
+    dispute_flag_rate is dispute_flags / transactions
+    reversal_flag_rate is reversal_flags / transactions
+
+  dimension:
+    account_tenure_band is
+      pick 'Under 90 days' when worker.account_tenure_days < 90
+      else '90 days or more'
+
+  // These views describe the synthetic file. None orders by a rate or labels a group "high risk".
+  view: by_country is {
+    group_by: market.country
+    aggregate: transactions, workers, fraud_flags, dispute_flags, reversal_flags,
+               fraud_flag_rate, dispute_flag_rate, reversal_flag_rate
+    order_by: country
+  }
+
+  view: by_channel is {
+    group_by: channel.channel_type
+    aggregate: transactions, workers, fraud_flags, dispute_flags, reversal_flags,
+               fraud_flag_rate, dispute_flag_rate, reversal_flag_rate
+    order_by: channel_type
+  }
+
+  view: by_segment is {
+    group_by: worker.gig_segment
+    aggregate: transactions, workers, fraud_flags, dispute_flags, reversal_flags,
+               fraud_flag_rate, dispute_flag_rate, reversal_flag_rate
+    order_by: gig_segment
+  }
+
+  view: by_transaction_type is {
+    group_by: transaction_type
+    aggregate: transactions, fraud_flags, dispute_flags, reversal_flags,
+               fraud_flag_rate, dispute_flag_rate, reversal_flag_rate
+    order_by: transaction_type
+  }
+
+  view: new_vs_established is {
+    group_by: account_tenure_band
+    aggregate: transactions, workers, fraud_flags, fraud_flag_rate
+    order_by: account_tenure_band
+  }
+}
+
+source: connector is duckdb.table('../data/curated/dim_connector.parquet') extend {
+  primary_key: connector_id
+
+  view: broken_circuit is {
+    group_by: order, connector_id, from_node, to_node, status, label,
+              primary_value, primary_unit, primary_display, secondary_display,
+              evidence, decision
+    order_by: order
+  }
+}
+
+source: claim is duckdb.table('../data/curated/dim_claim.parquet') extend {
+  primary_key: claim_id
+
+  measure:
+    claims is count()
+    rejected is count() { where: verdict = 'REJECTED' }
+    open_leads is count() { where: verdict = 'OPEN' }
+
+  view: supplied_claim_scorecard is {
+    group_by: order, claim_id, claim, observed, verdict, effect, effect_unit,
+              effect_pp, ci_low_pp, ci_high_pp, p_value, sample_n, decision
+    order_by: order
+  }
+
+  view: verdict_counts is {
+    group_by: verdict
+    aggregate: claims
+    order_by: verdict
+  }
+}
+
+source: control_validation is duckdb.table('../data/curated/dim_control_validation.parquet') extend {
+  primary_key: control_id
+
+  measure:
+    controls is count()
+    robust_controls is count() { where: is_robust }
+    largest_abs_relationship is max(abs_statistic)
+
+  view: controls_against_fraud is {
+    group_by: order, control_id, label, source_table, source_field, target,
+              metric, statistic, abs_statistic, p_value, is_robust
+    order_by: order
+  }
+}
+
+source: status_alignment is duckdb.table('../data/curated/dim_status_alignment.parquet') extend {
+  view: flags_against_outcomes is {
+    group_by: order, event, outcome_label, event_flag, phi, p_value, agreement, verdict
+    order_by: order
+  }
+}
+
+source: month_end_cashout is duckdb.table('../data/curated/fact_month_end_cashout.parquet') extend {
+  measure:
+    transaction_count is sum(transactions)
+    reversal_count is sum(reversed)
+    measured_reversal_rate is reversal_count / transaction_count
+
+  view: confirmation_target is {
+    group_by: is_month_end, period
+    aggregate: transaction_count, reversal_count, measured_reversal_rate
+    order_by: is_month_end desc
+  }
+}
+
+source: exposure_bin is duckdb.table('../data/curated/fact_exposure_bin.parquet') extend {
+  measure:
+    transaction_count is sum(transactions)
+
+  view: recorded_exposure_vs_loss is {
+    group_by: amount_bin, loss_bin, above_identity, amount_mid, loss_mid
+    aggregate: transaction_count
+    order_by: amount_bin, loss_bin
+  }
+}
+
+source: contract is duckdb.table('../data/curated/dim_contract.parquet') extend {
+  primary_key: contract_id
+
+  measure:
+    contracts is count()
+    missing_contracts is count() { where: status = 'MISSING' }
+
+  view: validation_contracts is {
+    group_by: order, contract_id, kind, name, status, from_table, from_column,
+              to_table, to_column, detail
+    order_by: order
+  }
+
+  view: contract_status is {
+    group_by: kind, status
+    aggregate: contracts
+    order_by: kind, status
+  }
+}
+
+source: defect is duckdb.table('../data/curated/dim_defect.parquet') extend {
+  primary_key: defect_id
+
+  view: evidence_boundaries is {
+    group_by: order, defect_id, title, evidence, boundary
+    order_by: order
+  }
+}
+
+source: headline is duckdb.table('../data/curated/headline.parquet') extend {
+  view: decision_summary is {
+    group_by: title, transactions, used_workers, markets, channels, date_start, date_end,
+              main_effect_tests, main_effect_survivors, max_main_cramers_v,
+              interaction_tests, interaction_survivors, max_abs_continuous_r,
+              positive_control_rows, claims_confirmed, claims_rejected, open_leads,
+              cashout_month_end_reversal_diff_pp, cashout_month_end_reversal_ci_low_pp,
+              cashout_month_end_reversal_ci_high_pp, cashout_month_end_reversal_p,
+              cashout_month_end_n, reversal_phi, dispute_phi, loss_amount_r,
+              loss_exceeds_amount_rows, validation_checks_passed,
+              configured_relationships, missing_relationships,
+              configured_constraints, matching_constraint_names
+  }
+}

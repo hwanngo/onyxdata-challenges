@@ -1,0 +1,9 @@
+source 2026/08/exports/dashboard.png  2560x1440
+  wrote 2026/08/exports/a11y/poster-protanopia.png
+  wrote 2026/08/exports/a11y/poster-deuteranopia.png
+  wrote 2026/08/exports/a11y/poster-tritanopia.png
+  wrote 2026/08/exports/a11y/poster-greyscale.png
+
+Now LOOK at them. The question is not 'are the colours different' but
+'can I still tell which mark is which'. If the answer needs colour, the
+encoding is wrong - add shape, pattern or a direct label.

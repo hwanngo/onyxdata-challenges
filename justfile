@@ -169,7 +169,7 @@ a11y YEAR MONTH:
     pnpm --filter datadna-{{YEAR}}-{{MONTH}} exec vite build
     pnpm --filter datadna-{{YEAR}}-{{MONTH}} exec vite preview --port 4173 --strictPort &
     srv=$!
-    trap 'kill $srv 2>/dev/null' EXIT
+    trap 'pkill -TERM -P $srv 2>/dev/null || true; kill $srv 2>/dev/null || true' EXIT
     for _ in $(seq 1 60); do curl -sf http://localhost:4173/ -o /dev/null && break; sleep 0.5; done
     QA_URL=http://localhost:4173 node tools/qa/a11y.mjs {{YEAR}} {{MONTH}}
 

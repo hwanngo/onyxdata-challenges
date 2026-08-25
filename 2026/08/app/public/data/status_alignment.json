@@ -1,0 +1,22 @@
+[
+  {
+    "agreement": 0.49858,
+    "event": "Disputed",
+    "event_flag": "is_disputed",
+    "order": 2,
+    "outcome_label": "transaction_outcome='Disputed'",
+    "p_value": 0.5541417146091363,
+    "phi": 0.00264556045665818,
+    "verdict": "CHANCE"
+  },
+  {
+    "agreement": 0.5021,
+    "event": "Reversed",
+    "event_flag": "is_reversed",
+    "order": 1,
+    "outcome_label": "transaction_outcome='Reversed'",
+    "p_value": 0.3550238188067232,
+    "phi": 0.0041362278918228535,
+    "verdict": "CHANCE"
+  }
+]

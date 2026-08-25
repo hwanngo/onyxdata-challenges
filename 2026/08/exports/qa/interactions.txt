@@ -1,0 +1,26 @@
+PASS  baseline transaction count is 50,000
+PASS  signature renders positive control plus four broken lanes
+PASS  topic cross-filter paints in 29ms
+PASS  chip bar exposes the active controls filter
+PASS  URL encodes shared filter state
+PASS  selected circuit lane remains visible
+PASS  unrelated evidence panels consume the filter by dimming
+PASS  filter never empties the signature
+PASS  first drill level renders a breadcrumb
+PASS  clicking the active lane clears its filter and breadcrumb
+PASS  decision drill adds a second breadcrumb level
+PASS  clear-all restores the unfiltered baseline
+PASS  clear-all removes breadcrumbs
+PASS  circuit lanes are keyboard focusable
+PASS  Enter activates the same topic filter
+PASS  screen-reader tables mirror every chart (350 rows)
+PASS  tour reopens
+PASS  tour starts at one of six
+PASS  Escape closes the tour
+PASS  deep link restores the finance chip
+PASS  deep link focuses the finance circuit lane
+PASS  deep link keeps the headline metric valid
+PASS  unknown deep link leaves the full circuit visible
+PASS  unknown deep link renders the drawer empty-state
+
+All August interaction checks passed.

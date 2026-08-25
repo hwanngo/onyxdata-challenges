@@ -1,0 +1,2178 @@
+[
+  {
+    "above_identity": false,
+    "amount_bin": 0,
+    "amount_mid": 31.25,
+    "loss_bin": 0,
+    "loss_mid": 31.25,
+    "transactions": 42
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 1,
+    "amount_mid": 93.75,
+    "loss_bin": 0,
+    "loss_mid": 31.25,
+    "transactions": 99
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 1,
+    "amount_mid": 93.75,
+    "loss_bin": 1,
+    "loss_mid": 93.75,
+    "transactions": 60
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 2,
+    "amount_mid": 156.25,
+    "loss_bin": 0,
+    "loss_mid": 31.25,
+    "transactions": 101
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 2,
+    "amount_mid": 156.25,
+    "loss_bin": 1,
+    "loss_mid": 93.75,
+    "transactions": 107
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 2,
+    "amount_mid": 156.25,
+    "loss_bin": 2,
+    "loss_mid": 156.25,
+    "transactions": 45
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 3,
+    "amount_mid": 218.75,
+    "loss_bin": 0,
+    "loss_mid": 31.25,
+    "transactions": 106
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 3,
+    "amount_mid": 218.75,
+    "loss_bin": 1,
+    "loss_mid": 93.75,
+    "transactions": 101
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 3,
+    "amount_mid": 218.75,
+    "loss_bin": 2,
+    "loss_mid": 156.25,
+    "transactions": 97
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 3,
+    "amount_mid": 218.75,
+    "loss_bin": 3,
+    "loss_mid": 218.75,
+    "transactions": 51
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 4,
+    "amount_mid": 281.25,
+    "loss_bin": 0,
+    "loss_mid": 31.25,
+    "transactions": 106
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 4,
+    "amount_mid": 281.25,
+    "loss_bin": 1,
+    "loss_mid": 93.75,
+    "transactions": 89
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 4,
+    "amount_mid": 281.25,
+    "loss_bin": 2,
+    "loss_mid": 156.25,
+    "transactions": 103
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 4,
+    "amount_mid": 281.25,
+    "loss_bin": 3,
+    "loss_mid": 218.75,
+    "transactions": 91
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 4,
+    "amount_mid": 281.25,
+    "loss_bin": 4,
+    "loss_mid": 281.25,
+    "transactions": 54
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 5,
+    "amount_mid": 343.75,
+    "loss_bin": 0,
+    "loss_mid": 31.25,
+    "transactions": 87
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 5,
+    "amount_mid": 343.75,
+    "loss_bin": 1,
+    "loss_mid": 93.75,
+    "transactions": 87
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 5,
+    "amount_mid": 343.75,
+    "loss_bin": 2,
+    "loss_mid": 156.25,
+    "transactions": 100
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 5,
+    "amount_mid": 343.75,
+    "loss_bin": 3,
+    "loss_mid": 218.75,
+    "transactions": 111
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 5,
+    "amount_mid": 343.75,
+    "loss_bin": 4,
+    "loss_mid": 281.25,
+    "transactions": 98
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 5,
+    "amount_mid": 343.75,
+    "loss_bin": 5,
+    "loss_mid": 343.75,
+    "transactions": 50
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 6,
+    "amount_mid": 406.25,
+    "loss_bin": 0,
+    "loss_mid": 31.25,
+    "transactions": 95
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 6,
+    "amount_mid": 406.25,
+    "loss_bin": 1,
+    "loss_mid": 93.75,
+    "transactions": 103
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 6,
+    "amount_mid": 406.25,
+    "loss_bin": 2,
+    "loss_mid": 156.25,
+    "transactions": 91
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 6,
+    "amount_mid": 406.25,
+    "loss_bin": 3,
+    "loss_mid": 218.75,
+    "transactions": 109
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 6,
+    "amount_mid": 406.25,
+    "loss_bin": 4,
+    "loss_mid": 281.25,
+    "transactions": 84
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 6,
+    "amount_mid": 406.25,
+    "loss_bin": 5,
+    "loss_mid": 343.75,
+    "transactions": 101
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 6,
+    "amount_mid": 406.25,
+    "loss_bin": 6,
+    "loss_mid": 406.25,
+    "transactions": 60
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 7,
+    "amount_mid": 468.75,
+    "loss_bin": 0,
+    "loss_mid": 31.25,
+    "transactions": 102
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 7,
+    "amount_mid": 468.75,
+    "loss_bin": 1,
+    "loss_mid": 93.75,
+    "transactions": 113
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 7,
+    "amount_mid": 468.75,
+    "loss_bin": 2,
+    "loss_mid": 156.25,
+    "transactions": 83
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 7,
+    "amount_mid": 468.75,
+    "loss_bin": 3,
+    "loss_mid": 218.75,
+    "transactions": 88
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 7,
+    "amount_mid": 468.75,
+    "loss_bin": 4,
+    "loss_mid": 281.25,
+    "transactions": 105
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 7,
+    "amount_mid": 468.75,
+    "loss_bin": 5,
+    "loss_mid": 343.75,
+    "transactions": 101
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 7,
+    "amount_mid": 468.75,
+    "loss_bin": 6,
+    "loss_mid": 406.25,
+    "transactions": 93
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 7,
+    "amount_mid": 468.75,
+    "loss_bin": 7,
+    "loss_mid": 468.75,
+    "transactions": 38
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 8,
+    "amount_mid": 531.25,
+    "loss_bin": 0,
+    "loss_mid": 31.25,
+    "transactions": 119
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 8,
+    "amount_mid": 531.25,
+    "loss_bin": 1,
+    "loss_mid": 93.75,
+    "transactions": 96
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 8,
+    "amount_mid": 531.25,
+    "loss_bin": 2,
+    "loss_mid": 156.25,
+    "transactions": 104
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 8,
+    "amount_mid": 531.25,
+    "loss_bin": 3,
+    "loss_mid": 218.75,
+    "transactions": 76
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 8,
+    "amount_mid": 531.25,
+    "loss_bin": 4,
+    "loss_mid": 281.25,
+    "transactions": 98
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 8,
+    "amount_mid": 531.25,
+    "loss_bin": 5,
+    "loss_mid": 343.75,
+    "transactions": 90
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 8,
+    "amount_mid": 531.25,
+    "loss_bin": 6,
+    "loss_mid": 406.25,
+    "transactions": 96
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 8,
+    "amount_mid": 531.25,
+    "loss_bin": 7,
+    "loss_mid": 468.75,
+    "transactions": 107
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 8,
+    "amount_mid": 531.25,
+    "loss_bin": 8,
+    "loss_mid": 531.25,
+    "transactions": 61
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 9,
+    "amount_mid": 593.75,
+    "loss_bin": 0,
+    "loss_mid": 31.25,
+    "transactions": 97
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 9,
+    "amount_mid": 593.75,
+    "loss_bin": 1,
+    "loss_mid": 93.75,
+    "transactions": 111
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 9,
+    "amount_mid": 593.75,
+    "loss_bin": 2,
+    "loss_mid": 156.25,
+    "transactions": 100
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 9,
+    "amount_mid": 593.75,
+    "loss_bin": 3,
+    "loss_mid": 218.75,
+    "transactions": 90
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 9,
+    "amount_mid": 593.75,
+    "loss_bin": 4,
+    "loss_mid": 281.25,
+    "transactions": 94
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 9,
+    "amount_mid": 593.75,
+    "loss_bin": 5,
+    "loss_mid": 343.75,
+    "transactions": 95
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 9,
+    "amount_mid": 593.75,
+    "loss_bin": 6,
+    "loss_mid": 406.25,
+    "transactions": 108
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 9,
+    "amount_mid": 593.75,
+    "loss_bin": 7,
+    "loss_mid": 468.75,
+    "transactions": 108
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 9,
+    "amount_mid": 593.75,
+    "loss_bin": 8,
+    "loss_mid": 531.25,
+    "transactions": 85
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 9,
+    "amount_mid": 593.75,
+    "loss_bin": 9,
+    "loss_mid": 593.75,
+    "transactions": 47
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 10,
+    "amount_mid": 656.25,
+    "loss_bin": 0,
+    "loss_mid": 31.25,
+    "transactions": 87
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 10,
+    "amount_mid": 656.25,
+    "loss_bin": 1,
+    "loss_mid": 93.75,
+    "transactions": 89
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 10,
+    "amount_mid": 656.25,
+    "loss_bin": 2,
+    "loss_mid": 156.25,
+    "transactions": 94
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 10,
+    "amount_mid": 656.25,
+    "loss_bin": 3,
+    "loss_mid": 218.75,
+    "transactions": 87
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 10,
+    "amount_mid": 656.25,
+    "loss_bin": 4,
+    "loss_mid": 281.25,
+    "transactions": 96
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 10,
+    "amount_mid": 656.25,
+    "loss_bin": 5,
+    "loss_mid": 343.75,
+    "transactions": 94
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 10,
+    "amount_mid": 656.25,
+    "loss_bin": 6,
+    "loss_mid": 406.25,
+    "transactions": 97
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 10,
+    "amount_mid": 656.25,
+    "loss_bin": 7,
+    "loss_mid": 468.75,
+    "transactions": 86
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 10,
+    "amount_mid": 656.25,
+    "loss_bin": 8,
+    "loss_mid": 531.25,
+    "transactions": 104
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 10,
+    "amount_mid": 656.25,
+    "loss_bin": 9,
+    "loss_mid": 593.75,
+    "transactions": 83
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 10,
+    "amount_mid": 656.25,
+    "loss_bin": 10,
+    "loss_mid": 656.25,
+    "transactions": 62
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 11,
+    "amount_mid": 718.75,
+    "loss_bin": 0,
+    "loss_mid": 31.25,
+    "transactions": 101
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 11,
+    "amount_mid": 718.75,
+    "loss_bin": 1,
+    "loss_mid": 93.75,
+    "transactions": 103
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 11,
+    "amount_mid": 718.75,
+    "loss_bin": 2,
+    "loss_mid": 156.25,
+    "transactions": 92
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 11,
+    "amount_mid": 718.75,
+    "loss_bin": 3,
+    "loss_mid": 218.75,
+    "transactions": 105
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 11,
+    "amount_mid": 718.75,
+    "loss_bin": 4,
+    "loss_mid": 281.25,
+    "transactions": 104
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 11,
+    "amount_mid": 718.75,
+    "loss_bin": 5,
+    "loss_mid": 343.75,
+    "transactions": 104
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 11,
+    "amount_mid": 718.75,
+    "loss_bin": 6,
+    "loss_mid": 406.25,
+    "transactions": 77
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 11,
+    "amount_mid": 718.75,
+    "loss_bin": 7,
+    "loss_mid": 468.75,
+    "transactions": 99
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 11,
+    "amount_mid": 718.75,
+    "loss_bin": 8,
+    "loss_mid": 531.25,
+    "transactions": 98
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 11,
+    "amount_mid": 718.75,
+    "loss_bin": 9,
+    "loss_mid": 593.75,
+    "transactions": 96
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 11,
+    "amount_mid": 718.75,
+    "loss_bin": 10,
+    "loss_mid": 656.25,
+    "transactions": 116
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 11,
+    "amount_mid": 718.75,
+    "loss_bin": 11,
+    "loss_mid": 718.75,
+    "transactions": 49
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 12,
+    "amount_mid": 781.25,
+    "loss_bin": 0,
+    "loss_mid": 31.25,
+    "transactions": 104
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 12,
+    "amount_mid": 781.25,
+    "loss_bin": 1,
+    "loss_mid": 93.75,
+    "transactions": 100
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 12,
+    "amount_mid": 781.25,
+    "loss_bin": 2,
+    "loss_mid": 156.25,
+    "transactions": 95
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 12,
+    "amount_mid": 781.25,
+    "loss_bin": 3,
+    "loss_mid": 218.75,
+    "transactions": 105
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 12,
+    "amount_mid": 781.25,
+    "loss_bin": 4,
+    "loss_mid": 281.25,
+    "transactions": 109
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 12,
+    "amount_mid": 781.25,
+    "loss_bin": 5,
+    "loss_mid": 343.75,
+    "transactions": 108
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 12,
+    "amount_mid": 781.25,
+    "loss_bin": 6,
+    "loss_mid": 406.25,
+    "transactions": 88
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 12,
+    "amount_mid": 781.25,
+    "loss_bin": 7,
+    "loss_mid": 468.75,
+    "transactions": 96
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 12,
+    "amount_mid": 781.25,
+    "loss_bin": 8,
+    "loss_mid": 531.25,
+    "transactions": 102
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 12,
+    "amount_mid": 781.25,
+    "loss_bin": 9,
+    "loss_mid": 593.75,
+    "transactions": 91
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 12,
+    "amount_mid": 781.25,
+    "loss_bin": 10,
+    "loss_mid": 656.25,
+    "transactions": 89
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 12,
+    "amount_mid": 781.25,
+    "loss_bin": 11,
+    "loss_mid": 718.75,
+    "transactions": 91
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 12,
+    "amount_mid": 781.25,
+    "loss_bin": 12,
+    "loss_mid": 781.25,
+    "transactions": 41
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 13,
+    "amount_mid": 843.75,
+    "loss_bin": 0,
+    "loss_mid": 31.25,
+    "transactions": 89
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 13,
+    "amount_mid": 843.75,
+    "loss_bin": 1,
+    "loss_mid": 93.75,
+    "transactions": 105
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 13,
+    "amount_mid": 843.75,
+    "loss_bin": 2,
+    "loss_mid": 156.25,
+    "transactions": 96
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 13,
+    "amount_mid": 843.75,
+    "loss_bin": 3,
+    "loss_mid": 218.75,
+    "transactions": 96
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 13,
+    "amount_mid": 843.75,
+    "loss_bin": 4,
+    "loss_mid": 281.25,
+    "transactions": 96
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 13,
+    "amount_mid": 843.75,
+    "loss_bin": 5,
+    "loss_mid": 343.75,
+    "transactions": 107
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 13,
+    "amount_mid": 843.75,
+    "loss_bin": 6,
+    "loss_mid": 406.25,
+    "transactions": 98
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 13,
+    "amount_mid": 843.75,
+    "loss_bin": 7,
+    "loss_mid": 468.75,
+    "transactions": 83
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 13,
+    "amount_mid": 843.75,
+    "loss_bin": 8,
+    "loss_mid": 531.25,
+    "transactions": 100
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 13,
+    "amount_mid": 843.75,
+    "loss_bin": 9,
+    "loss_mid": 593.75,
+    "transactions": 112
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 13,
+    "amount_mid": 843.75,
+    "loss_bin": 10,
+    "loss_mid": 656.25,
+    "transactions": 111
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 13,
+    "amount_mid": 843.75,
+    "loss_bin": 11,
+    "loss_mid": 718.75,
+    "transactions": 85
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 13,
+    "amount_mid": 843.75,
+    "loss_bin": 12,
+    "loss_mid": 781.25,
+    "transactions": 99
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 13,
+    "amount_mid": 843.75,
+    "loss_bin": 13,
+    "loss_mid": 843.75,
+    "transactions": 47
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 14,
+    "amount_mid": 906.25,
+    "loss_bin": 0,
+    "loss_mid": 31.25,
+    "transactions": 101
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 14,
+    "amount_mid": 906.25,
+    "loss_bin": 1,
+    "loss_mid": 93.75,
+    "transactions": 110
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 14,
+    "amount_mid": 906.25,
+    "loss_bin": 2,
+    "loss_mid": 156.25,
+    "transactions": 116
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 14,
+    "amount_mid": 906.25,
+    "loss_bin": 3,
+    "loss_mid": 218.75,
+    "transactions": 105
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 14,
+    "amount_mid": 906.25,
+    "loss_bin": 4,
+    "loss_mid": 281.25,
+    "transactions": 100
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 14,
+    "amount_mid": 906.25,
+    "loss_bin": 5,
+    "loss_mid": 343.75,
+    "transactions": 81
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 14,
+    "amount_mid": 906.25,
+    "loss_bin": 6,
+    "loss_mid": 406.25,
+    "transactions": 90
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 14,
+    "amount_mid": 906.25,
+    "loss_bin": 7,
+    "loss_mid": 468.75,
+    "transactions": 100
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 14,
+    "amount_mid": 906.25,
+    "loss_bin": 8,
+    "loss_mid": 531.25,
+    "transactions": 103
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 14,
+    "amount_mid": 906.25,
+    "loss_bin": 9,
+    "loss_mid": 593.75,
+    "transactions": 95
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 14,
+    "amount_mid": 906.25,
+    "loss_bin": 10,
+    "loss_mid": 656.25,
+    "transactions": 94
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 14,
+    "amount_mid": 906.25,
+    "loss_bin": 11,
+    "loss_mid": 718.75,
+    "transactions": 90
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 14,
+    "amount_mid": 906.25,
+    "loss_bin": 12,
+    "loss_mid": 781.25,
+    "transactions": 99
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 14,
+    "amount_mid": 906.25,
+    "loss_bin": 13,
+    "loss_mid": 843.75,
+    "transactions": 109
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 14,
+    "amount_mid": 906.25,
+    "loss_bin": 14,
+    "loss_mid": 906.25,
+    "transactions": 50
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 15,
+    "amount_mid": 968.75,
+    "loss_bin": 0,
+    "loss_mid": 31.25,
+    "transactions": 110
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 15,
+    "amount_mid": 968.75,
+    "loss_bin": 1,
+    "loss_mid": 93.75,
+    "transactions": 109
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 15,
+    "amount_mid": 968.75,
+    "loss_bin": 2,
+    "loss_mid": 156.25,
+    "transactions": 101
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 15,
+    "amount_mid": 968.75,
+    "loss_bin": 3,
+    "loss_mid": 218.75,
+    "transactions": 89
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 15,
+    "amount_mid": 968.75,
+    "loss_bin": 4,
+    "loss_mid": 281.25,
+    "transactions": 99
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 15,
+    "amount_mid": 968.75,
+    "loss_bin": 5,
+    "loss_mid": 343.75,
+    "transactions": 99
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 15,
+    "amount_mid": 968.75,
+    "loss_bin": 6,
+    "loss_mid": 406.25,
+    "transactions": 98
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 15,
+    "amount_mid": 968.75,
+    "loss_bin": 7,
+    "loss_mid": 468.75,
+    "transactions": 104
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 15,
+    "amount_mid": 968.75,
+    "loss_bin": 8,
+    "loss_mid": 531.25,
+    "transactions": 111
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 15,
+    "amount_mid": 968.75,
+    "loss_bin": 9,
+    "loss_mid": 593.75,
+    "transactions": 103
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 15,
+    "amount_mid": 968.75,
+    "loss_bin": 10,
+    "loss_mid": 656.25,
+    "transactions": 94
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 15,
+    "amount_mid": 968.75,
+    "loss_bin": 11,
+    "loss_mid": 718.75,
+    "transactions": 72
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 15,
+    "amount_mid": 968.75,
+    "loss_bin": 12,
+    "loss_mid": 781.25,
+    "transactions": 100
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 15,
+    "amount_mid": 968.75,
+    "loss_bin": 13,
+    "loss_mid": 843.75,
+    "transactions": 95
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 15,
+    "amount_mid": 968.75,
+    "loss_bin": 14,
+    "loss_mid": 906.25,
+    "transactions": 95
+  },
+  {
+    "above_identity": false,
+    "amount_bin": 15,
+    "amount_mid": 968.75,
+    "loss_bin": 15,
+    "loss_mid": 968.75,
+    "transactions": 62
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 0,
+    "amount_mid": 31.25,
+    "loss_bin": 0,
+    "loss_mid": 31.25,
+    "transactions": 62
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 0,
+    "amount_mid": 31.25,
+    "loss_bin": 1,
+    "loss_mid": 93.75,
+    "transactions": 104
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 0,
+    "amount_mid": 31.25,
+    "loss_bin": 2,
+    "loss_mid": 156.25,
+    "transactions": 105
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 0,
+    "amount_mid": 31.25,
+    "loss_bin": 3,
+    "loss_mid": 218.75,
+    "transactions": 78
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 0,
+    "amount_mid": 31.25,
+    "loss_bin": 4,
+    "loss_mid": 281.25,
+    "transactions": 71
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 0,
+    "amount_mid": 31.25,
+    "loss_bin": 5,
+    "loss_mid": 343.75,
+    "transactions": 79
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 0,
+    "amount_mid": 31.25,
+    "loss_bin": 6,
+    "loss_mid": 406.25,
+    "transactions": 93
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 0,
+    "amount_mid": 31.25,
+    "loss_bin": 7,
+    "loss_mid": 468.75,
+    "transactions": 83
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 0,
+    "amount_mid": 31.25,
+    "loss_bin": 8,
+    "loss_mid": 531.25,
+    "transactions": 80
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 0,
+    "amount_mid": 31.25,
+    "loss_bin": 9,
+    "loss_mid": 593.75,
+    "transactions": 106
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 0,
+    "amount_mid": 31.25,
+    "loss_bin": 10,
+    "loss_mid": 656.25,
+    "transactions": 99
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 0,
+    "amount_mid": 31.25,
+    "loss_bin": 11,
+    "loss_mid": 718.75,
+    "transactions": 80
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 0,
+    "amount_mid": 31.25,
+    "loss_bin": 12,
+    "loss_mid": 781.25,
+    "transactions": 91
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 0,
+    "amount_mid": 31.25,
+    "loss_bin": 13,
+    "loss_mid": 843.75,
+    "transactions": 106
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 0,
+    "amount_mid": 31.25,
+    "loss_bin": 14,
+    "loss_mid": 906.25,
+    "transactions": 99
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 0,
+    "amount_mid": 31.25,
+    "loss_bin": 15,
+    "loss_mid": 968.75,
+    "transactions": 84
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 1,
+    "amount_mid": 93.75,
+    "loss_bin": 1,
+    "loss_mid": 93.75,
+    "transactions": 41
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 1,
+    "amount_mid": 93.75,
+    "loss_bin": 2,
+    "loss_mid": 156.25,
+    "transactions": 95
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 1,
+    "amount_mid": 93.75,
+    "loss_bin": 3,
+    "loss_mid": 218.75,
+    "transactions": 102
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 1,
+    "amount_mid": 93.75,
+    "loss_bin": 4,
+    "loss_mid": 281.25,
+    "transactions": 99
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 1,
+    "amount_mid": 93.75,
+    "loss_bin": 5,
+    "loss_mid": 343.75,
+    "transactions": 98
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 1,
+    "amount_mid": 93.75,
+    "loss_bin": 6,
+    "loss_mid": 406.25,
+    "transactions": 95
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 1,
+    "amount_mid": 93.75,
+    "loss_bin": 7,
+    "loss_mid": 468.75,
+    "transactions": 101
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 1,
+    "amount_mid": 93.75,
+    "loss_bin": 8,
+    "loss_mid": 531.25,
+    "transactions": 90
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 1,
+    "amount_mid": 93.75,
+    "loss_bin": 9,
+    "loss_mid": 593.75,
+    "transactions": 108
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 1,
+    "amount_mid": 93.75,
+    "loss_bin": 10,
+    "loss_mid": 656.25,
+    "transactions": 109
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 1,
+    "amount_mid": 93.75,
+    "loss_bin": 11,
+    "loss_mid": 718.75,
+    "transactions": 95
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 1,
+    "amount_mid": 93.75,
+    "loss_bin": 12,
+    "loss_mid": 781.25,
+    "transactions": 88
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 1,
+    "amount_mid": 93.75,
+    "loss_bin": 13,
+    "loss_mid": 843.75,
+    "transactions": 90
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 1,
+    "amount_mid": 93.75,
+    "loss_bin": 14,
+    "loss_mid": 906.25,
+    "transactions": 96
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 1,
+    "amount_mid": 93.75,
+    "loss_bin": 15,
+    "loss_mid": 968.75,
+    "transactions": 105
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 2,
+    "amount_mid": 156.25,
+    "loss_bin": 2,
+    "loss_mid": 156.25,
+    "transactions": 48
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 2,
+    "amount_mid": 156.25,
+    "loss_bin": 3,
+    "loss_mid": 218.75,
+    "transactions": 98
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 2,
+    "amount_mid": 156.25,
+    "loss_bin": 4,
+    "loss_mid": 281.25,
+    "transactions": 94
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 2,
+    "amount_mid": 156.25,
+    "loss_bin": 5,
+    "loss_mid": 343.75,
+    "transactions": 103
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 2,
+    "amount_mid": 156.25,
+    "loss_bin": 6,
+    "loss_mid": 406.25,
+    "transactions": 100
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 2,
+    "amount_mid": 156.25,
+    "loss_bin": 7,
+    "loss_mid": 468.75,
+    "transactions": 101
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 2,
+    "amount_mid": 156.25,
+    "loss_bin": 8,
+    "loss_mid": 531.25,
+    "transactions": 135
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 2,
+    "amount_mid": 156.25,
+    "loss_bin": 9,
+    "loss_mid": 593.75,
+    "transactions": 90
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 2,
+    "amount_mid": 156.25,
+    "loss_bin": 10,
+    "loss_mid": 656.25,
+    "transactions": 111
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 2,
+    "amount_mid": 156.25,
+    "loss_bin": 11,
+    "loss_mid": 718.75,
+    "transactions": 102
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 2,
+    "amount_mid": 156.25,
+    "loss_bin": 12,
+    "loss_mid": 781.25,
+    "transactions": 92
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 2,
+    "amount_mid": 156.25,
+    "loss_bin": 13,
+    "loss_mid": 843.75,
+    "transactions": 87
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 2,
+    "amount_mid": 156.25,
+    "loss_bin": 14,
+    "loss_mid": 906.25,
+    "transactions": 90
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 2,
+    "amount_mid": 156.25,
+    "loss_bin": 15,
+    "loss_mid": 968.75,
+    "transactions": 92
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 3,
+    "amount_mid": 218.75,
+    "loss_bin": 3,
+    "loss_mid": 218.75,
+    "transactions": 53
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 3,
+    "amount_mid": 218.75,
+    "loss_bin": 4,
+    "loss_mid": 281.25,
+    "transactions": 78
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 3,
+    "amount_mid": 218.75,
+    "loss_bin": 5,
+    "loss_mid": 343.75,
+    "transactions": 114
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 3,
+    "amount_mid": 218.75,
+    "loss_bin": 6,
+    "loss_mid": 406.25,
+    "transactions": 112
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 3,
+    "amount_mid": 218.75,
+    "loss_bin": 7,
+    "loss_mid": 468.75,
+    "transactions": 92
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 3,
+    "amount_mid": 218.75,
+    "loss_bin": 8,
+    "loss_mid": 531.25,
+    "transactions": 90
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 3,
+    "amount_mid": 218.75,
+    "loss_bin": 9,
+    "loss_mid": 593.75,
+    "transactions": 104
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 3,
+    "amount_mid": 218.75,
+    "loss_bin": 10,
+    "loss_mid": 656.25,
+    "transactions": 102
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 3,
+    "amount_mid": 218.75,
+    "loss_bin": 11,
+    "loss_mid": 718.75,
+    "transactions": 92
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 3,
+    "amount_mid": 218.75,
+    "loss_bin": 12,
+    "loss_mid": 781.25,
+    "transactions": 122
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 3,
+    "amount_mid": 218.75,
+    "loss_bin": 13,
+    "loss_mid": 843.75,
+    "transactions": 104
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 3,
+    "amount_mid": 218.75,
+    "loss_bin": 14,
+    "loss_mid": 906.25,
+    "transactions": 109
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 3,
+    "amount_mid": 218.75,
+    "loss_bin": 15,
+    "loss_mid": 968.75,
+    "transactions": 86
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 4,
+    "amount_mid": 281.25,
+    "loss_bin": 4,
+    "loss_mid": 281.25,
+    "transactions": 56
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 4,
+    "amount_mid": 281.25,
+    "loss_bin": 5,
+    "loss_mid": 343.75,
+    "transactions": 105
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 4,
+    "amount_mid": 281.25,
+    "loss_bin": 6,
+    "loss_mid": 406.25,
+    "transactions": 95
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 4,
+    "amount_mid": 281.25,
+    "loss_bin": 7,
+    "loss_mid": 468.75,
+    "transactions": 106
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 4,
+    "amount_mid": 281.25,
+    "loss_bin": 8,
+    "loss_mid": 531.25,
+    "transactions": 97
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 4,
+    "amount_mid": 281.25,
+    "loss_bin": 9,
+    "loss_mid": 593.75,
+    "transactions": 101
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 4,
+    "amount_mid": 281.25,
+    "loss_bin": 10,
+    "loss_mid": 656.25,
+    "transactions": 114
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 4,
+    "amount_mid": 281.25,
+    "loss_bin": 11,
+    "loss_mid": 718.75,
+    "transactions": 105
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 4,
+    "amount_mid": 281.25,
+    "loss_bin": 12,
+    "loss_mid": 781.25,
+    "transactions": 100
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 4,
+    "amount_mid": 281.25,
+    "loss_bin": 13,
+    "loss_mid": 843.75,
+    "transactions": 110
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 4,
+    "amount_mid": 281.25,
+    "loss_bin": 14,
+    "loss_mid": 906.25,
+    "transactions": 98
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 4,
+    "amount_mid": 281.25,
+    "loss_bin": 15,
+    "loss_mid": 968.75,
+    "transactions": 103
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 5,
+    "amount_mid": 343.75,
+    "loss_bin": 5,
+    "loss_mid": 343.75,
+    "transactions": 38
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 5,
+    "amount_mid": 343.75,
+    "loss_bin": 6,
+    "loss_mid": 406.25,
+    "transactions": 101
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 5,
+    "amount_mid": 343.75,
+    "loss_bin": 7,
+    "loss_mid": 468.75,
+    "transactions": 110
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 5,
+    "amount_mid": 343.75,
+    "loss_bin": 8,
+    "loss_mid": 531.25,
+    "transactions": 103
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 5,
+    "amount_mid": 343.75,
+    "loss_bin": 9,
+    "loss_mid": 593.75,
+    "transactions": 100
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 5,
+    "amount_mid": 343.75,
+    "loss_bin": 10,
+    "loss_mid": 656.25,
+    "transactions": 105
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 5,
+    "amount_mid": 343.75,
+    "loss_bin": 11,
+    "loss_mid": 718.75,
+    "transactions": 96
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 5,
+    "amount_mid": 343.75,
+    "loss_bin": 12,
+    "loss_mid": 781.25,
+    "transactions": 119
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 5,
+    "amount_mid": 343.75,
+    "loss_bin": 13,
+    "loss_mid": 843.75,
+    "transactions": 107
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 5,
+    "amount_mid": 343.75,
+    "loss_bin": 14,
+    "loss_mid": 906.25,
+    "transactions": 103
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 5,
+    "amount_mid": 343.75,
+    "loss_bin": 15,
+    "loss_mid": 968.75,
+    "transactions": 97
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 6,
+    "amount_mid": 406.25,
+    "loss_bin": 6,
+    "loss_mid": 406.25,
+    "transactions": 48
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 6,
+    "amount_mid": 406.25,
+    "loss_bin": 7,
+    "loss_mid": 468.75,
+    "transactions": 95
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 6,
+    "amount_mid": 406.25,
+    "loss_bin": 8,
+    "loss_mid": 531.25,
+    "transactions": 89
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 6,
+    "amount_mid": 406.25,
+    "loss_bin": 9,
+    "loss_mid": 593.75,
+    "transactions": 105
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 6,
+    "amount_mid": 406.25,
+    "loss_bin": 10,
+    "loss_mid": 656.25,
+    "transactions": 69
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 6,
+    "amount_mid": 406.25,
+    "loss_bin": 11,
+    "loss_mid": 718.75,
+    "transactions": 97
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 6,
+    "amount_mid": 406.25,
+    "loss_bin": 12,
+    "loss_mid": 781.25,
+    "transactions": 99
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 6,
+    "amount_mid": 406.25,
+    "loss_bin": 13,
+    "loss_mid": 843.75,
+    "transactions": 104
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 6,
+    "amount_mid": 406.25,
+    "loss_bin": 14,
+    "loss_mid": 906.25,
+    "transactions": 96
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 6,
+    "amount_mid": 406.25,
+    "loss_bin": 15,
+    "loss_mid": 968.75,
+    "transactions": 85
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 7,
+    "amount_mid": 468.75,
+    "loss_bin": 7,
+    "loss_mid": 468.75,
+    "transactions": 41
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 7,
+    "amount_mid": 468.75,
+    "loss_bin": 8,
+    "loss_mid": 531.25,
+    "transactions": 98
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 7,
+    "amount_mid": 468.75,
+    "loss_bin": 9,
+    "loss_mid": 593.75,
+    "transactions": 95
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 7,
+    "amount_mid": 468.75,
+    "loss_bin": 10,
+    "loss_mid": 656.25,
+    "transactions": 91
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 7,
+    "amount_mid": 468.75,
+    "loss_bin": 11,
+    "loss_mid": 718.75,
+    "transactions": 87
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 7,
+    "amount_mid": 468.75,
+    "loss_bin": 12,
+    "loss_mid": 781.25,
+    "transactions": 99
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 7,
+    "amount_mid": 468.75,
+    "loss_bin": 13,
+    "loss_mid": 843.75,
+    "transactions": 102
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 7,
+    "amount_mid": 468.75,
+    "loss_bin": 14,
+    "loss_mid": 906.25,
+    "transactions": 102
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 7,
+    "amount_mid": 468.75,
+    "loss_bin": 15,
+    "loss_mid": 968.75,
+    "transactions": 123
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 8,
+    "amount_mid": 531.25,
+    "loss_bin": 8,
+    "loss_mid": 531.25,
+    "transactions": 52
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 8,
+    "amount_mid": 531.25,
+    "loss_bin": 9,
+    "loss_mid": 593.75,
+    "transactions": 98
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 8,
+    "amount_mid": 531.25,
+    "loss_bin": 10,
+    "loss_mid": 656.25,
+    "transactions": 95
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 8,
+    "amount_mid": 531.25,
+    "loss_bin": 11,
+    "loss_mid": 718.75,
+    "transactions": 113
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 8,
+    "amount_mid": 531.25,
+    "loss_bin": 12,
+    "loss_mid": 781.25,
+    "transactions": 91
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 8,
+    "amount_mid": 531.25,
+    "loss_bin": 13,
+    "loss_mid": 843.75,
+    "transactions": 106
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 8,
+    "amount_mid": 531.25,
+    "loss_bin": 14,
+    "loss_mid": 906.25,
+    "transactions": 97
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 8,
+    "amount_mid": 531.25,
+    "loss_bin": 15,
+    "loss_mid": 968.75,
+    "transactions": 77
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 9,
+    "amount_mid": 593.75,
+    "loss_bin": 9,
+    "loss_mid": 593.75,
+    "transactions": 38
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 9,
+    "amount_mid": 593.75,
+    "loss_bin": 10,
+    "loss_mid": 656.25,
+    "transactions": 99
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 9,
+    "amount_mid": 593.75,
+    "loss_bin": 11,
+    "loss_mid": 718.75,
+    "transactions": 105
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 9,
+    "amount_mid": 593.75,
+    "loss_bin": 12,
+    "loss_mid": 781.25,
+    "transactions": 90
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 9,
+    "amount_mid": 593.75,
+    "loss_bin": 13,
+    "loss_mid": 843.75,
+    "transactions": 78
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 9,
+    "amount_mid": 593.75,
+    "loss_bin": 14,
+    "loss_mid": 906.25,
+    "transactions": 108
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 9,
+    "amount_mid": 593.75,
+    "loss_bin": 15,
+    "loss_mid": 968.75,
+    "transactions": 110
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 10,
+    "amount_mid": 656.25,
+    "loss_bin": 10,
+    "loss_mid": 656.25,
+    "transactions": 42
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 10,
+    "amount_mid": 656.25,
+    "loss_bin": 11,
+    "loss_mid": 718.75,
+    "transactions": 110
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 10,
+    "amount_mid": 656.25,
+    "loss_bin": 12,
+    "loss_mid": 781.25,
+    "transactions": 105
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 10,
+    "amount_mid": 656.25,
+    "loss_bin": 13,
+    "loss_mid": 843.75,
+    "transactions": 114
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 10,
+    "amount_mid": 656.25,
+    "loss_bin": 14,
+    "loss_mid": 906.25,
+    "transactions": 115
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 10,
+    "amount_mid": 656.25,
+    "loss_bin": 15,
+    "loss_mid": 968.75,
+    "transactions": 101
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 11,
+    "amount_mid": 718.75,
+    "loss_bin": 11,
+    "loss_mid": 718.75,
+    "transactions": 49
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 11,
+    "amount_mid": 718.75,
+    "loss_bin": 12,
+    "loss_mid": 781.25,
+    "transactions": 99
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 11,
+    "amount_mid": 718.75,
+    "loss_bin": 13,
+    "loss_mid": 843.75,
+    "transactions": 111
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 11,
+    "amount_mid": 718.75,
+    "loss_bin": 14,
+    "loss_mid": 906.25,
+    "transactions": 86
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 11,
+    "amount_mid": 718.75,
+    "loss_bin": 15,
+    "loss_mid": 968.75,
+    "transactions": 76
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 12,
+    "amount_mid": 781.25,
+    "loss_bin": 12,
+    "loss_mid": 781.25,
+    "transactions": 50
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 12,
+    "amount_mid": 781.25,
+    "loss_bin": 13,
+    "loss_mid": 843.75,
+    "transactions": 90
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 12,
+    "amount_mid": 781.25,
+    "loss_bin": 14,
+    "loss_mid": 906.25,
+    "transactions": 108
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 12,
+    "amount_mid": 781.25,
+    "loss_bin": 15,
+    "loss_mid": 968.75,
+    "transactions": 116
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 13,
+    "amount_mid": 843.75,
+    "loss_bin": 13,
+    "loss_mid": 843.75,
+    "transactions": 46
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 13,
+    "amount_mid": 843.75,
+    "loss_bin": 14,
+    "loss_mid": 906.25,
+    "transactions": 97
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 13,
+    "amount_mid": 843.75,
+    "loss_bin": 15,
+    "loss_mid": 968.75,
+    "transactions": 78
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 14,
+    "amount_mid": 906.25,
+    "loss_bin": 14,
+    "loss_mid": 906.25,
+    "transactions": 44
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 14,
+    "amount_mid": 906.25,
+    "loss_bin": 15,
+    "loss_mid": 968.75,
+    "transactions": 94
+  },
+  {
+    "above_identity": true,
+    "amount_bin": 15,
+    "amount_mid": 968.75,
+    "loss_bin": 15,
+    "loss_mid": 968.75,
+    "transactions": 47
+  }
+]

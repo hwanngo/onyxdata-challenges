@@ -1,0 +1,80 @@
+[
+  {
+    "abs_statistic": 0.0007426563704326073,
+    "control_id": "velocity",
+    "is_robust": false,
+    "label": "Transaction velocity",
+    "metric": "point-biserial r",
+    "order": 1,
+    "p_value": 0.8681106105772006,
+    "source_field": "velocity_score",
+    "source_table": "fact_transaction",
+    "statistic": -0.0007426563704326073,
+    "target": "is_fraud_flagged"
+  },
+  {
+    "abs_statistic": 0.0040232374288445925,
+    "control_id": "worker_risk",
+    "is_robust": false,
+    "label": "Worker risk score",
+    "metric": "point-biserial r",
+    "order": 2,
+    "p_value": 0.3683308214302268,
+    "source_field": "risk_score",
+    "source_table": "dim_worker",
+    "statistic": -0.0040232374288445925,
+    "target": "is_fraud_flagged"
+  },
+  {
+    "abs_statistic": 0.006322854546380785,
+    "control_id": "channel_history",
+    "is_robust": false,
+    "label": "Channel historical fraud",
+    "metric": "point-biserial r",
+    "order": 3,
+    "p_value": 0.15741709684803995,
+    "source_field": "avg_fraud_rate",
+    "source_table": "dim_channel",
+    "statistic": 0.006322854546380785,
+    "target": "is_fraud_flagged"
+  },
+  {
+    "abs_statistic": 0.005451448820970255,
+    "control_id": "market_index",
+    "is_robust": false,
+    "label": "Market fraud index",
+    "metric": "point-biserial r",
+    "order": 4,
+    "p_value": 0.22285952833762335,
+    "source_field": "market_fraud_index",
+    "source_table": "dim_market",
+    "statistic": -0.005451448820970255,
+    "target": "is_fraud_flagged"
+  },
+  {
+    "abs_statistic": 0.0016298275449786312,
+    "control_id": "processing_time",
+    "is_robust": false,
+    "label": "Processing time",
+    "metric": "point-biserial r",
+    "order": 5,
+    "p_value": 0.7155357054198659,
+    "source_field": "processing_time_ms",
+    "source_table": "fact_transaction",
+    "statistic": -0.0016298275449786312,
+    "target": "is_fraud_flagged"
+  },
+  {
+    "abs_statistic": 0.00445912395784306,
+    "control_id": "amount",
+    "is_robust": false,
+    "label": "Recorded USD amount",
+    "metric": "point-biserial r",
+    "order": 6,
+    "p_value": 0.3187303113748777,
+    "source_field": "amount_usd",
+    "source_table": "fact_transaction",
+    "statistic": 0.00445912395784306,
+    "target": "is_fraud_flagged"
+  }
+]

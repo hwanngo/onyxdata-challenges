@@ -49,6 +49,21 @@ def looks_like_zip(body: bytes) -> bool:
     return body[:4] == ZIP_MAGIC
 
 
+def make_read_only(root: Path) -> None:
+    """Remove write permissions from every extracted source file."""
+    for path in root.rglob("*"):
+        if path.is_file():
+            path.chmod(path.stat().st_mode & ~0o222)
+
+
+def remove_raw_dir(root: Path) -> None:
+    """Make a protected archive removable before an explicit forced replacement."""
+    for path in root.rglob("*"):
+        path.chmod(path.stat().st_mode | 0o200)
+    root.chmod(root.stat().st_mode | 0o200)
+    shutil.rmtree(root)
+
+
 def diagnose(body: bytes, content_type: str) -> str:
     head = body[:400].decode("utf-8", "replace").lower()
     if "<html" in head or "text/html" in content_type:
@@ -135,7 +150,7 @@ def main() -> int:
 
     out_dir = dest_parent / stem
     if out_dir.exists():
-        shutil.rmtree(out_dir)
+        remove_raw_dir(out_dir)
     out_dir.mkdir()
     with zipfile.ZipFile(zip_path) as z:
         bad = z.testzip()
@@ -144,6 +159,7 @@ def main() -> int:
             return 2
         z.extractall(out_dir)
     zip_path.unlink()
+    make_read_only(out_dir)
 
     files = sorted(p.relative_to(out_dir) for p in out_dir.rglob("*") if p.is_file())
     print(f"\nExtracted to {out_dir.relative_to(ROOT)}/  ({len(files)} files)")

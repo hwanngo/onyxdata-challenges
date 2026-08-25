@@ -1,0 +1,37 @@
+[
+  {
+    "boundary": "No segment or channel prioritisation",
+    "defect_id": "disconnected_controls",
+    "evidence": "0/60 main effects \u00b7 0/570 interactions",
+    "order": 1,
+    "title": "Controls do not predict flags"
+  },
+  {
+    "boundary": "No event funnel or confirmed outcome",
+    "defect_id": "split_status",
+    "evidence": "max \u03c6 0.00414",
+    "order": 2,
+    "title": "Flags do not reconcile with outcomes"
+  },
+  {
+    "boundary": "No loss severity, ROI or market exposure",
+    "defect_id": "broken_finance",
+    "evidence": "r -0.00453 \u00b7 12,562 rows exceed amount",
+    "order": 3,
+    "title": "Loss does not reconcile with exposure"
+  },
+  {
+    "boundary": "No trust in the supplied pass report",
+    "defect_id": "detached_validation",
+    "evidence": "0/54 constraints \u00b7 5/9 relationships unavailable",
+    "order": 4,
+    "title": "Validation targets another schema"
+  },
+  {
+    "boundary": "No metric may be copied from the report",
+    "defect_id": "stale_eda",
+    "evidence": "730 dates reported \u00b7 731 delivered",
+    "order": 5,
+    "title": "Generated EDA describes an earlier state"
+  }
+]

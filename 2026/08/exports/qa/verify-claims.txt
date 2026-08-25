@@ -1,0 +1,59 @@
+metric                                           rendered         recomputed  
+--------------------------------------------------------------------------------
+cashout_month_end_n                              132.0000           132.0000  ok
+cashout_month_end_reversal_ci_high_pp             16.8145            16.8145  ok
+cashout_month_end_reversal_ci_low_pp              -0.2642            -0.2642  ok
+cashout_month_end_reversal_diff_pp                 8.2752             8.2752  ok
+cashout_month_end_reversal_p                       0.0575             0.0575  ok
+cashout_month_end_reversal_rate                    0.5909             0.5909  ok
+cashout_other_reversal_rate                        0.5082             0.5082  ok
+channels                                           5.0000             5.0000  ok
+claim.market_trader_dispute.effect                10.0000            10.0000  ok
+claim.market_trader_dispute.p                      0.4813             0.4813  ok
+claim.month_end_cashout_reversal.effect             0.0828             0.0828  ok
+claim.month_end_cashout_reversal.p                 0.0575             0.0575  ok
+claim.new_account_fraud.effect                     1.0161             1.0161  ok
+claim.new_account_fraud.p                          0.4299             0.4299  ok
+claim.nigeria_kenya_fraud_volume.effect             0.4982             0.4982  ok
+claim.ussd_app_fraud.effect                        1.0172             1.0172  ok
+claim.ussd_app_fraud.p                             0.3585             0.3585  ok
+claim.velocity_risk.effect                         0.0027             0.0027  ok
+claim.velocity_risk.p                              0.5511             0.5511  ok
+configured_constraints                            54.0000            54.0000  ok
+configured_relationships                           9.0000             9.0000  ok
+connector.controls_to_flags.primary                0.0000             0.0000  ok
+connector.exposure_to_loss.primary                -0.0045            -0.0045  ok
+connector.flags_to_outcomes.primary                0.0041             0.0041  ok
+connector.fraud_flag_to_loss_presence.primary        50,000.0000        50,000.0000  ok
+connector.validator_to_files.primary               0.0000             0.0000  ok
+control.amount.r                                   0.0045             0.0045  ok
+control.channel_history.r                          0.0063             0.0063  ok
+control.market_index.r                            -0.0055            -0.0055  ok
+control.processing_time.r                         -0.0016            -0.0016  ok
+control.velocity.r                                -0.0007            -0.0007  ok
+control.worker_risk.r                             -0.0040            -0.0040  ok
+dispute_phi                                        0.0026             0.0026  ok
+interaction_survivors                              0.0000             0.0000  ok
+interaction_tests                                570.0000           570.0000  ok
+loss_amount_r                                     -0.0045            -0.0045  ok
+loss_exceeds_amount_rows                      12,562.0000        12,562.0000  ok
+main_effect_survivors                              0.0000             0.0000  ok
+main_effect_tests                                 60.0000            60.0000  ok
+markets                                            4.0000             4.0000  ok
+matching_constraint_names                          0.0000             0.0000  ok
+max_abs_continuous_r                               0.0063             0.0063  ok
+missing_relationships                              5.0000             5.0000  ok
+positive_control_rows                         50,000.0000        50,000.0000  ok
+reversal_phi                                       0.0041             0.0041  ok
+status.disputed.agreement                          0.4986             0.4986  ok
+status.disputed.p                                  0.5541             0.5541  ok
+status.disputed.phi                                0.0026             0.0026  ok
+status.reversed.agreement                          0.5021             0.5021  ok
+status.reversed.p                                  0.3550             0.3550  ok
+status.reversed.phi                                0.0041             0.0041  ok
+transactions                                  50,000.0000        50,000.0000  ok
+validation_checks_passed                           9.0000             9.0000  ok
+--------------------------------------------------------------------------------
+Specified but not rendered (33): claim.market_trader_dispute, claim.month_end_cashout_reversal, claim.new_account_fraud, claim.nigeria_kenya_fraud_volume, claim.ussd_app_fraud, claim.velocity_risk, claims_confirmed, claims_rejected, connector.controls_to_flags, connector.exposure_to_loss, connector.flags_to_outcomes, connector.fraud_flag_to_loss_presence, connector.month_end_cashout_to_reversal, connector.month_end_cashout_to_reversal.primary, connector.validator_to_files, control.amount, control.channel_history, control.market_index, control.processing_time, control.velocity, control.worker_risk, dispute_agreement, lead.month_end, lead.month_end.rate, lead.other_days, lead.other_days.rate, max_main_cramers_v, open_leads, reversal_agreement, robust_controls, status.disputed, status.reversed, used_workers
+
+All 53 rendered metrics reconcile.

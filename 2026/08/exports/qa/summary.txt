@@ -1,0 +1,42 @@
+August 2026 G7 QA summary
+==========================
+
+Model
+- 14 pytest assertions passed
+- 17/17 Malloy views ran clean
+- 23 total August/shared Python tests passed in the focused suite
+- 7 frontend unit tests passed
+- production bundle built successfully
+- full repository typecheck: 0 errors across dna-kit and 14 month apps
+
+Metrics
+- scaffold guard clean
+- prose-number lint clean
+- 42 default-route metrics reconciled on live and poster routes
+- 53 metrics reconciled with the six-claim evidence drawer open
+- zero discrepancies
+
+Interaction
+- 24/24 interaction checks passed
+- URL state, visible chips, clear-all, keyboard activation, drill breadcrumb, tour and unknown deep-link empty state verified
+- screen-reader chart tables: 350 rows
+
+Accessibility
+- standard axe: 0 violations (desktop light, desktop dark, mobile light, poster)
+- tour axe: 0 violations in light and dark; focus trapped; Escape closes
+- all audited contrast pairs pass WCAG AA
+- no body overflow at 375, 768, 1024 or 1440 CSS pixels
+- 200% text zoom: no body overflow; core signature and tour trigger retained
+- protanopia, deuteranopia, tritanopia and linear-light greyscale posters generated and inspected
+
+Performance and poster
+- cold load to first real number: 1,091ms (budget 3000ms)
+- interaction-to-paint: 1ms maximum (budget 200ms)
+- poster: exactly 2560x1440
+- poster fit: 0px vertical overflow, 0px horizontal overflow, 0px slack
+
+Known limits
+- not deployed
+- month-end Cash-Out reversal remains an unconfirmed holdout target
+- finance drill is binned rather than row-level
+- public DataDNA AI scores are unavailable

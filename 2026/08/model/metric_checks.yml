@@ -1,0 +1,94 @@
+# G7 verification spec — every number the August dashboard renders.
+#
+# Countable and correlatable figures are recomputed from curated Parquet with DuckDB. Scipy-only
+# p-values and corrected search summaries read `headline`; model/test_metrics.py independently
+# constrains those values against the immutable raw CSVs.
+
+metrics:
+  # context and thesis
+  transactions: SELECT count(*)::DOUBLE FROM fact_transaction
+  used_workers: SELECT count(DISTINCT worker_id)::DOUBLE FROM fact_transaction
+  markets: SELECT count(*)::DOUBLE FROM dim_market
+  channels: SELECT count(DISTINCT channel_type)::DOUBLE FROM dim_channel
+
+  # controls -> flags
+  main_effect_tests: SELECT main_effect_tests::DOUBLE FROM headline
+  main_effect_survivors: SELECT main_effect_survivors::DOUBLE FROM headline
+  max_main_cramers_v: SELECT max_main_cramers_v::DOUBLE FROM headline
+  interaction_tests: SELECT interaction_tests::DOUBLE FROM headline
+  interaction_survivors: SELECT interaction_survivors::DOUBLE FROM headline
+  max_abs_continuous_r: SELECT max(abs(statistic))::DOUBLE FROM dim_control_validation
+  robust_controls: SELECT count(*)::DOUBLE FROM dim_control_validation WHERE is_robust
+
+  # positive control and claim verdicts
+  positive_control_rows: |
+    SELECT count(*)::DOUBLE FROM fact_transaction
+    WHERE fraud_loss_present = is_fraud_flagged
+  claims_confirmed: SELECT count(*)::DOUBLE FROM dim_claim WHERE verdict='CONFIRMED'
+  claims_rejected: SELECT count(*)::DOUBLE FROM dim_claim WHERE verdict='REJECTED'
+  open_leads: SELECT count(*)::DOUBLE FROM dim_claim WHERE verdict='OPEN'
+
+  # open lead — rate and difference recomputed from its two denominator rows
+  cashout_month_end_reversal_rate: |
+    SELECT reversal_rate::DOUBLE FROM fact_month_end_cashout WHERE is_month_end
+  cashout_other_reversal_rate: |
+    SELECT reversal_rate::DOUBLE FROM fact_month_end_cashout WHERE NOT is_month_end
+  cashout_month_end_reversal_diff_pp: |
+    SELECT (100.0 * (max(reversal_rate) - min(reversal_rate)))::DOUBLE
+    FROM fact_month_end_cashout
+  cashout_month_end_reversal_ci_low_pp: |
+    SELECT cashout_month_end_reversal_ci_low_pp::DOUBLE FROM headline
+  cashout_month_end_reversal_ci_high_pp: |
+    SELECT cashout_month_end_reversal_ci_high_pp::DOUBLE FROM headline
+  cashout_month_end_reversal_p: SELECT cashout_month_end_reversal_p::DOUBLE FROM headline
+  cashout_month_end_n: |
+    SELECT transactions::DOUBLE FROM fact_month_end_cashout WHERE is_month_end
+
+  # flags -> outcomes
+  reversal_phi: SELECT phi::DOUBLE FROM dim_status_alignment WHERE event='Reversed'
+  dispute_phi: SELECT phi::DOUBLE FROM dim_status_alignment WHERE event='Disputed'
+  reversal_agreement: SELECT agreement::DOUBLE FROM dim_status_alignment WHERE event='Reversed'
+  dispute_agreement: SELECT agreement::DOUBLE FROM dim_status_alignment WHERE event='Disputed'
+
+  # exposure -> loss. Quarantined source fields are used only to prove the defect.
+  loss_amount_r: |
+    SELECT corr(source_fraud_loss_usd_unbounded, source_amount_usd_unreconciled)::DOUBLE
+    FROM fact_transaction WHERE is_fraud_flagged
+  loss_exceeds_amount_rows: |
+    SELECT count(*)::DOUBLE FROM fact_transaction
+    WHERE is_fraud_flagged
+      AND source_fraud_loss_usd_unbounded > source_amount_usd_unreconciled
+
+  # validator -> files. Scipy/JSON audit values are independently asserted in test_metrics.py.
+  validation_checks_passed: SELECT validation_checks_passed::DOUBLE FROM headline
+  configured_relationships: SELECT configured_relationships::DOUBLE FROM headline
+  missing_relationships: SELECT missing_relationships::DOUBLE FROM headline
+  configured_constraints: SELECT configured_constraints::DOUBLE FROM headline
+  matching_constraint_names: SELECT matching_constraint_names::DOUBLE FROM headline
+
+metric_sets:
+  connector: |
+    SELECT connector_id AS key, 'primary' AS measure, primary_value::DOUBLE AS value
+    FROM dim_connector ORDER BY connector_id
+  control: |
+    SELECT control_id AS key, 'r' AS measure, statistic::DOUBLE AS value
+    FROM dim_control_validation ORDER BY control_id
+  claim: |
+    SELECT claim_id AS key, 'effect' AS measure, effect::DOUBLE AS value
+    FROM dim_claim
+    UNION ALL
+    SELECT claim_id AS key, 'p' AS measure, p_value::DOUBLE AS value
+    FROM dim_claim WHERE p_value IS NOT NULL
+  status: |
+    SELECT lower(event) AS key, 'phi' AS measure, phi::DOUBLE AS value
+    FROM dim_status_alignment
+    UNION ALL
+    SELECT lower(event) AS key, 'agreement' AS measure, agreement::DOUBLE AS value
+    FROM dim_status_alignment
+    UNION ALL
+    SELECT lower(event) AS key, 'p' AS measure, p_value::DOUBLE AS value
+    FROM dim_status_alignment
+  lead: |
+    SELECT CASE WHEN is_month_end THEN 'month_end' ELSE 'other_days' END AS key,
+           'rate' AS measure, reversal_rate::DOUBLE AS value
+    FROM fact_month_end_cashout

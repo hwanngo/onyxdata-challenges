@@ -4,10 +4,10 @@
 # Era 1 = Playground-only, gated, no brief. Era 2 = full challenge page, ungated.
 
 meta:
-  verified_on: 2026-07-27
-  total: 65
+  verified_on: 2026-09-02
+  total: 66
   era1_count: 52
-  era2_count: 13
+  era2_count: 14
   playground_index: https://datadna.onyxdata.co.uk/playground/
   challenge_index: https://datadna.onyxdata.co.uk/challenges/
   work_order: era2_oldest_first_then_era1_backfill
@@ -428,6 +428,36 @@ challenges:
       Accent pair is the narrowest yet: --measured and --claimed are 1.10:1 apart in lightness,
       so mark type (solid stepped vs dashed straight) carries the encoding, not colour.
     scores: {judge_34: 29, ai_storytelling: 5, ai_design: 4, ai_technical: 5, ai_insights: 5}
+
+  - folder: "2026/08"
+    era: 2
+    title: "August 2026 DataDNA - African Gig-Economy and Digital Wallet Analytics"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2026-08-august-2026-datadna-african-gig-economy-and-digital-wallet-analytics-challenge/"
+    challenge_url: "https://datadna.onyxdata.co.uk/challenges/august-2026-datadna-african-gig-economy-and-digital-wallet-analytics-challenge/"
+    dataset_url: "https://datadna.onyxdata.co.uk/wp-content/uploads/2026/07/DataDNA-Dataset-Challenge-2026-08-African-Gig-Economy-and-Digital-Wallet-Risk.zip"   # verified 2026-09-02
+    dataset_folder: "DataDNA-Dataset-Challenge-2026-08-African-Gig-Economy-and-Digital-Wallet-Risk"
+    formats: [CSV, MD, JSON, HTML]   # verified from the ZIP at G1; CSV data plus source documentation and EDA report
+    status: done
+    sha256: "b5901787471aec55ac2ce9ea8bae294328bcf878c1aac8b539423fdb0228c75d"
+    notes: |
+      Completed 2026-09-02, G1-G8, as post-deadline portfolio/practice work. Thesis:
+      Connected tables, disconnected risk. The 50,000-row fact is genuinely transaction-grain,
+      every foreign key resolves, and the calendar is sound -- but the evidence chain breaks at
+      four connectors. Controls -> flags: 0 of 60 prespecified effects and 0 of 570 interactions
+      survive correction, max |r| 0.00632. Flags -> outcomes: reversal/dispute phi 0.00414/0.00265.
+      Exposure -> loss: r=-0.00453 and loss exceeds amount on 12,562 flagged rows. Validator ->
+      files: 0 of 54 constraint names match and 5 of 9 relationships require absent columns while
+      the report says 9 of 9 passed. Positive control: loss presence matches the fraud flag on all
+      50,000 rows. Five supplied findings are rejected; month-end Cash-Out reversal remains OPEN at
+      +8.28pp, 95% CI [-0.26,+16.81], p=0.058, n=132. Signature: The Broken Circuit -- four fixed-
+      width failed evidence traces, one continuous positive-control bus and one amber forest-plot
+      lead. Invalid money fields are quarantined under explicit source_* names and Malloy exposes no
+      loss, exposure, revenue or ROI measure. Evidence: 14 model tests, 17/17 Malloy views, 42-53
+      DOM metrics reconciled, 24/24 interactions, axe zero on all surfaces and tour themes, all
+      contrast pairs AA, 1,091ms cold load, 1ms max interaction, exact 2560x1440 fit and four CVD/
+      greyscale simulations. Not deployed: STACK.md defers hosting.
+    self_scores: {judge_34: 31, ai_storytelling: 5, ai_design: 4, ai_technical: 5, ai_insights: 5, ai_b_accessibility: 5}
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
 
   # ---------- ERA 1 (gated; see docs/DATA_ACCESS.md before attempting) ----------
   - folder: "2021/01"

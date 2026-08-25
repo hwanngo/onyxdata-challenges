@@ -190,14 +190,17 @@ def main() -> int:
         shared = {c: t for c, t in cols.items() if len(t) > 1}
         if shared:
             con = duckdb.connect()
-            for name, df in frames.items():
-                con.register(f"t_{name}", df.to_arrow())
             for c, tabs in list(shared.items())[:20]:
                 out.append(f"- `{c}` appears in: {', '.join(f'`{t}`' for t in tabs)}")
                 a, b = tabs[0], tabs[1]
                 try:
+                    # Only the shared key is needed here. Registering an entire documentation
+                    # JSON can fail when Arrow represents one of its empty objects as `struct<>`,
+                    # a type DuckDB cannot import even though that field is unrelated to the join.
+                    con.register("ref_left", frames[a].select(c).to_arrow())
+                    con.register("ref_right", frames[b].select(c).to_arrow())
                     orphans = con.execute(
-                        f'SELECT count(*) FROM t_{a} a LEFT JOIN t_{b} b USING ("{c}") '
+                        f'SELECT count(*) FROM ref_left a LEFT JOIN ref_right b USING ("{c}") '
                         f'WHERE b."{c}" IS NULL'
                     ).fetchone()[0]
                     flag = "  ← FINDING" if orphans else ""

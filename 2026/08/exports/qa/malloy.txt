@@ -1,0 +1,1086 @@
+node tools/run_malloy.mjs 2026 08
+sources: calendar, transaction, connector, claim, control_validation, status_alignment, month_end_cashout, exposure_bin, contract, defect, headline   views: 17
+
+==============================================================================
+run: calendar -> calendar_contract   (10 rows)
+==============================================================================
+[
+ {
+  "calendar_year": 2023,
+  "quarter_label": "Q1",
+  "month_number": 1,
+  "month_name": "January",
+  "iso_week": 4,
+  "dates": 7
+ },
+ {
+  "calendar_year": 2023,
+  "quarter_label": "Q1",
+  "month_number": 1,
+  "month_name": "January",
+  "iso_week": 3,
+  "dates": 7
+ },
+ {
+  "calendar_year": 2023,
+  "quarter_label": "Q1",
+  "month_number": 1,
+  "month_name": "January",
+  "iso_week": 52,
+  "dates": 1
+ },
+ {
+  "calendar_year": 2023,
+  "quarter_label": "Q1",
+  "month_number": 1,
+  "month_name": "January",
+  "iso_week": 1,
+  "dates": 7
+ },
+ {
+  "calendar_year": 2023,
+  "quarter_label": "Q1",
+  "month_number": 1,
+  "month_name": "January",
+  "iso_week": 2,
+  "dates": 7
+ },
+ {
+  "calendar_year": 2023,
+  "quarter_label": "Q1",
+  "month_number": 1,
+  "month_name": "January",
+  "iso_week": 5,
+  "dates": 2
+ },
+ {
+  "calendar_year": 2023,
+  "quarter_label": "Q1",
+  "month_number": 2,
+  "month_name": "February",
+  "iso_week": 8,
+  "dates": 7
+ },
+ {
+  "calendar_year": 2023,
+  "quarter_label": "Q1",
+  "month_number": 2,
+  "month_name": "February",
+  "iso_week": 6,
+  "dates": 7
+ },
+ {
+  "calendar_year": 2023,
+  "quarter_label": "Q1",
+  "month_number": 2,
+  "month_name": "February",
+  "iso_week": 7,
+  "dates": 7
+ },
+ {
+  "calendar_year": 2023,
+  "quarter_label": "Q1",
+  "month_number": 2,
+  "month_name": "February",
+  "iso_week": 9,
+  "dates": 2
+ }
+]
+
+==============================================================================
+run: transaction -> by_country   (4 rows)
+==============================================================================
+[
+ {
+  "country": "Ghana",
+  "transactions": 12629,
+  "workers": 4579,
+  "fraud_flags": 6401,
+  "dispute_flags": 6320,
+  "reversal_flags": 6289,
+  "fraud_flag_rate": 0.5068493150684932,
+  "dispute_flag_rate": 0.5004355055823897,
+  "reversal_flag_rate": 0.49798083775437485
+ },
+ {
+  "country": "Kenya",
+  "transactions": 12490,
+  "workers": 4604,
+  "fraud_flags": 6289,
+  "dispute_flags": 6228,
+  "reversal_flags": 6257,
+  "fraud_flag_rate": 0.5035228182546037,
+  "dispute_flag_rate": 0.49863891112890313,
+  "reversal_flag_rate": 0.5009607686148919
+ },
+ {
+  "country": "Nigeria",
+  "transactions": 12382,
+  "workers": 4600,
+  "fraud_flags": 6237,
+  "dispute_flags": 6270,
+  "reversal_flags": 6164,
+  "fraud_flag_rate": 0.5037150702632854,
+  "dispute_flag_rate": 0.5063802293652075,
+  "reversal_flag_rate": 0.49781941528024554
+ },
+ {
+  "country": "South Africa",
+  "transactions": 12499,
+  "workers": 4589,
+  "fraud_flags": 6218,
+  "dispute_flags": 6217,
+  "reversal_flags": 6242,
+  "fraud_flag_rate": 0.4974797983838707,
+  "dispute_flag_rate": 0.49739979198335865,
+  "reversal_flag_rate": 0.4993999519961597
+ }
+]
+
+==============================================================================
+run: transaction -> by_channel   (5 rows)
+==============================================================================
+[
+ {
+  "channel_type": "API/Third-Party",
+  "transactions": 12326,
+  "workers": 4567,
+  "fraud_flags": 6225,
+  "dispute_flags": 6152,
+  "reversal_flags": 6178,
+  "fraud_flag_rate": 0.5050300178484505,
+  "dispute_flag_rate": 0.4991075774785007,
+  "reversal_flag_rate": 0.5012169398020445
+ },
+ {
+  "channel_type": "Agent",
+  "transactions": 12485,
+  "workers": 4565,
+  "fraud_flags": 6159,
+  "dispute_flags": 6324,
+  "reversal_flags": 6200,
+  "fraud_flag_rate": 0.49331197436924307,
+  "dispute_flag_rate": 0.5065278334000801,
+  "reversal_flag_rate": 0.49659591509811774
+ },
+ {
+  "channel_type": "Mobile App",
+  "transactions": 8484,
+  "workers": 4121,
+  "fraud_flags": 4270,
+  "dispute_flags": 4227,
+  "reversal_flags": 4207,
+  "fraud_flag_rate": 0.5033003300330033,
+  "dispute_flag_rate": 0.49823196605374825,
+  "reversal_flag_rate": 0.49587458745874585
+ },
+ {
+  "channel_type": "POS",
+  "transactions": 12476,
+  "workers": 4596,
+  "fraud_flags": 6326,
+  "dispute_flags": 6217,
+  "reversal_flags": 6233,
+  "fraud_flag_rate": 0.5070535428021802,
+  "dispute_flag_rate": 0.49831676819493426,
+  "reversal_flag_rate": 0.4995992305226034
+ },
+ {
+  "channel_type": "USSD",
+  "transactions": 4229,
+  "workers": 2885,
+  "fraud_flags": 2165,
+  "dispute_flags": 2115,
+  "reversal_flags": 2134,
+  "fraud_flag_rate": 0.5119413572948688,
+  "dispute_flag_rate": 0.5001182312603453,
+  "reversal_flag_rate": 0.5046110191534642
+ }
+]
+
+==============================================================================
+run: transaction -> by_segment   (10 rows)
+==============================================================================
+[
+ {
+  "gig_segment": "Agricultural Day Labourer",
+  "transactions": 3468,
+  "workers": 344,
+  "fraud_flags": 1796,
+  "dispute_flags": 1717,
+  "reversal_flags": 1719,
+  "fraud_flag_rate": 0.5178777393310265,
+  "dispute_flag_rate": 0.4950980392156863,
+  "reversal_flag_rate": 0.49567474048442905
+ },
+ {
+  "gig_segment": "Delivery Rider",
+  "transactions": 3325,
+  "workers": 340,
+  "fraud_flags": 1672,
+  "dispute_flags": 1630,
+  "reversal_flags": 1648,
+  "fraud_flag_rate": 0.5028571428571429,
+  "dispute_flag_rate": 0.49022556390977445,
+  "reversal_flag_rate": 0.4956390977443609
+ },
+ {
+  "gig_segment": "Domestic Worker",
+  "transactions": 3521,
+  "workers": 343,
+  "fraud_flags": 1823,
+  "dispute_flags": 1770,
+  "reversal_flags": 1742,
+  "fraud_flag_rate": 0.5177506390230048,
+  "dispute_flag_rate": 0.5026980971314967,
+  "reversal_flag_rate": 0.49474581084919056
+ },
+ {
+  "gig_segment": "E-commerce Reseller",
+  "transactions": 3557,
+  "workers": 366,
+  "fraud_flags": 1817,
+  "dispute_flags": 1789,
+  "reversal_flags": 1760,
+  "fraud_flag_rate": 0.5108237278605566,
+  "dispute_flag_rate": 0.5029519257801518,
+  "reversal_flag_rate": 0.4947989879111611
+ },
+ {
+  "gig_segment": "Food Delivery Courier",
+  "transactions": 3511,
+  "workers": 350,
+  "fraud_flags": 1750,
+  "dispute_flags": 1786,
+  "reversal_flags": 1742,
+  "fraud_flag_rate": 0.4984334947308459,
+  "dispute_flag_rate": 0.5086869837653091,
+  "reversal_flag_rate": 0.49615494161207635
+ },
+ {
+  "gig_segment": "Freelance Creative",
+  "transactions": 3630,
+  "workers": 368,
+  "fraud_flags": 1817,
+  "dispute_flags": 1840,
+  "reversal_flags": 1830,
+  "fraud_flag_rate": 0.5005509641873278,
+  "dispute_flag_rate": 0.5068870523415978,
+  "reversal_flag_rate": 0.5041322314049587
+ },
+ {
+  "gig_segment": "Informal Vendor",
+  "transactions": 3073,
+  "workers": 315,
+  "fraud_flags": 1551,
+  "dispute_flags": 1639,
+  "reversal_flags": 1543,
+  "fraud_flag_rate": 0.5047185161080378,
+  "dispute_flag_rate": 0.5333550276602669,
+  "reversal_flag_rate": 0.5021151968760169
+ },
+ {
+  "gig_segment": "Logistics Driver (Truck/Van)",
+  "transactions": 3180,
+  "workers": 321,
+  "fraud_flags": 1553,
+  "dispute_flags": 1559,
+  "reversal_flags": 1616,
+  "fraud_flag_rate": 0.48836477987421384,
+  "dispute_flag_rate": 0.490251572327044,
+  "reversal_flag_rate": 0.5081761006289308
+ },
+ {
+  "gig_segment": "Market Trader",
+  "transactions": 2957,
+  "workers": 300,
+  "fraud_flags": 1452,
+  "dispute_flags": 1462,
+  "reversal_flags": 1456,
+  "fraud_flag_rate": 0.4910382144064931,
+  "dispute_flag_rate": 0.4944200202908353,
+  "reversal_flag_rate": 0.49239093676022994
+ },
+ {
+  "gig_segment": "Mobile Money Agent",
+  "transactions": 3418,
+  "workers": 340,
+  "fraud_flags": 1729,
+  "dispute_flags": 1697,
+  "reversal_flags": 1698,
+  "fraud_flag_rate": 0.5058513750731422,
+  "dispute_flag_rate": 0.49648917495611466,
+  "reversal_flag_rate": 0.4967817437097718
+ }
+]
+
+==============================================================================
+run: transaction -> by_transaction_type   (10 rows)
+==============================================================================
+[
+ {
+  "transaction_type": "Agent Withdrawal",
+  "transactions": 3851,
+  "fraud_flags": 1901,
+  "dispute_flags": 1943,
+  "reversal_flags": 1887,
+  "fraud_flag_rate": 0.49363801609971436,
+  "dispute_flag_rate": 0.5045442742144898,
+  "reversal_flag_rate": 0.4900025967281226
+ },
+ {
+  "transaction_type": "Airtime Top-Up",
+  "transactions": 3842,
+  "fraud_flags": 1987,
+  "dispute_flags": 1953,
+  "reversal_flags": 1905,
+  "fraud_flag_rate": 0.517178552837064,
+  "dispute_flag_rate": 0.5083289953149401,
+  "reversal_flag_rate": 0.49583550234252993
+ },
+ {
+  "transaction_type": "Bill Payment",
+  "transactions": 3901,
+  "fraud_flags": 1992,
+  "dispute_flags": 1988,
+  "reversal_flags": 1926,
+  "fraud_flag_rate": 0.5106382978723404,
+  "dispute_flag_rate": 0.509612919764163,
+  "reversal_flag_rate": 0.4937195590874135
+ },
+ {
+  "transaction_type": "Cash-In",
+  "transactions": 3895,
+  "fraud_flags": 2002,
+  "dispute_flags": 1908,
+  "reversal_flags": 1936,
+  "fraud_flag_rate": 0.513992297817715,
+  "dispute_flag_rate": 0.48985879332477533,
+  "reversal_flag_rate": 0.4970474967907574
+ },
+ {
+  "transaction_type": "Cash-Out",
+  "transactions": 3871,
+  "fraud_flags": 1915,
+  "dispute_flags": 1922,
+  "reversal_flags": 1978,
+  "fraud_flag_rate": 0.49470421079824334,
+  "dispute_flag_rate": 0.4965125290622578,
+  "reversal_flag_rate": 0.5109790751743736
+ },
+ {
+  "transaction_type": "Cross-Border Remittance",
+  "transactions": 3750,
+  "fraud_flags": 1874,
+  "dispute_flags": 1862,
+  "reversal_flags": 1875,
+  "fraud_flag_rate": 0.4997333333333333,
+  "dispute_flag_rate": 0.4965333333333333,
+  "reversal_flag_rate": 0.5
+ },
+ {
+  "transaction_type": "Merchant Payment",
+  "transactions": 3718,
+  "fraud_flags": 1859,
+  "dispute_flags": 1802,
+  "reversal_flags": 1888,
+  "fraud_flag_rate": 0.5,
+  "dispute_flag_rate": 0.4846691769768693,
+  "reversal_flag_rate": 0.507799892415277
+ },
+ {
+  "transaction_type": "Peer Transfer",
+  "transactions": 3881,
+  "fraud_flags": 1947,
+  "dispute_flags": 1968,
+  "reversal_flags": 1944,
+  "fraud_flag_rate": 0.5016748260757536,
+  "dispute_flag_rate": 0.5070858026281886,
+  "reversal_flag_rate": 0.5009018294254058
+ },
+ {
+  "transaction_type": "Refund",
+  "transactions": 3818,
+  "fraud_flags": 1851,
+  "dispute_flags": 1860,
+  "reversal_flags": 1857,
+  "fraud_flag_rate": 0.4848088004190676,
+  "dispute_flag_rate": 0.48716605552645365,
+  "reversal_flag_rate": 0.4863803038239916
+ },
+ {
+  "transaction_type": "Reversal",
+  "transactions": 3839,
+  "fraud_flags": 1937,
+  "dispute_flags": 1938,
+  "reversal_flags": 1909,
+  "fraud_flag_rate": 0.5045584787705132,
+  "dispute_flag_rate": 0.5048189632716853,
+  "reversal_flag_rate": 0.49726491273769213
+ }
+]
+
+==============================================================================
+run: transaction -> new_vs_established   (2 rows)
+==============================================================================
+[
+ {
+  "account_tenure_band": "90 days or more",
+  "transactions": 47497,
+  "workers": 4744,
+  "fraud_flags": 23867,
+  "fraud_flag_rate": 0.5024948944143841
+ },
+ {
+  "account_tenure_band": "Under 90 days",
+  "transactions": 2503,
+  "workers": 255,
+  "fraud_flags": 1278,
+  "fraud_flag_rate": 0.5105872952457051
+ }
+]
+
+==============================================================================
+run: connector -> broken_circuit   (6 rows)
+==============================================================================
+[
+ {
+  "order": 1,
+  "connector_id": "controls_to_flags",
+  "from_node": "Risk controls",
+  "to_node": "Event flags",
+  "status": "BROKEN",
+  "label": "No robust predictive linkage",
+  "primary_value": 0,
+  "primary_unit": "survivors",
+  "primary_display": "0 of 60",
+  "secondary_display": "0 of 570 interactions",
+  "evidence": "max |r| 0.00632",
+  "decision": "Do not build a vulnerability index"
+ },
+ {
+  "order": 2,
+  "connector_id": "flags_to_outcomes",
+  "from_node": "Event flags",
+  "to_node": "Outcome labels",
+  "status": "BROKEN",
+  "label": "Status systems agree at chance",
+  "primary_value": 0.0041362278918228535,
+  "primary_unit": "phi",
+  "primary_display": "φ 0.00414",
+  "secondary_display": "≈50% agreement",
+  "evidence": "reversal p=0.355 · dispute p=0.554",
+  "decision": "Record event chronology and adjudication"
+ },
+ {
+  "order": 3,
+  "connector_id": "exposure_to_loss",
+  "from_node": "Recorded exposure",
+  "to_node": "Recorded loss",
+  "status": "BROKEN",
+  "label": "Loss is unrelated to exposure",
+  "primary_value": -0.0045296921731472015,
+  "primary_unit": "correlation",
+  "primary_display": "r -0.00453",
+  "secondary_display": "loss > amount on 12,562 rows",
+  "evidence": "source loss is unbounded",
+  "decision": "Block financially weighted recommendations"
+ },
+ {
+  "order": 4,
+  "connector_id": "validator_to_files",
+  "from_node": "Validator",
+  "to_node": "Delivered files",
+  "status": "BROKEN",
+  "label": "Validator targets another schema",
+  "primary_value": 0,
+  "primary_unit": "matching constraints",
+  "primary_display": "0 of 54",
+  "secondary_display": "5 of 9 relationships unavailable",
+  "evidence": "report says 9 of 9 passed",
+  "decision": "Fail release on absent contracts"
+ },
+ {
+  "order": 5,
+  "connector_id": "fraud_flag_to_loss_presence",
+  "from_node": "Fraud flag",
+  "to_node": "Positive loss presence",
+  "status": "CONNECTED",
+  "label": "Positive control",
+  "primary_value": 50000,
+  "primary_unit": "aligned rows",
+  "primary_display": "50,000 of 50,000",
+  "secondary_display": "the instrument is live",
+  "evidence": "loss magnitude remains invalid",
+  "decision": "Use as a test, not severity"
+ },
+ {
+  "order": 6,
+  "connector_id": "month_end_cashout_to_reversal",
+  "from_node": "Month-end Cash-Out",
+  "to_node": "Reversal flag",
+  "status": "OPEN",
+  "label": "Confirm — do not deploy",
+  "primary_value": 8.275182960927818,
+  "primary_unit": "percentage points",
+  "primary_display": "+8.28pp",
+  "secondary_display": "p=0.058 · n=132",
+  "evidence": "95% CI [-0.26, +16.81]pp",
+  "decision": "Preregister and retest"
+ }
+]
+
+==============================================================================
+run: claim -> supplied_claim_scorecard   (6 rows)
+==============================================================================
+[
+ {
+  "order": 1,
+  "claim_id": "ussd_app_fraud",
+  "claim": "USSD fraud is 2.3× Mobile App fraud",
+  "observed": "1.017×; p=0.358",
+  "verdict": "REJECTED",
+  "effect": 1.0171687295760343,
+  "effect_unit": "ratio",
+  "effect_pp": 0.8641027261865442,
+  "ci_low_pp": -0.9802547758826188,
+  "ci_high_pp": 2.708460228255707,
+  "p_value": 0.3584709510943589,
+  "sample_n": 4229,
+  "decision": "Do not prioritise USSD from this file"
+ },
+ {
+  "order": 2,
+  "claim_id": "nigeria_kenya_fraud_volume",
+  "claim": "Nigeria and Kenya drive 70% of fraud volume",
+  "observed": "flags 49.82% · loss 50.03% · value 49.84%",
+  "verdict": "REJECTED",
+  "effect": 0.4981507257904156,
+  "effect_unit": "share",
+  "effect_pp": null,
+  "ci_low_pp": null,
+  "ci_high_pp": null,
+  "p_value": null,
+  "sample_n": 25145,
+  "decision": "No country reallocation"
+ },
+ {
+  "order": 3,
+  "claim_id": "new_account_fraud",
+  "claim": "Accounts under 90 days have 3× fraud",
+  "observed": "1.016×; p=0.430",
+  "verdict": "REJECTED",
+  "effect": 1.016104443888434,
+  "effect_unit": "ratio",
+  "effect_pp": 0.8092400831321012,
+  "ci_low_pp": -1.200106190473206,
+  "ci_high_pp": 2.8185863567374083,
+  "p_value": 0.42989785072210174,
+  "sample_n": 2503,
+  "decision": "No tenure-based control change"
+ },
+ {
+  "order": 4,
+  "claim_id": "market_trader_dispute",
+  "claim": "Market Traders have the highest dispute rate",
+  "observed": "rank 10 of 15; p=0.481",
+  "verdict": "REJECTED",
+  "effect": 10,
+  "effect_unit": "rank",
+  "effect_pp": -0.6674722816534584,
+  "ci_low_pp": -2.525329792952177,
+  "ci_high_pp": 1.1903852296452602,
+  "p_value": 0.48132753191931366,
+  "sample_n": 2957,
+  "decision": "No segment reallocation"
+ },
+ {
+  "order": 5,
+  "claim_id": "velocity_risk",
+  "claim": "High velocity correlates with fraud and reversal",
+  "observed": "fraud r=-0.00074; reversal r=+0.00267",
+  "verdict": "REJECTED",
+  "effect": 0.002665962474857123,
+  "effect_unit": "absolute r",
+  "effect_pp": null,
+  "ci_low_pp": null,
+  "ci_high_pp": null,
+  "p_value": 0.5510994143149487,
+  "sample_n": 50000,
+  "decision": "Rebuild velocity from timestamps"
+ },
+ {
+  "order": 6,
+  "claim_id": "month_end_cashout_reversal",
+  "claim": "Month end spikes Cash-Out reversal",
+  "observed": "59.09% vs 50.82%; p=0.058",
+  "verdict": "OPEN",
+  "effect": 0.08275182960927818,
+  "effect_unit": "difference",
+  "effect_pp": 8.275182960927818,
+  "ci_low_pp": -0.2641544960196182,
+  "ci_high_pp": 16.814520417875258,
+  "p_value": 0.05751588786195508,
+  "sample_n": 132,
+  "decision": "Preregister and retest on holdout"
+ }
+]
+
+==============================================================================
+run: claim -> verdict_counts   (2 rows)
+==============================================================================
+[
+ {
+  "verdict": "OPEN",
+  "claims": 1
+ },
+ {
+  "verdict": "REJECTED",
+  "claims": 5
+ }
+]
+
+==============================================================================
+run: control_validation -> controls_against_fraud   (6 rows)
+==============================================================================
+[
+ {
+  "order": 1,
+  "control_id": "velocity",
+  "label": "Transaction velocity",
+  "source_table": "fact_transaction",
+  "source_field": "velocity_score",
+  "target": "is_fraud_flagged",
+  "metric": "point-biserial r",
+  "statistic": -0.0007426563704326073,
+  "abs_statistic": 0.0007426563704326073,
+  "p_value": 0.8681106105772006,
+  "is_robust": false
+ },
+ {
+  "order": 2,
+  "control_id": "worker_risk",
+  "label": "Worker risk score",
+  "source_table": "dim_worker",
+  "source_field": "risk_score",
+  "target": "is_fraud_flagged",
+  "metric": "point-biserial r",
+  "statistic": -0.0040232374288445925,
+  "abs_statistic": 0.0040232374288445925,
+  "p_value": 0.3683308214302268,
+  "is_robust": false
+ },
+ {
+  "order": 3,
+  "control_id": "channel_history",
+  "label": "Channel historical fraud",
+  "source_table": "dim_channel",
+  "source_field": "avg_fraud_rate",
+  "target": "is_fraud_flagged",
+  "metric": "point-biserial r",
+  "statistic": 0.006322854546380785,
+  "abs_statistic": 0.006322854546380785,
+  "p_value": 0.15741709684803995,
+  "is_robust": false
+ },
+ {
+  "order": 4,
+  "control_id": "market_index",
+  "label": "Market fraud index",
+  "source_table": "dim_market",
+  "source_field": "market_fraud_index",
+  "target": "is_fraud_flagged",
+  "metric": "point-biserial r",
+  "statistic": -0.005451448820970255,
+  "abs_statistic": 0.005451448820970255,
+  "p_value": 0.22285952833762335,
+  "is_robust": false
+ },
+ {
+  "order": 5,
+  "control_id": "processing_time",
+  "label": "Processing time",
+  "source_table": "fact_transaction",
+  "source_field": "processing_time_ms",
+  "target": "is_fraud_flagged",
+  "metric": "point-biserial r",
+  "statistic": -0.0016298275449786312,
+  "abs_statistic": 0.0016298275449786312,
+  "p_value": 0.7155357054198659,
+  "is_robust": false
+ },
+ {
+  "order": 6,
+  "control_id": "amount",
+  "label": "Recorded USD amount",
+  "source_table": "fact_transaction",
+  "source_field": "amount_usd",
+  "target": "is_fraud_flagged",
+  "metric": "point-biserial r",
+  "statistic": 0.00445912395784306,
+  "abs_statistic": 0.00445912395784306,
+  "p_value": 0.3187303113748777,
+  "is_robust": false
+ }
+]
+
+==============================================================================
+run: status_alignment -> flags_against_outcomes   (2 rows)
+==============================================================================
+[
+ {
+  "order": 1,
+  "event": "Reversed",
+  "outcome_label": "transaction_outcome='Reversed'",
+  "event_flag": "is_reversed",
+  "phi": 0.0041362278918228535,
+  "p_value": 0.3550238188067232,
+  "agreement": 0.5021,
+  "verdict": "CHANCE"
+ },
+ {
+  "order": 2,
+  "event": "Disputed",
+  "outcome_label": "transaction_outcome='Disputed'",
+  "event_flag": "is_disputed",
+  "phi": 0.00264556045665818,
+  "p_value": 0.5541417146091363,
+  "agreement": 0.49858,
+  "verdict": "CHANCE"
+ }
+]
+
+==============================================================================
+run: month_end_cashout -> confirmation_target   (2 rows)
+==============================================================================
+[
+ {
+  "is_month_end": true,
+  "period": "Month end",
+  "transaction_count": 132,
+  "reversal_count": 78,
+  "measured_reversal_rate": 0.5909090909090909
+ },
+ {
+  "is_month_end": false,
+  "period": "Other days",
+  "transaction_count": 3739,
+  "reversal_count": 1900,
+  "measured_reversal_rate": 0.5081572612998128
+ }
+]
+
+==============================================================================
+run: exposure_bin -> recorded_exposure_vs_loss   (10 rows)
+==============================================================================
+[
+ {
+  "amount_bin": 0,
+  "loss_bin": 0,
+  "above_identity": true,
+  "amount_mid": 31.25,
+  "loss_mid": 31.25,
+  "transaction_count": 62
+ },
+ {
+  "amount_bin": 0,
+  "loss_bin": 0,
+  "above_identity": false,
+  "amount_mid": 31.25,
+  "loss_mid": 31.25,
+  "transaction_count": 42
+ },
+ {
+  "amount_bin": 0,
+  "loss_bin": 1,
+  "above_identity": true,
+  "amount_mid": 31.25,
+  "loss_mid": 93.75,
+  "transaction_count": 104
+ },
+ {
+  "amount_bin": 0,
+  "loss_bin": 2,
+  "above_identity": true,
+  "amount_mid": 31.25,
+  "loss_mid": 156.25,
+  "transaction_count": 105
+ },
+ {
+  "amount_bin": 0,
+  "loss_bin": 3,
+  "above_identity": true,
+  "amount_mid": 31.25,
+  "loss_mid": 218.75,
+  "transaction_count": 78
+ },
+ {
+  "amount_bin": 0,
+  "loss_bin": 4,
+  "above_identity": true,
+  "amount_mid": 31.25,
+  "loss_mid": 281.25,
+  "transaction_count": 71
+ },
+ {
+  "amount_bin": 0,
+  "loss_bin": 5,
+  "above_identity": true,
+  "amount_mid": 31.25,
+  "loss_mid": 343.75,
+  "transaction_count": 79
+ },
+ {
+  "amount_bin": 0,
+  "loss_bin": 6,
+  "above_identity": true,
+  "amount_mid": 31.25,
+  "loss_mid": 406.25,
+  "transaction_count": 93
+ },
+ {
+  "amount_bin": 0,
+  "loss_bin": 7,
+  "above_identity": true,
+  "amount_mid": 31.25,
+  "loss_mid": 468.75,
+  "transaction_count": 83
+ },
+ {
+  "amount_bin": 0,
+  "loss_bin": 8,
+  "above_identity": true,
+  "amount_mid": 31.25,
+  "loss_mid": 531.25,
+  "transaction_count": 80
+ }
+]
+
+==============================================================================
+run: contract -> validation_contracts   (10 rows)
+==============================================================================
+[
+ {
+  "order": 1,
+  "contract_id": "fact_transactions_transaction_id",
+  "kind": "constraint",
+  "name": "fact_transactions_transaction_id",
+  "status": "MISSING",
+  "from_table": "fact",
+  "from_column": "fact_transactions_transaction_id",
+  "to_table": null,
+  "to_column": null,
+  "detail": "string · nullable=False"
+ },
+ {
+  "order": 2,
+  "contract_id": "fact_transactions_worker_id",
+  "kind": "constraint",
+  "name": "fact_transactions_worker_id",
+  "status": "MISSING",
+  "from_table": "fact",
+  "from_column": "fact_transactions_worker_id",
+  "to_table": null,
+  "to_column": null,
+  "detail": "string · nullable=False"
+ },
+ {
+  "order": 3,
+  "contract_id": "fact_transactions_channel_id",
+  "kind": "constraint",
+  "name": "fact_transactions_channel_id",
+  "status": "MISSING",
+  "from_table": "fact",
+  "from_column": "fact_transactions_channel_id",
+  "to_table": null,
+  "to_column": null,
+  "detail": "string · nullable=False"
+ },
+ {
+  "order": 4,
+  "contract_id": "fact_transactions_market_id",
+  "kind": "constraint",
+  "name": "fact_transactions_market_id",
+  "status": "MISSING",
+  "from_table": "fact",
+  "from_column": "fact_transactions_market_id",
+  "to_table": null,
+  "to_column": null,
+  "detail": "string · nullable=False"
+ },
+ {
+  "order": 5,
+  "contract_id": "fact_transactions_destination_market_id",
+  "kind": "constraint",
+  "name": "fact_transactions_destination_market_id",
+  "status": "MISSING",
+  "from_table": "fact",
+  "from_column": "fact_transactions_destination_market_id",
+  "to_table": null,
+  "to_column": null,
+  "detail": "string · nullable=True"
+ },
+ {
+  "order": 6,
+  "contract_id": "fact_transactions_date_id",
+  "kind": "constraint",
+  "name": "fact_transactions_date_id",
+  "status": "MISSING",
+  "from_table": "fact",
+  "from_column": "fact_transactions_date_id",
+  "to_table": null,
+  "to_column": null,
+  "detail": "integer · nullable=False"
+ },
+ {
+  "order": 7,
+  "contract_id": "fact_transactions_transaction_timestamp",
+  "kind": "constraint",
+  "name": "fact_transactions_transaction_timestamp",
+  "status": "MISSING",
+  "from_table": "fact",
+  "from_column": "fact_transactions_transaction_timestamp",
+  "to_table": null,
+  "to_column": null,
+  "detail": "timestamp · nullable=False"
+ },
+ {
+  "order": 8,
+  "contract_id": "fact_transactions_transaction_type",
+  "kind": "constraint",
+  "name": "fact_transactions_transaction_type",
+  "status": "MISSING",
+  "from_table": "fact",
+  "from_column": "fact_transactions_transaction_type",
+  "to_table": null,
+  "to_column": null,
+  "detail": "string · nullable=False"
+ },
+ {
+  "order": 9,
+  "contract_id": "fact_transactions_transaction_status",
+  "kind": "constraint",
+  "name": "fact_transactions_transaction_status",
+  "status": "MISSING",
+  "from_table": "fact",
+  "from_column": "fact_transactions_transaction_status",
+  "to_table": null,
+  "to_column": null,
+  "detail": "string · nullable=False"
+ },
+ {
+  "order": 10,
+  "contract_id": "fact_transactions_transaction_amount_local",
+  "kind": "constraint",
+  "name": "fact_transactions_transaction_amount_local",
+  "status": "MISSING",
+  "from_table": "fact",
+  "from_column": "fact_transactions_transaction_amount_local",
+  "to_table": null,
+  "to_column": null,
+  "detail": "float · nullable=False"
+ }
+]
+
+==============================================================================
+run: contract -> contract_status   (3 rows)
+==============================================================================
+[
+ {
+  "kind": "constraint",
+  "status": "MISSING",
+  "contracts": 54
+ },
+ {
+  "kind": "relationship",
+  "status": "AVAILABLE",
+  "contracts": 4
+ },
+ {
+  "kind": "relationship",
+  "status": "MISSING",
+  "contracts": 5
+ }
+]
+
+==============================================================================
+run: defect -> evidence_boundaries   (5 rows)
+==============================================================================
+[
+ {
+  "order": 1,
+  "defect_id": "disconnected_controls",
+  "title": "Controls do not predict flags",
+  "evidence": "0/60 main effects · 0/570 interactions",
+  "boundary": "No segment or channel prioritisation"
+ },
+ {
+  "order": 2,
+  "defect_id": "split_status",
+  "title": "Flags do not reconcile with outcomes",
+  "evidence": "max φ 0.00414",
+  "boundary": "No event funnel or confirmed outcome"
+ },
+ {
+  "order": 3,
+  "defect_id": "broken_finance",
+  "title": "Loss does not reconcile with exposure",
+  "evidence": "r -0.00453 · 12,562 rows exceed amount",
+  "boundary": "No loss severity, ROI or market exposure"
+ },
+ {
+  "order": 4,
+  "defect_id": "detached_validation",
+  "title": "Validation targets another schema",
+  "evidence": "0/54 constraints · 5/9 relationships unavailable",
+  "boundary": "No trust in the supplied pass report"
+ },
+ {
+  "order": 5,
+  "defect_id": "stale_eda",
+  "title": "Generated EDA describes an earlier state",
+  "evidence": "730 dates reported · 731 delivered",
+  "boundary": "No metric may be copied from the report"
+ }
+]
+
+==============================================================================
+run: headline -> decision_summary   (1 rows)
+==============================================================================
+[
+ {
+  "title": "Connected tables. Disconnected risk.",
+  "transactions": 50000,
+  "used_workers": 4999,
+  "markets": 4,
+  "channels": 5,
+  "date_start": "2023-01-01",
+  "date_end": "2024-12-31",
+  "main_effect_tests": 60,
+  "main_effect_survivors": 0,
+  "max_main_cramers_v": 0.021558983080386285,
+  "interaction_tests": 570,
+  "interaction_survivors": 0,
+  "max_abs_continuous_r": 0.006322854546380785,
+  "positive_control_rows": 50000,
+  "claims_confirmed": 0,
+  "claims_rejected": 5,
+  "open_leads": 1,
+  "cashout_month_end_reversal_diff_pp": 8.275182960927818,
+  "cashout_month_end_reversal_ci_low_pp": -0.2641544960196182,
+  "cashout_month_end_reversal_ci_high_pp": 16.814520417875258,
+  "cashout_month_end_reversal_p": 0.05751588786195508,
+  "cashout_month_end_n": 132,
+  "reversal_phi": 0.0041362278918228535,
+  "dispute_phi": 0.00264556045665818,
+  "loss_amount_r": -0.0045296921731472015,
+  "loss_exceeds_amount_rows": 12562,
+  "validation_checks_passed": 9,
+  "configured_relationships": 9,
+  "missing_relationships": 5,
+  "configured_constraints": 54,
+  "matching_constraint_names": 0
+ }
+]
+
+17/17 views ran clean.
