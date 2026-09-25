@@ -1,0 +1,51 @@
+[
+  {
+    "blocks": "operational attribution",
+    "requirement": "Created, promised-by, accepted, ready, pickup and delivered timestamps",
+    "requirement_id": "service_timestamps",
+    "sequence": 1,
+    "status": "MISSING"
+  },
+  {
+    "blocks": "operational attribution",
+    "requirement": "Origin/destination coordinates, route ID and distance method",
+    "requirement_id": "route_identity",
+    "sequence": 2,
+    "status": "MISSING"
+  },
+  {
+    "blocks": "operational attribution",
+    "requirement": "Weather joined by event timestamp and location",
+    "requirement_id": "observed_weather",
+    "sequence": 3,
+    "status": "MISSING"
+  },
+  {
+    "blocks": "operational attribution",
+    "requirement": "Status, cancellation, retry and reassignment history",
+    "requirement_id": "order_status",
+    "sequence": 4,
+    "status": "MISSING"
+  },
+  {
+    "blocks": "operational attribution",
+    "requirement": "Fee, food revenue, rider payment, other cost and enforced profit formula",
+    "requirement_id": "unit_economics",
+    "sequence": 5,
+    "status": "MISSING"
+  },
+  {
+    "blocks": "operational attribution",
+    "requirement": "Measurement timestamp, method and unit",
+    "requirement_id": "temperature_provenance",
+    "sequence": 6,
+    "status": "MISSING"
+  },
+  {
+    "blocks": "operational attribution",
+    "requirement": "Assignment history and cross-kitchen dispatch rule",
+    "requirement_id": "rider_assignment",
+    "sequence": 7,
+    "status": "MISSING"
+  }
+]

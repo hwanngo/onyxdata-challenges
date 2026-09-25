@@ -1,0 +1,7 @@
+{
+  matches: true,
+  transition: '1e-05s',
+  animation: '1e-05s',
+  scroll: 'auto'
+}
+PASS  reduced-motion media query removes meaningful animation

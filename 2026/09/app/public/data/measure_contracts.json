@@ -1,0 +1,65 @@
+[
+  {
+    "curated_field": "source_order_value_ngn",
+    "reason": "Documented normal distribution rejected; unrelated to supplied profit.",
+    "safe_use": "source audit only",
+    "semantic_status": "quarantined",
+    "source_field": "order_value_ngn"
+  },
+  {
+    "curated_field": "source_delivery_distance_km",
+    "reason": "Broad bounded draw; unrelated to time, cost or supplied profit.",
+    "safe_use": "source audit only",
+    "semantic_status": "quarantined",
+    "source_field": "delivery_distance_km"
+  },
+  {
+    "curated_field": "source_promised_delivery_min",
+    "reason": "4,892 values fall outside the documented 25-45 minute range.",
+    "safe_use": "source audit only",
+    "semantic_status": "quarantined",
+    "source_field": "promised_delivery_min"
+  },
+  {
+    "curated_field": "source_actual_delivery_min",
+    "reason": "4,400 values exceed 120 minutes and promised-time correlation is near zero.",
+    "safe_use": "source audit only",
+    "semantic_status": "quarantined",
+    "source_field": "actual_delivery_min"
+  },
+  {
+    "curated_field": "source_traffic_friction_score",
+    "reason": "Unrelated to actual delivery minutes; weather comparison is unsupported.",
+    "safe_use": "source audit only",
+    "semantic_status": "quarantined",
+    "source_field": "traffic_friction_score"
+  },
+  {
+    "curated_field": "source_food_temp_on_arrival_c",
+    "reason": "4,516 values fall outside 0-100 Celsius and time correlation is near zero.",
+    "safe_use": "source audit only",
+    "semantic_status": "quarantined",
+    "source_field": "food_temp_on_arrival_c"
+  },
+  {
+    "curated_field": "source_customer_rating",
+    "reason": "Disconnected from actual delivery minutes after multiplicity control.",
+    "safe_use": "source audit only",
+    "semantic_status": "quarantined",
+    "source_field": "customer_rating"
+  },
+  {
+    "curated_field": "source_delivery_cost_ngn",
+    "reason": "Unrelated to distance and does not reconcile supplied profit.",
+    "safe_use": "source audit only",
+    "semantic_status": "quarantined",
+    "source_field": "delivery_cost_ngn"
+  },
+  {
+    "curated_field": "source_order_profit_ngn",
+    "reason": "No negative values; all 5,000 rows fail value minus cost equals profit.",
+    "safe_use": "source audit only",
+    "semantic_status": "quarantined",
+    "source_field": "order_profit_ngn"
+  }
+]

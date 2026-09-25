@@ -1,0 +1,256 @@
+// Semantic layer — 2026/09 Every Route, No Journey (Gate G4)
+//
+// The wrong report is intentionally inexpressible in the declared measure layer:
+//   - no profit, margin, loss, SLA, lateness, temperature-quality or rider-performance measure;
+//   - nine source business fields remain quarantined and have no aggregate measure;
+//   - allocation views always retain stable IDs and denominators;
+//   - every supplied claim travels with its sample, observed value, verdict and decision;
+//   - validation failures and missing collection requirements are modeled as evidence.
+
+source: calendar is duckdb.table('../data/curated/dim_date.parquet') extend {
+  primary_key: order_date
+
+  view: calendar_contract is {
+    group_by: calendar_year, quarter_number, month_number, month_name, year_month,
+              iso_week
+    aggregate: calendar_dates is count()
+    order_by: year_month, iso_week
+  }
+}
+
+source: kitchen is duckdb.table('../data/curated/dim_kitchen.parquet') extend {
+  primary_key: kitchen_id
+}
+
+source: delivery_zone is duckdb.table('../data/curated/dim_zone.parquet') extend {
+  primary_key: zone_id
+}
+
+source: rider is duckdb.table('../data/curated/dim_rider.parquet') extend {
+  primary_key: rider_id
+}
+
+source: time_slot is duckdb.table('../data/curated/dim_time_slot.parquet') extend {
+  primary_key: time_slot_id
+}
+
+source: allocation is duckdb.table('../data/curated/fct_order_allocation.parquet') extend {
+  primary_key: order_id
+  join_one: calendar on order_date = calendar.order_date
+  join_one: kitchen on kitchen_id = kitchen.kitchen_id
+  join_one: delivery_zone on zone_id = delivery_zone.zone_id
+  join_one: rider on rider_id = rider.rider_id
+  join_one: time_slot on time_slot_id = time_slot.time_slot_id
+
+  measure:
+    order_count is count()
+    distinct_orders is count(order_id)
+    kitchen_count is count(kitchen_id)
+    zone_count is count(zone_id)
+    rider_count is count(rider_id)
+    slot_count is count(time_slot_id)
+    base_kitchen_matches is count() { where: rider_matches_base_kitchen }
+    base_kitchen_mismatches is count() { where: not rider_matches_base_kitchen }
+    promise_range_failures is count() { where: not promise_in_documented_range }
+    actual_time_screen_failures is count() { where: not actual_within_120_min_screen }
+    temperature_screen_failures is count() { where: not temperature_within_0_100_screen }
+    profit_identity_failures is count() { where: not profit_identity_matches }
+    date_slot_failures is count() { where: not date_matches_slot_weekday }
+    opening_date_failures is count() { where: not order_on_or_after_kitchen_open }
+    base_kitchen_match_rate is base_kitchen_matches / order_count
+
+  dimension:
+    base_assignment_status is
+      pick 'Base match' when rider_matches_base_kitchen
+      else 'Cross-base allocation'
+
+  view: allocation_overview is {
+    aggregate: order_count, distinct_orders, kitchen_count, zone_count, rider_count,
+               slot_count, base_kitchen_matches, base_kitchen_mismatches,
+               base_kitchen_match_rate
+  }
+
+  view: allocation_by_month is {
+    group_by: calendar.calendar_year, calendar.month_number, calendar.month_name,
+              calendar.year_month
+    aggregate: order_count, distinct_orders, kitchen_count, zone_count, rider_count
+    order_by: year_month
+  }
+
+  view: allocation_by_kitchen is {
+    group_by: kitchen.kitchen_id, kitchen.kitchen_name
+    aggregate: order_count, distinct_orders, zone_count, rider_count,
+               base_kitchen_matches, base_kitchen_mismatches
+    order_by: kitchen_id
+  }
+
+  view: allocation_by_zone is {
+    group_by: delivery_zone.zone_id, delivery_zone.zone_name, delivery_zone.zone_tier
+    aggregate: order_count, distinct_orders, kitchen_count, rider_count
+    order_by: zone_id
+  }
+
+  view: allocation_by_rider is {
+    group_by: rider.rider_id, rider.rider_name, rider.assigned_kitchen_id
+    aggregate: order_count, kitchen_count, zone_count, base_kitchen_matches,
+               base_kitchen_mismatches
+    order_by: rider_id
+  }
+
+  view: rider_base_alignment is {
+    group_by: base_assignment_status
+    aggregate: order_count
+    order_by: base_assignment_status
+  }
+
+  view: semantic_quality_audit is {
+    aggregate: order_count, promise_range_failures, actual_time_screen_failures,
+               temperature_screen_failures, profit_identity_failures,
+               date_slot_failures, opening_date_failures, base_kitchen_mismatches
+  }
+}
+
+source: corridor is duckdb.table('../data/curated/fact_corridor_allocation.parquet') extend {
+  measure:
+    corridor_count is count()
+    allocated_orders is sum(order_rows)
+    allocation_fraction is sum(allocation_share)
+
+  view: corridor_grid is {
+    group_by: kitchen_id, kitchen_name, zone_id, zone_name, zone_tier,
+              corridor_rank_within_kitchen
+    aggregate: allocated_orders, allocation_fraction
+    order_by: kitchen_id, corridor_rank_within_kitchen, zone_id
+  }
+
+  view: top_corridor_per_kitchen is {
+    where: corridor_rank_within_kitchen = 1
+    group_by: kitchen_id, kitchen_name, zone_id, zone_name, zone_tier
+    aggregate: allocated_orders, allocation_fraction
+    order_by: kitchen_id, zone_id
+  }
+
+  view: kitchen_with_zone_detail is {
+    group_by: kitchen_id, kitchen_name
+    aggregate: allocated_orders, allocation_fraction, corridor_count
+    nest: zones is {
+      group_by: zone_id, zone_name, zone_tier, corridor_rank_within_kitchen
+      aggregate: allocated_orders, allocation_fraction
+      order_by: corridor_rank_within_kitchen, zone_id
+    }
+    order_by: kitchen_id
+  }
+}
+
+source: measure_contract is duckdb.table('../data/curated/dim_measure_contract.parquet') extend {
+  primary_key: source_field
+
+  measure:
+    quarantined_measures is count() { where: semantic_status = 'quarantined' }
+
+  view: measure_boundaries is {
+    group_by: source_field, curated_field, semantic_status, safe_use, reason
+    order_by: source_field
+  }
+}
+
+source: process_link is duckdb.table('../data/curated/dim_process_link.parquet') extend {
+  primary_key: link_id
+
+  measure:
+    links is count()
+    connected_links is count() { where: survives_correction }
+    largest_abs_relationship is max(abs_correlation_r)
+
+  view: process_chain is {
+    group_by: sequence, link_id, source_measure, target_measure, correlation_r,
+              abs_correlation_r, p_value, corrected_alpha, survives_correction,
+              status, decision
+    order_by: sequence
+  }
+
+  view: process_chain_summary is {
+    aggregate: links, connected_links, largest_abs_relationship
+  }
+}
+
+source: claim is duckdb.table('../data/curated/dim_claim.parquet') extend {
+  primary_key: claim_id
+
+  measure:
+    supplied_claims is count()
+    confirmed_claims is count() { where: verdict = 'CONFIRMED' }
+    rejected_claims is count() { where: verdict = 'REJECTED' }
+    unsupported_claims is count() { where: verdict = 'UNSUPPORTED' }
+
+  view: supplied_claim_scorecard is {
+    group_by: sequence, claim_id, claim, sample_n, observed_value, claimed_value,
+              value_unit, observed, verdict, decision
+    order_by: sequence
+  }
+
+  view: claim_verdicts is {
+    group_by: verdict
+    aggregate: supplied_claims
+    order_by: verdict
+  }
+}
+
+source: contract is duckdb.table('../data/curated/dim_contract.parquet') extend {
+  primary_key: contract_id
+
+  measure:
+    contracts is count()
+    missing_contracts is count() { where: status = 'MISSING' }
+    invalid_contracts is count() { where: status = 'INVALID' }
+    matched_contracts is count() { where: status = 'MATCH' }
+
+  view: validation_contracts is {
+    group_by: sequence, contract_id, kind, status, from_table, from_column,
+              to_table, to_column, detail
+    order_by: sequence
+  }
+
+  view: contract_status is {
+    group_by: kind, status
+    aggregate: contracts
+    order_by: kind, status
+  }
+}
+
+source: release_contract is duckdb.table('../data/curated/audit_release_contract.parquet') extend {
+  primary_key: release_id
+
+  view: release_validation_summary is {
+    group_by: release_id, validation_checks_passed, configured_constraints,
+              matching_constraints, configured_relationships,
+              unavailable_relationships, invalid_relationships,
+              semantic_status, decision
+  }
+}
+
+source: collection_requirement is duckdb.table('../data/curated/dim_collection_requirement.parquet') extend {
+  primary_key: requirement_id
+
+  measure:
+    missing_requirements is count() { where: status = 'MISSING' }
+
+  view: collection_plan is {
+    group_by: sequence, requirement_id, requirement, blocks, status
+    order_by: sequence
+  }
+}
+
+source: headline is duckdb.table('../data/curated/headline.parquet') extend {
+  view: decision_summary is {
+    group_by: title, order_rows, calendar_dates, kitchens, zones, riders, time_slots,
+              kitchen_zone_pairs, kitchen_rider_pairs, kitchen_slot_pairs,
+              largest_corridor_rows, largest_corridor_share, rider_base_mismatches,
+              quarantined_measures, pairwise_measure_tests,
+              process_links_surviving_correction, max_abs_pairwise_r,
+              supplied_claims_confirmed, supplied_claims_failed,
+              validation_checks_passed, configured_constraints, matching_constraints,
+              configured_relationships, unavailable_relationships,
+              invalid_relationships
+  }
+}

@@ -1,0 +1,30 @@
+
+=== DARK  (background #12100d)
+    token              value        ratio   needs  verdict
+    ink                #f8f0e3     16.79:1     4.5  PASS
+    ink-muted          #bdb2a3      9.10:1     4.5  PASS
+    ink-inverse        #12100d      6.98:1     4.5  PASS  on accent
+    border-strong      #8d806f      4.93:1     3.0  PASS
+    accent             #ff7059      6.98:1     3.0  PASS
+    good               #68c2ae      8.97:1     3.0  PASS
+    bad                #ff8175      7.82:1     3.0  PASS
+    warn               #e8b657     10.18:1     3.0  PASS
+    focus              #8fc5ff     10.49:1     3.0  PASS
+    accent-weak        #3a1d18     13.56:1     4.5  PASS  ink ON this surface
+
+=== BASE  (background #12100d)
+    token              value        ratio   needs  verdict
+    ink                #f8f0e3     16.79:1     4.5  PASS
+    ink-muted          #bdb2a3      9.10:1     4.5  PASS
+    ink-inverse        #12100d      6.98:1     4.5  PASS  on accent
+    border-strong      #8d806f      4.93:1     3.0  PASS
+    accent             #ff7059      6.98:1     3.0  PASS
+    good               #68c2ae      8.97:1     3.0  PASS
+    bad                #ff8175      7.82:1     3.0  PASS
+    warn               #e8b657     10.18:1     3.0  PASS
+    focus              #8fc5ff     10.49:1     3.0  PASS
+    accent-weak        #3a1d18     13.56:1     4.5  PASS  ink ON this surface
+
+All pairs clear WCAG 2.1 AA.
+
+Note: the static parser labels the final :root token block as BASE because it encounters the system-dark media-query override last. Runtime axe separately reports zero contrast violations in explicit light, explicit dark, mobile light and poster contexts.

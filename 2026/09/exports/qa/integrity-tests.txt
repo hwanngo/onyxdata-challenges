@@ -1,0 +1,17 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.14.4, pytest-9.1.1, pluggy-1.6.0 -- /Users/admin/Personal/onyxdata-dnakit/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/admin/Personal/onyxdata-dnakit
+configfile: pyproject.toml
+collecting ... collected 8 items
+
+2026/09/analysis/test_integrity.py::test_delivered_tables_have_order_grain_and_complete_keys PASSED [ 12%]
+2026/09/analysis/test_integrity.py::test_business_measures_break_documented_ranges_and_meanings PASSED [ 25%]
+2026/09/analysis/test_integrity.py::test_time_and_entity_dimensions_contradict_their_labels PASSED [ 37%]
+2026/09/analysis/test_integrity.py::test_measures_are_independent_bounded_draws PASSED [ 50%]
+2026/09/analysis/test_integrity.py::test_network_is_fully_crossed_not_operationally_routed PASSED [ 62%]
+2026/09/analysis/test_integrity.py::test_all_five_supplied_claims_fail PASSED [ 75%]
+2026/09/analysis/test_integrity.py::test_analysis_result_is_json_serializable PASSED [ 87%]
+2026/09/analysis/test_integrity.py::test_validation_report_does_not_target_the_delivered_schema PASSED [100%]
+
+============================== 8 passed in 0.48s ===============================

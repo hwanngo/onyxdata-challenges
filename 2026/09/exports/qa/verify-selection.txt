@@ -1,0 +1,8 @@
+PASS  default  163 metrics · 5000 selected rows
+PASS  kitchen  163 metrics · 1215 selected rows
+PASS  zone     163 metrics ·  258 selected rows
+PASS  rider    163 metrics ·   80 selected rows
+PASS  month    163 metrics ·  213 selected rows
+PASS  zero-row 163 metrics ·    0 selected rows
+
+All 6 filtered states reconcile to curated Parquet.

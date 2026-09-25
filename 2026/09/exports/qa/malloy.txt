@@ -1,0 +1,1333 @@
+sources: calendar, allocation, corridor, measure_contract, process_link, claim, contract, release_contract, collection_requirement, headline   views: 21
+
+==============================================================================
+run: calendar -> calendar_contract   (10 rows)
+==============================================================================
+[
+ {
+  "calendar_year": 2023,
+  "quarter_number": 1,
+  "month_number": 1,
+  "month_name": "Jan",
+  "year_month": "2023-01",
+  "iso_week": 1,
+  "calendar_dates": 7
+ },
+ {
+  "calendar_year": 2023,
+  "quarter_number": 1,
+  "month_number": 1,
+  "month_name": "Jan",
+  "year_month": "2023-01",
+  "iso_week": 2,
+  "calendar_dates": 7
+ },
+ {
+  "calendar_year": 2023,
+  "quarter_number": 1,
+  "month_number": 1,
+  "month_name": "Jan",
+  "year_month": "2023-01",
+  "iso_week": 3,
+  "calendar_dates": 7
+ },
+ {
+  "calendar_year": 2023,
+  "quarter_number": 1,
+  "month_number": 1,
+  "month_name": "Jan",
+  "year_month": "2023-01",
+  "iso_week": 4,
+  "calendar_dates": 7
+ },
+ {
+  "calendar_year": 2023,
+  "quarter_number": 1,
+  "month_number": 1,
+  "month_name": "Jan",
+  "year_month": "2023-01",
+  "iso_week": 5,
+  "calendar_dates": 2
+ },
+ {
+  "calendar_year": 2023,
+  "quarter_number": 1,
+  "month_number": 1,
+  "month_name": "Jan",
+  "year_month": "2023-01",
+  "iso_week": 52,
+  "calendar_dates": 1
+ },
+ {
+  "calendar_year": 2023,
+  "quarter_number": 1,
+  "month_number": 2,
+  "month_name": "Feb",
+  "year_month": "2023-02",
+  "iso_week": 5,
+  "calendar_dates": 5
+ },
+ {
+  "calendar_year": 2023,
+  "quarter_number": 1,
+  "month_number": 2,
+  "month_name": "Feb",
+  "year_month": "2023-02",
+  "iso_week": 6,
+  "calendar_dates": 7
+ },
+ {
+  "calendar_year": 2023,
+  "quarter_number": 1,
+  "month_number": 2,
+  "month_name": "Feb",
+  "year_month": "2023-02",
+  "iso_week": 7,
+  "calendar_dates": 7
+ },
+ {
+  "calendar_year": 2023,
+  "quarter_number": 1,
+  "month_number": 2,
+  "month_name": "Feb",
+  "year_month": "2023-02",
+  "iso_week": 8,
+  "calendar_dates": 7
+ }
+]
+
+==============================================================================
+run: allocation -> allocation_overview   (1 rows)
+==============================================================================
+[
+ {
+  "order_count": 5000,
+  "distinct_orders": 5000,
+  "kitchen_count": 4,
+  "zone_count": 20,
+  "rider_count": 60,
+  "slot_count": 48,
+  "base_kitchen_matches": 1264,
+  "base_kitchen_mismatches": 3736,
+  "base_kitchen_match_rate": 0.2528
+ }
+]
+
+==============================================================================
+run: allocation -> allocation_by_month   (10 rows)
+==============================================================================
+[
+ {
+  "calendar_year": 2023,
+  "month_number": 1,
+  "month_name": "Jan",
+  "year_month": "2023-01",
+  "order_count": 213,
+  "distinct_orders": 213,
+  "kitchen_count": 4,
+  "zone_count": 20,
+  "rider_count": 59
+ },
+ {
+  "calendar_year": 2023,
+  "month_number": 2,
+  "month_name": "Feb",
+  "year_month": "2023-02",
+  "order_count": 192,
+  "distinct_orders": 192,
+  "kitchen_count": 4,
+  "zone_count": 20,
+  "rider_count": 57
+ },
+ {
+  "calendar_year": 2023,
+  "month_number": 3,
+  "month_name": "Mar",
+  "year_month": "2023-03",
+  "order_count": 212,
+  "distinct_orders": 212,
+  "kitchen_count": 4,
+  "zone_count": 20,
+  "rider_count": 57
+ },
+ {
+  "calendar_year": 2023,
+  "month_number": 4,
+  "month_name": "Apr",
+  "year_month": "2023-04",
+  "order_count": 205,
+  "distinct_orders": 205,
+  "kitchen_count": 4,
+  "zone_count": 20,
+  "rider_count": 57
+ },
+ {
+  "calendar_year": 2023,
+  "month_number": 5,
+  "month_name": "May",
+  "year_month": "2023-05",
+  "order_count": 213,
+  "distinct_orders": 213,
+  "kitchen_count": 4,
+  "zone_count": 20,
+  "rider_count": 59
+ },
+ {
+  "calendar_year": 2023,
+  "month_number": 6,
+  "month_name": "Jun",
+  "year_month": "2023-06",
+  "order_count": 205,
+  "distinct_orders": 205,
+  "kitchen_count": 4,
+  "zone_count": 20,
+  "rider_count": 59
+ },
+ {
+  "calendar_year": 2023,
+  "month_number": 7,
+  "month_name": "Jul",
+  "year_month": "2023-07",
+  "order_count": 212,
+  "distinct_orders": 212,
+  "kitchen_count": 4,
+  "zone_count": 20,
+  "rider_count": 58
+ },
+ {
+  "calendar_year": 2023,
+  "month_number": 8,
+  "month_name": "Aug",
+  "year_month": "2023-08",
+  "order_count": 213,
+  "distinct_orders": 213,
+  "kitchen_count": 4,
+  "zone_count": 20,
+  "rider_count": 58
+ },
+ {
+  "calendar_year": 2023,
+  "month_number": 9,
+  "month_name": "Sep",
+  "year_month": "2023-09",
+  "order_count": 205,
+  "distinct_orders": 205,
+  "kitchen_count": 4,
+  "zone_count": 20,
+  "rider_count": 59
+ },
+ {
+  "calendar_year": 2023,
+  "month_number": 10,
+  "month_name": "Oct",
+  "year_month": "2023-10",
+  "order_count": 212,
+  "distinct_orders": 212,
+  "kitchen_count": 4,
+  "zone_count": 20,
+  "rider_count": 58
+ }
+]
+
+==============================================================================
+run: allocation -> allocation_by_kitchen   (4 rows)
+==============================================================================
+[
+ {
+  "kitchen_id": "KIT-IK-001",
+  "kitchen_name": "Golden Wok Yaba Central",
+  "order_count": 1215,
+  "distinct_orders": 1215,
+  "zone_count": 20,
+  "rider_count": 60,
+  "base_kitchen_matches": 391,
+  "base_kitchen_mismatches": 824
+ },
+ {
+  "kitchen_id": "KIT-LK-001",
+  "kitchen_name": "Golden Wok Ikeja GRA",
+  "order_count": 1250,
+  "distinct_orders": 1250,
+  "zone_count": 20,
+  "rider_count": 60,
+  "base_kitchen_matches": 309,
+  "base_kitchen_mismatches": 941
+ },
+ {
+  "kitchen_id": "KIT-SU-001",
+  "kitchen_name": "Golden Wok Surulere Hub",
+  "order_count": 1273,
+  "distinct_orders": 1273,
+  "zone_count": 20,
+  "rider_count": 60,
+  "base_kitchen_matches": 325,
+  "base_kitchen_mismatches": 948
+ },
+ {
+  "kitchen_id": "KIT-YB-001",
+  "kitchen_name": "Golden Wok Lekki Phase 1",
+  "order_count": 1262,
+  "distinct_orders": 1262,
+  "zone_count": 20,
+  "rider_count": 60,
+  "base_kitchen_matches": 239,
+  "base_kitchen_mismatches": 1023
+ }
+]
+
+==============================================================================
+run: allocation -> allocation_by_zone   (10 rows)
+==============================================================================
+[
+ {
+  "zone_id": "val_0",
+  "zone_name": "Isolo",
+  "zone_tier": "Tier 3 - Extended Zone",
+  "order_count": 258,
+  "distinct_orders": 258,
+  "kitchen_count": 4,
+  "rider_count": 60
+ },
+ {
+  "zone_id": "val_1",
+  "zone_name": "Ajegunle",
+  "zone_tier": "Tier 1 - Core Zone",
+  "order_count": 242,
+  "distinct_orders": 242,
+  "kitchen_count": 4,
+  "rider_count": 60
+ },
+ {
+  "zone_id": "val_10",
+  "zone_name": "Maryland",
+  "zone_tier": "Tier 1 - Core Zone",
+  "order_count": 259,
+  "distinct_orders": 259,
+  "kitchen_count": 4,
+  "rider_count": 60
+ },
+ {
+  "zone_id": "val_11",
+  "zone_name": "Shomolu",
+  "zone_tier": "Tier 3 - Extended Zone",
+  "order_count": 246,
+  "distinct_orders": 246,
+  "kitchen_count": 4,
+  "rider_count": 59
+ },
+ {
+  "zone_id": "val_12",
+  "zone_name": "Ilupeju",
+  "zone_tier": "Tier 1 - Core Zone",
+  "order_count": 252,
+  "distinct_orders": 252,
+  "kitchen_count": 4,
+  "rider_count": 59
+ },
+ {
+  "zone_id": "val_13",
+  "zone_name": "Egbeda",
+  "zone_tier": "Tier 2 - Adjacent Zone",
+  "order_count": 260,
+  "distinct_orders": 260,
+  "kitchen_count": 4,
+  "rider_count": 58
+ },
+ {
+  "zone_id": "val_14",
+  "zone_name": "Ogudu",
+  "zone_tier": "Tier 4 - Outer Zone",
+  "order_count": 242,
+  "distinct_orders": 242,
+  "kitchen_count": 4,
+  "rider_count": 59
+ },
+ {
+  "zone_id": "val_15",
+  "zone_name": "Magodo",
+  "zone_tier": "Tier 4 - Outer Zone",
+  "order_count": 242,
+  "distinct_orders": 242,
+  "kitchen_count": 4,
+  "rider_count": 60
+ },
+ {
+  "zone_id": "val_16",
+  "zone_name": "Ogudu",
+  "zone_tier": "Tier 3 - Extended Zone",
+  "order_count": 236,
+  "distinct_orders": 236,
+  "kitchen_count": 4,
+  "rider_count": 59
+ },
+ {
+  "zone_id": "val_17",
+  "zone_name": "Egbeda",
+  "zone_tier": "Tier 4 - Outer Zone",
+  "order_count": 247,
+  "distinct_orders": 247,
+  "kitchen_count": 4,
+  "rider_count": 60
+ }
+]
+
+==============================================================================
+run: allocation -> allocation_by_rider   (10 rows)
+==============================================================================
+[
+ {
+  "rider_id": "val_0",
+  "rider_name": "Tunde Adeyemi",
+  "assigned_kitchen_id": "KIT-LK-001",
+  "order_count": 80,
+  "kitchen_count": 4,
+  "zone_count": 20,
+  "base_kitchen_matches": 22,
+  "base_kitchen_mismatches": 58
+ },
+ {
+  "rider_id": "val_1",
+  "rider_name": "Jide Martins",
+  "assigned_kitchen_id": "KIT-LK-001",
+  "order_count": 90,
+  "kitchen_count": 4,
+  "zone_count": 20,
+  "base_kitchen_matches": 28,
+  "base_kitchen_mismatches": 62
+ },
+ {
+  "rider_id": "val_10",
+  "rider_name": "Ola Balogun",
+  "assigned_kitchen_id": "KIT-IK-001",
+  "order_count": 73,
+  "kitchen_count": 4,
+  "zone_count": 19,
+  "base_kitchen_matches": 29,
+  "base_kitchen_mismatches": 44
+ },
+ {
+  "rider_id": "val_11",
+  "rider_name": "Tunde Adeyemi",
+  "assigned_kitchen_id": "KIT-IK-001",
+  "order_count": 74,
+  "kitchen_count": 4,
+  "zone_count": 20,
+  "base_kitchen_matches": 18,
+  "base_kitchen_mismatches": 56
+ },
+ {
+  "rider_id": "val_12",
+  "rider_name": "Femi Adebayo",
+  "assigned_kitchen_id": "KIT-YB-001",
+  "order_count": 76,
+  "kitchen_count": 4,
+  "zone_count": 20,
+  "base_kitchen_matches": 27,
+  "base_kitchen_mismatches": 49
+ },
+ {
+  "rider_id": "val_13",
+  "rider_name": "Biodun Fashola",
+  "assigned_kitchen_id": "KIT-YB-001",
+  "order_count": 76,
+  "kitchen_count": 4,
+  "zone_count": 20,
+  "base_kitchen_matches": 17,
+  "base_kitchen_mismatches": 59
+ },
+ {
+  "rider_id": "val_14",
+  "rider_name": "Kazeem Bello",
+  "assigned_kitchen_id": "KIT-YB-001",
+  "order_count": 71,
+  "kitchen_count": 4,
+  "zone_count": 19,
+  "base_kitchen_matches": 17,
+  "base_kitchen_mismatches": 54
+ },
+ {
+  "rider_id": "val_15",
+  "rider_name": "Rotimi Ajayi",
+  "assigned_kitchen_id": "KIT-YB-001",
+  "order_count": 94,
+  "kitchen_count": 4,
+  "zone_count": 20,
+  "base_kitchen_matches": 18,
+  "base_kitchen_mismatches": 76
+ },
+ {
+  "rider_id": "val_16",
+  "rider_name": "Uche Ogbonna",
+  "assigned_kitchen_id": "KIT-SU-001",
+  "order_count": 87,
+  "kitchen_count": 4,
+  "zone_count": 20,
+  "base_kitchen_matches": 15,
+  "base_kitchen_mismatches": 72
+ },
+ {
+  "rider_id": "val_17",
+  "rider_name": "Kazeem Bello",
+  "assigned_kitchen_id": "KIT-IK-001",
+  "order_count": 92,
+  "kitchen_count": 4,
+  "zone_count": 20,
+  "base_kitchen_matches": 25,
+  "base_kitchen_mismatches": 67
+ }
+]
+
+==============================================================================
+run: allocation -> rider_base_alignment   (2 rows)
+==============================================================================
+[
+ {
+  "base_assignment_status": "Base match",
+  "order_count": 1264
+ },
+ {
+  "base_assignment_status": "Cross-base allocation",
+  "order_count": 3736
+ }
+]
+
+==============================================================================
+run: allocation -> semantic_quality_audit   (1 rows)
+==============================================================================
+[
+ {
+  "order_count": 5000,
+  "promise_range_failures": 4892,
+  "actual_time_screen_failures": 4400,
+  "temperature_screen_failures": 4516,
+  "profit_identity_failures": 5000,
+  "date_slot_failures": 4288,
+  "opening_date_failures": 1238,
+  "base_kitchen_mismatches": 3736
+ }
+]
+
+==============================================================================
+run: corridor -> corridor_grid   (10 rows)
+==============================================================================
+[
+ {
+  "kitchen_id": "KIT-IK-001",
+  "kitchen_name": "Golden Wok Yaba Central",
+  "zone_id": "val_12",
+  "zone_name": "Ilupeju",
+  "zone_tier": "Tier 1 - Core Zone",
+  "corridor_rank_within_kitchen": 1,
+  "allocated_orders": 75,
+  "allocation_fraction": 0.015000000000000001
+ },
+ {
+  "kitchen_id": "KIT-IK-001",
+  "kitchen_name": "Golden Wok Yaba Central",
+  "zone_id": "val_6",
+  "zone_name": "Shomolu",
+  "zone_tier": "Tier 3 - Extended Zone",
+  "corridor_rank_within_kitchen": 2,
+  "allocated_orders": 70,
+  "allocation_fraction": 0.014
+ },
+ {
+  "kitchen_id": "KIT-IK-001",
+  "kitchen_name": "Golden Wok Yaba Central",
+  "zone_id": "val_17",
+  "zone_name": "Egbeda",
+  "zone_tier": "Tier 4 - Outer Zone",
+  "corridor_rank_within_kitchen": 3,
+  "allocated_orders": 68,
+  "allocation_fraction": 0.013600000000000001
+ },
+ {
+  "kitchen_id": "KIT-IK-001",
+  "kitchen_name": "Golden Wok Yaba Central",
+  "zone_id": "val_4",
+  "zone_name": "Bariga",
+  "zone_tier": "Tier 3 - Extended Zone",
+  "corridor_rank_within_kitchen": 3,
+  "allocated_orders": 68,
+  "allocation_fraction": 0.013600000000000001
+ },
+ {
+  "kitchen_id": "KIT-IK-001",
+  "kitchen_name": "Golden Wok Yaba Central",
+  "zone_id": "val_8",
+  "zone_name": "Surulere",
+  "zone_tier": "Tier 2 - Adjacent Zone",
+  "corridor_rank_within_kitchen": 4,
+  "allocated_orders": 66,
+  "allocation_fraction": 0.0132
+ },
+ {
+  "kitchen_id": "KIT-IK-001",
+  "kitchen_name": "Golden Wok Yaba Central",
+  "zone_id": "val_0",
+  "zone_name": "Isolo",
+  "zone_tier": "Tier 3 - Extended Zone",
+  "corridor_rank_within_kitchen": 5,
+  "allocated_orders": 64,
+  "allocation_fraction": 0.0128
+ },
+ {
+  "kitchen_id": "KIT-IK-001",
+  "kitchen_name": "Golden Wok Yaba Central",
+  "zone_id": "val_1",
+  "zone_name": "Ajegunle",
+  "zone_tier": "Tier 1 - Core Zone",
+  "corridor_rank_within_kitchen": 5,
+  "allocated_orders": 64,
+  "allocation_fraction": 0.0128
+ },
+ {
+  "kitchen_id": "KIT-IK-001",
+  "kitchen_name": "Golden Wok Yaba Central",
+  "zone_id": "val_10",
+  "zone_name": "Maryland",
+  "zone_tier": "Tier 1 - Core Zone",
+  "corridor_rank_within_kitchen": 5,
+  "allocated_orders": 64,
+  "allocation_fraction": 0.0128
+ },
+ {
+  "kitchen_id": "KIT-IK-001",
+  "kitchen_name": "Golden Wok Yaba Central",
+  "zone_id": "val_14",
+  "zone_name": "Ogudu",
+  "zone_tier": "Tier 4 - Outer Zone",
+  "corridor_rank_within_kitchen": 6,
+  "allocated_orders": 62,
+  "allocation_fraction": 0.012400000000000001
+ },
+ {
+  "kitchen_id": "KIT-IK-001",
+  "kitchen_name": "Golden Wok Yaba Central",
+  "zone_id": "val_11",
+  "zone_name": "Shomolu",
+  "zone_tier": "Tier 3 - Extended Zone",
+  "corridor_rank_within_kitchen": 7,
+  "allocated_orders": 61,
+  "allocation_fraction": 0.0122
+ }
+]
+
+==============================================================================
+run: corridor -> top_corridor_per_kitchen   (4 rows)
+==============================================================================
+[
+ {
+  "kitchen_id": "KIT-IK-001",
+  "kitchen_name": "Golden Wok Yaba Central",
+  "zone_id": "val_12",
+  "zone_name": "Ilupeju",
+  "zone_tier": "Tier 1 - Core Zone",
+  "allocated_orders": 75,
+  "allocation_fraction": 0.015000000000000001
+ },
+ {
+  "kitchen_id": "KIT-LK-001",
+  "kitchen_name": "Golden Wok Ikeja GRA",
+  "zone_id": "val_13",
+  "zone_name": "Egbeda",
+  "zone_tier": "Tier 2 - Adjacent Zone",
+  "allocated_orders": 78,
+  "allocation_fraction": 0.015600000000000001
+ },
+ {
+  "kitchen_id": "KIT-SU-001",
+  "kitchen_name": "Golden Wok Surulere Hub",
+  "zone_id": "val_5",
+  "zone_name": "Bariga",
+  "zone_tier": "Tier 2 - Adjacent Zone",
+  "allocated_orders": 79,
+  "allocation_fraction": 0.0158
+ },
+ {
+  "kitchen_id": "KIT-YB-001",
+  "kitchen_name": "Golden Wok Lekki Phase 1",
+  "zone_id": "val_5",
+  "zone_name": "Bariga",
+  "zone_tier": "Tier 2 - Adjacent Zone",
+  "allocated_orders": 74,
+  "allocation_fraction": 0.0148
+ }
+]
+
+==============================================================================
+run: corridor -> kitchen_with_zone_detail   (4 rows)
+==============================================================================
+[
+ {
+  "kitchen_id": "KIT-IK-001",
+  "kitchen_name": "Golden Wok Yaba Central",
+  "allocated_orders": 1215,
+  "allocation_fraction": 0.243,
+  "corridor_count": 20,
+  "zones": [
+   {
+    "zone_id": "val_12",
+    "zone_name": "Ilupeju",
+    "zone_tier": "Tier 1 - Core Zone",
+    "corridor_rank_within_kitchen": 1,
+    "allocated_orders": 75,
+    "allocation_fraction": 0.015000000000000001
+   },
+   {
+    "zone_id": "val_6",
+    "zone_name": "Shomolu",
+    "zone_tier": "Tier 3 - Extended Zone",
+    "corridor_rank_within_kitchen": 2,
+    "allocated_orders": 70,
+    "allocation_fraction": 0.014
+   },
+   {
+    "zone_id": "val_17",
+    "zone_name": "Egbeda",
+    "zone_tier": "Tier 4 - Outer Zone",
+    "corridor_rank_within_kitchen": 3,
+    "allocated_orders": 68,
+    "allocation_fraction": 0.013600000000000001
+   },
+   {
+    "zone_id": "val_4",
+    "zone_name": "Bariga",
+    "zone_tier": "Tier 3 - Extended Zone",
+    "corridor_rank_within_kitchen": 3,
+    "allocated_orders": 68,
+    "allocation_fraction": 0.013600000000000001
+   },
+   {
+    "zone_id": "val_8",
+    "zone_name": "Surulere",
+    "zone_tier": "Tier 2 - Adjacent Zone",
+    "corridor_rank_within_kitchen": 4,
+    "allocated_orders": 66,
+    "allocation_fraction": 0.0132
+   },
+   {
+    "zone_id": "val_0",
+    "zone_name": "Isolo",
+    "zone_tier": "Tier 3 - Extended Zone",
+    "corridor_rank_within_kitchen": 5,
+    "allocated_orders": 64,
+    "allocation_fraction": 0.0128
+   },
+   {
+    "zone_id": "val_1",
+    "zone_name": "Ajegunle",
+    "zone_tier": "Tier 1 - Core Zone",
+    "corridor_rank_within_kitchen": 5,
+    "allocated_orders": 64,
+    "allocation_fraction": 0.0128
+   },
+   {
+    "zone_id": "val_10",
+    "zone_name": "Maryland",
+    "zone_tier": "Tier 1 - Core Zone",
+    "corridor_rank_within_kitchen": 5,
+    "allocated_orders": 64,
+    "allocation_fraction": 0.0128
+   },
+   {
+    "zone_id": "val_14",
+    "zone_name": "Ogudu",
+    "zone_tier": "Tier 4 - Outer Zone",
+    "corridor_rank_within_kitchen": 6,
+    "allocated_orders": 62,
+    "allocation_fraction": 0.012400000000000001
+   },
+   {
+    "zone_id": "val_11",
+    "zone_name": "Shomolu",
+    "zone_tier": "Tier 3 - Extended Zone",
+    "corridor_rank_within_kitchen": 7,
+    "allocated_orders": 61,
+    "allocation_fraction": 0.0122
+   },
+   {
+    "zone_id": "val_13",
+    "zone_name": "Egbeda",
+    "zone_tier": "Tier 2 - Adjacent Zone",
+    "corridor_rank_within_kitchen": 7,
+    "allocated_orders": 61,
+    "allocation_fraction": 0.0122
+   },
+   {
+    "zone_id": "val_7",
+    "zone_name": "Ajegunle",
+    "zone_tier": "Tier 2 - Adjacent Zone",
+    "corridor_rank_within_kitchen": 7,
+    "allocated_orders": 61,
+    "allocation_fraction": 0.0122
+   },
+   {
+    "zone_id": "val_5",
+    "zone_name": "Bariga",
+    "zone_tier": "Tier 2 - Adjacent Zone",
+    "corridor_rank_within_kitchen": 8,
+    "allocated_orders": 60,
+    "allocation_fraction": 0.012
+   },
+   {
+    "zone_id": "val_15",
+    "zone_name": "Magodo",
+    "zone_tier": "Tier 4 - Outer Zone",
+    "corridor_rank_within_kitchen": 9,
+    "allocated_orders": 59,
+    "allocation_fraction": 0.0118
+   },
+   {
+    "zone_id": "val_2",
+    "zone_name": "Ketu",
+    "zone_tier": "Tier 2 - Adjacent Zone",
+    "corridor_rank_within_kitchen": 10,
+    "allocated_orders": 57,
+    "allocation_fraction": 0.0114
+   },
+   {
+    "zone_id": "val_16",
+    "zone_name": "Ogudu",
+    "zone_tier": "Tier 3 - Extended Zone",
+    "corridor_rank_within_kitchen": 11,
+    "allocated_orders": 55,
+    "allocation_fraction": 0.011000000000000001
+   },
+   {
+    "zone_id": "val_3",
+    "zone_name": "Lekki Phase 2",
+    "zone_tier": "Tier 2 - Adjacent Zone",
+    "corridor_rank_within_kitchen": 12,
+    "allocated_orders": 54,
+    "allocation_fraction": 0.0108
+   },
+   {
+    "zone_id": "val_9",
+    "zone_name": "Anthony Village",
+    "zone_tier": "Tier 2 - Adjacent Zone",
+    "corridor_rank_within_kitchen": 13,
+    "allocated_orders": 52,
+    "allocation_fraction": 0.010400000000000001
+   },
+   {
+    "zone_id":
+
+==============================================================================
+run: measure_contract -> measure_boundaries   (9 rows)
+==============================================================================
+[
+ {
+  "source_field": "actual_delivery_min",
+  "curated_field": "source_actual_delivery_min",
+  "semantic_status": "quarantined",
+  "safe_use": "source audit only",
+  "reason": "4,400 values exceed 120 minutes and promised-time correlation is near zero."
+ },
+ {
+  "source_field": "customer_rating",
+  "curated_field": "source_customer_rating",
+  "semantic_status": "quarantined",
+  "safe_use": "source audit only",
+  "reason": "Disconnected from actual delivery minutes after multiplicity control."
+ },
+ {
+  "source_field": "delivery_cost_ngn",
+  "curated_field": "source_delivery_cost_ngn",
+  "semantic_status": "quarantined",
+  "safe_use": "source audit only",
+  "reason": "Unrelated to distance and does not reconcile supplied profit."
+ },
+ {
+  "source_field": "delivery_distance_km",
+  "curated_field": "source_delivery_distance_km",
+  "semantic_status": "quarantined",
+  "safe_use": "source audit only",
+  "reason": "Broad bounded draw; unrelated to time, cost or supplied profit."
+ },
+ {
+  "source_field": "food_temp_on_arrival_c",
+  "curated_field": "source_food_temp_on_arrival_c",
+  "semantic_status": "quarantined",
+  "safe_use": "source audit only",
+  "reason": "4,516 values fall outside 0-100 Celsius and time correlation is near zero."
+ },
+ {
+  "source_field": "order_profit_ngn",
+  "curated_field": "source_order_profit_ngn",
+  "semantic_status": "quarantined",
+  "safe_use": "source audit only",
+  "reason": "No negative values; all 5,000 rows fail value minus cost equals profit."
+ },
+ {
+  "source_field": "order_value_ngn",
+  "curated_field": "source_order_value_ngn",
+  "semantic_status": "quarantined",
+  "safe_use": "source audit only",
+  "reason": "Documented normal distribution rejected; unrelated to supplied profit."
+ },
+ {
+  "source_field": "promised_delivery_min",
+  "curated_field": "source_promised_delivery_min",
+  "semantic_status": "quarantined",
+  "safe_use": "source audit only",
+  "reason": "4,892 values fall outside the documented 25-45 minute range."
+ },
+ {
+  "source_field": "traffic_friction_score",
+  "curated_field": "source_traffic_friction_score",
+  "semantic_status": "quarantined",
+  "safe_use": "source audit only",
+  "reason": "Unrelated to actual delivery minutes; weather comparison is unsupported."
+ }
+]
+
+==============================================================================
+run: process_link -> process_chain   (8 rows)
+==============================================================================
+[
+ {
+  "sequence": 1,
+  "link_id": "traffic_to_time",
+  "source_measure": "traffic_friction_score",
+  "target_measure": "actual_delivery_min",
+  "correlation_r": -0.002718472649170762,
+  "abs_correlation_r": 0.002718472649170762,
+  "p_value": 0.8476032968938375,
+  "corrected_alpha": 0.001388888888888889,
+  "survives_correction": false,
+  "status": "disconnected",
+  "decision": "Do not use this link for operational attribution."
+ },
+ {
+  "sequence": 2,
+  "link_id": "distance_to_time",
+  "source_measure": "delivery_distance_km",
+  "target_measure": "actual_delivery_min",
+  "correlation_r": 0.011118822953423804,
+  "abs_correlation_r": 0.011118822953423804,
+  "p_value": 0.43183981841314906,
+  "corrected_alpha": 0.001388888888888889,
+  "survives_correction": false,
+  "status": "disconnected",
+  "decision": "Do not use this link for operational attribution."
+ },
+ {
+  "sequence": 3,
+  "link_id": "time_to_temperature",
+  "source_measure": "actual_delivery_min",
+  "target_measure": "food_temp_on_arrival_c",
+  "correlation_r": -0.008358964991722742,
+  "abs_correlation_r": 0.008358964991722742,
+  "p_value": 0.5545669074823499,
+  "corrected_alpha": 0.001388888888888889,
+  "survives_correction": false,
+  "status": "disconnected",
+  "decision": "Do not use this link for operational attribution."
+ },
+ {
+  "sequence": 4,
+  "link_id": "time_to_rating",
+  "source_measure": "actual_delivery_min",
+  "target_measure": "customer_rating",
+  "correlation_r": -0.015462274881661683,
+  "abs_correlation_r": 0.015462274881661683,
+  "p_value": 0.2743323723414993,
+  "corrected_alpha": 0.001388888888888889,
+  "survives_correction": false,
+  "status": "disconnected",
+  "decision": "Do not use this link for operational attribution."
+ },
+ {
+  "sequence": 5,
+  "link_id": "distance_to_cost",
+  "source_measure": "delivery_distance_km",
+  "target_measure": "delivery_cost_ngn",
+  "correlation_r": 0.01641172753911563,
+  "abs_correlation_r": 0.01641172753911563,
+  "p_value": 0.2459379323011141,
+  "corrected_alpha": 0.001388888888888889,
+  "survives_correction": false,
+  "status": "disconnected",
+  "decision": "Do not use this link for operational attribution."
+ },
+ {
+  "sequence": 6,
+  "link_id": "distance_to_profit",
+  "source_measure": "delivery_distance_km",
+  "target_measure": "order_profit_ngn",
+  "correlation_r": -0.000017895078548690532,
+  "abs_correlation_r": 0.000017895078548690532,
+  "p_value": 0.9989906310122019,
+  "corrected_alpha": 0.001388888888888889,
+  "survives_correction": false,
+  "status": "disconnected",
+  "decision": "Do not use this link for operational attribution."
+ },
+ {
+  "sequence": 7,
+  "link_id": "value_to_profit",
+  "source_measure": "order_value_ngn",
+  "target_measure": "order_profit_ngn",
+  "correlation_r": 0.025712634425844483,
+  "abs_correlation_r": 0.025712634425844483,
+  "p_value": 0.06906355561074978,
+  "corrected_alpha": 0.001388888888888889,
+  "survives_correction": false,
+  "status": "disconnected",
+  "decision": "Do not use this link for operational attribution."
+ },
+ {
+  "sequence": 8,
+  "link_id": "cost_to_profit",
+  "source_measure": "delivery_cost_ngn",
+  "target_measure": "order_profit_ngn",
+  "correlation_r": 0.011789416253522868,
+  "abs_correlation_r": 0.011789416253522868,
+  "p_value": 0.40458639276363073,
+  "corrected_alpha": 0.001388888888888889,
+  "survives_correction": false,
+  "status": "disconnected",
+  "decision": "Do not use this link for operational attribution."
+ }
+]
+
+==============================================================================
+run: process_link -> process_chain_summary   (1 rows)
+==============================================================================
+[
+ {
+  "links": 8,
+  "connected_links": 0,
+  "largest_abs_relationship": 0.025712634425844483
+ }
+]
+
+==============================================================================
+run: claim -> supplied_claim_scorecard   (5 rows)
+==============================================================================
+[
+ {
+  "sequence": 1,
+  "claim_id": "rush_outer_loss",
+  "claim": "Rush-hour outer-zone orders triple SLA and average below NGN -500.",
+  "sample_n": 539,
+  "observed_value": 486.3671075425436,
+  "claimed_value": -500,
+  "value_unit": "mean supplied profit NGN",
+  "observed": "496 above 90 raw minutes; 86 at least 3× promise; 0 below NGN -500",
+  "verdict": "REJECTED",
+  "decision": "Do not reduce outer-zone service from this file."
+ },
+ {
+  "sequence": 2,
+  "claim_id": "rain_delay",
+  "claim": "Rain creates 1.8× traffic and adds 28 minutes.",
+  "sample_n": 1166,
+  "observed_value": 1.0039286874473994,
+  "claimed_value": 1.8,
+  "value_unit": "traffic ratio",
+  "observed": "Clear comparator absent; alternative rain versus all other conditions: traffic ratio 1.00393×; raw time difference +6.94 minutes",
+  "verdict": "UNSUPPORTED",
+  "decision": "The specified Clear comparison is unavailable; do not change weather policy from static slot metadata."
+ },
+ {
+  "sequence": 3,
+  "claim_id": "distance_loss",
+  "claim": "Deliveries above 8 km are structurally unprofitable.",
+  "sample_n": 3871,
+  "observed_value": 0,
+  "claimed_value": null,
+  "value_unit": "negative supplied-profit share",
+  "observed": "0 negative supplied-profit rows above 8 km",
+  "verdict": "REJECTED",
+  "decision": "Do not shrink the delivery radius from this file."
+ },
+ {
+  "sequence": 4,
+  "claim_id": "slow_cold_low_rating",
+  "claim": "Deliveries above 60 minutes arrive below 45°C with ratings below 2.5.",
+  "sample_n": 4710,
+  "observed_value": 0.043099787685774944,
+  "claimed_value": null,
+  "value_unit": "cold share among raw >60-minute rows",
+  "observed": "203 below 45°C; 1768 below 2.5",
+  "verdict": "REJECTED",
+  "decision": "Do not infer quality degradation from invalid measures."
+ },
+ {
+  "sequence": 5,
+  "claim_id": "lekki_vi_ikoyi_loss",
+  "claim": "Lekki serving VI and Ikoyi is consistently unprofitable.",
+  "sample_n": 58,
+  "observed_value": 0,
+  "claimed_value": null,
+  "value_unit": "negative supplied-profit rows in Lekki × Ikoyi",
+  "observed": "0 negative rows; VI present=false",
+  "verdict": "UNSUPPORTED",
+  "decision": "Collect route identity before evaluating the named corridor."
+ }
+]
+
+==============================================================================
+run: claim -> claim_verdicts   (2 rows)
+==============================================================================
+[
+ {
+  "verdict": "REJECTED",
+  "supplied_claims": 3
+ },
+ {
+  "verdict": "UNSUPPORTED",
+  "supplied_claims": 2
+ }
+]
+
+==============================================================================
+run: contract -> validation_contracts   (10 rows)
+==============================================================================
+[
+ {
+  "sequence": 1,
+  "contract_id": "dim_kitchen_kitchen_id",
+  "kind": "constraint",
+  "status": "MISSING",
+  "from_table": "dim",
+  "from_column": "dim_kitchen_kitchen_id",
+  "to_table": null,
+  "to_column": null,
+  "detail": "string · nullable=False"
+ },
+ {
+  "sequence": 2,
+  "contract_id": "dim_kitchen_kitchen_name",
+  "kind": "constraint",
+  "status": "MISSING",
+  "from_table": "dim",
+  "from_column": "dim_kitchen_kitchen_name",
+  "to_table": null,
+  "to_column": null,
+  "detail": "string · nullable=False"
+ },
+ {
+  "sequence": 3,
+  "contract_id": "dim_kitchen_kitchen_zone",
+  "kind": "constraint",
+  "status": "MISSING",
+  "from_table": "dim",
+  "from_column": "dim_kitchen_kitchen_zone",
+  "to_table": null,
+  "to_column": null,
+  "detail": "string · nullable=False"
+ },
+ {
+  "sequence": 4,
+  "contract_id": "dim_kitchen_kitchen_lat",
+  "kind": "constraint",
+  "status": "MISSING",
+  "from_table": "dim",
+  "from_column": "dim_kitchen_kitchen_lat",
+  "to_table": null,
+  "to_column": null,
+  "detail": "float · nullable=False"
+ },
+ {
+  "sequence": 5,
+  "contract_id": "dim_kitchen_kitchen_lon",
+  "kind": "constraint",
+  "status": "MISSING",
+  "from_table": "dim",
+  "from_column": "dim_kitchen_kitchen_lon",
+  "to_table": null,
+  "to_column": null,
+  "detail": "float · nullable=False"
+ },
+ {
+  "sequence": 6,
+  "contract_id": "dim_kitchen_kitchen_status",
+  "kind": "constraint",
+  "status": "MISSING",
+  "from_table": "dim",
+  "from_column": "dim_kitchen_kitchen_status",
+  "to_table": null,
+  "to_column": null,
+  "detail": "string · nullable=False"
+ },
+ {
+  "sequence": 7,
+  "contract_id": "dim_kitchen_max_daily_order_capacity",
+  "kind": "constraint",
+  "status": "MISSING",
+  "from_table": "dim",
+  "from_column": "dim_kitchen_max_daily_order_capacity",
+  "to_table": null,
+  "to_column": null,
+  "detail": "integer · nullable=False"
+ },
+ {
+  "sequence": 8,
+  "contract_id": "dim_kitchen_cuisine_speciality",
+  "kind": "constraint",
+  "status": "MISSING",
+  "from_table": "dim",
+  "from_column": "dim_kitchen_cuisine_speciality",
+  "to_table": null,
+  "to_column": null,
+  "detail": "string · nullable=False"
+ },
+ {
+  "sequence": 9,
+  "contract_id": "dim_kitchen_monthly_fixed_cost_ngn",
+  "kind": "constraint",
+  "status": "MISSING",
+  "from_table": "dim",
+  "from_column": "dim_kitchen_monthly_fixed_cost_ngn",
+  "to_table": null,
+  "to_column": null,
+  "detail": "float · nullable=False"
+ },
+ {
+  "sequence": 10,
+  "contract_id": "dim_delivery_zone_zone_id",
+  "kind": "constraint",
+  "status": "MISSING",
+  "from_table": "dim",
+  "from_column": "dim_delivery_zone_zone_id",
+  "to_table": null,
+  "to_column": null,
+  "detail": "string · nullable=False"
+ }
+]
+
+==============================================================================
+run: contract -> contract_status   (4 rows)
+==============================================================================
+[
+ {
+  "kind": "constraint",
+  "status": "MISSING",
+  "contracts": 54
+ },
+ {
+  "kind": "relationship",
+  "status": "AVAILABLE",
+  "contracts": 3
+ },
+ {
+  "kind": "relationship",
+  "status": "INVALID",
+  "contracts": 1
+ },
+ {
+  "kind": "relationship",
+  "status": "MISSING",
+  "contracts": 3
+ }
+]
+
+==============================================================================
+run: release_contract -> release_validation_summary   (1 rows)
+==============================================================================
+[
+ {
+  "release_id": "2026-09",
+  "validation_checks_passed": 10,
+  "configured_constraints": 54,
+  "matching_constraints": 0,
+  "configured_relationships": 7,
+  "unavailable_relationships": 3,
+  "invalid_relationships": 1,
+  "semantic_status": "failed closed",
+  "decision": "Allocation counts only; operational measures quarantined."
+ }
+]
+
+==============================================================================
+run: collection_requirement -> collection_plan   (7 rows)
+==============================================================================
+[
+ {
+  "sequence": 1,
+  "requirement_id": "service_timestamps",
+  "requirement": "Created, promised-by, accepted, ready, pickup and delivered timestamps",
+  "blocks": "operational attribution",
+  "status": "MISSING"
+ },
+ {
+  "sequence": 2,
+  "requirement_id": "route_identity",
+  "requirement": "Origin/destination coordinates, route ID and distance method",
+  "blocks": "operational attribution",
+  "status": "MISSING"
+ },
+ {
+  "sequence": 3,
+  "requirement_id": "observed_weather",
+  "requirement": "Weather joined by event timestamp and location",
+  "blocks": "operational attribution",
+  "status": "MISSING"
+ },
+ {
+  "sequence": 4,
+  "requirement_id": "order_status",
+  "requirement": "Status, cancellation, retry and reassignment history",
+  "blocks": "operational attribution",
+  "status": "MISSING"
+ },
+ {
+  "sequence": 5,
+  "requirement_id": "unit_economics",
+  "requirement": "Fee, food revenue, rider payment, other cost and enforced profit formula",
+  "blocks": "operational attribution",
+  "status": "MISSING"
+ },
+ {
+  "sequence": 6,
+  "requirement_id": "temperature_provenance",
+  "requirement": "Measurement timestamp, method and unit",
+  "blocks": "operational attribution",
+  "status": "MISSING"
+ },
+ {
+  "sequence": 7,
+  "requirement_id": "rider_assignment",
+  "requirement": "Assignment history and cross-kitchen dispatch rule",
+  "blocks": "operational attribution",
+  "status": "MISSING"
+ }
+]
+
+==============================================================================
+run: headline -> decision_summary   (1 rows)
+==============================================================================
+[
+ {
+  "title": "Every route. No journey.",
+  "order_rows": 5000,
+  "calendar_dates": 731,
+  "kitchens": 4,
+  "zones": 20,
+  "riders": 60,
+  "time_slots": 48,
+  "kitchen_zone_pairs": 80,
+  "kitchen_rider_pairs": 240,
+  "kitchen_slot_pairs": 192,
+  "largest_corridor_rows": 79,
+  "largest_corridor_share": 0.0158,
+  "rider_base_mismatches": 3736,
+  "quarantined_measures": 9,
+  "pairwise_measure_tests": 36,
+  "process_links_surviving_correction": 0,
+  "max_abs_pairwise_r": 0.030379531180472118,
+  "supplied_claims_confirmed": 0,
+  "supplied_claims_failed": 5,
+  "validation_checks_passed": 10,
+  "configured_constraints": 54,
+  "matching_constraints": 0,
+  "configured_relationships": 7,
+  "unavailable_relationships": 3,
+  "invalid_relationships": 1
+ }
+]
+
+21/21 views ran clean.

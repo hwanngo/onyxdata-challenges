@@ -1,0 +1,124 @@
+# G7 verification spec — every numerical mark planned for the September dashboard.
+#
+# Allocation and audit values are independently recomputed from curated Parquet with DuckDB.
+# The sole headline read is the 36-pair maximum correlation; test_metrics.py constrains the
+# underlying raw file and the process-link evidence separately.
+
+metrics:
+  # mechanically valid allocation context
+  order_rows: SELECT count(*)::DOUBLE FROM fct_order_allocation
+  distinct_orders: SELECT count(DISTINCT order_id)::DOUBLE FROM fct_order_allocation
+  calendar_dates: SELECT count(*)::DOUBLE FROM dim_date
+  kitchens: SELECT count(*)::DOUBLE FROM dim_kitchen
+  zones: SELECT count(*)::DOUBLE FROM dim_zone
+  riders: SELECT count(*)::DOUBLE FROM dim_rider
+  time_slots: SELECT count(*)::DOUBLE FROM dim_time_slot
+  kitchen_zone_pairs: |
+    SELECT count(*)::DOUBLE
+    FROM (SELECT DISTINCT kitchen_id, zone_id FROM fct_order_allocation)
+  kitchen_rider_pairs: |
+    SELECT count(*)::DOUBLE
+    FROM (SELECT DISTINCT kitchen_id, rider_id FROM fct_order_allocation)
+  kitchen_slot_pairs: |
+    SELECT count(*)::DOUBLE
+    FROM (SELECT DISTINCT kitchen_id, time_slot_id FROM fct_order_allocation)
+  selected.order_rows: SELECT count(*)::DOUBLE FROM fct_order_allocation
+  selected.kitchen_zone_pairs: |
+    SELECT count(*)::DOUBLE
+    FROM (SELECT DISTINCT kitchen_id, zone_id FROM fct_order_allocation)
+  selected.kitchen_rider_pairs: |
+    SELECT count(*)::DOUBLE
+    FROM (SELECT DISTINCT kitchen_id, rider_id FROM fct_order_allocation)
+  zone_slot_pairs: |
+    SELECT count(*)::DOUBLE
+    FROM (SELECT DISTINCT zone_id, time_slot_id FROM fct_order_allocation)
+  largest_corridor_rows: SELECT max(order_rows)::DOUBLE FROM fact_corridor_allocation
+  largest_corridor_share: SELECT max(allocation_share)::DOUBLE FROM fact_corridor_allocation
+  rider_base_matches: |
+    SELECT count(*)::DOUBLE FROM fct_order_allocation WHERE rider_matches_base_kitchen
+  rider_base_mismatches: |
+    SELECT count(*)::DOUBLE FROM fct_order_allocation WHERE NOT rider_matches_base_kitchen
+
+  # disconnected measurement chain
+  quarantined_measures: |
+    SELECT count(*)::DOUBLE FROM dim_measure_contract WHERE semantic_status='quarantined'
+  pairwise_measure_tests: SELECT pairwise_measure_tests::DOUBLE FROM headline
+  process_links: SELECT count(*)::DOUBLE FROM dim_process_link
+  process_links_surviving_correction: |
+    SELECT count(*)::DOUBLE FROM dim_process_link WHERE survives_correction
+  largest_expected_link_r: SELECT max(abs_correlation_r)::DOUBLE FROM dim_process_link
+  max_abs_pairwise_r: SELECT max_abs_pairwise_r::DOUBLE FROM headline
+  promised_actual_r: |
+    SELECT corr(source_promised_delivery_min, source_actual_delivery_min)::DOUBLE
+    FROM fct_order_allocation
+
+  # semantic defect counts
+  promise_range_failures: |
+    SELECT count(*)::DOUBLE FROM fct_order_allocation WHERE NOT promise_in_documented_range
+  actual_time_screen_failures: |
+    SELECT count(*)::DOUBLE FROM fct_order_allocation WHERE NOT actual_within_120_min_screen
+  temperature_screen_failures: |
+    SELECT count(*)::DOUBLE FROM fct_order_allocation WHERE NOT temperature_within_0_100_screen
+  profit_identity_failures: |
+    SELECT count(*)::DOUBLE FROM fct_order_allocation WHERE NOT profit_identity_matches
+  date_slot_failures: |
+    SELECT count(*)::DOUBLE FROM fct_order_allocation WHERE NOT date_matches_slot_weekday
+  opening_date_failures: |
+    SELECT count(*)::DOUBLE FROM fct_order_allocation WHERE NOT order_on_or_after_kitchen_open
+  slot_hour_failures: |
+    SELECT count(*)::DOUBLE FROM dim_time_slot WHERE NOT slot_hour_consistent
+  slot_weekend_failures: |
+    SELECT count(*)::DOUBLE FROM dim_time_slot WHERE NOT slot_weekend_consistent
+
+  # supplied findings and release contracts
+  claims_confirmed: SELECT count(*)::DOUBLE FROM dim_claim WHERE verdict='CONFIRMED'
+  claims_rejected: SELECT count(*)::DOUBLE FROM dim_claim WHERE verdict='REJECTED'
+  claims_unsupported: SELECT count(*)::DOUBLE FROM dim_claim WHERE verdict='UNSUPPORTED'
+  validation_checks_passed: SELECT validation_checks_passed::DOUBLE FROM audit_release_contract
+  configured_constraints: SELECT configured_constraints::DOUBLE FROM audit_release_contract
+  matching_constraints: SELECT matching_constraints::DOUBLE FROM audit_release_contract
+  configured_relationships: SELECT configured_relationships::DOUBLE FROM audit_release_contract
+  unavailable_relationships: SELECT unavailable_relationships::DOUBLE FROM audit_release_contract
+  invalid_relationships: SELECT invalid_relationships::DOUBLE FROM audit_release_contract
+  missing_collection_requirements: |
+    SELECT count(*)::DOUBLE FROM dim_collection_requirement WHERE status='MISSING'
+
+metric_sets:
+  corridor: |
+    SELECT kitchen_id || '|' || zone_id AS key,
+           'orders' AS measure,
+           order_rows::DOUBLE AS value
+    FROM fact_corridor_allocation
+    UNION ALL
+    SELECT kitchen_id || '|' || zone_id AS key,
+           'share' AS measure,
+           allocation_share::DOUBLE AS value
+    FROM fact_corridor_allocation
+  selected_corridor: |
+    SELECT kitchen_id || '|' || zone_id AS key,
+           'orders' AS measure,
+           order_rows::DOUBLE AS value
+    FROM fact_corridor_allocation
+    UNION ALL
+    SELECT kitchen_id || '|' || zone_id AS key,
+           'share' AS measure,
+           allocation_share::DOUBLE AS value
+    FROM fact_corridor_allocation
+  process_link: |
+    SELECT link_id AS key, 'r' AS measure, correlation_r::DOUBLE AS value
+    FROM dim_process_link
+    UNION ALL
+    SELECT link_id AS key, 'p' AS measure, p_value::DOUBLE AS value
+    FROM dim_process_link
+  claim: |
+    SELECT claim_id AS key, 'observed' AS measure, observed_value::DOUBLE AS value
+    FROM dim_claim
+    UNION ALL
+    SELECT claim_id AS key, 'sample_n' AS measure, sample_n::DOUBLE AS value
+    FROM dim_claim
+  contract_status: |
+    SELECT lower(kind || '_' || status) AS key,
+           'count' AS measure,
+           count(*)::DOUBLE AS value
+    FROM dim_contract
+    GROUP BY kind, status

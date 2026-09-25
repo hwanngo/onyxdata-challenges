@@ -1,0 +1,56 @@
+September 2026 G7 QA summary
+============================
+
+Model and code
+- 8 integrity tests passed
+- 18 curated/model tests passed, including filtered-state verifier unit tests
+- Ruff check and format check passed
+- 21/21 Malloy views ran clean
+- frontend typecheck passed
+- 5 frontend unit tests passed
+- production bundle built successfully
+
+Metrics
+- prose-number lint clean
+- 206 rendered metrics reconciled on the live route
+- 206 rendered metrics reconciled on the poster route
+- 163 selection metrics reconciled in each of six states: default, kitchen, zone, rider, month and zero-row
+- zero metric discrepancies
+
+Requirements
+- all 16 explicit challenge requirements traced to a visible element and query-backed disposition
+- all five archive hypotheses tested: three contradicted, two unsupported, zero confirmed
+- all four guiding-question families answered within the safe allocation/source-audit boundary
+- detailed trace: 2026/09/REQUIREMENTS.md
+
+Interaction
+- 46/46 interaction assertions passed
+- all four allocation filters, chips, clear-all, URL state, browser Back, deep link and zero-row state verified
+- corridor, measure, process, claim, contract and decision drills verified
+- guided-tour focus trap, arrow navigation, Escape and focus restoration verified
+- poster static behavior and mobile alternative representation verified
+
+Accessibility
+- standard axe: 0 violations on desktop light, desktop dark, mobile light and poster
+- tour axe: 0 violations in light and dark; focus trapped; Escape closes
+- all audited token pairs clear WCAG 2.1 AA; runtime axe covers explicit light and poster contexts
+- no body-level overflow at 375, 768, 1024 or 1440 CSS pixels
+- 200% browser zoom equivalent: no body overflow; headline, four kitchen strips and tour trigger retained
+- reduced-motion media query forces immediate transitions/animations and auto scroll behavior
+- protanopia, deuteranopia, tritanopia and linear-light greyscale posters regenerated and inspected
+
+Performance and poster
+- cold load to first real number: 1,488ms (budget 3,000ms)
+- interaction-to-paint: 1ms maximum (budget 200ms)
+- poster: exactly 2560x1440
+- poster fit: 0px vertical overflow, 0px horizontal overflow, no clipped content
+- support evidence row is at least 350px high; evidence labels are at least 10px
+- stranger review: thesis and decision boundary are clear without interaction
+
+Known limits / deferred G8 work
+- not deployed
+- public September benchmark entries and AI scores are unavailable
+- supporting poster evidence remains compact at native scale
+- the five-way operational interaction remains unsupported because time, weather and traffic semantics fail
+- SUBMISSION.md retains its template month placeholder; it is the sole scaffold marker and a G8 artifact
+- final dashboard.png, submission copy, retro, challenge status update, commit and push are not part of G7

@@ -1,0 +1,802 @@
+[
+  {
+    "allocation_share": 0.015000000000000001,
+    "corridor_rank_within_kitchen": 1,
+    "kitchen_id": "KIT-IK-001",
+    "kitchen_name": "Golden Wok Yaba Central",
+    "order_rows": 75,
+    "zone_id": "val_12",
+    "zone_name": "Ilupeju",
+    "zone_tier": "Tier 1 - Core Zone"
+  },
+  {
+    "allocation_share": 0.014,
+    "corridor_rank_within_kitchen": 2,
+    "kitchen_id": "KIT-IK-001",
+    "kitchen_name": "Golden Wok Yaba Central",
+    "order_rows": 70,
+    "zone_id": "val_6",
+    "zone_name": "Shomolu",
+    "zone_tier": "Tier 3 - Extended Zone"
+  },
+  {
+    "allocation_share": 0.013600000000000001,
+    "corridor_rank_within_kitchen": 3,
+    "kitchen_id": "KIT-IK-001",
+    "kitchen_name": "Golden Wok Yaba Central",
+    "order_rows": 68,
+    "zone_id": "val_17",
+    "zone_name": "Egbeda",
+    "zone_tier": "Tier 4 - Outer Zone"
+  },
+  {
+    "allocation_share": 0.013600000000000001,
+    "corridor_rank_within_kitchen": 3,
+    "kitchen_id": "KIT-IK-001",
+    "kitchen_name": "Golden Wok Yaba Central",
+    "order_rows": 68,
+    "zone_id": "val_4",
+    "zone_name": "Bariga",
+    "zone_tier": "Tier 3 - Extended Zone"
+  },
+  {
+    "allocation_share": 0.0132,
+    "corridor_rank_within_kitchen": 4,
+    "kitchen_id": "KIT-IK-001",
+    "kitchen_name": "Golden Wok Yaba Central",
+    "order_rows": 66,
+    "zone_id": "val_8",
+    "zone_name": "Surulere",
+    "zone_tier": "Tier 2 - Adjacent Zone"
+  },
+  {
+    "allocation_share": 0.0128,
+    "corridor_rank_within_kitchen": 5,
+    "kitchen_id": "KIT-IK-001",
+    "kitchen_name": "Golden Wok Yaba Central",
+    "order_rows": 64,
+    "zone_id": "val_0",
+    "zone_name": "Isolo",
+    "zone_tier": "Tier 3 - Extended Zone"
+  },
+  {
+    "allocation_share": 0.0128,
+    "corridor_rank_within_kitchen": 5,
+    "kitchen_id": "KIT-IK-001",
+    "kitchen_name": "Golden Wok Yaba Central",
+    "order_rows": 64,
+    "zone_id": "val_1",
+    "zone_name": "Ajegunle",
+    "zone_tier": "Tier 1 - Core Zone"
+  },
+  {
+    "allocation_share": 0.0128,
+    "corridor_rank_within_kitchen": 5,
+    "kitchen_id": "KIT-IK-001",
+    "kitchen_name": "Golden Wok Yaba Central",
+    "order_rows": 64,
+    "zone_id": "val_10",
+    "zone_name": "Maryland",
+    "zone_tier": "Tier 1 - Core Zone"
+  },
+  {
+    "allocation_share": 0.012400000000000001,
+    "corridor_rank_within_kitchen": 6,
+    "kitchen_id": "KIT-IK-001",
+    "kitchen_name": "Golden Wok Yaba Central",
+    "order_rows": 62,
+    "zone_id": "val_14",
+    "zone_name": "Ogudu",
+    "zone_tier": "Tier 4 - Outer Zone"
+  },
+  {
+    "allocation_share": 0.0122,
+    "corridor_rank_within_kitchen": 7,
+    "kitchen_id": "KIT-IK-001",
+    "kitchen_name": "Golden Wok Yaba Central",
+    "order_rows": 61,
+    "zone_id": "val_11",
+    "zone_name": "Shomolu",
+    "zone_tier": "Tier 3 - Extended Zone"
+  },
+  {
+    "allocation_share": 0.0122,
+    "corridor_rank_within_kitchen": 7,
+    "kitchen_id": "KIT-IK-001",
+    "kitchen_name": "Golden Wok Yaba Central",
+    "order_rows": 61,
+    "zone_id": "val_13",
+    "zone_name": "Egbeda",
+    "zone_tier": "Tier 2 - Adjacent Zone"
+  },
+  {
+    "allocation_share": 0.0122,
+    "corridor_rank_within_kitchen": 7,
+    "kitchen_id": "KIT-IK-001",
+    "kitchen_name": "Golden Wok Yaba Central",
+    "order_rows": 61,
+    "zone_id": "val_7",
+    "zone_name": "Ajegunle",
+    "zone_tier": "Tier 2 - Adjacent Zone"
+  },
+  {
+    "allocation_share": 0.012,
+    "corridor_rank_within_kitchen": 8,
+    "kitchen_id": "KIT-IK-001",
+    "kitchen_name": "Golden Wok Yaba Central",
+    "order_rows": 60,
+    "zone_id": "val_5",
+    "zone_name": "Bariga",
+    "zone_tier": "Tier 2 - Adjacent Zone"
+  },
+  {
+    "allocation_share": 0.0118,
+    "corridor_rank_within_kitchen": 9,
+    "kitchen_id": "KIT-IK-001",
+    "kitchen_name": "Golden Wok Yaba Central",
+    "order_rows": 59,
+    "zone_id": "val_15",
+    "zone_name": "Magodo",
+    "zone_tier": "Tier 4 - Outer Zone"
+  },
+  {
+    "allocation_share": 0.0114,
+    "corridor_rank_within_kitchen": 10,
+    "kitchen_id": "KIT-IK-001",
+    "kitchen_name": "Golden Wok Yaba Central",
+    "order_rows": 57,
+    "zone_id": "val_2",
+    "zone_name": "Ketu",
+    "zone_tier": "Tier 2 - Adjacent Zone"
+  },
+  {
+    "allocation_share": 0.011000000000000001,
+    "corridor_rank_within_kitchen": 11,
+    "kitchen_id": "KIT-IK-001",
+    "kitchen_name": "Golden Wok Yaba Central",
+    "order_rows": 55,
+    "zone_id": "val_16",
+    "zone_name": "Ogudu",
+    "zone_tier": "Tier 3 - Extended Zone"
+  },
+  {
+    "allocation_share": 0.0108,
+    "corridor_rank_within_kitchen": 12,
+    "kitchen_id": "KIT-IK-001",
+    "kitchen_name": "Golden Wok Yaba Central",
+    "order_rows": 54,
+    "zone_id": "val_3",
+    "zone_name": "Lekki Phase 2",
+    "zone_tier": "Tier 2 - Adjacent Zone"
+  },
+  {
+    "allocation_share": 0.010400000000000001,
+    "corridor_rank_within_kitchen": 13,
+    "kitchen_id": "KIT-IK-001",
+    "kitchen_name": "Golden Wok Yaba Central",
+    "order_rows": 52,
+    "zone_id": "val_9",
+    "zone_name": "Anthony Village",
+    "zone_tier": "Tier 2 - Adjacent Zone"
+  },
+  {
+    "allocation_share": 0.009600000000000001,
+    "corridor_rank_within_kitchen": 14,
+    "kitchen_id": "KIT-IK-001",
+    "kitchen_name": "Golden Wok Yaba Central",
+    "order_rows": 48,
+    "zone_id": "val_18",
+    "zone_name": "Alimosho",
+    "zone_tier": "Tier 4 - Outer Zone"
+  },
+  {
+    "allocation_share": 0.0092,
+    "corridor_rank_within_kitchen": 15,
+    "kitchen_id": "KIT-IK-001",
+    "kitchen_name": "Golden Wok Yaba Central",
+    "order_rows": 46,
+    "zone_id": "val_19",
+    "zone_name": "Ikoyi",
+    "zone_tier": "Tier 2 - Adjacent Zone"
+  },
+  {
+    "allocation_share": 0.015600000000000001,
+    "corridor_rank_within_kitchen": 1,
+    "kitchen_id": "KIT-LK-001",
+    "kitchen_name": "Golden Wok Ikeja GRA",
+    "order_rows": 78,
+    "zone_id": "val_13",
+    "zone_name": "Egbeda",
+    "zone_tier": "Tier 2 - Adjacent Zone"
+  },
+  {
+    "allocation_share": 0.0146,
+    "corridor_rank_within_kitchen": 2,
+    "kitchen_id": "KIT-LK-001",
+    "kitchen_name": "Golden Wok Ikeja GRA",
+    "order_rows": 73,
+    "zone_id": "val_9",
+    "zone_name": "Anthony Village",
+    "zone_tier": "Tier 2 - Adjacent Zone"
+  },
+  {
+    "allocation_share": 0.014400000000000001,
+    "corridor_rank_within_kitchen": 3,
+    "kitchen_id": "KIT-LK-001",
+    "kitchen_name": "Golden Wok Ikeja GRA",
+    "order_rows": 72,
+    "zone_id": "val_3",
+    "zone_name": "Lekki Phase 2",
+    "zone_tier": "Tier 2 - Adjacent Zone"
+  },
+  {
+    "allocation_share": 0.0142,
+    "corridor_rank_within_kitchen": 4,
+    "kitchen_id": "KIT-LK-001",
+    "kitchen_name": "Golden Wok Ikeja GRA",
+    "order_rows": 71,
+    "zone_id": "val_8",
+    "zone_name": "Surulere",
+    "zone_tier": "Tier 2 - Adjacent Zone"
+  },
+  {
+    "allocation_share": 0.013600000000000001,
+    "corridor_rank_within_kitchen": 5,
+    "kitchen_id": "KIT-LK-001",
+    "kitchen_name": "Golden Wok Ikeja GRA",
+    "order_rows": 68,
+    "zone_id": "val_10",
+    "zone_name": "Maryland",
+    "zone_tier": "Tier 1 - Core Zone"
+  },
+  {
+    "allocation_share": 0.013600000000000001,
+    "corridor_rank_within_kitchen": 5,
+    "kitchen_id": "KIT-LK-001",
+    "kitchen_name": "Golden Wok Ikeja GRA",
+    "order_rows": 68,
+    "zone_id": "val_6",
+    "zone_name": "Shomolu",
+    "zone_tier": "Tier 3 - Extended Zone"
+  },
+  {
+    "allocation_share": 0.0132,
+    "corridor_rank_within_kitchen": 6,
+    "kitchen_id": "KIT-LK-001",
+    "kitchen_name": "Golden Wok Ikeja GRA",
+    "order_rows": 66,
+    "zone_id": "val_4",
+    "zone_name": "Bariga",
+    "zone_tier": "Tier 3 - Extended Zone"
+  },
+  {
+    "allocation_share": 0.0128,
+    "corridor_rank_within_kitchen": 7,
+    "kitchen_id": "KIT-LK-001",
+    "kitchen_name": "Golden Wok Ikeja GRA",
+    "order_rows": 64,
+    "zone_id": "val_2",
+    "zone_name": "Ketu",
+    "zone_tier": "Tier 2 - Adjacent Zone"
+  },
+  {
+    "allocation_share": 0.0126,
+    "corridor_rank_within_kitchen": 8,
+    "kitchen_id": "KIT-LK-001",
+    "kitchen_name": "Golden Wok Ikeja GRA",
+    "order_rows": 63,
+    "zone_id": "val_0",
+    "zone_name": "Isolo",
+    "zone_tier": "Tier 3 - Extended Zone"
+  },
+  {
+    "allocation_share": 0.012400000000000001,
+    "corridor_rank_within_kitchen": 9,
+    "kitchen_id": "KIT-LK-001",
+    "kitchen_name": "Golden Wok Ikeja GRA",
+    "order_rows": 62,
+    "zone_id": "val_12",
+    "zone_name": "Ilupeju",
+    "zone_tier": "Tier 1 - Core Zone"
+  },
+  {
+    "allocation_share": 0.012400000000000001,
+    "corridor_rank_within_kitchen": 9,
+    "kitchen_id": "KIT-LK-001",
+    "kitchen_name": "Golden Wok Ikeja GRA",
+    "order_rows": 62,
+    "zone_id": "val_15",
+    "zone_name": "Magodo",
+    "zone_tier": "Tier 4 - Outer Zone"
+  },
+  {
+    "allocation_share": 0.012400000000000001,
+    "corridor_rank_within_kitchen": 9,
+    "kitchen_id": "KIT-LK-001",
+    "kitchen_name": "Golden Wok Ikeja GRA",
+    "order_rows": 62,
+    "zone_id": "val_18",
+    "zone_name": "Alimosho",
+    "zone_tier": "Tier 4 - Outer Zone"
+  },
+  {
+    "allocation_share": 0.0122,
+    "corridor_rank_within_kitchen": 10,
+    "kitchen_id": "KIT-LK-001",
+    "kitchen_name": "Golden Wok Ikeja GRA",
+    "order_rows": 61,
+    "zone_id": "val_19",
+    "zone_name": "Ikoyi",
+    "zone_tier": "Tier 2 - Adjacent Zone"
+  },
+  {
+    "allocation_share": 0.012,
+    "corridor_rank_within_kitchen": 11,
+    "kitchen_id": "KIT-LK-001",
+    "kitchen_name": "Golden Wok Ikeja GRA",
+    "order_rows": 60,
+    "zone_id": "val_11",
+    "zone_name": "Shomolu",
+    "zone_tier": "Tier 3 - Extended Zone"
+  },
+  {
+    "allocation_share": 0.0114,
+    "corridor_rank_within_kitchen": 12,
+    "kitchen_id": "KIT-LK-001",
+    "kitchen_name": "Golden Wok Ikeja GRA",
+    "order_rows": 57,
+    "zone_id": "val_17",
+    "zone_name": "Egbeda",
+    "zone_tier": "Tier 4 - Outer Zone"
+  },
+  {
+    "allocation_share": 0.011000000000000001,
+    "corridor_rank_within_kitchen": 13,
+    "kitchen_id": "KIT-LK-001",
+    "kitchen_name": "Golden Wok Ikeja GRA",
+    "order_rows": 55,
+    "zone_id": "val_5",
+    "zone_name": "Bariga",
+    "zone_tier": "Tier 2 - Adjacent Zone"
+  },
+  {
+    "allocation_share": 0.0108,
+    "corridor_rank_within_kitchen": 14,
+    "kitchen_id": "KIT-LK-001",
+    "kitchen_name": "Golden Wok Ikeja GRA",
+    "order_rows": 54,
+    "zone_id": "val_1",
+    "zone_name": "Ajegunle",
+    "zone_tier": "Tier 1 - Core Zone"
+  },
+  {
+    "allocation_share": 0.0108,
+    "corridor_rank_within_kitchen": 14,
+    "kitchen_id": "KIT-LK-001",
+    "kitchen_name": "Golden Wok Ikeja GRA",
+    "order_rows": 54,
+    "zone_id": "val_16",
+    "zone_name": "Ogudu",
+    "zone_tier": "Tier 3 - Extended Zone"
+  },
+  {
+    "allocation_share": 0.0106,
+    "corridor_rank_within_kitchen": 15,
+    "kitchen_id": "KIT-LK-001",
+    "kitchen_name": "Golden Wok Ikeja GRA",
+    "order_rows": 53,
+    "zone_id": "val_7",
+    "zone_name": "Ajegunle",
+    "zone_tier": "Tier 2 - Adjacent Zone"
+  },
+  {
+    "allocation_share": 0.0094,
+    "corridor_rank_within_kitchen": 16,
+    "kitchen_id": "KIT-LK-001",
+    "kitchen_name": "Golden Wok Ikeja GRA",
+    "order_rows": 47,
+    "zone_id": "val_14",
+    "zone_name": "Ogudu",
+    "zone_tier": "Tier 4 - Outer Zone"
+  },
+  {
+    "allocation_share": 0.0158,
+    "corridor_rank_within_kitchen": 1,
+    "kitchen_id": "KIT-SU-001",
+    "kitchen_name": "Golden Wok Surulere Hub",
+    "order_rows": 79,
+    "zone_id": "val_5",
+    "zone_name": "Bariga",
+    "zone_tier": "Tier 2 - Adjacent Zone"
+  },
+  {
+    "allocation_share": 0.0152,
+    "corridor_rank_within_kitchen": 2,
+    "kitchen_id": "KIT-SU-001",
+    "kitchen_name": "Golden Wok Surulere Hub",
+    "order_rows": 76,
+    "zone_id": "val_6",
+    "zone_name": "Shomolu",
+    "zone_tier": "Tier 3 - Extended Zone"
+  },
+  {
+    "allocation_share": 0.0146,
+    "corridor_rank_within_kitchen": 3,
+    "kitchen_id": "KIT-SU-001",
+    "kitchen_name": "Golden Wok Surulere Hub",
+    "order_rows": 73,
+    "zone_id": "val_2",
+    "zone_name": "Ketu",
+    "zone_tier": "Tier 2 - Adjacent Zone"
+  },
+  {
+    "allocation_share": 0.0142,
+    "corridor_rank_within_kitchen": 4,
+    "kitchen_id": "KIT-SU-001",
+    "kitchen_name": "Golden Wok Surulere Hub",
+    "order_rows": 71,
+    "zone_id": "val_14",
+    "zone_name": "Ogudu",
+    "zone_tier": "Tier 4 - Outer Zone"
+  },
+  {
+    "allocation_share": 0.014,
+    "corridor_rank_within_kitchen": 5,
+    "kitchen_id": "KIT-SU-001",
+    "kitchen_name": "Golden Wok Surulere Hub",
+    "order_rows": 70,
+    "zone_id": "val_10",
+    "zone_name": "Maryland",
+    "zone_tier": "Tier 1 - Core Zone"
+  },
+  {
+    "allocation_share": 0.014,
+    "corridor_rank_within_kitchen": 5,
+    "kitchen_id": "KIT-SU-001",
+    "kitchen_name": "Golden Wok Surulere Hub",
+    "order_rows": 70,
+    "zone_id": "val_8",
+    "zone_name": "Surulere",
+    "zone_tier": "Tier 2 - Adjacent Zone"
+  },
+  {
+    "allocation_share": 0.013600000000000001,
+    "corridor_rank_within_kitchen": 6,
+    "kitchen_id": "KIT-SU-001",
+    "kitchen_name": "Golden Wok Surulere Hub",
+    "order_rows": 68,
+    "zone_id": "val_18",
+    "zone_name": "Alimosho",
+    "zone_tier": "Tier 4 - Outer Zone"
+  },
+  {
+    "allocation_share": 0.0134,
+    "corridor_rank_within_kitchen": 7,
+    "kitchen_id": "KIT-SU-001",
+    "kitchen_name": "Golden Wok Surulere Hub",
+    "order_rows": 67,
+    "zone_id": "val_0",
+    "zone_name": "Isolo",
+    "zone_tier": "Tier 3 - Extended Zone"
+  },
+  {
+    "allocation_share": 0.013000000000000001,
+    "corridor_rank_within_kitchen": 8,
+    "kitchen_id": "KIT-SU-001",
+    "kitchen_name": "Golden Wok Surulere Hub",
+    "order_rows": 65,
+    "zone_id": "val_19",
+    "zone_name": "Ikoyi",
+    "zone_tier": "Tier 2 - Adjacent Zone"
+  },
+  {
+    "allocation_share": 0.013000000000000001,
+    "corridor_rank_within_kitchen": 8,
+    "kitchen_id": "KIT-SU-001",
+    "kitchen_name": "Golden Wok Surulere Hub",
+    "order_rows": 65,
+    "zone_id": "val_4",
+    "zone_name": "Bariga",
+    "zone_tier": "Tier 3 - Extended Zone"
+  },
+  {
+    "allocation_share": 0.0128,
+    "corridor_rank_within_kitchen": 9,
+    "kitchen_id": "KIT-SU-001",
+    "kitchen_name": "Golden Wok Surulere Hub",
+    "order_rows": 64,
+    "zone_id": "val_12",
+    "zone_name": "Ilupeju",
+    "zone_tier": "Tier 1 - Core Zone"
+  },
+  {
+    "allocation_share": 0.0126,
+    "corridor_rank_within_kitchen": 10,
+    "kitchen_id": "KIT-SU-001",
+    "kitchen_name": "Golden Wok Surulere Hub",
+    "order_rows": 63,
+    "zone_id": "val_13",
+    "zone_name": "Egbeda",
+    "zone_tier": "Tier 2 - Adjacent Zone"
+  },
+  {
+    "allocation_share": 0.0122,
+    "corridor_rank_within_kitchen": 11,
+    "kitchen_id": "KIT-SU-001",
+    "kitchen_name": "Golden Wok Surulere Hub",
+    "order_rows": 61,
+    "zone_id": "val_1",
+    "zone_name": "Ajegunle",
+    "zone_tier": "Tier 1 - Core Zone"
+  },
+  {
+    "allocation_share": 0.012,
+    "corridor_rank_within_kitchen": 12,
+    "kitchen_id": "KIT-SU-001",
+    "kitchen_name": "Golden Wok Surulere Hub",
+    "order_rows": 60,
+    "zone_id": "val_17",
+    "zone_name": "Egbeda",
+    "zone_tier": "Tier 4 - Outer Zone"
+  },
+  {
+    "allocation_share": 0.0118,
+    "corridor_rank_within_kitchen": 13,
+    "kitchen_id": "KIT-SU-001",
+    "kitchen_name": "Golden Wok Surulere Hub",
+    "order_rows": 59,
+    "zone_id": "val_9",
+    "zone_name": "Anthony Village",
+    "zone_tier": "Tier 2 - Adjacent Zone"
+  },
+  {
+    "allocation_share": 0.0112,
+    "corridor_rank_within_kitchen": 14,
+    "kitchen_id": "KIT-SU-001",
+    "kitchen_name": "Golden Wok Surulere Hub",
+    "order_rows": 56,
+    "zone_id": "val_11",
+    "zone_name": "Shomolu",
+    "zone_tier": "Tier 3 - Extended Zone"
+  },
+  {
+    "allocation_share": 0.0112,
+    "corridor_rank_within_kitchen": 14,
+    "kitchen_id": "KIT-SU-001",
+    "kitchen_name": "Golden Wok Surulere Hub",
+    "order_rows": 56,
+    "zone_id": "val_3",
+    "zone_name": "Lekki Phase 2",
+    "zone_tier": "Tier 2 - Adjacent Zone"
+  },
+  {
+    "allocation_share": 0.011000000000000001,
+    "corridor_rank_within_kitchen": 15,
+    "kitchen_id": "KIT-SU-001",
+    "kitchen_name": "Golden Wok Surulere Hub",
+    "order_rows": 55,
+    "zone_id": "val_15",
+    "zone_name": "Magodo",
+    "zone_tier": "Tier 4 - Outer Zone"
+  },
+  {
+    "allocation_share": 0.0108,
+    "corridor_rank_within_kitchen": 16,
+    "kitchen_id": "KIT-SU-001",
+    "kitchen_name": "Golden Wok Surulere Hub",
+    "order_rows": 54,
+    "zone_id": "val_16",
+    "zone_name": "Ogudu",
+    "zone_tier": "Tier 3 - Extended Zone"
+  },
+  {
+    "allocation_share": 0.0082,
+    "corridor_rank_within_kitchen": 17,
+    "kitchen_id": "KIT-SU-001",
+    "kitchen_name": "Golden Wok Surulere Hub",
+    "order_rows": 41,
+    "zone_id": "val_7",
+    "zone_name": "Ajegunle",
+    "zone_tier": "Tier 2 - Adjacent Zone"
+  },
+  {
+    "allocation_share": 0.0148,
+    "corridor_rank_within_kitchen": 1,
+    "kitchen_id": "KIT-YB-001",
+    "kitchen_name": "Golden Wok Lekki Phase 1",
+    "order_rows": 74,
+    "zone_id": "val_5",
+    "zone_name": "Bariga",
+    "zone_tier": "Tier 2 - Adjacent Zone"
+  },
+  {
+    "allocation_share": 0.0146,
+    "corridor_rank_within_kitchen": 2,
+    "kitchen_id": "KIT-YB-001",
+    "kitchen_name": "Golden Wok Lekki Phase 1",
+    "order_rows": 73,
+    "zone_id": "val_16",
+    "zone_name": "Ogudu",
+    "zone_tier": "Tier 3 - Extended Zone"
+  },
+  {
+    "allocation_share": 0.014400000000000001,
+    "corridor_rank_within_kitchen": 3,
+    "kitchen_id": "KIT-YB-001",
+    "kitchen_name": "Golden Wok Lekki Phase 1",
+    "order_rows": 72,
+    "zone_id": "val_8",
+    "zone_name": "Surulere",
+    "zone_tier": "Tier 2 - Adjacent Zone"
+  },
+  {
+    "allocation_share": 0.014,
+    "corridor_rank_within_kitchen": 4,
+    "kitchen_id": "KIT-YB-001",
+    "kitchen_name": "Golden Wok Lekki Phase 1",
+    "order_rows": 70,
+    "zone_id": "val_3",
+    "zone_name": "Lekki Phase 2",
+    "zone_tier": "Tier 2 - Adjacent Zone"
+  },
+  {
+    "allocation_share": 0.013800000000000002,
+    "corridor_rank_within_kitchen": 5,
+    "kitchen_id": "KIT-YB-001",
+    "kitchen_name": "Golden Wok Lekki Phase 1",
+    "order_rows": 69,
+    "zone_id": "val_11",
+    "zone_name": "Shomolu",
+    "zone_tier": "Tier 3 - Extended Zone"
+  },
+  {
+    "allocation_share": 0.0132,
+    "corridor_rank_within_kitchen": 6,
+    "kitchen_id": "KIT-YB-001",
+    "kitchen_name": "Golden Wok Lekki Phase 1",
+    "order_rows": 66,
+    "zone_id": "val_15",
+    "zone_name": "Magodo",
+    "zone_tier": "Tier 4 - Outer Zone"
+  },
+  {
+    "allocation_share": 0.0132,
+    "corridor_rank_within_kitchen": 6,
+    "kitchen_id": "KIT-YB-001",
+    "kitchen_name": "Golden Wok Lekki Phase 1",
+    "order_rows": 66,
+    "zone_id": "val_4",
+    "zone_name": "Bariga",
+    "zone_tier": "Tier 3 - Extended Zone"
+  },
+  {
+    "allocation_share": 0.0128,
+    "corridor_rank_within_kitchen": 7,
+    "kitchen_id": "KIT-YB-001",
+    "kitchen_name": "Golden Wok Lekki Phase 1",
+    "order_rows": 64,
+    "zone_id": "val_0",
+    "zone_name": "Isolo",
+    "zone_tier": "Tier 3 - Extended Zone"
+  },
+  {
+    "allocation_share": 0.0128,
+    "corridor_rank_within_kitchen": 7,
+    "kitchen_id": "KIT-YB-001",
+    "kitchen_name": "Golden Wok Lekki Phase 1",
+    "order_rows": 64,
+    "zone_id": "val_9",
+    "zone_name": "Anthony Village",
+    "zone_tier": "Tier 2 - Adjacent Zone"
+  },
+  {
+    "allocation_share": 0.0126,
+    "corridor_rank_within_kitchen": 8,
+    "kitchen_id": "KIT-YB-001",
+    "kitchen_name": "Golden Wok Lekki Phase 1",
+    "order_rows": 63,
+    "zone_id": "val_1",
+    "zone_name": "Ajegunle",
+    "zone_tier": "Tier 1 - Core Zone"
+  },
+  {
+    "allocation_share": 0.012400000000000001,
+    "corridor_rank_within_kitchen": 9,
+    "kitchen_id": "KIT-YB-001",
+    "kitchen_name": "Golden Wok Lekki Phase 1",
+    "order_rows": 62,
+    "zone_id": "val_14",
+    "zone_name": "Ogudu",
+    "zone_tier": "Tier 4 - Outer Zone"
+  },
+  {
+    "allocation_share": 0.012400000000000001,
+    "corridor_rank_within_kitchen": 9,
+    "kitchen_id": "KIT-YB-001",
+    "kitchen_name": "Golden Wok Lekki Phase 1",
+    "order_rows": 62,
+    "zone_id": "val_17",
+    "zone_name": "Egbeda",
+    "zone_tier": "Tier 4 - Outer Zone"
+  },
+  {
+    "allocation_share": 0.012400000000000001,
+    "corridor_rank_within_kitchen": 9,
+    "kitchen_id": "KIT-YB-001",
+    "kitchen_name": "Golden Wok Lekki Phase 1",
+    "order_rows": 62,
+    "zone_id": "val_6",
+    "zone_name": "Shomolu",
+    "zone_tier": "Tier 3 - Extended Zone"
+  },
+  {
+    "allocation_share": 0.012,
+    "corridor_rank_within_kitchen": 10,
+    "kitchen_id": "KIT-YB-001",
+    "kitchen_name": "Golden Wok Lekki Phase 1",
+    "order_rows": 60,
+    "zone_id": "val_18",
+    "zone_name": "Alimosho",
+    "zone_tier": "Tier 4 - Outer Zone"
+  },
+  {
+    "allocation_share": 0.011600000000000001,
+    "corridor_rank_within_kitchen": 11,
+    "kitchen_id": "KIT-YB-001",
+    "kitchen_name": "Golden Wok Lekki Phase 1",
+    "order_rows": 58,
+    "zone_id": "val_13",
+    "zone_name": "Egbeda",
+    "zone_tier": "Tier 2 - Adjacent Zone"
+  },
+  {
+    "allocation_share": 0.011600000000000001,
+    "corridor_rank_within_kitchen": 11,
+    "kitchen_id": "KIT-YB-001",
+    "kitchen_name": "Golden Wok Lekki Phase 1",
+    "order_rows": 58,
+    "zone_id": "val_19",
+    "zone_name": "Ikoyi",
+    "zone_tier": "Tier 2 - Adjacent Zone"
+  },
+  {
+    "allocation_share": 0.0114,
+    "corridor_rank_within_kitchen": 12,
+    "kitchen_id": "KIT-YB-001",
+    "kitchen_name": "Golden Wok Lekki Phase 1",
+    "order_rows": 57,
+    "zone_id": "val_10",
+    "zone_name": "Maryland",
+    "zone_tier": "Tier 1 - Core Zone"
+  },
+  {
+    "allocation_share": 0.0114,
+    "corridor_rank_within_kitchen": 12,
+    "kitchen_id": "KIT-YB-001",
+    "kitchen_name": "Golden Wok Lekki Phase 1",
+    "order_rows": 57,
+    "zone_id": "val_2",
+    "zone_name": "Ketu",
+    "zone_tier": "Tier 2 - Adjacent Zone"
+  },
+  {
+    "allocation_share": 0.0108,
+    "corridor_rank_within_kitchen": 13,
+    "kitchen_id": "KIT-YB-001",
+    "kitchen_name": "Golden Wok Lekki Phase 1",
+    "order_rows": 54,
+    "zone_id": "val_7",
+    "zone_name": "Ajegunle",
+    "zone_tier": "Tier 2 - Adjacent Zone"
+  },
+  {
+    "allocation_share": 0.0102,
+    "corridor_rank_within_kitchen": 14,
+    "kitchen_id": "KIT-YB-001",
+    "kitchen_name": "Golden Wok Lekki Phase 1",
+    "order_rows": 51,
+    "zone_id": "val_12",
+    "zone_name": "Ilupeju",
+    "zone_tier": "Tier 1 - Core Zone"
+  }
+]

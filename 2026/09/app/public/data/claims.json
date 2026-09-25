@@ -1,0 +1,62 @@
+[
+  {
+    "claim": "Rush-hour outer-zone orders triple SLA and average below NGN -500.",
+    "claim_id": "rush_outer_loss",
+    "claimed_value": -500.0,
+    "decision": "Do not reduce outer-zone service from this file.",
+    "observed": "496 above 90 raw minutes; 86 at least 3\u00d7 promise; 0 below NGN -500",
+    "observed_value": 486.3671075425436,
+    "sample_n": 539,
+    "sequence": 1,
+    "value_unit": "mean supplied profit NGN",
+    "verdict": "REJECTED"
+  },
+  {
+    "claim": "Rain creates 1.8\u00d7 traffic and adds 28 minutes.",
+    "claim_id": "rain_delay",
+    "claimed_value": 1.8,
+    "decision": "The specified Clear comparison is unavailable; do not change weather policy from static slot metadata.",
+    "observed": "Clear comparator absent; alternative rain versus all other conditions: traffic ratio 1.00393\u00d7; raw time difference +6.94 minutes",
+    "observed_value": 1.0039286874473994,
+    "sample_n": 1166,
+    "sequence": 2,
+    "value_unit": "traffic ratio",
+    "verdict": "UNSUPPORTED"
+  },
+  {
+    "claim": "Deliveries above 8 km are structurally unprofitable.",
+    "claim_id": "distance_loss",
+    "claimed_value": null,
+    "decision": "Do not shrink the delivery radius from this file.",
+    "observed": "0 negative supplied-profit rows above 8 km",
+    "observed_value": 0.0,
+    "sample_n": 3871,
+    "sequence": 3,
+    "value_unit": "negative supplied-profit share",
+    "verdict": "REJECTED"
+  },
+  {
+    "claim": "Deliveries above 60 minutes arrive below 45\u00b0C with ratings below 2.5.",
+    "claim_id": "slow_cold_low_rating",
+    "claimed_value": null,
+    "decision": "Do not infer quality degradation from invalid measures.",
+    "observed": "203 below 45\u00b0C; 1768 below 2.5",
+    "observed_value": 0.043099787685774944,
+    "sample_n": 4710,
+    "sequence": 4,
+    "value_unit": "cold share among raw >60-minute rows",
+    "verdict": "REJECTED"
+  },
+  {
+    "claim": "Lekki serving VI and Ikoyi is consistently unprofitable.",
+    "claim_id": "lekki_vi_ikoyi_loss",
+    "claimed_value": null,
+    "decision": "Collect route identity before evaluating the named corridor.",
+    "observed": "0 negative rows; VI present=false",
+    "observed_value": 0.0,
+    "sample_n": 58,
+    "sequence": 5,
+    "value_unit": "negative supplied-profit rows in Lekki \u00d7 Ikoyi",
+    "verdict": "UNSUPPORTED"
+  }
+]

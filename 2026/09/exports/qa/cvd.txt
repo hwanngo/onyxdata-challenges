@@ -1,0 +1,17 @@
+source 2026/09/exports/qa/poster-review.png  2560x1440
+  wrote 2026/09/exports/a11y/poster-protanopia.png
+  wrote 2026/09/exports/a11y/poster-deuteranopia.png
+  wrote 2026/09/exports/a11y/poster-tritanopia.png
+  wrote 2026/09/exports/a11y/poster-greyscale.png
+
+Now LOOK at them. The question is not 'are the colours different' but
+'can I still tell which mark is which'. If the answer needs colour, the
+encoding is wrong - add shape, pattern or a direct label.
+
+Manual inspection: PASS
+- Matrix cells retain exact printed counts in every simulation; magnitude never depends on hue alone.
+- Quarantined dials retain the Q symbol, hatch texture and SOURCE AUDIT ONLY label.
+- Claims retain x CONTRADICTED and ? UNSUPPORTED text labels.
+- Process marks retain position, stems, direct labels and exact signed coefficients.
+- Contract failures retain x/!/dot symbols and direct status totals.
+- Decision columns retain descriptive headings and body text in greyscale.

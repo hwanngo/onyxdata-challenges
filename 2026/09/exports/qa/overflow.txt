@@ -1,0 +1,4 @@
+375px -> scrollWidth 375 clientWidth 375 ok
+768px -> scrollWidth 768 clientWidth 768 ok
+1024px -> scrollWidth 1024 clientWidth 1024 ok
+1440px -> scrollWidth 1440 clientWidth 1440 ok

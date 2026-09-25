@@ -1,0 +1,50 @@
+PASS  baseline allocation rows = 5,000
+PASS  allocation matrix renders all 80 corridors
+PASS  dial bank renders nine quarantined measures
+PASS  process ruler renders eight expected links
+PASS  claim scorecard renders five supplied claims
+PASS  reader-facing claim labels say contradicted rather than rejected
+PASS  contract matrix renders 54 constraint contacts
+PASS  contract matrix renders seven relationship jumpers
+PASS  dark theme applies explicitly
+PASS  system theme removes explicit override
+PASS  matrix arrow keys move focus between cells
+PASS  kitchen filter recomputes allocation rows
+PASS  filter chip is visible
+PASS  URL encodes filter state
+PASS  filter preserves the complete 80-cell matrix
+PASS  release-level evidence is labelled as unrefiltered
+PASS  browser back restores allocation filter and clears newer evidence focus
+PASS  clear all restores full allocation
+PASS  zone filter recomputes allocation rows
+PASS  rider filter recomputes allocation rows
+PASS  month filter recomputes allocation rows
+PASS  zero-row allocation state is explicit
+PASS  release-level evidence remains visible in zero-row state
+PASS  corridor click opens evidence drawer
+PASS  drill breadcrumb appears
+PASS  measure dial opens its contract evidence
+PASS  keyboard opens process-link evidence
+PASS  claim row opens formula and population evidence
+PASS  claim drawer uses the reader-facing contradicted verdict
+PASS  contract cell opens table-column evidence
+PASS  decision ledger opens its decision boundary
+PASS  screen-reader tables mirror chart data
+PASS  guided tour reopens
+PASS  guided tour traps keyboard focus
+PASS  tour arrow keys move to the next step
+PASS  tour summarizes three contradicted and two unsupported claims
+PASS  Escape closes guided tour
+PASS  guided tour returns focus to its trigger
+PASS  deep link restores allocation filter
+PASS  poster renders the complete matrix
+PASS  poster hides live controls
+PASS  poster has no visible enabled buttons
+PASS  poster has no visible chart tab stops
+PASS  poster gives the forensic evidence row at least 350px
+PASS  poster evidence labels remain at least 10px
+PASS  poster is fixed to submission dimensions
+PASS  mobile replaces matrix with four kitchen strips
+PASS  mobile page has no body-level horizontal overflow
+
+All September interaction checks passed.

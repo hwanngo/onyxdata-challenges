@@ -1,0 +1,4 @@
+cold load to first real number: 1488ms  (budget 3000ms)
+interaction-to-paint: 1ms, 1ms, 1ms, 0ms, 1ms  max 1ms (budget 200ms)
+  measured by clicking: .matrix-cell
+  (QA_CLICK_SEL override - the default selector does not match this month)

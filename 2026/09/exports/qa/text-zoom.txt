@@ -1,0 +1,8 @@
+{
+  scroll: 720,
+  client: 720,
+  strips: 4,
+  tour: 1,
+  headline: 'Every route. No journey.'
+}
+PASS  200% browser zoom equivalent retains core content with no body overflow

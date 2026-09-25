@@ -1,0 +1,27 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.14.4, pytest-9.1.1, pluggy-1.6.0 -- /Users/admin/Personal/onyxdata-dnakit/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/admin/Personal/onyxdata-dnakit
+configfile: pyproject.toml
+collecting ... collected 18 items
+
+2026/09/model/test_metrics.py::test_curated_tables_exist PASSED          [  5%]
+2026/09/model/test_metrics.py::test_curated_row_counts PASSED            [ 11%]
+2026/09/model/test_metrics.py::test_fact_grain_and_keys_are_complete PASSED [ 16%]
+2026/09/model/test_metrics.py::test_source_measures_are_quarantined_by_name PASSED [ 22%]
+2026/09/model/test_metrics.py::test_known_quality_failures_are_preserved_as_audit_flags PASSED [ 27%]
+2026/09/model/test_metrics.py::test_allocation_network_known_values PASSED [ 33%]
+2026/09/model/test_metrics.py::test_measure_contract_blocks_operational_use PASSED [ 38%]
+2026/09/model/test_metrics.py::test_release_contract_records_validator_mismatch PASSED [ 44%]
+2026/09/model/test_metrics.py::test_process_links_and_claims_preserve_the_g3_decision PASSED [ 50%]
+2026/09/model/test_metrics.py::test_corridor_fact_carries_denominator_and_rank PASSED [ 55%]
+2026/09/model/test_metrics.py::test_headline_is_a_complete_export_convenience PASSED [ 61%]
+2026/09/model/test_metrics.py::test_public_exports_are_finite_json PASSED [ 66%]
+2026/09/model/test_metrics.py::test_load_bearing_metrics_recompute_from_raw PASSED [ 72%]
+2026/09/model/test_metrics.py::test_malloy_omits_quarantined_operational_measures PASSED [ 77%]
+2026/09/model/test_metrics.py::test_metric_check_queries_execute_independently PASSED [ 83%]
+2026/09/model/test_verify_selection.py::test_cases_cover_each_filter_and_a_real_zero_row_combination PASSED [ 88%]
+2026/09/model/test_verify_selection.py::test_recompute_selection_matches_filtered_fact_and_complete_corridor_grid PASSED [ 94%]
+2026/09/model/test_verify_selection.py::test_zero_row_recompute_keeps_all_corridors_with_zero_values PASSED [100%]
+
+============================== 18 passed in 0.42s ==============================

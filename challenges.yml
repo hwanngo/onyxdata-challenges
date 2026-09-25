@@ -4,10 +4,10 @@
 # Era 1 = Playground-only, gated, no brief. Era 2 = full challenge page, ungated.
 
 meta:
-  verified_on: 2026-09-02
-  total: 66
+  verified_on: 2026-09-25
+  total: 67
   era1_count: 52
-  era2_count: 14
+  era2_count: 15
   playground_index: https://datadna.onyxdata.co.uk/playground/
   challenge_index: https://datadna.onyxdata.co.uk/challenges/
   work_order: era2_oldest_first_then_era1_backfill
@@ -456,6 +456,33 @@ challenges:
       DOM metrics reconciled, 24/24 interactions, axe zero on all surfaces and tour themes, all
       contrast pairs AA, 1,091ms cold load, 1ms max interaction, exact 2560x1440 fit and four CVD/
       greyscale simulations. Not deployed: STACK.md defers hosting.
+    self_scores: {judge_34: 31, ai_storytelling: 5, ai_design: 4, ai_technical: 5, ai_insights: 5, ai_b_accessibility: 5}
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
+  - folder: "2026/09"
+    era: 2
+    title: "September 2026 DataDNA - Golden Wok Food Delivery Analytics"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2026-09-september-2026-datadna-golden-wok-food-delivery-analytics-challenge/"
+    challenge_url: "https://datadna.onyxdata.co.uk/challenges/september-2026-datadna-golden-wok-food-delivery-analytics-challenge/"
+    dataset_url: "https://datadna.onyxdata.co.uk/wp-content/uploads/2026/08/DataDNA-Dataset-Challenge-2026-09-Golden-Wok-Food-Delivery.zip"
+    dataset_folder: "DataDNA-Dataset-Challenge-2026-09-Golden-Wok-Food-Delivery"
+    formats: [CSV, MD, JSON]
+    status: done
+    sha256: "4e5e032e1b0782284865ab6c5989efd220304529535490ae60336a21622f050d"
+    summary: >-
+      5,000 unique orders with complete keys populate all 80 kitchen-zone corridors and all 240
+      rider-kitchen pairings, but nine quarantined business measures do not form a defensible delivery
+      process. None of 36 pairwise tests survives correction; every supplied profit row fails the stated
+      identity; three archive claims are contradicted and two are unsupported as specified. The supplied
+      report says 10/10 checks passed although 0/54 configured constraints targets a delivered field,
+      three of seven relationships require missing fields and one joins incompatible keys. Signature:
+      a completely filled allocation lattice beside nine isolated quarantine dials. Decision: count
+      stable-ID allocation, repair the measurement contract and do not optimise routing, radius, SLA,
+      kitchen, rider or corridor-profit policy yet. Evidence: 18 model tests, 8 integrity tests, 21/21
+      Malloy views, 206 live and poster DOM metrics reconciled, 163 selection metrics across six states,
+      46/46 interactions, axe zero on all surfaces and tour themes, 1,488ms cold load, 1ms max
+      interaction, exact 2560x1440 fit and four CVD/greyscale simulations. Not deployed: STACK.md
+      defers hosting.
     self_scores: {judge_34: 31, ai_storytelling: 5, ai_design: 4, ai_technical: 5, ai_insights: 5, ai_b_accessibility: 5}
     scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
 
