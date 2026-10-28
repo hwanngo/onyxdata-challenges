@@ -1,0 +1,3 @@
+200% root font size at 640 CSS px (1280 device px):
+{ scroll: 640, client: 640, clipped: 0 }
+No horizontal scroll; no text clipped by overflow:hidden.

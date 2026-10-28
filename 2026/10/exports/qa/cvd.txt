@@ -1,0 +1,23 @@
+source 2026/10/exports/dashboard.png  2560x1440
+  wrote 2026/10/exports/a11y/poster-protanopia.png
+  wrote 2026/10/exports/a11y/poster-deuteranopia.png
+  wrote 2026/10/exports/a11y/poster-tritanopia.png
+  wrote 2026/10/exports/a11y/poster-greyscale.png
+
+Now LOOK at them. The question is not 'are the colours different' but
+'can I still tell which mark is which'. If the answer needs colour, the
+encoding is wrong - add shape, pattern or a direct label.
+
+Reviewed by eye (2026/10 G7):
+- protanopia / deuteranopia: loyalty amber and loss cherry both shift toward olive. Loss is drawn once
+  (South London Corner, column 60), sits ABOVE the revenue rim where no other layer can appear, and is
+  named by the ▲ annotation - colour is never the only cue. Loyalty is a thin band between cost and profit.
+- tritanopia: cost blue and ink stay separable by lightness; the cost layer is never adjacent to ink.
+- greyscale: stack order (cogs light, cost mid, profit dark) is a monotone lightness ramp; legible.
+
+Reviewed by eye (2026/10 G7):
+- protanopia / deuteranopia: loyalty amber and loss cherry both shift toward olive. Loss is drawn once
+  (South London Corner, column 60), sits ABOVE the revenue rim where no other layer can appear, and is
+  named by the ▲ annotation - colour is never the only cue. Loyalty is a thin band between cost and profit.
+- tritanopia: cost blue and ink stay separable by lightness; the cost layer is never adjacent to ink.
+- greyscale: stack order (cogs light, cost mid, profit dark) is a monotone lightness ramp; legible.

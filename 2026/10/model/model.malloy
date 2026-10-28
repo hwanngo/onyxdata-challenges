@@ -1,0 +1,246 @@
+// Semantic layer — 2026/10 Sunrise Coffee Chain: Same cup, different rent (Gate G4)
+//
+// Design rules the model enforces, carried from model/build.py and assumptions.md:
+//   1. Margin is POOLED (Σ net profit / Σ revenue). The row-mean of net_profit_margin_pct exists
+//      only as `row_mean_margin`, named so it cannot be mistaken for the headline.
+//   2. `status` is re-derived from margin; the supplied label is `source_status` and appears only in
+//      the audit view.
+//   3. The daily sample is a separate source with NO join to the P&L. It answers within-day
+//      contrasts (weekday, bank holiday, staffing, mix) and has no money total measure.
+//   4. Store questions run at store grain (mart_store), never as 1,440 independent rows.
+
+source: calendar is duckdb.table('../data/curated/dim_date.parquet') extend {
+  primary_key: date_id
+}
+
+source: store is duckdb.table('../data/curated/dim_store.parquet') extend {
+  primary_key: store_id
+  measure: stores is count()
+}
+
+// ------------------------------------------------------------------ the P&L of record
+source: store_month is duckdb.table('../data/curated/fct_store_month.parquet') extend {
+  primary_key: monthly_profit_id
+  join_one: store on store_id = store.store_id
+
+  dimension:
+    period is pick 'H1' when month_number <= 6 else 'H2'
+
+  measure:
+    store_months is count()
+    revenue is total_monthly_revenue_gbp.sum()
+    cogs is total_monthly_cogs_gbp.sum()
+    fixed_cost is fixed_cost_gbp.sum()
+    rent is monthly_rent_gbp.sum()
+    staffing is monthly_staffing_cost_gbp.sum()
+    redemption is loyalty_redemption_cost_gbp.sum()
+    net_profit is net_profit_gbp.sum()
+    member_spend is loyalty_member_spend_gbp.sum()
+    margin is net_profit / revenue
+    gross_margin is 1 - cogs / revenue
+    fixed_cost_share is fixed_cost / revenue
+    member_share is member_spend / revenue
+    row_mean_margin is net_profit_margin_pct.avg()
+    loss_months is count() { where: net_profit_gbp < 0 }
+    status_mismatches is count() { where: not status_matches_source }
+    revenue_per_store_month is revenue / store_months
+    fixed_per_store_month is fixed_cost / store_months
+    // period-over-period without a self-join
+    revenue_2023 is revenue { where: `year` = 2023 }
+    revenue_2024 is revenue { where: `year` = 2024 }
+    net_profit_2023 is net_profit { where: `year` = 2023 }
+    net_profit_2024 is net_profit { where: `year` = 2024 }
+    net_profit_yoy is net_profit_2024 - net_profit_2023
+    // share of parent
+    share_of_estate_profit is net_profit / all(net_profit)
+
+  view: estate_kpis is {
+    aggregate: store_months, revenue, net_profit, margin, gross_margin, fixed_cost_share,
+               redemption, member_share, loss_months, status_mismatches
+  }
+
+  // I1: the regional margin league table, with the cost that explains it
+  view: region_cost_league is {
+    group_by: store.region
+    aggregate: stores is count(store_id), revenue_per_store_month, fixed_per_store_month, margin,
+               loss_months, share_of_estate_profit
+    calculate: margin_rank is rank()
+    order_by: margin desc
+  }
+
+  // drill: region -> store, with rank within region
+  view: region_store_drill is {
+    group_by: store.region
+    aggregate: margin
+    order_by: margin desc
+    nest: stores_in_region is {
+      group_by: store_id, store.store_name, store.location_type
+      aggregate: revenue_per_store_month, fixed_per_store_month, margin, loss_months
+      calculate: rank_in_region is rank()
+      order_by: margin desc
+    }
+  }
+
+  // I2: does revenue remember? (store grain, 2023 vs 2024)
+  view: store_yoy is {
+    group_by: store_id, store.store_name, store.region
+    aggregate: revenue_2023, revenue_2024, net_profit_2023, net_profit_2024, net_profit_yoy
+    order_by: net_profit_yoy desc
+  }
+
+  // Q14: estate months with running net profit
+  view: month_trend is {
+    group_by: month_id
+    aggregate: revenue, net_profit, margin
+    calculate: running_net_profit is sum_cumulative(net_profit)
+    calculate: net_profit_vs_prior_month is net_profit - lag(net_profit)
+    order_by: month_id
+  }
+
+  view: quarter_revenue is {
+    group_by: `quarter`
+    aggregate: revenue, net_profit, margin
+    order_by: `quarter`
+  }
+
+  view: format_with_n is {
+    group_by: store.store_format
+    aggregate: stores is count(store_id), store_months, margin, row_mean_margin, revenue_per_store_month,
+               fixed_per_store_month
+    order_by: store_format
+  }
+
+  view: by_location_type is {
+    group_by: store.location_type
+    aggregate: stores is count(store_id), margin, revenue_per_store_month, fixed_per_store_month
+    order_by: margin desc
+  }
+
+  // I5: derived status vs the supplied label
+  view: status_audit is {
+    group_by: source_status, status
+    aggregate: store_months
+    order_by: store_months desc
+  }
+
+  view: status_derived is {
+    group_by: status
+    aggregate: store_months, loss_months
+    order_by: store_months desc
+  }
+
+  view: rent_band_derived is {
+    group_by: rent_band
+    aggregate: stores is count(store_id), store_months, margin, revenue_per_store_month
+    order_by: margin desc
+  }
+}
+
+// ------------------------------------------------------------------ store grain
+source: store_mart is duckdb.table('../data/curated/mart_store.parquet') extend {
+  primary_key: store_id
+
+  measure:
+    stores is count()
+    revenue is revenue_gbp.sum()
+    net_profit is net_profit_gbp.sum()
+    pooled_margin is net_profit / revenue
+    avg_revenue_pm is revenue_pm.avg()
+    avg_fixed_pm is fixed_pm.avg()
+    avg_adoption is loyalty_adoption_rate.avg()
+    redemption_per_store_month is redemption_gbp.sum() / `months`.sum()
+    stores_in_loss is count() { where: net_profit_gbp < 0 }
+    stores_with_loss_month is count() { where: loss_months > 0 }
+
+  // the occupancy-cost screen: split at the median store fixed cost
+  view: cost_half_screen is {
+    group_by: cost_half
+    aggregate: stores, avg_revenue_pm, avg_fixed_pm, pooled_margin
+    order_by: pooled_margin desc
+  }
+
+  view: store_league is {
+    group_by: store_id, short_name, region, location_type, cost_half
+    aggregate: avg_revenue_pm, avg_fixed_pm, pooled_margin
+    calculate: margin_rank is rank()
+    order_by: pooled_margin desc
+  }
+
+  view: loss_as_store_trait is {
+    aggregate: stores, stores_with_loss_month, stores_in_loss
+  }
+
+  view: loyalty_by_adoption_tercile is {
+    group_by: adoption_tercile is
+      pick 'low (<0.25)' when loyalty_adoption_rate < 0.25
+      pick 'mid (0.25-0.40)' when loyalty_adoption_rate < 0.40
+      else 'high (>=0.40)'
+    aggregate: stores, avg_adoption, avg_revenue_pm, redemption_per_store_month, pooled_margin
+    order_by: avg_adoption
+  }
+}
+
+// ------------------------------------------------------------------ the daily SAMPLE (no P&L join)
+source: daily_sample is duckdb.table('../data/curated/fct_daily_sample.parquet') extend {
+  primary_key: daily_sale_id
+  join_one: store on store_id = store.store_id
+
+  dimension:
+    day_type is pick 'Weekend' when is_weekend else 'Weekday'
+
+  // means only: this sample does not reconcile to the P&L, so no £ total is exposed
+  measure:
+    sample_rows is count()
+    mean_revenue is total_revenue_gbp.avg()
+    mean_staff_hours is total_staff_hours.avg()
+    revenue_per_staff_hour is total_revenue_gbp.sum() / total_staff_hours.sum()
+    mean_atv is avg_transaction_value_gbp.avg()
+    espresso_share is espresso_revenue_gbp.sum() / total_revenue_gbp.sum()
+    filter_share is filter_revenue_gbp.sum() / total_revenue_gbp.sum()
+    food_share is food_revenue_gbp.sum() / total_revenue_gbp.sum()
+    beans_share is retail_beans_revenue_gbp.sum() / total_revenue_gbp.sum()
+    revenue_index is mean_revenue / all(mean_revenue)
+
+  view: weekday_vs_weekend is {
+    group_by: day_type
+    aggregate: sample_rows, mean_revenue, mean_staff_hours, revenue_per_staff_hour, mean_atv
+    order_by: day_type
+  }
+
+  view: by_day_of_week is {
+    group_by: dow_index, day_of_week
+    aggregate: sample_rows, mean_revenue, mean_staff_hours, revenue_per_staff_hour, revenue_index
+    order_by: dow_index
+  }
+
+  view: bank_holiday_by_format is {
+    group_by: store.store_format, is_uk_bank_holiday
+    aggregate: sample_rows, mean_revenue
+    order_by: store_format, is_uk_bank_holiday
+  }
+
+  view: stream_mix_by_month is {
+    group_by: month_id
+    aggregate: espresso_share, filter_share, food_share, beans_share
+    order_by: month_id
+  }
+
+  view: stream_mix_by_format is {
+    group_by: store.store_format
+    aggregate: sample_rows, espresso_share, filter_share, food_share, beans_share
+  }
+}
+
+// ------------------------------------------------------------------ source contract as evidence
+source: contract is duckdb.table('../data/curated/dim_contract.parquet') extend {
+  measure:
+    promises is count()
+    holds is count() { where: verdict = 'HOLDS' }
+    fails is count() { where: verdict = 'FAILS' }
+
+  view: contract_summary is { aggregate: promises, holds, fails }
+  view: contract_rows is {
+    group_by: id, verdict, promise, observed
+    order_by: id
+  }
+}

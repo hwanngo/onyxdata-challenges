@@ -1,0 +1,555 @@
+{
+  "calendar": {
+    "rows": 730,
+    "start": "2023-01-01",
+    "end": "2024-12-30",
+    "has_2024_02_29": true,
+    "missing_2024_12_31": true,
+    "weekday_mismatch": 0,
+    "weekend_mismatch": 0,
+    "iso_week_mismatch": 0,
+    "bank_holidays": 17,
+    "trading_calendar_values": [
+      "Bank-Holiday",
+      "Christmas-Period",
+      "School-Holiday",
+      "Standard-Trading-Day"
+    ],
+    "school_holiday_days": 175,
+    "has_month_id_column": false
+  },
+  "estate": {
+    "stores": 60,
+    "format_counts": {
+      "High-Street": 58,
+      "Transport-Hub": 2
+    },
+    "location_counts": {
+      "City-Centre": 30,
+      "Suburban-High-Street": 16,
+      "Shopping-Centre": 12,
+      "Train-Station": 2
+    },
+    "region_counts": {
+      "London": 7,
+      "Yorkshire-and-Humber": 6,
+      "Wales": 6,
+      "East-of-England": 6,
+      "South-East": 6,
+      "North-West": 5,
+      "East-Midlands": 5,
+      "South-West": 5,
+      "North-East": 4,
+      "Scotland": 4,
+      "Northern-Ireland": 3,
+      "West-Midlands": 3
+    },
+    "status_counts": {
+      "Active": 57,
+      "Temporarily-Closed": 2,
+      "Refurbishing": 1
+    },
+    "retail_park_stores": 0,
+    "station_or_hub_named_high_street": 11,
+    "seating_nulls": 0
+  },
+  "daily_grain": {
+    "rows": 10000,
+    "distinct_store_days": 8910,
+    "possible_store_days": 43800,
+    "coverage": 0.2034,
+    "store_days_with_multiple_rows": 1006,
+    "max_rows_per_store_day": 4,
+    "multi_row_store_days_with_different_revenue": 1006,
+    "rows_per_store_min": 149,
+    "rows_per_store_max": 194,
+    "undocumented_columns": [
+      "avg_dwell_time_minutes"
+    ]
+  },
+  "daily_vs_monthly": {
+    "store_months_compared": 1438,
+    "median_implied_days": 30.522,
+    "r_avg_day_vs_month_revenue": 0.0307,
+    "r_store_level": 0.2252,
+    "daily_gross_margin_mean": 0.63,
+    "monthly_gross_margin": 0.6211
+  },
+  "contract": [
+    {
+      "id": "C01",
+      "promise": "Estate spans High-Street, Retail-Park and Transport-Hub",
+      "test": "format count",
+      "observed": "{'High-Street': 58, 'Transport-Hub': 2}",
+      "verdict": "FAILS"
+    },
+    {
+      "id": "C02",
+      "promise": "fact_daily_sales is one row per store per day",
+      "test": "rows vs distinct store-days",
+      "observed": "10,000 rows / 8,910 store-days",
+      "verdict": "FAILS"
+    },
+    {
+      "id": "C03",
+      "promise": "dim_date covers 2023-01-01 to 2024-12-31",
+      "test": "max date",
+      "observed": "2024-12-30",
+      "verdict": "FAILS"
+    },
+    {
+      "id": "C04",
+      "promise": "dim_date carries month_id",
+      "test": "column present",
+      "observed": "False",
+      "verdict": "FAILS"
+    },
+    {
+      "id": "C05",
+      "promise": "uk_trading_calendar has 3 values",
+      "test": "distinct values",
+      "observed": "Bank-Holiday, Christmas-Period, School-Holiday, Standard-Trading-Day",
+      "verdict": "FAILS"
+    },
+    {
+      "id": "C06",
+      "promise": "Weekday, weekend, ISO week flags derive from full_date",
+      "test": "mismatching rows",
+      "observed": "0",
+      "verdict": "HOLDS"
+    },
+    {
+      "id": "C07",
+      "promise": "Monthly rent consistent with dim_store",
+      "test": "rows differing > \u00a30.01",
+      "observed": "1440",
+      "verdict": "FAILS"
+    },
+    {
+      "id": "C08",
+      "promise": "Monthly staffing consistent with dim_store",
+      "test": "rows differing > \u00a30.01",
+      "observed": "1440",
+      "verdict": "FAILS"
+    },
+    {
+      "id": "C09",
+      "promise": "net_profit = revenue \u2212 COGS \u2212 rent \u2212 staffing \u2212 redemption",
+      "test": "rows off by > \u00a30.02",
+      "observed": "0",
+      "verdict": "HOLDS"
+    },
+    {
+      "id": "C10",
+      "promise": "member + non-member spend = revenue",
+      "test": "rows off by > \u00a30.02",
+      "observed": "0",
+      "verdict": "HOLDS"
+    },
+    {
+      "id": "C11",
+      "promise": "profitability_status derives from documented margin bands",
+      "test": "rows disagreeing",
+      "observed": "600",
+      "verdict": "FAILS"
+    },
+    {
+      "id": "C12",
+      "promise": "rent_band derives from documented rent thresholds",
+      "test": "rows disagreeing",
+      "observed": "119",
+      "verdict": "FAILS"
+    },
+    {
+      "id": "C13",
+      "promise": "net_profit_margin_pct within \u22121.0 to 0.6",
+      "test": "observed min",
+      "observed": "-3.3921",
+      "verdict": "FAILS"
+    },
+    {
+      "id": "C14",
+      "promise": "Four streams sum to daily revenue",
+      "test": "rows off by > \u00a30.02",
+      "observed": "0",
+      "verdict": "HOLDS"
+    },
+    {
+      "id": "C15",
+      "promise": "ATV = revenue / transactions",
+      "test": "rows off by > \u00a30.006",
+      "observed": "0",
+      "verdict": "HOLDS"
+    },
+    {
+      "id": "C16",
+      "promise": "loyalty_transactions \u2264 transactions \u2264 footfall",
+      "test": "violating rows",
+      "observed": "0",
+      "verdict": "HOLDS"
+    },
+    {
+      "id": "C17",
+      "promise": "gross_margin_pct = (price \u2212 cost) / price",
+      "test": "rows off by > 0.001",
+      "observed": "0",
+      "verdict": "HOLDS"
+    },
+    {
+      "id": "C18",
+      "promise": "gross_margin_pct range 0.36\u20130.80",
+      "test": "observed range",
+      "observed": "0.660\u20130.904",
+      "verdict": "FAILS"
+    },
+    {
+      "id": "C19",
+      "promise": "launch_date is not nullable",
+      "test": "null rows",
+      "observed": "36",
+      "verdict": "FAILS"
+    },
+    {
+      "id": "C20",
+      "promise": "Catalogue margins can produce the P&L gross margin",
+      "test": "lowest product margin vs blended",
+      "observed": "0.660 vs 0.621",
+      "verdict": "FAILS"
+    },
+    {
+      "id": "C21",
+      "promise": "seating_capacity null for some Transport-Hub stores",
+      "test": "null rows",
+      "observed": "0",
+      "verdict": "FAILS"
+    },
+    {
+      "id": "C22",
+      "promise": "loyalty_member_revenue_pct / avg_daily_footfall contain nulls",
+      "test": "null rows",
+      "observed": "0",
+      "verdict": "FAILS"
+    },
+    {
+      "id": "C23",
+      "promise": "Daily fact reconciles to monthly P&L",
+      "test": "store-month r(avg day, month)",
+      "observed": "0.0307",
+      "verdict": "FAILS"
+    },
+    {
+      "id": "C24",
+      "promise": "fact_daily_sales schema as documented",
+      "test": "undocumented columns",
+      "observed": "avg_dwell_time_minutes",
+      "verdict": "FAILS"
+    }
+  ],
+  "contract_summary": {
+    "tested": 24,
+    "holds": 7,
+    "fails": 17
+  },
+  "status_mismatch": {
+    "rows": 600,
+    "labelled_profitable_but_above_20pct": 349,
+    "labelled_break_even_but_8_to_20pct": 159,
+    "labelled_loss_making_but_below_minus_15pct": 59,
+    "labelled_break_even_but_below_minus_2pct": 33,
+    "near_boundary_rows": 1,
+    "stores_changing_rent_band": 23
+  },
+  "store_identity": {
+    "revenue": {
+      "eta2_store": 0.0411,
+      "kw_p_store": 0.49,
+      "eta2_month": 0.0081
+    },
+    "cogs": {
+      "eta2_store": 0.0412,
+      "kw_p_store": 0.436,
+      "eta2_month": 0.0061
+    },
+    "footfall": {
+      "eta2_store": 0.0398,
+      "kw_p_store": 0.357,
+      "eta2_month": 0.0084
+    },
+    "rent": {
+      "eta2_store": 0.9844,
+      "kw_p_store": 9.93e-256,
+      "eta2_month": 0.0002
+    },
+    "staffing": {
+      "eta2_store": 0.8619,
+      "kw_p_store": 5.54e-218,
+      "eta2_month": 0.0025
+    },
+    "member_share": {
+      "eta2_store": 0.9216,
+      "kw_p_store": 6.53e-238,
+      "eta2_month": 0.0012
+    },
+    "net_profit": {
+      "eta2_store": 0.1726,
+      "kw_p_store": 1.39e-23,
+      "eta2_month": 0.0082
+    },
+    "net_margin": {
+      "eta2_store": 0.1523,
+      "kw_p_store": 9.12e-45,
+      "eta2_month": 0.0091
+    }
+  },
+  "repeatability": {
+    "revenue_2023_vs_2024_r": 0.0503,
+    "revenue_2023_vs_2024_p": 0.7025,
+    "net_profit_2023_vs_2024_r": 0.6779,
+    "fixed_cost_2023_vs_2024_r": 0.9906,
+    "revenue_odd_vs_even_month_r": -0.0731
+  },
+  "cost_vs_revenue": {
+    "r2_store_profit_on_fixed_cost": 0.803,
+    "r2_store_profit_on_revenue": 0.1178,
+    "r_store_profit_fixed": -0.8961,
+    "fixed_cost_share_of_revenue": 0.4136,
+    "estate_margin": 0.1882,
+    "store_revenue_min": 56296.83,
+    "store_revenue_max": 71381.52,
+    "store_fixed_min": 14301.58,
+    "store_fixed_max": 37451.56,
+    "headcount_vs_staffing_r": 0.0847
+  },
+  "region": {
+    "revenue_kw_p": 0.767,
+    "margin_kw_p": 2.61e-25,
+    "r_region_margin_vs_fixed": -0.9766,
+    "r_region_margin_vs_revenue": 0.1009,
+    "top_margin": "Northern-Ireland",
+    "bottom_margin": "London",
+    "lowest_fixed": "Northern-Ireland",
+    "highest_fixed": "London",
+    "revenue_spread_pct": 0.0757,
+    "fixed_spread_pct": 0.518
+  },
+  "format": {
+    "transport_hub_stores": 2,
+    "high_street_stores": 58,
+    "margin_gap_pp": 6.62,
+    "permutation_p_two_sided": 0.2182,
+    "permutations": 20000,
+    "seed": 20261001,
+    "hub_fixed_mean": 23151.58,
+    "street_fixed_mean": 25848.72
+  },
+  "loyalty": {
+    "r_adoption_member_share_store": 0.9984,
+    "r_adoption_daily_loyalty_txn_share_store": 0.9999,
+    "r_adoption_revenue_store": 0.0027,
+    "r_adoption_net_profit_store": -0.018,
+    "r_adoption_atv_store": -0.0476,
+    "r_loyalty_share_atv_daily": -0.0023,
+    "revenue_per_10pp_adoption": 5.44,
+    "revenue_per_10pp_ci_low": -514.39,
+    "revenue_per_10pp_ci_high": 525.27,
+    "mean_adoption": 0.3326,
+    "redemption_per_store_month": 1201.5,
+    "revenue_needed_to_fund_redemption": 1934.53,
+    "upper_95_lift_at_mean_adoption": 1747.22,
+    "redemption_2023": 867224.61,
+    "redemption_2024": 862936.61,
+    "redemption_total": 1730161.22,
+    "adoption_by_format": {
+      "High-Street": 0.3283,
+      "Transport-Hub": 0.4575
+    },
+    "adoption_region_kw_p": 0.342
+  },
+  "week": {
+    "eta2_day_of_week": 0.1672,
+    "eta2_store": 0.0276,
+    "eta2_month": 0.0022,
+    "weekday_revenue": 2195.85,
+    "weekend_revenue": 1660.68,
+    "weekend_gap_pct": -0.2437,
+    "weekday_hours": 41.38,
+    "weekend_hours": 41.63,
+    "hours_mwu_p": 0.547,
+    "weekday_revenue_per_hour": 53.06,
+    "weekend_revenue_per_hour": 39.9,
+    "weekend_hours_at_weekday_productivity": 31.3,
+    "weekend_excess_hours_share": 0.2481,
+    "weekday_atv": 7.4823,
+    "weekend_atv": 7.4859,
+    "r_hours_revenue": 0.0032,
+    "eta2_shift_pattern": 0.0005,
+    "bank_holiday_revenue": 1379.38,
+    "non_holiday_revenue": 2062.09,
+    "bank_holiday_gap_pct": -0.3311,
+    "bank_holiday_rows": 245,
+    "bh_hub_rows": 8,
+    "bh_hub_gap_pct": -0.2967,
+    "bh_street_gap_pct": -0.3327,
+    "dow_mean": {
+      "Friday": 2218.72,
+      "Monday": 2121.49,
+      "Saturday": 1662.78,
+      "Sunday": 1658.55,
+      "Thursday": 2230.63,
+      "Tuesday": 2208.96,
+      "Wednesday": 2202.31
+    }
+  },
+  "mix": {
+    "espresso": {
+      "share": 0.457,
+      "slope_pp_per_year": -0.148,
+      "p": 0.6666
+    },
+    "filter": {
+      "share": 0.1919,
+      "slope_pp_per_year": 0.263,
+      "p": 0.2216
+    },
+    "food": {
+      "share": 0.2607,
+      "slope_pp_per_year": -0.359,
+      "p": 0.2519
+    },
+    "retail_beans": {
+      "share": 0.0905,
+      "slope_pp_per_year": 0.245,
+      "p": 0.143
+    }
+  },
+  "mix_by_format": {
+    "High-Street": {
+      "espresso": 0.4568,
+      "filter": 0.1914,
+      "food": 0.2612,
+      "retail_beans": 0.0907
+    },
+    "Transport-Hub": {
+      "espresso": 0.4613,
+      "filter": 0.2038,
+      "food": 0.2493,
+      "retail_beans": 0.0855
+    }
+  },
+  "product": {
+    "category_margin": {
+      "Cold-Drinks": 0.8132,
+      "Espresso-Drinks": 0.8388,
+      "Filter-Coffee": 0.883,
+      "Food": 0.7398,
+      "Merchandise": 0.702,
+      "Retail-Beans": 0.677
+    },
+    "r_row_gross_margin_vs_top_product_margin": 0.02
+  },
+  "season": {
+    "month_of_year_revenue_kw_p": 0.8865,
+    "month_of_year_profit_kw_p": 0.9654,
+    "best_month": "2024-11",
+    "worst_month": "2023-11",
+    "best_month_profit": 816898.08,
+    "worst_month_profit": 564015.17,
+    "yoy_month_pattern_r": -0.4887,
+    "yoy_month_pattern_p": 0.107,
+    "quarter_revenue": {
+      "1": 22741789.34,
+      "2": 22253500.69,
+      "3": 22238322.26,
+      "4": 22452376.89
+    }
+  },
+  "loss": {
+    "loss_months": 225,
+    "stores_with_a_loss_month": 58,
+    "stores_negative_over_24m": 1,
+    "negative_store_ids": [
+      32
+    ],
+    "max_loss_months_one_store": 13
+  },
+  "brief": {
+    "q1_margin_by_format_row_mean": {
+      "High-Street": 0.1434,
+      "Transport-Hub": 0.2253
+    },
+    "q1_margin_by_format_pooled": {
+      "High-Street": 0.1859,
+      "Transport-Hub": 0.2514
+    },
+    "q2_loss_share_by_region": {
+      "London": 0.2917,
+      "South-West": 0.1917,
+      "North-West": 0.175,
+      "East-Midlands": 0.1667,
+      "North-East": 0.1354,
+      "West-Midlands": 0.125,
+      "Scotland": 0.1042,
+      "South-East": 0.0972,
+      "East-of-England": 0.0903,
+      "Northern-Ireland": 0.0833,
+      "Wales": 0.0694,
+      "Yorkshire-and-Humber": 0.0625
+    },
+    "q2_loss_months_by_region": {
+      "East-Midlands": 20,
+      "East-of-England": 13,
+      "London": 49,
+      "North-East": 13,
+      "North-West": 21,
+      "Northern-Ireland": 6,
+      "Scotland": 10,
+      "South-East": 14,
+      "South-West": 23,
+      "Wales": 10,
+      "West-Midlands": 9,
+      "Yorkshire-and-Humber": 9
+    },
+    "q2_region_loss_chi2_p": 0.0,
+    "q3_r_rent_revenue_store": 0.1469,
+    "q3_r_rent_margin_store": -0.4203,
+    "q4_top_improvers": {
+      "42": 116789.62,
+      "45": 116496.79,
+      "24": 90224.33
+    },
+    "q4_top_decliners": {
+      "40": -141296.8,
+      "32": -107793.24,
+      "52": -91618.16
+    },
+    "q4_noise_sd_annual_delta": 51390.71,
+    "q4_observed_sd_annual_delta": 50489.62,
+    "q4_stores_beyond_2sd_noise": 4,
+    "q12_weekend_gap_by_format": {
+      "High-Street": -0.2417,
+      "Transport-Hub": -0.2658
+    },
+    "store_status_revenue_kw_p": 0.833,
+    "store_status_margin_kw_p": 0.2585,
+    "ni_revenue_rank_of_12": 9,
+    "fixed_cost_median_store": 25579.87,
+    "margin_below_median_fixed": 0.2416,
+    "margin_above_median_fixed": 0.1351,
+    "revenue_below_median_fixed": 62077.9,
+    "revenue_above_median_fixed": 62485.98,
+    "derived_status_counts": {
+      "Highly-Profitable": 676,
+      "Profitable": 391,
+      "Break-Even": 176,
+      "Loss-Making": 121,
+      "Structural-Loss": 76
+    },
+    "supplied_status_counts": {
+      "Profitable": 581,
+      "Break-Even": 368,
+      "Highly-Profitable": 327,
+      "Loss-Making": 147,
+      "Structural-Loss": 17
+    }
+  }
+}

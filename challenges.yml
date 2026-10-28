@@ -486,6 +486,38 @@ challenges:
     self_scores: {judge_34: 31, ai_storytelling: 5, ai_design: 4, ai_technical: 5, ai_insights: 5, ai_b_accessibility: 5}
     scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
 
+  - folder: "2026/10"
+    era: 2
+    title: "October 2026 DataDNA - Sunrise Coffee Chain Analytics"
+    playground_url: "https://datadna.onyxdata.co.uk/playground/2026-09-october-2026-datadna-sunrise-coffee-chain-analytics-challenge/"
+    challenge_url: "https://datadna.onyxdata.co.uk/challenges/october-2026-datadna-sunrise-coffee-chain-analytics-challenge/"
+    dataset_url: "https://datadna.onyxdata.co.uk/wp-content/uploads/2026/09/DataDNA-Dataset-Challenge-2026-10-Sunrise-Coffee-Chain.zip"
+    dataset_folder: "DataDNA-Dataset-Challenge-2026-10-Sunrise-Coffee-Chain"
+    formats: [CSV, MD]   # verified from the ZIP at G1: 5 CSV tables, CHALLENGE_BRIEF.md, DATA_DICTIONARY.md
+    status: done
+    sha256: "b54effee60022f7b3d9734b52a9a526bc8db3337763178fd478a88673a1498aa"
+    notes: |
+      Registered 2026-11-01 at G1 as post-deadline practice work (deadline was 2026-10-24).
+      The challenge page's "Operational & Analytical Challenges" block describes food delivery
+      (kitchens, delivery zones, riders, food temperature) - apparently carried over from the
+      2026-09 Golden Wok page. Confirmed at G1: the ZIP's CHALLENGE_BRIEF.md (coffee chain) is the spec; the page block was ignored.
+    summary: >-
+      Same cup, different rent. 60 stores x 24 months (GBP 89.69M revenue, 16.88M net profit) are
+      interchangeable on revenue: store eta-squared equals the random-label null, YoY store revenue
+      r = 0.05, region KW p = 0.77, season p = 0.89. Fixed cost explains store profit (R2 0.80 vs 0.12
+      for revenue); the median cost split separates 24.2% from 13.5% margin on equal revenue. Loyalty
+      adoption drives member share (r 0.998) not revenue (r 0.003); best-case lift GBP 1,747 is below the
+      GBP 1,935 needed to fund redemptions. Weekends trade 24.4% below weekdays on flat staff hours.
+      Formats are 58 High-Street / 2 Transport-Hub / 0 Retail-Park, so format is reported as
+      unrankable (permutation p 0.22). 7 of 24 dictionary promises hold; status and rent band
+      re-derived (600 status rows contradict their own bands). Signature: sixty stacked-P&L cups sorted
+      by rent + staffing. Evidence: 11 integrity + 22 model + 14 vitest tests, 22/22 Malloy views, 656
+      live / 649 poster DOM metrics reconciled, 8 filter/drill states reconciled to Parquet, 29/29
+      interactions, axe zero on all surfaces and tour themes, 1,491ms cold load, exact 2560x1440 fit.
+      Post-deadline practice work. Not deployed.
+    self_scores: {judge_34: 30, ai_storytelling: 5, ai_design: 4, ai_technical: 5, ai_insights: 5, ai_b_accessibility: 5}
+    scores: {judge_34: null, ai_storytelling: null, ai_design: null, ai_technical: null, ai_insights: null}
+
   # ---------- ERA 1 (gated; see docs/DATA_ACCESS.md before attempting) ----------
   - folder: "2021/01"
     era: 1

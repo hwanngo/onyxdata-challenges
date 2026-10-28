@@ -1,0 +1,1139 @@
+node tools/run_malloy.mjs 2026 10
+sources: store_month, store_mart, daily_sample, contract   views: 22
+
+==============================================================================
+run: store_month -> estate_kpis   (1 rows)
+==============================================================================
+[
+ {
+  "store_months": 1440,
+  "revenue": 89685989.17999996,
+  "net_profit": 16879504.06999997,
+  "margin": 0.18820670011369078,
+  "gross_margin": 0.621082069889481,
+  "fixed_cost_share": 0.4135840486249738,
+  "redemption": 1730161.2199999979,
+  "member_share": 0.3319303383079443,
+  "loss_months": 225,
+  "status_mismatches": 600
+ }
+]
+
+==============================================================================
+run: store_month -> region_cost_league   (10 rows)
+==============================================================================
+[
+ {
+  "region": "Northern-Ireland",
+  "stores": 3,
+  "revenue_per_store_month": 61623.71027777778,
+  "fixed_per_store_month": 19516.32347222221,
+  "margin": 0.2843205503732944,
+  "loss_months": 7,
+  "share_of_estate_profit": 0.07473583789953148,
+  "margin_rank": 1
+ },
+ {
+  "region": "West-Midlands",
+  "stores": 3,
+  "revenue_per_store_month": 63878.037638888876,
+  "fixed_per_store_month": 22881.319027777776,
+  "margin": 0.24497275538348992,
+  "loss_months": 10,
+  "share_of_estate_profit": 0.06674860086692119,
+  "margin_rank": 2
+ },
+ {
+  "region": "Wales",
+  "stores": 6,
+  "revenue_per_store_month": 61489.264791666676,
+  "fixed_per_store_month": 22674.41416666668,
+  "margin": 0.22797581198831054,
+  "loss_months": 11,
+  "share_of_estate_profit": 0.11958890270879882,
+  "margin_rank": 3
+ },
+ {
+  "region": "East-of-England",
+  "stores": 6,
+  "revenue_per_store_month": 62578.08520833333,
+  "fixed_per_store_month": 23934.626388888897,
+  "margin": 0.2214411650834098,
+  "loss_months": 16,
+  "share_of_estate_profit": 0.11821795366290072,
+  "margin_rank": 4
+ },
+ {
+  "region": "Yorkshire-and-Humber",
+  "stores": 6,
+  "revenue_per_store_month": 63129.379097222234,
+  "fixed_per_store_month": 24896.16055555556,
+  "margin": 0.21053211887251494,
+  "loss_months": 10,
+  "share_of_estate_profit": 0.11338423878231893,
+  "margin_rank": 5
+ },
+ {
+  "region": "South-East",
+  "stores": 6,
+  "revenue_per_store_month": 61936.284513888895,
+  "fixed_per_store_month": 24986.488680555554,
+  "margin": 0.19778777315774584,
+  "loss_months": 19,
+  "share_of_estate_profit": 0.10450748568704854,
+  "margin_rank": 6
+ },
+ {
+  "region": "Scotland",
+  "stores": 4,
+  "revenue_per_store_month": 64446.71208333337,
+  "fixed_per_store_month": 26947.151874999992,
+  "margin": 0.1829430071972445,
+  "loss_months": 12,
+  "share_of_estate_profit": 0.06705453106360144,
+  "margin_rank": 7
+ },
+ {
+  "region": "East-Midlands",
+  "stores": 5,
+  "revenue_per_store_month": 63253.63783333334,
+  "fixed_per_store_month": 26408.103750000006,
+  "margin": 0.17975597619580383,
+  "loss_months": 21,
+  "share_of_estate_profit": 0.08083331858220892,
+  "margin_rank": 8
+ },
+ {
+  "region": "North-East",
+  "stores": 4,
+  "revenue_per_store_month": 60901.11677083336,
+  "fixed_per_store_month": 25210.012083333346,
+  "margin": 0.1784971423989742,
+  "loss_months": 16,
+  "share_of_estate_profit": 0.061825562271984554,
+  "margin_rank": 9
+ },
+ {
+  "region": "South-West",
+  "stores": 5,
+  "revenue_per_store_month": 62715.17116666666,
+  "fixed_per_store_month": 27844.692083333346,
+  "margin": 0.16202519625853323,
+  "loss_months": 25,
+  "share_of_estate_profit": 0.07223983269551133,
+  "margin_rank": 10
+ }
+]
+
+==============================================================================
+run: store_month -> region_store_drill   (10 rows)
+==============================================================================
+[
+ {
+  "region": "Northern-Ireland",
+  "margin": 0.2843205503732944,
+  "stores_in_region": [
+   {
+    "store_id": 6,
+    "store_name": "Sunrise Coffee Derry Station",
+    "location_type": "Suburban-High-Street",
+    "revenue_per_store_month": 61454.76999999999,
+    "fixed_per_store_month": 17552.01375,
+    "margin": 0.31434258479854377,
+    "loss_months": 4,
+    "rank_in_region": 1
+   },
+   {
+    "store_id": 42,
+    "store_name": "Sunrise Coffee Belfast Yard",
+    "location_type": "City-Centre",
+    "revenue_per_store_month": 60238.28833333333,
+    "fixed_per_store_month": 18845.627083333333,
+    "margin": 0.28890656006632326,
+    "loss_months": 1,
+    "rank_in_region": 2
+   },
+   {
+    "store_id": 54,
+    "store_name": "Sunrise Coffee Derry Roastery",
+    "location_type": "Suburban-High-Street",
+    "revenue_per_store_month": 63178.07249999999,
+    "fixed_per_store_month": 22151.329583333336,
+    "margin": 0.25074480944318145,
+    "loss_months": 2,
+    "rank_in_region": 3
+   }
+  ]
+ },
+ {
+  "region": "West-Midlands",
+  "margin": 0.24497275538348992,
+  "stores_in_region": [
+   {
+    "store_id": 30,
+    "store_name": "Sunrise Coffee Coventry Roastery",
+    "location_type": "Shopping-Centre",
+    "revenue_per_store_month": 62620.130416666674,
+    "fixed_per_store_month": 14301.5775,
+    "margin": 0.382081133614162,
+    "loss_months": 1,
+    "rank_in_region": 1
+   },
+   {
+    "store_id": 26,
+    "store_name": "Sunrise Coffee Wolverhampton Yard",
+    "location_type": "Suburban-High-Street",
+    "revenue_per_store_month": 63588.57833333334,
+    "fixed_per_store_month": 25659.692500000005,
+    "margin": 0.2049455252013681,
+    "loss_months": 4,
+    "rank_in_region": 2
+   },
+   {
+    "store_id": 21,
+    "store_name": "Sunrise Coffee Birmingham Roastery",
+    "location_type": "City-Centre",
+    "revenue_per_store_month": 65425.40416666667,
+    "fixed_per_store_month": 28682.687083333334,
+    "margin": 0.1526466942600087,
+    "loss_months": 5,
+    "rank_in_region": 3
+   }
+  ]
+ },
+ {
+  "region": "Wales",
+  "margin": 0.22797581198831054,
+  "stores_in_region": [
+   {
+    "store_id": 51,
+    "store_name": "Sunrise Coffee Newport House",
+    "location_type": "Shopping-Centre",
+    "revenue_per_store_month": 63087.207916666666,
+    "fixed_per_store_month": 18498.413333333327,
+    "margin": 0.31152229296035505,
+    "loss_months": 0,
+    "rank_in_region": 1
+   },
+   {
+    "store_id": 12,
+    "store_name": "Sunrise Coffee Cardiff Corner",
+    "location_type": "City-Centre",
+    "revenue_per_store_month": 57326.6225,
+    "fixed_per_store_month": 17468.599583333333,
+    "margin": 0.27908994929304737,
+    "loss_months": 1,
+    "rank_in_region": 2
+   },
+   {
+    "store_id": 3,
+    "store_name": "Sunrise Coffee Newport Yard",
+    "location_type": "Shopping-Centre",
+    "revenue_per_store_month": 65302.66458333333,
+    "fixed_per_store_month": 24985.446666666667,
+    "margin": 0.21812195067716578,
+    "loss_months": 3,
+    "rank_in_region": 3
+   },
+   {
+    "store_id": 60,
+    "store_name": "Sunrise Coffee Cardiff Collective",
+    "location_type": "City-Centre",
+    "revenue_per_store_month": 61715.17333333334,
+    "fixed_per_store_month": 24620.582916666666,
+    "margin": 0.20322405721726342,
+    "loss_months": 2,
+    "rank_in_region": 4
+   },
+   {
+    "store_id": 7,
+    "store_name": "Sunrise Coffee Swansea Hub",
+    "location_type": "Suburban-High-Street",
+    "revenue_per_store_month": 62312.25166666667,
+    "fixed_per_store_month": 25005.497083333332,
+    "margin": 0.19074308046055466,
+    "loss_months": 2,
+    "rank_in_region": 5
+   },
+   {
+    "store_id": 55,
+    "store_name": "Sunrise Coffee Swansea Collective",
+    "location_type": "Suburban-High-Street",
+    "revenue_per_store_month": 59191.66874999999,
+    "fixed_per_store_month": 25467.945416666666,
+    "margin": 0.16530115566305945,
+    "loss_months": 3,
+    "rank_in_region": 6
+   }
+  ]
+ },
+ {
+  "region": "East-of-England",
+  "margin": 0.2214411650834098,
+  "stores_in_region": [
+   {
+    
+
+==============================================================================
+run: store_month -> store_yoy   (10 rows)
+==============================================================================
+[
+ {
+  "store_id": 42,
+  "store_name": "Sunrise Coffee Belfast Yard",
+  "region": "Northern-Ireland",
+  "revenue_2023": 643859.8300000001,
+  "revenue_2024": 801859.0900000001,
+  "net_profit_2023": 150444.03,
+  "net_profit_2024": 267233.64999999997,
+  "net_profit_yoy": 116789.61999999997
+ },
+ {
+  "store_id": 45,
+  "store_name": "Sunrise Coffee Liverpool Collective",
+  "region": "North-West",
+  "revenue_2023": 618078.7399999999,
+  "revenue_2024": 773759.69,
+  "net_profit_2023": 80689.73000000001,
+  "net_profit_2024": 197186.52000000002,
+  "net_profit_yoy": 116496.79000000001
+ },
+ {
+  "store_id": 24,
+  "store_name": "Sunrise Coffee Cheltenham Quarter",
+  "region": "South-West",
+  "revenue_2023": 747089.97,
+  "revenue_2024": 872105.22,
+  "net_profit_2023": 94809.96,
+  "net_profit_2024": 185034.29000000004,
+  "net_profit_yoy": 90224.33000000003
+ },
+ {
+  "store_id": 37,
+  "store_name": "Sunrise Coffee Ipswich House",
+  "region": "East-of-England",
+  "revenue_2023": 752717.51,
+  "revenue_2024": 833350.53,
+  "net_profit_2023": 98354.52999999998,
+  "net_profit_2024": 176370.59000000003,
+  "net_profit_yoy": 78016.06000000004
+ },
+ {
+  "store_id": 48,
+  "store_name": "Sunrise Coffee Reading Hub",
+  "region": "South-East",
+  "revenue_2023": 726743.6399999999,
+  "revenue_2024": 814378.9700000001,
+  "net_profit_2023": 148060.18999999997,
+  "net_profit_2024": 222801.41999999998,
+  "net_profit_yoy": 74741.23000000001
+ },
+ {
+  "store_id": 25,
+  "store_name": "Sunrise Coffee Glasgow Express",
+  "region": "Scotland",
+  "revenue_2023": 783354.16,
+  "revenue_2024": 820493.01,
+  "net_profit_2023": 109759.22,
+  "net_profit_2024": 170854.91999999998,
+  "net_profit_yoy": 61095.69999999998
+ },
+ {
+  "store_id": 44,
+  "store_name": "Sunrise Coffee Newcastle Collective",
+  "region": "North-East",
+  "revenue_2023": 695458.64,
+  "revenue_2024": 750547.9999999999,
+  "net_profit_2023": 73872.92000000001,
+  "net_profit_2024": 129400.86999999997,
+  "net_profit_yoy": 55527.94999999995
+ },
+ {
+  "store_id": 12,
+  "store_name": "Sunrise Coffee Cardiff Corner",
+  "region": "Wales",
+  "revenue_2023": 638984,
+  "revenue_2024": 736854.9400000001,
+  "net_profit_2023": 165531.03999999998,
+  "net_profit_2024": 218451.78,
+  "net_profit_yoy": 52920.74000000002
+ },
+ {
+  "store_id": 15,
+  "store_name": "Sunrise Coffee West London Quarter",
+  "region": "London",
+  "revenue_2023": 748497.7000000002,
+  "revenue_2024": 808142.31,
+  "net_profit_2023": 133735.85000000003,
+  "net_profit_2024": 186006.59999999998,
+  "net_profit_yoy": 52270.74999999994
+ },
+ {
+  "store_id": 4,
+  "store_name": "Sunrise Coffee Chester Brew Bar",
+  "region": "North-West",
+  "revenue_2023": 698695.0499999998,
+  "revenue_2024": 768896.1799999999,
+  "net_profit_2023": 51943.34,
+  "net_profit_2024": 99295.70000000001,
+  "net_profit_yoy": 47352.360000000015
+ }
+]
+
+==============================================================================
+run: store_month -> month_trend   (10 rows)
+==============================================================================
+[
+ {
+  "month_id": "2023-01",
+  "revenue": 3769530.899999999,
+  "net_profit": 707865.7499999998,
+  "margin": 0.1877861645861558,
+  "running_net_profit": 707865.7499999998,
+  "net_profit_vs_prior_month": null
+ },
+ {
+  "month_id": "2023-02",
+  "revenue": 3730553.19,
+  "net_profit": 679644,
+  "margin": 0.1821831683895653,
+  "running_net_profit": 1387509.7499999998,
+  "net_profit_vs_prior_month": -28221.749999999767
+ },
+ {
+  "month_id": "2023-03",
+  "revenue": 3830468.38,
+  "net_profit": 742999.4799999996,
+  "margin": 0.19397092112270606,
+  "running_net_profit": 2130509.2299999995,
+  "net_profit_vs_prior_month": 63355.47999999963
+ },
+ {
+  "month_id": "2023-04",
+  "revenue": 3782603.01,
+  "net_profit": 761388.17,
+  "margin": 0.2012868302560781,
+  "running_net_profit": 2891897.3999999994,
+  "net_profit_vs_prior_month": 18388.69000000041
+ },
+ {
+  "month_id": "2023-05",
+  "revenue": 3721603.81,
+  "net_profit": 689036.96,
+  "margin": 0.18514516729280756,
+  "running_net_profit": 3580934.3599999994,
+  "net_profit_vs_prior_month": -72351.21000000008
+ },
+ {
+  "month_id": "2023-06",
+  "revenue": 3728778.7299999995,
+  "net_profit": 700972.3900000002,
+  "margin": 0.1879898059813274,
+  "running_net_profit": 4281906.75,
+  "net_profit_vs_prior_month": 11935.430000000284
+ },
+ {
+  "month_id": "2023-07",
+  "revenue": 3878266.6299999994,
+  "net_profit": 807736.9300000002,
+  "margin": 0.20827266587392942,
+  "running_net_profit": 5089643.68,
+  "net_profit_vs_prior_month": 106764.53999999992
+ },
+ {
+  "month_id": "2023-08",
+  "revenue": 3766956.7200000016,
+  "net_profit": 739755.4599999998,
+  "margin": 0.19638013255432346,
+  "running_net_profit": 5829399.14,
+  "net_profit_vs_prior_month": -67981.47000000032
+ },
+ {
+  "month_id": "2023-09",
+  "revenue": 3693737.5399999986,
+  "net_profit": 660969.8099999998,
+  "margin": 0.17894336098389926,
+  "running_net_profit": 6490368.949999999,
+  "net_profit_vs_prior_month": -78785.65000000002
+ },
+ {
+  "month_id": "2023-10",
+  "revenue": 3723440.129999999,
+  "net_profit": 687042.5800000001,
+  "margin": 0.1845182293826758,
+  "running_net_profit": 7177411.529999999,
+  "net_profit_vs_prior_month": 26072.77000000025
+ }
+]
+
+==============================================================================
+run: store_month -> quarter_revenue   (4 rows)
+==============================================================================
+[
+ {
+  "quarter": 1,
+  "revenue": 22741789.339999992,
+  "net_profit": 4403389.220000003,
+  "margin": 0.19362545110973248
+ },
+ {
+  "quarter": 2,
+  "revenue": 22253500.69000002,
+  "net_profit": 4179874.149999999,
+  "margin": 0.18782996024882928
+ },
+ {
+  "quarter": 3,
+  "revenue": 22238322.259999998,
+  "net_profit": 4094931.660000001,
+  "margin": 0.18413851603209933
+ },
+ {
+  "quarter": 4,
+  "revenue": 22452376.889999982,
+  "net_profit": 4201309.04,
+  "margin": 0.1871209030822573
+ }
+]
+
+==============================================================================
+run: store_month -> format_with_n   (2 rows)
+==============================================================================
+[
+ {
+  "store_format": "High-Street",
+  "stores": 58,
+  "store_months": 1392,
+  "margin": 0.18587852458474546,
+  "row_mean_margin": 0.1434431034482757,
+  "revenue_per_store_month": 62140.41901580455,
+  "fixed_per_store_month": 25848.720395114935
+ },
+ {
+  "store_format": "Transport-Hub",
+  "stores": 2,
+  "store_months": 48,
+  "margin": 0.2514059143488966,
+  "row_mean_margin": 0.2252645833333334,
+  "revenue_per_store_month": 66385.95645833334,
+  "fixed_per_store_month": 23151.5775
+ }
+]
+
+==============================================================================
+run: store_month -> by_location_type   (4 rows)
+==============================================================================
+[
+ {
+  "location_type": "Train-Station",
+  "stores": 2,
+  "margin": 0.2514059143488966,
+  "revenue_per_store_month": 66385.95645833334,
+  "fixed_per_store_month": 23151.5775
+ },
+ {
+  "location_type": "Shopping-Centre",
+  "stores": 12,
+  "margin": 0.2234207632957054,
+  "revenue_per_store_month": 63813.71333333335,
+  "fixed_per_store_month": 24209.079201388897
+ },
+ {
+  "location_type": "Suburban-High-Street",
+  "stores": 16,
+  "margin": 0.2034699980937306,
+  "revenue_per_store_month": 62862.74166666664,
+  "fixed_per_store_month": 25068.86736979165
+ },
+ {
+  "location_type": "City-Centre",
+  "stores": 30,
+  "margin": 0.1605360061190718,
+  "revenue_per_store_month": 61085.86254166668,
+  "fixed_per_store_month": 26920.498486111108
+ }
+]
+
+==============================================================================
+run: store_month -> status_audit   (9 rows)
+==============================================================================
+[
+ {
+  "source_status": "Profitable",
+  "status": "Highly-Profitable",
+  "store_months": 349
+ },
+ {
+  "source_status": "Highly-Profitable",
+  "status": "Highly-Profitable",
+  "store_months": 327
+ },
+ {
+  "source_status": "Profitable",
+  "status": "Profitable",
+  "store_months": 232
+ },
+ {
+  "source_status": "Break-Even",
+  "status": "Break-Even",
+  "store_months": 176
+ },
+ {
+  "source_status": "Break-Even",
+  "status": "Profitable",
+  "store_months": 159
+ },
+ {
+  "source_status": "Loss-Making",
+  "status": "Loss-Making",
+  "store_months": 88
+ },
+ {
+  "source_status": "Loss-Making",
+  "status": "Structural-Loss",
+  "store_months": 59
+ },
+ {
+  "source_status": "Break-Even",
+  "status": "Loss-Making",
+  "store_months": 33
+ },
+ {
+  "source_status": "Structural-Loss",
+  "status": "Structural-Loss",
+  "store_months": 17
+ }
+]
+
+==============================================================================
+run: store_month -> status_derived   (5 rows)
+==============================================================================
+[
+ {
+  "status": "Highly-Profitable",
+  "store_months": 676,
+  "loss_months": 0
+ },
+ {
+  "status": "Profitable",
+  "store_months": 391,
+  "loss_months": 0
+ },
+ {
+  "status": "Break-Even",
+  "store_months": 176,
+  "loss_months": 28
+ },
+ {
+  "status": "Loss-Making",
+  "store_months": 121,
+  "loss_months": 121
+ },
+ {
+  "status": "Structural-Loss",
+  "store_months": 76,
+  "loss_months": 76
+ }
+]
+
+==============================================================================
+run: store_month -> rent_band_derived   (3 rows)
+==============================================================================
+[
+ {
+  "rent_band": "Low",
+  "stores": 30,
+  "store_months": 573,
+  "margin": 0.2163497867279453,
+  "revenue_per_store_month": 61494.28363001746
+ },
+ {
+  "rent_band": "Medium",
+  "stores": 36,
+  "store_months": 597,
+  "margin": 0.18436415347498503,
+  "revenue_per_store_month": 62678.590670016805
+ },
+ {
+  "rent_band": "High",
+  "stores": 17,
+  "store_months": 270,
+  "margin": 0.1384216591576944,
+  "revenue_per_store_month": 63076.466777777794
+ }
+]
+
+==============================================================================
+run: store_mart -> cost_half_screen   (2 rows)
+==============================================================================
+[
+ {
+  "cost_half": "Lower-cost half",
+  "stores": 30,
+  "avg_revenue_pm": 62077.89695833334,
+  "avg_fixed_pm": 22205.29709722222,
+  "pooled_margin": 0.24161654660113058
+ },
+ {
+  "cost_half": "Higher-cost half",
+  "stores": 30,
+  "avg_revenue_pm": 62485.97690277779,
+  "avg_fixed_pm": 29312.334166666664,
+  "pooled_margin": 0.13514565968270945
+ }
+]
+
+==============================================================================
+run: store_mart -> store_league   (10 rows)
+==============================================================================
+[
+ {
+  "store_id": 30,
+  "short_name": "Coventry Roastery",
+  "region": "West-Midlands",
+  "location_type": "Shopping-Centre",
+  "cost_half": "Lower-cost half",
+  "avg_revenue_pm": 62620.13041666666,
+  "avg_fixed_pm": 14301.5775,
+  "pooled_margin": 0.38208113361416207,
+  "margin_rank": 1
+ },
+ {
+  "store_id": 6,
+  "short_name": "Derry Station",
+  "region": "Northern-Ireland",
+  "location_type": "Suburban-High-Street",
+  "cost_half": "Lower-cost half",
+  "avg_revenue_pm": 61454.77,
+  "avg_fixed_pm": 17552.013750000002,
+  "pooled_margin": 0.3143425847985437,
+  "margin_rank": 2
+ },
+ {
+  "store_id": 51,
+  "short_name": "Newport House",
+  "region": "Wales",
+  "location_type": "Shopping-Centre",
+  "cost_half": "Lower-cost half",
+  "avg_revenue_pm": 63087.207916666666,
+  "avg_fixed_pm": 18498.413333333334,
+  "pooled_margin": 0.3115222929603551,
+  "margin_rank": 3
+ },
+ {
+  "store_id": 10,
+  "short_name": "Leeds Roastery",
+  "region": "Yorkshire-and-Humber",
+  "location_type": "City-Centre",
+  "cost_half": "Lower-cost half",
+  "avg_revenue_pm": 59180.832916666666,
+  "avg_fixed_pm": 18005.099166666667,
+  "pooled_margin": 0.2972582782802588,
+  "margin_rank": 4
+ },
+ {
+  "store_id": 42,
+  "short_name": "Belfast Yard",
+  "region": "Northern-Ireland",
+  "location_type": "City-Centre",
+  "cost_half": "Lower-cost half",
+  "avg_revenue_pm": 60238.28833333333,
+  "avg_fixed_pm": 18845.627083333333,
+  "pooled_margin": 0.28890656006632326,
+  "margin_rank": 5
+ },
+ {
+  "store_id": 12,
+  "short_name": "Cardiff Corner",
+  "region": "Wales",
+  "location_type": "City-Centre",
+  "cost_half": "Lower-cost half",
+  "avg_revenue_pm": 57326.6225,
+  "avg_fixed_pm": 17468.599583333333,
+  "pooled_margin": 0.27908994929304737,
+  "margin_rank": 6
+ },
+ {
+  "store_id": 11,
+  "short_name": "Cambridge Brew Bar",
+  "region": "East-of-England",
+  "location_type": "City-Centre",
+  "cost_half": "Lower-cost half",
+  "avg_revenue_pm": 57712.14041666667,
+  "avg_fixed_pm": 18539.134583333333,
+  "pooled_margin": 0.27736437344202064,
+  "margin_rank": 7
+ },
+ {
+  "store_id": 56,
+  "short_name": "Lincoln Corner",
+  "region": "East-Midlands",
+  "location_type": "City-Centre",
+  "cost_half": "Lower-cost half",
+  "avg_revenue_pm": 68550.47458333334,
+  "avg_fixed_pm": 21490.650833333333,
+  "pooled_margin": 0.2746796385843159,
+  "margin_rank": 8
+ },
+ {
+  "store_id": 40,
+  "short_name": "Bristol Station",
+  "region": "South-West",
+  "location_type": "City-Centre",
+  "cost_half": "Lower-cost half",
+  "avg_revenue_pm": 58137.355416666665,
+  "avg_fixed_pm": 20125.954583333332,
+  "pooled_margin": 0.26643282772300736,
+  "margin_rank": 9
+ },
+ {
+  "store_id": 57,
+  "short_name": "Luton House",
+  "region": "East-of-England",
+  "location_type": "Train-Station",
+  "cost_half": "Lower-cost half",
+  "avg_revenue_pm": 67219.57833333332,
+  "avg_fixed_pm": 22590.150416666667,
+  "pooled_margin": 0.25924915922932873,
+  "margin_rank": 10
+ }
+]
+
+==============================================================================
+run: store_mart -> loss_as_store_trait   (1 rows)
+==============================================================================
+[
+ {
+  "stores": 60,
+  "stores_with_loss_month": 58,
+  "stores_in_loss": 1
+ }
+]
+
+==============================================================================
+run: store_mart -> loyalty_by_adoption_tercile   (3 rows)
+==============================================================================
+[
+ {
+  "adoption_tercile": "low (<0.25)",
+  "stores": 19,
+  "avg_adoption": 0.1246842105263158,
+  "avg_revenue_pm": 62476.38934210526,
+  "redemption_per_store_month": 1211.5721710526316,
+  "pooled_margin": 0.18506087440357308
+ },
+ {
+  "adoption_tercile": "mid (0.25-0.40)",
+  "stores": 17,
+  "avg_adoption": 0.33005882352941174,
+  "avg_revenue_pm": 62114.456004901964,
+  "redemption_per_store_month": 1194.0907107843138,
+  "pooled_margin": 0.1987590318940015
+ },
+ {
+  "adoption_tercile": "high (>=0.40)",
+  "stores": 24,
+  "avg_adoption": 0.4990833333333335,
+  "avg_revenue_pm": 62246.627760416675,
+  "redemption_per_store_month": 1198.7765625000002,
+  "pooled_margin": 0.18324764089831988
+ }
+]
+
+==============================================================================
+run: daily_sample -> weekday_vs_weekend   (2 rows)
+==============================================================================
+[
+ {
+  "day_type": "Weekday",
+  "sample_rows": 7188,
+  "mean_revenue": 2195.853418197001,
+  "mean_staff_hours": 41.38404284919315,
+  "revenue_per_staff_hour": 53.06038915044793,
+  "mean_atv": 7.482349749582682
+ },
+ {
+  "day_type": "Weekend",
+  "sample_rows": 2812,
+  "mean_revenue": 1660.6848648648674,
+  "mean_staff_hours": 41.62560455192038,
+  "revenue_per_staff_hour": 39.895753653102254,
+  "mean_atv": 7.485885490753906
+ }
+]
+
+==============================================================================
+run: daily_sample -> by_day_of_week   (7 rows)
+==============================================================================
+[
+ {
+  "dow_index": 1,
+  "day_of_week": "Monday",
+  "sample_rows": 1495,
+  "mean_revenue": 2121.488421404685,
+  "mean_staff_hours": 41.789765886287654,
+  "revenue_per_staff_hour": 50.765740760007525,
+  "revenue_index": 1.0372180206667858
+ },
+ {
+  "dow_index": 2,
+  "day_of_week": "Tuesday",
+  "sample_rows": 1383,
+  "mean_revenue": 2208.95503976862,
+  "mean_staff_hours": 41.67346348517705,
+  "revenue_per_staff_hour": 53.00627437780229,
+  "revenue_index": 1.0799813710855397
+ },
+ {
+  "dow_index": 3,
+  "day_of_week": "Wednesday",
+  "sample_rows": 1406,
+  "mean_revenue": 2202.307112375533,
+  "mean_staff_hours": 41.630227596017015,
+  "revenue_per_staff_hour": 52.90163517112838,
+  "revenue_index": 1.0767311294049235
+ },
+ {
+  "dow_index": 4,
+  "day_of_week": "Thursday",
+  "sample_rows": 1477,
+  "mean_revenue": 2230.6251117129314,
+  "mean_staff_hours": 41.21123899796891,
+  "revenue_per_staff_hour": 54.1266209400515,
+  "revenue_index": 1.0905760973649805
+ },
+ {
+  "dow_index": 5,
+  "day_of_week": "Friday",
+  "sample_rows": 1427,
+  "mean_revenue": 2218.71567624387,
+  "mean_staff_hours": 40.614786264891386,
+  "revenue_per_staff_hour": 54.62827409144322,
+  "revenue_index": 1.084753449001762
+ },
+ {
+  "dow_index": 6,
+  "day_of_week": "Saturday",
+  "sample_rows": 1419,
+  "mean_revenue": 1662.7757152924603,
+  "mean_staff_hours": 42.088442565186746,
+  "revenue_per_staff_hour": 39.50670573559824,
+  "revenue_index": 0.8129485500969682
+ },
+ {
+  "dow_index": 7,
+  "day_of_week": "Sunday",
+  "sample_rows": 1393,
+  "mean_revenue": 1658.554989231874,
+  "mean_staff_hours": 41.154127781766036,
+  "revenue_per_staff_hour": 40.301060394887585,
+  "revenue_index": 0.8108849926972821
+ }
+]
+
+==============================================================================
+run: daily_sample -> bank_holiday_by_format   (4 rows)
+==============================================================================
+[
+ {
+  "store_format": "High-Street",
+  "is_uk_bank_holiday": false,
+  "sample_rows": 9449,
+  "mean_revenue": 2046.270008466513
+ },
+ {
+  "store_format": "High-Street",
+  "is_uk_bank_holiday": true,
+  "sample_rows": 237,
+  "mean_revenue": 1365.3891139240513
+ },
+ {
+  "store_format": "Transport-Hub",
+  "is_uk_bank_holiday": false,
+  "sample_rows": 306,
+  "mean_revenue": 2550.609346405229
+ },
+ {
+  "store_format": "Transport-Hub",
+  "is_uk_bank_holiday": true,
+  "sample_rows": 8,
+  "mean_revenue": 1793.9025000000001
+ }
+]
+
+==============================================================================
+run: daily_sample -> stream_mix_by_month   (10 rows)
+==============================================================================
+[
+ {
+  "month_id": "2023-01",
+  "espresso_share": 0.4624212460299896,
+  "filter_share": 0.18250647979647128,
+  "food_share": 0.26417466617594115,
+  "beans_share": 0.090897607997598
+ },
+ {
+  "month_id": "2023-02",
+  "espresso_share": 0.4563756382912805,
+  "filter_share": 0.2002085142222705,
+  "food_share": 0.2549192491870629,
+  "beans_share": 0.08849659829938583
+ },
+ {
+  "month_id": "2023-03",
+  "espresso_share": 0.45773644552295656,
+  "filter_share": 0.1877396387524787,
+  "food_share": 0.26463622146351834,
+  "beans_share": 0.08988769426104638
+ },
+ {
+  "month_id": "2023-04",
+  "espresso_share": 0.4433429268590399,
+  "filter_share": 0.18550663288502575,
+  "food_share": 0.2749681834898506,
+  "beans_share": 0.09618225676608366
+ },
+ {
+  "month_id": "2023-05",
+  "espresso_share": 0.4590156578433456,
+  "filter_share": 0.18612327493796085,
+  "food_share": 0.2670017841479857,
+  "beans_share": 0.08785928307070812
+ },
+ {
+  "month_id": "2023-06",
+  "espresso_share": 0.4683083090342107,
+  "filter_share": 0.18852958817247253,
+  "food_share": 0.2665629954879911,
+  "beans_share": 0.07659910730532508
+ },
+ {
+  "month_id": "2023-07",
+  "espresso_share": 0.4585091658989535,
+  "filter_share": 0.20060002930533288,
+  "food_share": 0.25271848125146634,
+  "beans_share": 0.08817232354424685
+ },
+ {
+  "month_id": "2023-08",
+  "espresso_share": 0.456087560617029,
+  "filter_share": 0.19985245530490794,
+  "food_share": 0.25248586565465136,
+  "beans_share": 0.09157411842341251
+ },
+ {
+  "month_id": "2023-09",
+  "espresso_share": 0.4624353402240866,
+  "filter_share": 0.17988143026572417,
+  "food_share": 0.26766718328308675,
+  "beans_share": 0.09001604622710196
+ },
+ {
+  "month_id": "2023-10",
+  "espresso_share": 0.4695653006388239,
+  "filter_share": 0.19275213940145916,
+  "food_share": 0.24758213455257058,
+  "beans_share": 0.09010042540714674
+ }
+]
+
+==============================================================================
+run: daily_sample -> stream_mix_by_format   (2 rows)
+==============================================================================
+[
+ {
+  "store_format": "High-Street",
+  "sample_rows": 9686,
+  "espresso_share": 0.4568059827802721,
+  "filter_share": 0.19136717835478395,
+  "food_share": 0.2611677202700914,
+  "beans_share": 0.09065911859484942
+ },
+ {
+  "store_format": "Transport-Hub",
+  "sample_rows": 314,
+  "espresso_share": 0.461345579389241,
+  "filter_share": 0.2038438212944309,
+  "food_share": 0.24930761963876713,
+  "beans_share": 0.08550297967756128
+ }
+]
+
+==============================================================================
+run: contract -> contract_summary   (1 rows)
+==============================================================================
+[
+ {
+  "promises": 24,
+  "holds": 7,
+  "fails": 17
+ }
+]
+
+==============================================================================
+run: contract -> contract_rows   (10 rows)
+==============================================================================
+[
+ {
+  "id": "C01",
+  "verdict": "FAILS",
+  "promise": "Estate spans High-Street, Retail-Park and Transport-Hub",
+  "observed": "{'High-Street': 58, 'Transport-Hub': 2}"
+ },
+ {
+  "id": "C02",
+  "verdict": "FAILS",
+  "promise": "fact_daily_sales is one row per store per day",
+  "observed": "10,000 rows / 8,910 store-days"
+ },
+ {
+  "id": "C03",
+  "verdict": "FAILS",
+  "promise": "dim_date covers 2023-01-01 to 2024-12-31",
+  "observed": "2024-12-30"
+ },
+ {
+  "id": "C04",
+  "verdict": "FAILS",
+  "promise": "dim_date carries month_id",
+  "observed": "False"
+ },
+ {
+  "id": "C05",
+  "verdict": "FAILS",
+  "promise": "uk_trading_calendar has 3 values",
+  "observed": "Bank-Holiday, Christmas-Period, School-Holiday, Standard-Trading-Day"
+ },
+ {
+  "id": "C06",
+  "verdict": "HOLDS",
+  "promise": "Weekday, weekend, ISO week flags derive from full_date",
+  "observed": "0"
+ },
+ {
+  "id": "C07",
+  "verdict": "FAILS",
+  "promise": "Monthly rent consistent with dim_store",
+  "observed": "1440"
+ },
+ {
+  "id": "C08",
+  "verdict": "FAILS",
+  "promise": "Monthly staffing consistent with dim_store",
+  "observed": "1440"
+ },
+ {
+  "id": "C09",
+  "verdict": "HOLDS",
+  "promise": "net_profit = revenue − COGS − rent − staffing − redemption",
+  "observed": "0"
+ },
+ {
+  "id": "C10",
+  "verdict": "HOLDS",
+  "promise": "member + non-member spend = revenue",
+  "observed": "0"
+ }
+]
+
+22/22 views ran clean.

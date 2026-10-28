@@ -1,0 +1,13 @@
+poster root 2560x1440  (scroll 2560x1440)
+body scroll 2560x1440
+
+direct children:
+  div.poster-sheet                   h= 1440  bottom=1440
+
+note - content growing into its own padding (not clipped, nothing lost):
+  section.panel.band                 18px into padding
+  section.panel                      3px into padding
+  section.panel                      15px into padding
+  section.panel                      16px into padding
+
+FITS. 0px of vertical slack, 0px horizontal.

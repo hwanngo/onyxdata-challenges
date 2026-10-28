@@ -1,0 +1,10 @@
+PASS  default        7 metrics  ?
+PASS  region        25 metrics  ?region=East-Midlands
+PASS  location      25 metrics  ?loc=Train-Station
+PASS  cost-half     25 metrics  ?half=Higher-cost+half
+PASS  year         373 metrics  ?year=2023
+PASS  both-years    25 metrics  ?year=2023%2C2024
+PASS  drill        427 metrics  ?region=London&year=2024&store=32
+PASS  zero-row       0 metrics  ?region=East-Midlands&loc=Train-Station
+
+All 8 filter / drill states reconcile to curated Parquet.

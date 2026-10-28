@@ -1,0 +1,39 @@
+October 2026 G7 QA summary
+==========================
+
+Model and code
+- 11 integrity tests passed (analysis/test_integrity.py)
+- 22 curated/model tests passed: 16 metric tests + 6 selection-verifier tests
+- Ruff check and format check passed
+- 22/22 Malloy views ran clean
+- frontend typecheck passed; 14 frontend unit tests (vitest) passed
+- production bundle built successfully
+
+Metrics
+- prose-number lint clean; scaffold check clean
+- 656 rendered metrics reconciled on the live route
+- 649 rendered metrics reconciled on the poster route
+- selected.* / drill.* metrics reconciled in eight URL states: default, region, location, cost half,
+  single year, both years, drill (region + year + store) and a real zero-store state
+- zero metric discrepancies
+
+Requirements
+- A1-A4, Q1-Q14 and D1-D3 traced to a visible element or ledger entry: 2026/10/REQUIREMENTS.md
+- five archive premises (H1-H5) tested: all five fail as documented
+
+Interaction
+- 29/29 interaction assertions passed (app/interact.mjs)
+- filters, chips, intersection, year re-tagging, browser Back, clear-all, roving focus, Enter drill,
+  Escape + focus restoration, deep link, source audit, theme, zero-row recovery, no page errors
+
+Accessibility
+- axe: 0 violations desktop light, desktop dark, mobile light, poster
+- tour: 0 violations light and dark; focus trapped; Escape closes
+- contrast: all tokens AA; light theme checked by hand (two G7 fixes: --revenue darkened,
+  --cogs fill declared decorative behind a 5.2:1 outline)
+- no horizontal overflow at 375/768/1024/1440; 200% text zoom clean; reduced motion honoured
+- protanopia / deuteranopia / tritanopia / greyscale posters generated and reviewed
+
+Performance and poster
+- cold load to first real number 1,491ms (budget 3,000ms); interaction-to-paint max 1ms
+- poster exactly 2560x1440, zero clipping, zero slack

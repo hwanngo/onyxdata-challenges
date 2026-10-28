@@ -1,0 +1,215 @@
+# G7 verification spec - every number the UI renders, and the SQL that reproduces it.
+#
+# ZERO TOLERANCE (1e-6 relative). These run against the curated PARQUET via DuckDB - a
+# different engine and code path from the browser's TypeScript aggregation (app/src/data.ts),
+# so agreement means something.
+#
+# `metrics`     - scalars. DOM: <el data-metric="NAME" data-value="N">.
+# `metric_sets` - one row per chart mark. DOM: data-metric="SET.KEY.MEASURE"; SQL returns
+#                 (key, measure, value).
+#
+# Grain: fct_store_month is the P&L of record (60 x 24). fct_daily_sample is a 20% sample used
+# only for per-store-day means. A store's figure is the mean over its months; a group margin is
+# pooled (sum net profit / sum revenue). p-values are permutation / rank tests computed once in
+# analysis/integrity.py and stored in dim_evidence - verified by lookup, not re-simulated.
+#
+# selected.* on the default page equals the whole estate; filtered states are reconciled by
+# model/verify_selection.py.
+
+metrics:
+  # ---------------------------------------------------------------- masthead KPIs
+  kpi.revenue: SELECT sum(total_monthly_revenue_gbp) FROM fct_store_month
+  kpi.net_profit: SELECT sum(net_profit_gbp) FROM fct_store_month
+  kpi.margin: SELECT sum(net_profit_gbp) / sum(total_monthly_revenue_gbp) FROM fct_store_month
+  kpi.redemption: SELECT sum(loyalty_redemption_cost_gbp) FROM fct_store_month
+  kpi.contract_holds: SELECT count(*) FILTER (WHERE verdict = 'HOLDS') FROM dim_contract
+  kpi.contract_tested: SELECT count(*) FROM dim_contract
+
+  # ---------------------------------------------------------------- selection bar, default state
+  selected.stores: SELECT count(DISTINCT store_id) FROM fct_store_month
+  selected.revenue: SELECT sum(total_monthly_revenue_gbp) FROM fct_store_month
+  selected.net_profit: SELECT sum(net_profit_gbp) FROM fct_store_month
+  selected.margin: SELECT sum(net_profit_gbp) / sum(total_monthly_revenue_gbp) FROM fct_store_month
+  selected.revenue_pm: SELECT avg(total_monthly_revenue_gbp) FROM fct_store_month
+  selected.fixed_pm: SELECT avg(monthly_rent_gbp + monthly_staffing_cost_gbp) FROM fct_store_month
+  selected.loss_months: SELECT count(*) FILTER (WHERE net_profit_gbp < 0) FROM fct_store_month
+
+  # ---------------------------------------------------------------- hero: cost halves
+  hero.margin_lower: &margin_lower |
+    WITH s AS (SELECT store_id, avg(monthly_rent_gbp + monthly_staffing_cost_gbp) AS fixed FROM fct_store_month GROUP BY 1),
+         m AS (SELECT median(fixed) AS med FROM s)
+    SELECT sum(f.net_profit_gbp) / sum(f.total_monthly_revenue_gbp)
+    FROM fct_store_month f JOIN s USING (store_id), m WHERE s.fixed <= m.med
+  hero.margin_upper: &margin_upper |
+    WITH s AS (SELECT store_id, avg(monthly_rent_gbp + monthly_staffing_cost_gbp) AS fixed FROM fct_store_month GROUP BY 1),
+         m AS (SELECT median(fixed) AS med FROM s)
+    SELECT sum(f.net_profit_gbp) / sum(f.total_monthly_revenue_gbp)
+    FROM fct_store_month f JOIN s USING (store_id), m WHERE s.fixed > m.med
+  hero.revenue_lower: |
+    WITH s AS (SELECT store_id, avg(monthly_rent_gbp + monthly_staffing_cost_gbp) AS fixed FROM fct_store_month GROUP BY 1),
+         m AS (SELECT median(fixed) AS med FROM s)
+    SELECT avg(f.total_monthly_revenue_gbp) FROM fct_store_month f JOIN s USING (store_id), m WHERE s.fixed <= m.med
+  hero.revenue_upper: |
+    WITH s AS (SELECT store_id, avg(monthly_rent_gbp + monthly_staffing_cost_gbp) AS fixed FROM fct_store_month GROUP BY 1),
+         m AS (SELECT median(fixed) AS med FROM s)
+    SELECT avg(f.total_monthly_revenue_gbp) FROM fct_store_month f JOIN s USING (store_id), m WHERE s.fixed > m.med
+  hero.r2_fixed: |
+    SELECT power(corr(fixed, np), 2) FROM (
+      SELECT avg(monthly_rent_gbp + monthly_staffing_cost_gbp) AS fixed, avg(net_profit_gbp) AS np
+      FROM fct_store_month GROUP BY store_id)
+  hero.r2_revenue: |
+    SELECT power(corr(rev, np), 2) FROM (
+      SELECT avg(total_monthly_revenue_gbp) AS rev, avg(net_profit_gbp) AS np
+      FROM fct_store_month GROUP BY store_id)
+
+  # ---------------------------------------------------------------- expansion: region
+  region.r_fixed: |
+    SELECT corr(fixed, margin) FROM (
+      SELECT avg(f.monthly_rent_gbp + f.monthly_staffing_cost_gbp) AS fixed,
+             sum(f.net_profit_gbp) / sum(f.total_monthly_revenue_gbp) AS margin
+      FROM fct_store_month f JOIN dim_store d USING (store_id) GROUP BY d.region)
+  region.r_revenue: |
+    SELECT corr(rev, margin) FROM (
+      SELECT avg(f.total_monthly_revenue_gbp) AS rev,
+             sum(f.net_profit_gbp) / sum(f.total_monthly_revenue_gbp) AS margin
+      FROM fct_store_month f JOIN dim_store d USING (store_id) GROUP BY d.region)
+  region.revenue_p: SELECT value FROM dim_evidence WHERE stat = 'region_revenue_kw_p'
+  format.hub_stores: SELECT count(*) FROM dim_store WHERE store_format = 'Transport-Hub'
+  format.street_stores: SELECT count(*) FROM dim_store WHERE store_format = 'High-Street'
+  format.p: SELECT value FROM dim_evidence WHERE stat = 'format_permutation_p'
+
+  # ---------------------------------------------------------------- store review: year on year
+  yoy.noise_sd: SELECT value FROM dim_evidence WHERE stat = 'noise_sd_annual_delta'
+  yoy.r_revenue: |
+    SELECT corr(r23, r24) FROM (
+      SELECT avg(total_monthly_revenue_gbp) FILTER (WHERE "year" = 2023) AS r23,
+             avg(total_monthly_revenue_gbp) FILTER (WHERE "year" = 2024) AS r24
+      FROM fct_store_month GROUP BY store_id)
+  yoy.r_profit: |
+    SELECT corr(p23, p24) FROM (
+      SELECT avg(net_profit_gbp) FILTER (WHERE "year" = 2023) AS p23,
+             avg(net_profit_gbp) FILTER (WHERE "year" = 2024) AS p24
+      FROM fct_store_month GROUP BY store_id)
+
+  # ---------------------------------------------------------------- loyalty
+  loyalty.r_share: |
+    SELECT corr(d.loyalty_adoption_rate, s.share) FROM dim_store d JOIN (
+      SELECT store_id, sum(loyalty_member_spend_gbp) / sum(total_monthly_revenue_gbp) AS share
+      FROM fct_store_month GROUP BY 1) s USING (store_id)
+  loyalty.r_revenue: |
+    SELECT corr(d.loyalty_adoption_rate, s.rev) FROM dim_store d JOIN (
+      SELECT store_id, avg(total_monthly_revenue_gbp) AS rev FROM fct_store_month GROUP BY 1) s USING (store_id)
+  loyalty.lift10: |
+    SELECT regr_slope(s.rev, d.loyalty_adoption_rate) * 0.1 FROM dim_store d JOIN (
+      SELECT store_id, avg(total_monthly_revenue_gbp) AS rev FROM fct_store_month GROUP BY 1) s USING (store_id)
+  loyalty.lo10: |
+    WITH x AS (SELECT d.loyalty_adoption_rate AS a, s.rev FROM dim_store d JOIN (
+                 SELECT store_id, avg(total_monthly_revenue_gbp) AS rev FROM fct_store_month GROUP BY 1) s USING (store_id)),
+         r AS (SELECT regr_sxy(rev, a) / regr_sxx(rev, a) AS b,
+                      sqrt((regr_syy(rev, a) - power(regr_sxy(rev, a), 2) / regr_sxx(rev, a)) / (regr_count(rev, a) - 2) / regr_sxx(rev, a)) AS se
+               FROM x)
+    SELECT (b - 1.96 * se) * 0.1 FROM r
+  loyalty.hi10: |
+    WITH x AS (SELECT d.loyalty_adoption_rate AS a, s.rev FROM dim_store d JOIN (
+                 SELECT store_id, avg(total_monthly_revenue_gbp) AS rev FROM fct_store_month GROUP BY 1) s USING (store_id)),
+         r AS (SELECT regr_sxy(rev, a) / regr_sxx(rev, a) AS b,
+                      sqrt((regr_syy(rev, a) - power(regr_sxy(rev, a), 2) / regr_sxx(rev, a)) / (regr_count(rev, a) - 2) / regr_sxx(rev, a)) AS se
+               FROM x)
+    SELECT (b + 1.96 * se) * 0.1 FROM r
+  loyalty.upper: &loy_upper |
+    WITH x AS (SELECT d.loyalty_adoption_rate AS a, s.rev FROM dim_store d JOIN (
+                 SELECT store_id, avg(total_monthly_revenue_gbp) AS rev FROM fct_store_month GROUP BY 1) s USING (store_id)),
+         r AS (SELECT regr_sxy(rev, a) / regr_sxx(rev, a) AS b, avg(a) AS ma,
+                      sqrt((regr_syy(rev, a) - power(regr_sxy(rev, a), 2) / regr_sxx(rev, a)) / (regr_count(rev, a) - 2) / regr_sxx(rev, a)) AS se
+               FROM x)
+    SELECT (b + 1.96 * se) * ma FROM r
+  loyalty.needed: &loy_needed |
+    WITH s AS (SELECT store_id, avg(loyalty_redemption_cost_gbp) AS red FROM fct_store_month GROUP BY 1),
+         g AS (SELECT 1 - sum(total_monthly_cogs_gbp) / sum(total_monthly_revenue_gbp) AS gm FROM fct_store_month)
+    SELECT (SELECT avg(red) FROM s) / gm FROM g
+
+  # ---------------------------------------------------------------- staffing week (daily sample means)
+  week.gap: |
+    WITH w AS (SELECT dd.dow_index >= 6 AS we, f.total_revenue_gbp AS rev FROM fct_daily_sample f JOIN dim_date dd USING (date_id))
+    SELECT avg(rev) FILTER (WHERE we) / avg(rev) FILTER (WHERE NOT we) - 1 FROM w
+  week.hours_weekend: |
+    SELECT avg(f.total_staff_hours) FROM fct_daily_sample f JOIN dim_date dd USING (date_id) WHERE dd.dow_index >= 6
+  week.surplus: |
+    WITH w AS (SELECT dd.dow_index >= 6 AS we, f.total_revenue_gbp AS rev, f.total_staff_hours AS hrs
+               FROM fct_daily_sample f JOIN dim_date dd USING (date_id))
+    SELECT 1 - (avg(rev) FILTER (WHERE we)) / (sum(rev) FILTER (WHERE NOT we) / sum(hrs) FILTER (WHERE NOT we)) / (avg(hrs) FILTER (WHERE we))
+    FROM w
+  week.bh_gap: |
+    WITH w AS (SELECT dd.is_uk_bank_holiday AS bh, f.total_revenue_gbp AS rev FROM fct_daily_sample f JOIN dim_date dd USING (date_id))
+    SELECT avg(rev) FILTER (WHERE bh) / avg(rev) FILTER (WHERE NOT bh) - 1 FROM w
+  week.coverage: |
+    SELECT round(count(DISTINCT (store_id, date_id)) / ((SELECT count(*) FROM dim_store) * (SELECT count(*) FROM dim_date)), 4)
+    FROM fct_daily_sample
+
+  # ---------------------------------------------------------------- decision rail
+  decide.median_fixed: |
+    SELECT median(fixed) FROM (SELECT avg(monthly_rent_gbp + monthly_staffing_cost_gbp) AS fixed FROM fct_store_month GROUP BY store_id)
+  decide.margin_lower: *margin_lower
+  decide.margin_upper: *margin_upper
+  decide.loss_store: |
+    SELECT d.short_name FROM fct_store_month f JOIN dim_store d USING (store_id)
+    GROUP BY d.short_name HAVING sum(f.net_profit_gbp) < 0
+  decide.loss_store_np: |
+    SELECT avg(net_profit_gbp) FROM fct_store_month GROUP BY store_id HAVING sum(net_profit_gbp) < 0
+  decide.london_margin: |
+    SELECT sum(f.net_profit_gbp) / sum(f.total_monthly_revenue_gbp)
+    FROM fct_store_month f JOIN dim_store d USING (store_id) WHERE d.region = 'London'
+  decide.loyalty_needed: *loy_needed
+  decide.loyalty_upper: *loy_upper
+  decide.season_p: SELECT value FROM dim_evidence WHERE stat = 'season_revenue_kw_p'
+  decide.hours_p: SELECT value FROM dim_evidence WHERE stat = 'weekend_hours_mwu_p'
+
+  # ---------------------------------------------------------------- source audit
+  audit.holds: SELECT count(*) FILTER (WHERE verdict = 'HOLDS') FROM dim_contract
+  audit.tested: SELECT count(*) FROM dim_contract
+  audit.status_mismatch: SELECT count(*) FILTER (WHERE NOT status_matches_source) FROM fct_store_month
+  audit.daily_r: SELECT value FROM dim_evidence WHERE stat = 'daily_monthly_r'
+
+metric_sets:
+  # Sixty cups: one stacked column per store, each layer a mean per store-month.
+  cups: |
+    SELECT store_id::VARCHAR AS key, m.measure, m.value FROM (
+      SELECT store_id,
+             avg(total_monthly_revenue_gbp) AS rev, avg(total_monthly_cogs_gbp) AS cogs,
+             avg(monthly_rent_gbp + monthly_staffing_cost_gbp) AS fixed,
+             avg(loyalty_redemption_cost_gbp) AS red, avg(net_profit_gbp) AS np
+      FROM fct_store_month GROUP BY store_id)
+    UNPIVOT (value FOR measure IN (rev, cogs, fixed, red, np)) m
+
+  # Region cost map: revenue mean with 95% CI over store-months, fixed cost, pooled margin.
+  region: |
+    SELECT region AS key, m.measure, m.value FROM (
+      SELECT d.region,
+             avg(f.total_monthly_revenue_gbp) AS rev,
+             1.96 * stddev_samp(f.total_monthly_revenue_gbp) / sqrt(count(*)) AS ci,
+             avg(f.monthly_rent_gbp + f.monthly_staffing_cost_gbp) AS fixed,
+             sum(f.net_profit_gbp) / sum(f.total_monthly_revenue_gbp) AS margin
+      FROM fct_store_month f JOIN dim_store d USING (store_id) GROUP BY d.region)
+    UNPIVOT (value FOR measure IN (rev, ci, fixed, margin)) m
+
+  # Revenue forgets, cost remembers: each store's 2024 mean (the y of each dot).
+  yoy: |
+    SELECT store_id::VARCHAR AS key, m.measure, m.value FROM (
+      SELECT store_id, avg(total_monthly_revenue_gbp) AS rev24, avg(net_profit_gbp) AS np24
+      FROM fct_store_month WHERE "year" = 2024 GROUP BY store_id)
+    UNPIVOT (value FOR measure IN (rev24, np24)) m
+
+  # Loyalty: member share of revenue and mean revenue per store-month, per store.
+  loyalty: |
+    SELECT store_id::VARCHAR AS key, m.measure, m.value FROM (
+      SELECT store_id, sum(loyalty_member_spend_gbp) / sum(total_monthly_revenue_gbp) AS share,
+             avg(total_monthly_revenue_gbp) AS rev
+      FROM fct_store_month GROUP BY store_id)
+    UNPIVOT (value FOR measure IN (share, rev)) m
+
+  # The week: revenue and staff hours per sampled store-day, Monday = 1.
+  week: |
+    SELECT dow::VARCHAR AS key, m.measure, m.value FROM (
+      SELECT dd.dow_index AS dow, avg(f.total_revenue_gbp) AS rev, avg(f.total_staff_hours) AS hrs
+      FROM fct_daily_sample f JOIN dim_date dd USING (date_id) GROUP BY dd.dow_index)
+    UNPIVOT (value FOR measure IN (rev, hrs)) m

@@ -8,10 +8,12 @@ Each month ships the same way: one dataset in, one 16:9 poster out, backed by a 
 dashboard. The dashboards are the visible part. `packages/dna-kit` — the shared toolkit they are all
 built on — is the part that compounds.
 
-**14 months shipped.** Newest first:
+**16 months shipped.** Newest first:
 
 | Month | Challenge | Poster |
 |---|---|---|
+| 2026-10 | Sunrise Coffee — Same Cup, Different Rent | [png](2026/10/exports/dashboard.png) |
+| 2026-09 | Golden Wok — Every Route. No Journey. | [png](2026/09/exports/dashboard.png) |
 | 2026-08 | Connected Tables, Disconnected Risk | [png](2026/08/exports/dashboard.png) |
 | 2026-07 | Global AI Adoption & Workforce Displacement | [png](2026/07/exports/dashboard.png) |
 | 2026-06 | UK Fintech Neobank — Transaction Health | [png](2026/06/exports/dashboard.png) |

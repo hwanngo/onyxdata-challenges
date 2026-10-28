@@ -1,0 +1,31 @@
+PASS  baseline: whole estate selected (60 stores)
+PASS  baseline: KPI revenue equals the bundle sum
+PASS  signature renders one cup per store
+PASS  region map renders 12 regions
+PASS  exactly one cup overflows (loss fill present once)
+PASS  cost-half filter applies in 25ms (budget 200ms)
+PASS  cost-half: selected revenue = bundle sum over the 30 higher-cost stores
+PASS  cost-half: URL encodes the filter
+PASS  cost-half: the signature keeps all 60 cups and dims the other 30
+PASS  cost-half: week panel switches to the selected.* namespace
+PASS  cost-half: an active-filter chip appears
+PASS  region + cost-half intersect (7 stores)
+PASS  year: selection revenue restricted to 2024
+PASS  year: cups re-tagged selected.* (300 layers)
+PASS  year: region map re-tagged selected.* (48 marks)
+PASS  browser Back removes the year filter
+PASS  clear all restores 60 stores and a clean URL
+PASS  clear all restores release ids
+PASS  arrow keys move focus along the cups
+PASS  End jumps to the last cup
+PASS  Enter on a cup opens the store drawer
+PASS  drawer lists all 24 months
+PASS  focus moves into the drawer
+PASS  Escape closes the drawer and returns focus to the cup
+PASS  deep link opens the loss store, ranked last on margin
+PASS  source audit lists every contract row
+PASS  theme toggle applies dark explicitly
+PASS  zero-row filter shows a recovery message, not NaN
+PASS  no uncaught page errors
+
+All interaction checks pass.
